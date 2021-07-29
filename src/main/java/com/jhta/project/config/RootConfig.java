@@ -1,4 +1,4 @@
-package java.com.jhta.project.config;
+package com.jhta.project.config;
 
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;

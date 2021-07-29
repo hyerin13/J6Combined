@@ -1,4 +1,4 @@
-package java.com.jhta.project.controller.hjy;
+package com.jhta.project.controller.hjy;
 
 import java.com.jhta.project.service.hjy.HotelManageService;
 

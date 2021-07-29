@@ -1,4 +1,4 @@
-package java.com.jhta.project.controller;
+package com.jhta.project.controller;
 
 import java.text.DateFormat;
 import java.util.Date;

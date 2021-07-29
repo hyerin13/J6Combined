@@ -1,4 +1,4 @@
-package java.com.jhta.project.config;
+package com.jhta.project.config;
 
 import javax.servlet.Filter;
 

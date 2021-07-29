@@ -1,4 +1,4 @@
-package java.com.jhta.project.config;
+package com.jhta.project.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;

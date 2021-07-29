@@ -1,4 +1,4 @@
-package java.com.jhta.project.service.hjy;
+package com.jhta.project.service.hjy;
 
 import java.com.jhta.mybatis.mapper.hjy.HotelMapper;
 
