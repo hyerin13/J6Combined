@@ -1,6 +1,5 @@
 package com.jhta.project.service.lhjcjy;
 
-import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,5 +11,13 @@ import com.jhta.project.vo.lhjcjy.Room_InfoVo;
 
 @Service
 public class FirstSearchService {
-
+@Autowired private FirstSearchMapper mapper;
+	
+	public List<Room_InfoVo> searchNotRev(){
+		return mapper.searchNotRev();
+	}
+	
+	public List<AccommodationsVo> searchInRev(String rcheckout){
+		return mapper.searchInRev(rcheckout);
+	}
 }
