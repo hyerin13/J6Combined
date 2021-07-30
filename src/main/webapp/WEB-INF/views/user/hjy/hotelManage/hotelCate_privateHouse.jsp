@@ -162,8 +162,7 @@
 					<div class="navbar-header">
 						<div class="navbar-brand">
 							<div data-element-name="navbar-brand">
-								<a target="_blank" href="//www.J6.com"> <img
-									class="J6-logo"
+								<a target="_blank" href="//www.J6.com"> <img class="J6-logo"
 									src="${pageContext.request.contextPath }/resources/images/logo/j6.jpg"
 									width="auto" height="37" title="J6" alt="J6">
 								</a>
@@ -192,7 +191,7 @@
 														<label title=""><input
 															data-element-name="property-wizard-property-category-selector"
 															name="propertyCategoryId" type="radio" value="29">
-														<div class="p-l-2">
+															<div class="p-l-2">
 																<span class="regular-radio-title">아파트먼트</span>유사한 유닛으로
 																구성된 큰 건물 내 독립적으로 호스팅되는 독립 유닛
 															</div></label>
@@ -202,7 +201,7 @@
 														<label title=""><input
 															data-element-name="property-wizard-property-category-selector"
 															name="propertyCategoryId" type="radio" value="30">
-														<div class="p-l-2">
+															<div class="p-l-2">
 																<span class="regular-radio-title">빌라</span>전용 출입구가 있고 현지
 																양식이 가미된, 휴가용 고급 독립형 하우스
 															</div></label>
@@ -212,7 +211,7 @@
 														<label title=""><input
 															data-element-name="property-wizard-property-category-selector"
 															name="propertyCategoryId" type="radio" value="102">
-														<div class="p-l-2">
+															<div class="p-l-2">
 																<span class="regular-radio-title">보트</span>배, 뗏목 또는 물 위에
 																뜨는 기타 운송 수단에 자리한 숙박 시설
 															</div></label>
@@ -222,7 +221,7 @@
 														<label title=""><input
 															data-element-name="property-wizard-property-category-selector"
 															name="propertyCategoryId" type="radio" value="106">
-														<div class="p-l-2">
+															<div class="p-l-2">
 																<span class="regular-radio-title">샬레</span>산속 지형과 양식에 따라
 																자리한, 독립적으로 호스팅되는 휴가용 독립형 하우스
 															</div></label>
@@ -232,7 +231,7 @@
 														<label title=""><input
 															data-element-name="property-wizard-property-category-selector"
 															name="propertyCategoryId" type="radio" value="107">
-														<div class="p-l-2">
+															<div class="p-l-2">
 																<span class="regular-radio-title">컨트리 하우스</span>시골 환경에
 																자리잡고 시골 특유의 분위기가 있는 프라이빗 하우스/주택
 															</div></label>
@@ -242,7 +241,7 @@
 														<label title=""><input
 															data-element-name="property-wizard-property-category-selector"
 															name="propertyCategoryId" type="radio" value="108">
-														<div class="p-l-2">
+															<div class="p-l-2">
 																<span class="regular-radio-title">홈스테이</span>임대 가능한 객실과
 																공용 편의 시설을 갖춘, 호스트와 투숙객이 함께 사용하는 프라이빗 하우스/주택
 															</div></label>
@@ -250,23 +249,30 @@
 												</div>
 											</div>
 											<p data-element-name="property-wizard-see-more-options-link"
-												class="see-more m-t-2 text-uppercase cursor-pointer" onclick="plus()">숙소
-												종류 더 보기</p>
+												class="see-more m-t-2 text-uppercase cursor-pointer"
+												onclick="plus()">숙소 종류 더 보기</p>
 										</div>
 									</div>
 								</div>
-								<div class="action-panel m-t-6">
-									<div class="action-panel-container row">
-										<div class="action-panel-messages-outside col-lg-6 col-md-5"></div>
-										<div
-											class="text-right action-panel-buttons-container visible-xs col-lg-6 col-md-7">
-											<button type="submit"
-												data-element-name="property-wizard-next-button"
-												class="ladda-btn btn-min-width-160 text-uppercase submit-btn btn btn-primary">다음</button>
-											<button type="button"
-												data-element-name="property-wizard-previous-button"
-												class="btn-min-width-160 btn-outline-primary text-uppercase cancel-btn btn btn-primary">이전</button>
-										</div>
+								<div class="action-panel-container row">
+									<div class="action-panel-messages-outside col-lg-6 col-md-5"></div>
+									<div
+										class="text-right action-panel-buttons-container hidden-xs col-lg-6 col-md-7">
+										<button type="button"
+											data-element-name="property-wizard-previous-button"
+											class="btn-min-width-160 btn-outline-primary text-uppercase cancel-btn btn btn-primary">이전</button>
+										<button type="submit"
+											data-element-name="property-wizard-next-button"
+											class="ladda-btn btn-min-width-160 text-uppercase submit-btn btn btn-primary">다음</button>
+									</div>
+									<div
+										class="text-right action-panel-buttons-container visible-xs col-lg-6 col-md-7">
+										<button type="submit"
+											data-element-name="property-wizard-next-button"
+											class="ladda-btn btn-min-width-160 text-uppercase submit-btn btn btn-primary">다음</button>
+										<button type="button"
+											data-element-name="property-wizard-previous-button"
+											class="btn-min-width-160 btn-outline-primary text-uppercase cancel-btn btn btn-primary">이전</button>
 									</div>
 								</div>
 							</form>

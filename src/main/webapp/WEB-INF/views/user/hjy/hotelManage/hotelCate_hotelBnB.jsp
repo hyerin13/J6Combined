@@ -164,10 +164,10 @@
 					<div class="navbar-header">
 						<div class="navbar-brand">
 							<a target="_blank" href="//www.agoda.com"> <img
-									class="agoda-logo"
-									src="${pageContext.request.contextPath }/resources/images/logo/j6.jpg"
-									width="auto" height="37" title="J6" alt="J6">
-								</a>
+								class="agoda-logo"
+								src="${pageContext.request.contextPath }/resources/images/logo/j6.jpg"
+								width="auto" height="37" title="J6" alt="J6">
+							</a>
 						</div>
 					</div>
 				</div>
@@ -192,7 +192,7 @@
 														<label title=""><input
 															data-element-name="property-wizard-property-category-selector"
 															name="propertyCategoryId" type="radio" value="32">
-														<div class="p-l-2">
+															<div class="p-l-2">
 																<span class="regular-radio-title">게스트하우스 / 비앤비</span>임대
 																가능한 별도 공간이 내부에 있는, 호스트와 투숙객이 함께 사용하는 프라이빗 하우스/주택
 															</div></label>
@@ -202,7 +202,7 @@
 														<label title=""><input
 															data-element-name="property-wizard-property-category-selector"
 															name="propertyCategoryId" type="radio" value="33">
-														<div class="p-l-2">
+															<div class="p-l-2">
 																<span class="regular-radio-title">호스텔</span>도미토리형 침대 배열과
 																공용 욕실을 갖춘 저가/경제형 숙박 시설
 															</div></label>
@@ -212,7 +212,7 @@
 														<label title=""><input
 															data-element-name="property-wizard-property-category-selector"
 															name="propertyCategoryId" type="radio" value="34">
-														<div class="p-l-2">
+															<div class="p-l-2">
 																<span class="regular-radio-title">호텔</span>공용 편의 시설,
 																레스토랑 및 서비스 이용이 가능한, 숙소 유닛 여러 개가 있는 건물
 															</div></label>
@@ -222,7 +222,7 @@
 														<label title=""><input
 															data-element-name="property-wizard-property-category-selector"
 															name="propertyCategoryId" type="radio" value="35">
-														<div class="p-l-2">
+															<div class="p-l-2">
 																<span class="regular-radio-title">모텔</span>최소 서비스가 제공되는,
 																자동차 여행객용 저가/경제형 도로변 호텔
 															</div></label>
@@ -232,7 +232,7 @@
 														<label title=""><input
 															data-element-name="property-wizard-property-category-selector"
 															name="propertyCategoryId" type="radio" value="37">
-														<div class="p-l-2">
+															<div class="p-l-2">
 																<span class="regular-radio-title">리조트</span>현지 환경/지형과
 																어우러진 휴가용 호텔
 															</div></label>
@@ -242,7 +242,7 @@
 														<label title=""><input
 															data-element-name="property-wizard-property-category-selector"
 															name="propertyCategoryId" type="radio" value="38">
-														<div class="p-l-2">
+															<div class="p-l-2">
 																<span class="regular-radio-title">료칸</span>식사 서비스가 제공되는
 																일본 전통 여관
 															</div></label>
@@ -255,18 +255,25 @@
 										</div>
 									</div>
 								</div>
-								<div class="action-panel m-t-6">
-									<div class="action-panel-container row">
-										<div class="action-panel-messages-outside col-lg-6 col-md-5"></div>
-										<div
-											class="text-right action-panel-buttons-container visible-xs col-lg-6 col-md-7">
-											<button type="submit"
-												data-element-name="property-wizard-next-button"
-												class="ladda-btn btn-min-width-160 text-uppercase submit-btn btn btn-primary">다음</button>
-											<button type="button"
-												data-element-name="property-wizard-previous-button"
-												class="btn-min-width-160 btn-outline-primary text-uppercase cancel-btn btn btn-primary">이전</button>
-										</div>
+								<div class="action-panel-container row">
+									<div class="action-panel-messages-outside col-lg-6 col-md-5"></div>
+									<div
+										class="text-right action-panel-buttons-container hidden-xs col-lg-6 col-md-7">
+										<button type="button"
+											data-element-name="property-wizard-previous-button"
+											class="btn-min-width-160 btn-outline-primary text-uppercase cancel-btn btn btn-primary">이전</button>
+										<button type="submit"
+											data-element-name="property-wizard-next-button"
+											class="ladda-btn btn-min-width-160 text-uppercase submit-btn btn btn-primary">다음</button>
+									</div>
+									<div
+										class="text-right action-panel-buttons-container visible-xs col-lg-6 col-md-7">
+										<button type="submit"
+											data-element-name="property-wizard-next-button"
+											class="ladda-btn btn-min-width-160 text-uppercase submit-btn btn btn-primary">다음</button>
+										<button type="button"
+											data-element-name="property-wizard-previous-button"
+											class="btn-min-width-160 btn-outline-primary text-uppercase cancel-btn btn btn-primary">이전</button>
 									</div>
 								</div>
 							</form>

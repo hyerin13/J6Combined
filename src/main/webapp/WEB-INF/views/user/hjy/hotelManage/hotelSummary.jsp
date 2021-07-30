@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Agoda Homes | 숙소를 등록해 추가 수익을 올려보세요!</title>
+<title>J6 Homes | 숙소를 등록해 추가 수익을 올려보세요!</title>
 <meta name="description"
 	content="아시아를 선도하는 휴가용 숙소 렌탈 플랫폼에서 무료 호스팅을 즐겨 보세요. 쉽고 간편하게 숙소를 등록하고 타 예약 사이트의 예약을 동기화해 양질의 예약을 받아 보세요!">
 <link href="//cdn5.agoda.net/ycs/dist/vendor-78af6b08c69dfc86ad1c-p.css"
