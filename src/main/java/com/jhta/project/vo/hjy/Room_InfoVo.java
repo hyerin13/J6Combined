@@ -22,5 +22,4 @@ public class Room_InfoVo {
 	private String riextraimg1;
 	private String riextraimg2;
 	private int aid;
-	private int rrid;
 }

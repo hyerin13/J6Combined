@@ -10,6 +10,9 @@ import com.jhta.project.vo.hjy.PeriodVo;
 @Service
 public class PeriodService_hjy {
 	@Autowired PeriodMapper_hjy mapper;
+	public int seq() {
+		return mapper.seq();
+	}
 	public int insert(PeriodVo vo) {
 		return mapper.insert(vo);
 	};

@@ -3,8 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.mybatis.mapper.hjy.Room_infoMapper_hjy">
+	<select id="seq" resultType="int">
+		select seq_room_info.currval from dual
+	</select>
 	<insert id="insert" parameterType="com.jhta.project.vo.hjy.Room_InfoVo">
-		insert into room_info values(1,#{roomInfoVo.riroomtype},#{roomInfoVo.riroom},#{roomInfoVo.riservice},#{roomInfoVo.risize},#{roomInfoVo.riminper},#{roomInfoVo.rimaxper}
-		,#{roomInfoVo.ripeak},#{roomInfoVo.risemipeak},#{roomInfoVo.rioff},#{roomInfoVo.rimainimg},#{roomInfoVo.riextraimg1},#{roomInfoVo.riextraimg2},#{aid})
+		insert into room_info values(seq_room_info.nextval,#{riroomtype},#{riroom},#{riservice},#{risize},#{riminper},#{rimaxper}
+		,#{ripeak},#{risemipeak},#{rioff},#{rimainimg},#{riextraimg1},#{riextraimg2},#{aid})
 	</insert>
 </mapper>

@@ -3,9 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.mybatis.mapper.hjy.PeriodMapper_hjy">
+	<select id="seq" resultType="int">
+		select seq_period.currval from dual
+	</select>
 	<insert id="insert" parameterType="com.jhta.project.vo.hjy.PeriodVo">
 		insert into period values(
-			1,#{peseason},#{pestart},#{peend},#{aid}
+			seq_period.nextval,#{peseason},#{pestart},#{peend},#{aid}
 		)
 	</insert>
 </mapper>

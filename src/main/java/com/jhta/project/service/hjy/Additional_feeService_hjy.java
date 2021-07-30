@@ -9,6 +9,9 @@ import com.jhta.project.vo.hjy.Additional_feeVo;
 @Service
 public class Additional_feeService_hjy {
 	@Autowired Additional_feeMapper_hjy mapper;
+	public int seq() {
+		return mapper.seq();
+	}
 	public int insert(Additional_feeVo vo) {
 		return mapper.insert(vo);
 	};

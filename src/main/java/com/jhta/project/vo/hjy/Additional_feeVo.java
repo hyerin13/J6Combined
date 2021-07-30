@@ -12,4 +12,5 @@ public class Additional_feeVo {
 	private int afpersonnel;
 	private int afbreakfast;
 	private int afbed;
+	private int riid;
 }

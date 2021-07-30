@@ -11,6 +11,9 @@ import com.jhta.project.vo.hjy.AccommodationsVo;
 @Service
 public class AccommodationsService_hjy {
 	@Autowired AccommodationsMapper_hjy mapper;
+	public int seq() {
+		return mapper.seq();
+	}
 	public int insert(AccommodationsVo vo) {
 		return mapper.insert(vo);
 	}

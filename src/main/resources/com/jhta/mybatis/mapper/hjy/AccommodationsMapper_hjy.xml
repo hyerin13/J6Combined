@@ -3,8 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   <mapper namespace="com.jhta.mybatis.mapper.hjy.AccommodationsMapper_hjy">
+  	<select id="seq" resultType="int">
+		select seq_accommodations.currval from dual
+	</select>
   	<insert id="insert" parameterType="com.jhta.project.vo.hjy.AccommodationsVo">
-  		insert into accommodations values(1,#{acate},#{aname},#{aaddress},#{aphone},#{axcoordi},#{aycoordi}
+  		insert into accommodations values(seq_accommodations.nextval,#{acate},#{aname},#{aaddress},#{aphone},#{axcoordi},#{aycoordi}
   		,#{atotalroom},#{agrade},#{adetail},#{amainimg},sysdate,null)
   	</insert>
   </mapper>
