@@ -4,100 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>form.jsp</title>
-
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
-
+<title>Insert title here</title>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=hznya2qvqk&submodules=geocoder"></script>
+
 </head>
 <body>
-<h1>숙소정보</h1>
-<form method="post" action="${pageContext.request.contextPath }/hjy/hotelreq">
-카테고리
-<input type="text" name="acate"><br>
-<!-- 
-<select name="acate">
-	<option value="hotel">호텔</option>
-</select><br>
- -->
-숙박업소명
-<input type="text" name="aname"><br>
-
-전화번호
-<input type="text" name="aphone"><br>
-<h2>지도 핀 찍기</h2>
-<div style="margin-bottom: -20px; z-index: 1; position: relative;">
-	<input type="text" id="find">
-	<input type="button" value="주소 검색" onclick="find()">
-</div>
-<div id="map" style="width: 50%; height:300px;">
-</div>
-
-x좌표
-<input type="text" name="axcoordi"><br>
-y좌표
-<input type="text" name="aycoordi"><br>
-총객실수
-<input type="number" name="atotalroom"><br>
-숙소성급
-<input type="text" name="agrade"><br>
-대표소개
-<input type="text" name="adetail"><br>
-대표이미지
-<input type="text" name="amainimg"><br>
-
-<h1>객실세부정보</h1>
-
-객실종류
-<input type="text" name="riroomtype"><br>
-객실수
-<input type="number" name="riroom">개<br>
-부가서비스
-<input type="text" name="riservice"><br>
-객실크기
-<input type="text" name="risize"><br>
-숙박가능인원
-<input type="number" name="riminper">명<br>
-숙박최대인원
-<input type="number" name="rimaxper">명<br>
-성수기 1박 기본요금
-<input type="number" name="ripeak">원<br>
-준성수기 1박 기본요금
-<input type="number" name="risemipeak">원<br>
-비수기 1박 기본요금
-<input type="number" name="rioff">원<br>
-대표이미지
-<input type="text" name="rimainimg"><br>
-추가이미지1
-<input type="text" name="riextraimg1"><br>
-추가이미지2
-<input type="text" name="riextraimg2"><br>
-
-<h1>추가요금설정</h1>
-인원추가비용
-<input type="number" name="afpersonnel"><br>
-조식추가비용
-<input type="number" name="afbreakfast"><br>
-침대추가비용
-<input type="number" name="afbed"><br>
-
-<h1>기간정보</h1>
-시즌
-<input type="text" name="peseason"><br>
-시즌시작날짜
-<input type="date" name="pestart"><br>
-시즌끝날짜
-<input type="date" name="peend"><br>
-<input type="submit" value="신청하기">
-</form>
-
-
-
+<div id="map" style="width: 100%; height:480px;"></div>
+</body>
 <script type="text/javascript">
-
-
 var map = new naver.maps.Map("map", {
 	  center: new naver.maps.LatLng(37.3595316, 127.1052133),
 	  zoom: 15,
@@ -222,15 +136,11 @@ var map = new naver.maps.Map("map", {
 	    searchAddressToCoordinate($('#address').val());
 	  });
 
-	  searchAddressToCoordinate('서울시');
+	  searchAddressToCoordinate('정자동 178-1');
 	}
 
 	naver.maps.onJSContentLoaded = initGeocoder;
 	naver.maps.Event.once(map, 'init_stylemap', initGeocoder);
 	
-	function go(){
-		searchAddressToCoordinate($("#find").val())
-	}
 	</script>
-</body>
 </html>
