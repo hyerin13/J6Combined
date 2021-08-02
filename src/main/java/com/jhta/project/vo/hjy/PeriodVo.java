@@ -1,6 +1,7 @@
 package com.jhta.project.vo.hjy;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,4 +16,7 @@ public class PeriodVo {
 	private Date pestart;
 	private Date peend;
 	private int aid;
+	
+	private List<PeriodVo> periodVo;
+
 }

@@ -1,5 +1,7 @@
 package com.jhta.project.vo.hjy;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,4 +24,7 @@ public class Room_InfoVo {
 	private String riextraimg1;
 	private String riextraimg2;
 	private int aid;
+	
+	private List<Room_InfoVo> room_InfoVo;
+
 }

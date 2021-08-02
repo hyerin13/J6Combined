@@ -1,103 +1,470 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>form.jsp</title>
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+<script type="text/javascript"
+	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=hznya2qvqk&submodules=geocoder"></script>
 
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=hznya2qvqk&submodules=geocoder"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<style type="text/css">
+body {
+	background: #C5E1A5;
+}
+
+form {
+	width: 60%;
+	margin: 60px auto;
+	background: #efefef;
+	padding: 60px 120px 80px 120px;
+	text-align: center;
+	-webkit-box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+	box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+label {
+	display: block;
+	position: relative;
+	margin: 40px 0px;
+}
+
+.label-txt {
+	position: absolute;
+	top: -1.6em;
+	padding: 10px;
+	font-family: sans-serif;
+	font-size: .8em;
+	letter-spacing: 1px;
+	color: rgb(120, 120, 120);
+	transition: ease .3s;
+}
+
+.input {
+	width: 100%;
+	padding: 10px;
+	background: transparent;
+	border: none;
+	outline: none;
+}
+
+.line-box {
+	position: relative;
+	width: 100%;
+	height: 2px;
+	background: #BCBCBC;
+}
+
+.line {
+	position: absolute;
+	width: 0%;
+	height: 2px;
+	top: 0px;
+	left: 50%;
+	transform: translateX(-50%);
+	background: #8BC34A;
+	transition: ease .6s;
+}
+
+.input:focus+.line-box .line {
+	width: 100%;
+}
+
+.label-active {
+	top: -3em;
+}
+
+button {
+	display: inline-block;
+	padding: 12px 24px;
+	background: rgb(220, 220, 220);
+	font-weight: bold;
+	color: rgb(120, 120, 120);
+	border: none;
+	outline: none;
+	border-radius: 3px;
+	cursor: pointer;
+	transition: ease .3s;
+}
+
+button:hover {
+	background: #8BC34A;
+	color: #ffffff;
+}
+
+.button {
+	display: inline-block;
+	padding: 12px 24px;
+	background: rgb(220, 220, 220);
+	font-weight: bold;
+	color: rgb(120, 120, 120);
+	border: none;
+	outline: none;
+	border-radius: 3px;
+	cursor: pointer;
+	transition: ease .3s;
+}
+
+.button:hover {
+	background: #8BC34A;
+	color: #ffffff;
+}
+
+/*별점 칠하기 css*/
+.star-rating {
+	display: flex;
+	flex-direction: row-reverse;
+	font-size: 2.25rem;
+	line-height: 0px;
+	justify-content: space-around;
+	padding: 0 0.2em;
+	width: 100px;
+}
+
+/*기존 라디오 버튼 사라짐*/
+.star-rating input {
+	display: none;
+}
+
+.star-rating label {
+	-webkit-text-fill-color: transparent;
+	/* Will override color (regardless of order) */
+	-webkit-text-stroke-width: 2.3px;
+	-webkit-text-stroke-color: #2b2a29;
+	cursor: pointer;
+}
+/*클릭시 변경*/
+.star-rating :checked ~ label {
+	-webkit-text-fill-color: red;
+}
+/*호버시 변경*/
+.star-rating label:hover, .star-rating label:hover ~ label {
+	-webkit-text-fill-color: pink;
+}
+</style>
 </head>
 <body>
-<h1>숙소정보</h1>
-<form method="post" action="${pageContext.request.contextPath }/hjy/hotelreq">
-카테고리
-<input type="text" name="acate"><br>
-<!-- 
-<select name="acate">
-	<option value="hotel">호텔</option>
-</select><br>
- -->
-숙박업소명
-<input type="text" name="aname"><br>
+	<form method="post"
+		action="${pageContext.request.contextPath }/hjy/hotelreq"
+		enctype="multipart/form-data">
+		<h1 style="font-family: sans-serif; font-size: 18px;">숙소정보</h1>
+		<label>
+			<p class="label-txt">카테고리</p> <input type="text" name="acate"
+			class="input">
+			<div class="line-box">
+				<div class="line"></div>
+			</div>
+		</label> <label>
+			<p class="label-txt">숙박업소명</p> <input type="text" name="aname"
+			class="input">
+			<div class="line-box">
+				<div class="line"></div>
+			</div>
+		</label> <label>
+			<p class="label-txt">전화번호</p> <input type="text" name="aphone"
+			class="input">
+			<div class="line-box">
+				<div class="line"></div>
+			</div>
+		</label> <label>
+			<p class="label-txt">주소</p>
+			<br>
+			<div
+				style="margin-bottom: -30px; z-index: 1; position: relative; text-align: left;">
+				<input type="text" id="find" name="aaddress"> <input
+					type="button" value="주소 검색" onclick="go()">
+			</div>
+			<div id="map" style="width: 100%; height: 400px;"></div> <input
+			type="hidden" name="axcoordi" id="xcoordi"> <input
+			type="hidden" name="aycoordi" id="ycoordi">
+			<div class="line-box">
+				<div class="line"></div>
+			</div>
+		</label> <label>
+			<p class="label-txt">총객실수</p> <input type="text" name="atotalroom"
+			class="input">
+			<div class="line-box">
+				<div class="line"></div>
+			</div>
+		</label> <label>
+			<p class="label-txt">숙소성급</p>
+			<div class="star-rating space-x-4 mx-auto">
+				<input type="radio" id="5-stars" name="agrade" value="5"
+					v-model="ratings" /> <label for="5-stars" class="star pr-4">★</label>
+				<input type="radio" id="4-stars" name="agrade" value="4"
+					v-model="ratings" /> <label for="4-stars" class="star">★</label> <input
+					type="radio" id="3-stars" name="agrade" value="3" v-model="ratings" />
+				<label for="3-stars" class="star">★</label> <input type="radio"
+					id="2-stars" name="agrade" value="2" v-model="ratings" /> <label
+					for="2-stars" class="star">★</label> <input type="radio"
+					id="1-star" name="agrade" value="1" v-model="ratings" /> <label
+					for="1-star" class="star">★</label>
+			</div>
+			<div class="line-box">
+				<div class="line"></div>
+			</div>
+		</label> <label>
+			<p class="label-txt">대표소개</p> <input type="text" name="adetail"
+			class="input">
+			<div class="line-box">
+				<div class="line"></div>
+			</div>
+		</label> <label>
+			<p class="label-txt">대표이미지</p> <input type="file" name="file"
+			class="input" multiple="multiple">
+			<div class="line-box">
+				<div class="line"></div>
+			</div>
+		</label>
+		<hr>
+		<h1 style="font-family: sans-serif; font-size: 18px;">객실 세부정보</h1>
 
-전화번호
-<input type="text" name="aphone"><br>
-<h2>지도 핀 찍기</h2>
-<div style="margin-bottom: -20px; z-index: 1; position: relative;">
-	<input type="text" id="find">
-	<input type="button" value="주소 검색" onclick="find()">
-</div>
-<div id="map" style="width: 50%; height:300px;">
-</div>
+		<div id="roomInfoadd"></div>
+		<hr>
+		<input type="button" onclick="roomInfoAdd()" value="객실세부정보 추가"
+			class="button">
 
-x좌표
-<input type="text" name="axcoordi"><br>
-y좌표
-<input type="text" name="aycoordi"><br>
-총객실수
-<input type="number" name="atotalroom"><br>
-숙소성급
-<input type="text" name="agrade"><br>
-대표소개
-<input type="text" name="adetail"><br>
-대표이미지
-<input type="text" name="amainimg"><br>
+		<script>
+	  var cnt = 0;
+	  function roomInfoAdd(){
+		  for (var i = 0; i < cnt; i++) {
+			$("#collapse"+i).attr('class','collapse')
+			}
+		  var roomInfo=`<div id="\${cnt}"><div class="container" ><hr>
+			  <div id="accordion">
+			    <div class="card" style="background: #efefef;">
+			    <div class="card-header">
+			    <a href="javascript:deleteForm(\${cnt})" style="text-align: right; position: relative;">삭제</a><br>
+		      <a class="card-link" data-toggle="collapse" href="#collapse\${cnt}">
+			    접기/펼치기
+		  </a>
+		    <label>
+			    <p class="label-txt">객실이름</p>
+			    <input type="text" name="room_InfoVo[\${cnt}].riroomtype" class="input">
+			    <div class="line-box">
+			      <div class="line"></div>
+			    </div>
+			  </label>
+		</div>
+		    <div id="collapse\${cnt}" class="collapse show" data-parent="#accordion">
+		      <div class="card-body">
+					<label>
+					    <p class="label-txt">객실수</p>
+					    <input type="text" name="room_InfoVo[\${cnt}].riroom" class="input">
+					    <div class="line-box">
+					      <div class="line"></div>
+					    </div>
+					  </label>
+					  <label>
+					    <p class="label-txt">부가서비스</p>
+					    <input type="text" name="room_InfoVo[\${cnt}].riservice" class="input">
+					    <div class="line-box">
+					      <div class="line"></div>
+					    </div>
+					  </label>
+					  <label>
+					    <p class="label-txt">객실크기</p>
+					    <input type="text" name="room_InfoVo[\${cnt}].risize" class="input">
+					    <div class="line-box">
+					      <div class="line"></div>
+					    </div>
+					  </label>
+					  <label>
+					    <p class="label-txt">숙박가능인원</p>
+					    <input type="text" name="room_InfoVo[\${cnt}].riminper" class="input">
+					    <div class="line-box">
+					      <div class="line"></div>
+					    </div>
+					  </label>
+					  <label>
+					    <p class="label-txt">숙박최대인원</p>
+					    <input type="text" name="room_InfoVo[\${cnt}].rimaxper" class="input">
+					    <div class="line-box">
+					      <div class="line"></div>
+					    </div>
+					  </label>
+					  <label>
+					    <p class="label-txt">성수기 1박 기본요금</p>
+					    <input type="text" name="room_InfoVo[\${cnt}].ripeak" class="input">
+					    <div class="line-box">
+					      <div class="line"></div>
+					    </div>
+					  </label>
+					  <label>
+					    <p class="label-txt">준성수기 1박 기본요금</p>
+					    <input type="text" name="room_InfoVo[\${cnt}].risemipeak" class="input">
+					    <div class="line-box">
+					      <div class="line"></div>
+					    </div>
+					  </label>
+					  <label>
+					    <p class="label-txt">비수기 1박 기본요금</p>
+					    <input type="text" name="room_InfoVo[\${cnt}].rioff" class="input">
+					    <div class="line-box">
+					      <div class="line"></div>
+					    </div>
+					  </label>
+					  <label>
+					    <p class="label-txt">대표이미지</p>
+					    <input type="file" name = "file" class="input"multiple="multiple">
+					    <div class="line-box">
+					      <div class="line"></div>
+					    </div>
+					  </label>
+					  <label>
+					    <p class="label-txt">추가이미지1</p>
+					    <input type="file" name = "file" class="input"multiple="multiple">
+					    <div class="line-box">
+					      <div class="line"></div>
+					    </div>
+					  </label>
+					  <label>
+					    <p class="label-txt">추가이미지2</p>
+					    <input type="file" name = "file" class="input"multiple="multiple">
+					    <div class="line-box">
+					      <div class="line"></div>
+					    </div>
+					  </label>
+					  <h1 style="font-family: sans-serif; font-size:18px;">추가요금 설정</h1>
+					  <label>
+					    <p class="label-txt">인원추가비용</p>
+					    <input type="text" name="additional_feeVo[\${cnt}].afpersonnel" class="input">
+					    <div class="line-box">
+					      <div class="line"></div>
+					    </div>
+					  </label>
+					  <label>
+					    <p class="label-txt">조식추가비용</p>
+					    <input type="text" name="additional_feeVo[\${cnt}].afbreakfast" class="input">
+					    <div class="line-box">
+					      <div class="line"></div>
+					    </div>
+					  </label>
+					  <label>
+					    <p class="label-txt">침대추가비용</p>
+					    <input type="text" name="additional_feeVo[\${cnt}].afbed" class="input">
+					    <div class="line-box">
+					      <div class="line"></div>
+					    </div>
+					  </label>
+					</div>
+					</div>
+					</div>
+					</div>
+					</div>
+		    </div>
+		  </div>`;
+		  $("#roomInfoadd").append(roomInfo);
+		  cnt++;
+	  }
+	  function deleteForm(delCount){
+		  if($("#roomInfoadd").children().length!=1){
+			  $("#"+cnt).remove();
+		  }else{
+			  alert('최소 1개 이상의 세부정보가 포함되어야 합니다.')
+		  }
+	  }
+  </script>
+		<hr>
+		<h1 style="font-family: sans-serif; font-size: 18px;">시즌 정보</h1>
+		<div id="periodInfoAdd"></div>
+		<hr>
+		<input type="button" onclick="periodInfoAdd()" value="객실세부정보 추가"
+			class="button"><br><hr>
 
-<h1>객실세부정보</h1>
+		<script>
+	  var periodCnt = 0;
+	  function periodInfoAdd(){
+		  for (var i = 0; i < periodCnt; i++) {
+			$("#period"+i).attr('class','collapse')
+		}
+		  var roomInfo=`<div id="\${periodCnt}"><div class="container" ><hr>
+			  <div id="accordion">
+			    <div class="card" style="background: #efefef;">
+			    <div class="card-header">
+			    <a href="javascript:deleteperiodForm(\${periodCnt})" style="text-align: right; position: relative;">삭제</a><br>
+		      <a class="card-link" data-toggle="collapse" href="#period\${periodCnt}">
+			    접기/펼치기
+		  </a>
+			    <label>
+			    <p class="label-txt">시즌</p>
+			    <select name = "periodVo[\${periodCnt}].peseason" class="input">
+			    	<option value="비수기">비수기</option>
+			    	<option value="준성수기">준성수기</option>
+			    	<option value="성수기">성수기</option>
+			    </select>
+			    <div class="line-box">
+			      <div class="line"></div>
+			    </div>
+			  </label>
+		</div>
+		    <div id="period\${periodCnt}" class="collapse show" data-parent="#accordion">
+		      <div class="card-body">
+		      <label>
+		      <p class="label-txt">시즌 시작날짜</p>
+		      <input type="date" name="periodVo[\${periodCnt}].pestart" class="input">
+		      <div class="line-box">
+		        <div class="line"></div>
+		      </div>
+		    </label>
+		    <label>
+		      <p class="label-txt">시즌 끝날짜</p>
+		      <input type="date" name="periodVo[\${periodCnt}].peend" class="input">
+		      <div class="line-box">
+		        <div class="line"></div>
+		      </div>
+		    </label>
+					</div>
+					</div>
+					</div>
+					</div>
+					</div>
+		    </div>
+		  </div>`;
+		  $("#periodInfoAdd").append(roomInfo);
+		  periodCnt++;
+	  }
+	  function deleteperiodForm(periodCnt){
+		  if($("#periodInfoAdd").children().length!=1){
+			  $("#"+periodCnt).remove();
+		  }else{
+			  alert('최소 1개 이상의 시즌 정보가 포함되어야 합니다.')
+		  }
+		  
+	  }
+  </script>
 
-객실종류
-<input type="text" name="riroomtype"><br>
-객실수
-<input type="number" name="riroom">개<br>
-부가서비스
-<input type="text" name="riservice"><br>
-객실크기
-<input type="text" name="risize"><br>
-숙박가능인원
-<input type="number" name="riminper">명<br>
-숙박최대인원
-<input type="number" name="rimaxper">명<br>
-성수기 1박 기본요금
-<input type="number" name="ripeak">원<br>
-준성수기 1박 기본요금
-<input type="number" name="risemipeak">원<br>
-비수기 1박 기본요금
-<input type="number" name="rioff">원<br>
-대표이미지
-<input type="text" name="rimainimg"><br>
-추가이미지1
-<input type="text" name="riextraimg1"><br>
-추가이미지2
-<input type="text" name="riextraimg2"><br>
-
-<h1>추가요금설정</h1>
-인원추가비용
-<input type="number" name="afpersonnel"><br>
-조식추가비용
-<input type="number" name="afbreakfast"><br>
-침대추가비용
-<input type="number" name="afbed"><br>
-
-<h1>기간정보</h1>
-시즌
-<input type="text" name="peseason"><br>
-시즌시작날짜
-<input type="date" name="pestart"><br>
-시즌끝날짜
-<input type="date" name="peend"><br>
-<input type="submit" value="신청하기">
-</form>
-
-
-
+		<button type="submit">신청하기</button>
+	</form>
+</body>
 <script type="text/javascript">
+$(document).ready(function(){
+	roomInfoAdd();
+	periodInfoAdd();
+	  $('.input').focus(function(){
+	    $(this).parent().find(".label-txt").addClass('label-active');
+	  });
 
-
+	  $(".input").focusout(function(){
+	    if ($(this).val() == '') {
+	      $(this).parent().find(".label-txt").removeClass('label-active');
+	    };
+	  });
+	});
+	
+var xcoordi; 
+var ycoordi; 
 var map = new naver.maps.Map("map", {
 	  center: new naver.maps.LatLng(37.3595316, 127.1052133),
 	  zoom: 15,
@@ -168,12 +535,14 @@ var map = new naver.maps.Map("map", {
 	    }
 
 	    if (response.v2.meta.totalCount === 0) {
-	      return alert('No result.');
+	      return alert('검색결과가 없습니다.');
 	    }
 
 	    var htmlAddresses = [],
 	      item = response.v2.addresses[0],
 	      point = new naver.maps.Point(item.x, item.y);
+	      xcoordi = item.x;
+	      ycoordi = item.y;
 
 	    if (item.roadAddress) {
 	      htmlAddresses.push('[도로명 주소] ' + item.roadAddress);
@@ -188,8 +557,8 @@ var map = new naver.maps.Map("map", {
 	    }
 
 	    infoWindow.setContent([
-	      '<div style="padding:10px;min-width:200px;line-height:150%;">',
-	      '<h4 style="margin-top:5px;">검색 주소 : '+ address +'</h4><br />',
+	      '<div style="padding:10px;min-width:100px;line-height:150%;">',
+	      '<h5 style="margin-top:5px;">검색 주소 : '+ address +'</h5><br />',
 	      htmlAddresses.join('<br />'),
 	      '</div>'
 	    ].join('\n'));
@@ -230,7 +599,8 @@ var map = new naver.maps.Map("map", {
 	
 	function go(){
 		searchAddressToCoordinate($("#find").val())
+		$("#xcoordi").val(xcoordi)
+		$("#ycoordi").val(ycoordi)
 	}
-	</script>
-</body>
+</script>
 </html>
