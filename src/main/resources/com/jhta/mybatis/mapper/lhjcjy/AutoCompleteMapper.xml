@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.jhta.mybatis.mapper.lhjcjy.AutoCompleteMapper">
+  <select id="findhotel" resultType="com.jhta.project.vo.lhjcjy.AccommodationsVo" parameterType="hashmap">
+  	select * from 
+  	(
+  	select a.*,rownum rnum from 
+  	(
+  	select aname from accommodations where aname like '%'||#{aname}||'%')
+  	a order by rnum asc
+  	)
+ 	<![CDATA[ where rnum<=5]]>
+  </select>
+  </mapper>

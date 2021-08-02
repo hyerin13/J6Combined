@@ -8,4 +8,5 @@ import com.jhta.project.vo.lhjcjy.Room_InfoVo;
 public interface FirstSearchMapper {
 	public List<Room_InfoVo> searchNotRev();
 	public List<AccommodationsVo> searchInRev(String rcheckout);
+	public List<AccommodationsVo> findhotel(String aname);
 }

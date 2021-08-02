@@ -20,4 +20,7 @@ public class FirstSearchService {
 	public List<AccommodationsVo> searchInRev(String rcheckout){
 		return mapper.searchInRev(rcheckout);
 	}
+	public List<AccommodationsVo> findhotel(String aname){
+		return mapper.findhotel(aname);
+	}
 }
