@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
@@ -18,9 +21,11 @@ public class FirstSearchAjaxController {
 	@Autowired private FirstSearchService service;
 	
 	@RequestMapping(value="/lhjcjy/ajax/auto", produces= {MediaType.APPLICATION_JSON_VALUE})
-	public HashMap<String, Object> autolist(Locale locale, Model model,String aname) {
+	public HashMap<String, Object> autolist(String aname,HttpServletRequest request,
+            HttpServletResponse response) {
+		
 		HashMap<String, Object> map =new HashMap<String, Object>();
-		List<AccommodationsVo> list= service.findhotel(aname);
+		List<String> list= service.findhotel(aname);
 		System.out.println(list);
 		map.put("list", list);
 		return map;

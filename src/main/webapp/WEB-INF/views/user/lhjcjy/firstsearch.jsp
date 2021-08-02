@@ -6,7 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script type="text/javascript" src="/final/resources/js/jquery-3.6.0.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
 $(function(){
 	/*
@@ -27,17 +29,19 @@ $(function(){
 	$("#searchHotel").autocomplete({
 		source:function(request,response){
 			let aname=$("#searchHotel").val();
+			//console.log(aname);
 			$.ajax({
 				type:'get',
-				url:"/lhjcjy/ajax/auto",
-				data:{"aname":aname},
+				url:"/final/lhjcjy/ajax/auto",
+				data:{"aname":aname,"aaddress":aname},
 				dataType:"json",
 				success:function(data){
+					console.log(data)
 					response(
-						$.map(data,function(i){
+						$.map(data.list,function(item){
 							return{
-								label:i.aname,
-								value:i.aname
+								label:item,
+								value:item
 							}
 						})		
 					)
@@ -54,16 +58,20 @@ $(function(){
 		},
 		minLength:1,//최소글자수
 		autoFocus:true, //첫번째 항목 자동 포커스a 기본값 false
-		classes:{
-			"ui-autocomplete":"highlight"
-		},
+		 classes: {    //잘 모르겠음
+             "ui-autocomplete": "highlight"
+         },
 		delay:500, //검색창에 글자 쓰고 autocomplete되기까지 딜레이 시간ms)
 		//disabled:true, //자동완성기능 끄기
-		position:{my:"right top", at:"right bottom"},
+		//position:{my:"right top", at:"right bottom"},
 		close:function(event){
 			console.log(event);
 		}
-	});
+	}).autocomplete( "instance" )._renderItem = function( ul, item ) {    //요 부분이 UI를 마음대로 변경하는 부분
+        return $( "<li>" )    //기본 tag가 li로 되어 있음 
+        .append( "<div>" + item.value +"</div>" )    //여기에다가 원하는 모양의 HTML을 만들면 UI가 원하는 모양으로 변함.
+        .appendTo( ul );
+ };
 });
 </script>
 </head>
@@ -72,8 +80,7 @@ $(function(){
 <div>
 <h3>호텔 검색</h3>
 검색
-<input type="text" id="searchHotel"><br>
-
+<input type="text" id="searchHotel" name="searchHotel"><br>
 체크인
 <input type="date" name="checkin"><br>
 체크아웃
