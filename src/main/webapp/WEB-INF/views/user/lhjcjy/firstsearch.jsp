@@ -6,11 +6,62 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+body {
+    padding-top: 50px;
+}
+.dropdown.dropdown-lg .dropdown-menu {
+    margin-top: -1px;
+    padding: 6px 20px;
+}
+.input-group-btn .btn-group {
+    display: flex !important;
+}
+.btn-group .btn {
+    border-radius: 0;
+    margin-left: -1px;
+}
+.btn-group .btn:last-child {
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+.btn-group .form-horizontal .btn[type="submit"] {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.form-horizontal .form-group {
+    margin-left: 0;
+    margin-right: 0;
+}
+.form-group .form-control:last-child {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+@media screen and (min-width: 768px) {
+    #adv-search {
+        width: 500px;
+        margin: 0 auto;
+    }
+    .dropdown.dropdown-lg {
+        position: static !important;
+    }
+    .dropdown.dropdown-lg .dropdown-menu {
+        min-width: 500px;
+    }
+}
+</style>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+<!------ Include the above in your HEAD tag ---------->
 <script type="text/javascript">
+
 $(function(){
+	/*
 	$("#search").click(function(){
 		let checkin=$("#checkin").val();
 		let checkout=$("#checkout").val();
@@ -24,13 +75,21 @@ $(function(){
 			}
 		})
 	}),
+	*/
+
+	function collectInfo(){
+		let countRoom=$("#countRoom").val();
+		let countPeople=$("#countPeople").val();
+		console.log(countRoom)
+		$("#showInfo").val("객실"+countRoom+"인원"+countPeople);
+	}
 	$("#searchHotel").autocomplete({
 		source:function(request,response){
 			let aname=$("#searchHotel").val();
 			//console.log(aname);
 			$.ajax({
 				type:'get',
-				url:"/final/lhjcjy/ajax/auto",
+				url:"/project/lhjcjy/ajax/auto",
 				data:{"aname":aname,"aaddress":aname},
 				dataType:"json",
 				success:function(data){
@@ -69,7 +128,7 @@ $(function(){
         return $( "<li>" )    //기본 tag가 li로 되어 있음 
         .append( "<div>" + item.value +"</div>" )    //여기에다가 원하는 모양의 HTML을 만들면 UI가 원하는 모양으로 변함.
         .appendTo( ul );
- };
+ 	};
 });
 </script>
 </head>
@@ -83,6 +142,43 @@ $(function(){
 <input type="date" name="checkin"><br>
 체크아웃
 <input type="date" name="checkout"><br>
+객실인원
+
+<!-- 인원,객실수 -->
+<div class="container">
+   <div class="row">
+      <div class="col-md-12">
+            <div class="input-group" id="adv-search">
+                <input type="button" class="form-control" id="showInfo" value="" />
+                <div class="input-group-btn">
+                    <div class="btn-group" role="group">
+                        <div class="dropdown dropdown-lg">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
+                            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                 <form class="form-horizontal" role="form">
+                                  <div class="form-group">
+                                    <label for="filter">객실수</label>
+                                    <input type="number" min="1" id="countRoom">
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="contain">인원수</label>
+                                    <input type="number" min="1" id="countPeople">
+                                  </div>
+                                
+                               <button onclick="collectInfo()" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>  
+                                </form> 
+                           		<!-- <input type="button" onclick="collectInfo()" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                            -->
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+   </div>
+</div>
 <input type="button" value="검색" id="search">
 
 </div>
