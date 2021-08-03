@@ -241,7 +241,7 @@ button:hover {
 		  for (var i = 0; i < cnt; i++) {
 			$("#collapse"+i).attr('class','collapse')
 			}
-		  var roomInfo=`<div id="\${cnt}"><div class="container" ><hr>
+		  var roomInfo=`<div id="c\${cnt}"><div class="container" ><hr>
 			  <div id="accordion">
 			    <div class="card" style="background: #efefef;">
 			    <div class="card-header">
@@ -370,7 +370,7 @@ button:hover {
 	  }
 	  function deleteForm(delCount){
 		  if($("#roomInfoadd").children().length!=1){
-			  $("#"+cnt).remove();
+			  $("#c"+delCount).remove();
 		  }else{
 			  alert('최소 1개 이상의 세부정보가 포함되어야 합니다.')
 		  }
@@ -389,7 +389,7 @@ button:hover {
 		  for (var i = 0; i < periodCnt; i++) {
 			$("#period"+i).attr('class','collapse')
 		}
-		  var roomInfo=`<div id="\${periodCnt}"><div class="container" ><hr>
+		  var roomInfo=`<div id="p\${periodCnt}"><div class="container" ><hr>
 			  <div id="accordion">
 			    <div class="card" style="background: #efefef;">
 			    <div class="card-header">
@@ -437,7 +437,7 @@ button:hover {
 	  }
 	  function deleteperiodForm(periodCnt){
 		  if($("#periodInfoAdd").children().length!=1){
-			  $("#"+periodCnt).remove();
+			  $("#p"+periodCnt).remove();
 		  }else{
 			  alert('최소 1개 이상의 시즌 정보가 포함되어야 합니다.')
 		  }

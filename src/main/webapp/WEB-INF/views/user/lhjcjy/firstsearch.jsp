@@ -75,7 +75,6 @@ $(function(){
 			}
 		})
 	}),
-	*/
 
 	function collectInfo(){
 		let countRoom=$("#countRoom").val();
@@ -83,6 +82,7 @@ $(function(){
 		console.log(countRoom)
 		$("#showInfo").val("객실"+countRoom+"인원"+countPeople);
 	}
+	*/
 	$("#searchHotel").autocomplete({
 		source:function(request,response){
 			let aname=$("#searchHotel").val();
@@ -155,7 +155,7 @@ $(function(){
                         <div class="dropdown dropdown-lg">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
                             <div class="dropdown-menu dropdown-menu-right" role="menu">
-                                 <form class="form-horizontal" role="form">
+                                <form class="form-horizontal" role="form" action="javascript:collectInfo()" method="get">
                                   <div class="form-group">
                                     <label for="filter">객실수</label>
                                     <input type="number" min="1" id="countRoom">
@@ -165,7 +165,7 @@ $(function(){
                                     <input type="number" min="1" id="countPeople">
                                   </div>
                                 
-                               <button onclick="collectInfo()" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>  
+                                  <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                                 </form> 
                            		<!-- <input type="button" onclick="collectInfo()" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>
                             -->
@@ -173,6 +173,14 @@ $(function(){
                         </div>
                         <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                     </div>
+                    <script type="text/javascript">
+                    function collectInfo(){
+                		let countRoom=$("#countRoom").val();
+                		let countPeople=$("#countPeople").val();
+                		console.log(countRoom)
+                		$("#showInfo").val("객실"+countRoom+"인원"+countPeople);
+                	}
+                    </script>
                 </div>
             </div>
           </div>

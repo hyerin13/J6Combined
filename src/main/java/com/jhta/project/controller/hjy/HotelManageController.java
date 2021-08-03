@@ -33,8 +33,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.jhta.project.service.hjy.AccommodationsService_hjy;
-import com.jhta.project.service.hjy.Accommodations_tempService_hjy;
+import com.jhta.project.service.hjy.AccommodationsServiceHjy;
+import com.jhta.project.service.hjy.AccommodationsTempServiceHjy;
 import com.jhta.project.service.hjy.Additional_feeService_hjy;
 import com.jhta.project.service.hjy.Additional_fee_tempService_hjy;
 import com.jhta.project.service.hjy.PeriodService_hjy;
@@ -49,7 +49,7 @@ import com.jhta.project.vo.hjy.Room_InfoVo;
 @Controller
 public class HotelManageController {
 	@Autowired
-	AccommodationsService_hjy accommodationsservice;
+	AccommodationsServiceHjy accommodationsservice;
 	@Autowired
 	Room_infoService_hjy roomInfoservice;
 	@Autowired
@@ -57,7 +57,7 @@ public class HotelManageController {
 	@Autowired
 	Additional_feeService_hjy additional_feeservice;
 	@Autowired
-	Accommodations_tempService_hjy accommodations_tempservice;
+	AccommodationsTempServiceHjy accommodations_tempservice;
 	@Autowired
 	Room_info_tempService_hjy roomInfo_tempservice;
 	@Autowired
@@ -69,7 +69,7 @@ public class HotelManageController {
 
 	@GetMapping("hjy/hotelForm")
 	public String hotelInsertForm(String type) {
-		return "user/hjy/hotelManage/form";
+		return "user/lhjcjy/firstsearch";
 	}
 
 	@GetMapping("hjy/ok")
@@ -212,6 +212,11 @@ public class HotelManageController {
 //		 MultipartFile file1,MultipartFile rfilemain,MultipartFile rfileextra1,MultipartFile rfileextra2
 		// temp 테이블에 저장하기
 		// 다중파일 가져와서 저장하기
+		System.out.println(roomInfoVoList.getRoom_InfoVo().get(0));
+		System.out.println(roomInfoVoList.getRoom_InfoVo().get(1));
+		System.out.println(roomInfoVoList.getRoom_InfoVo().get(2));
+		System.out.println(roomInfoVoList.getRoom_InfoVo().get(3));
+
 		List<MultipartFile> fileList = mtfRequest.getFiles("file");
 		// 다중파일 vo에 세팅하기
 		fileList.get(0).getOriginalFilename();
@@ -241,73 +246,76 @@ public class HotelManageController {
 		for (int i = 0; i < roomInfoVoList.getRoom_InfoVo().size(); i++) {
 			int fileNum = i + 1;
 			Room_InfoVo roomInfoVo = roomInfoVoList.getRoom_InfoVo().get(i);
-			roomInfoVo.setAid(aidseq);
-			// 파일 업로드,상세방db에저장하기
-			// 메인이미지
-			String roompath = sc.getRealPath("/resources/hjy/roommain_temp");
-			String roomorgfilename = fileList.get(fileNum).getOriginalFilename();// 전송된 파일명
-			String roomsavefilename = UUID.randomUUID() + "_" + roomorgfilename;// 저장할 파일명(중복되지 않는 이름으로 만들기)
-			try {
-				// 1. 파일 업로드하기
-				InputStream is = fileList.get(fileNum).getInputStream();
-				FileOutputStream fos = new FileOutputStream(roompath + "//" + roomsavefilename);
-				FileCopyUtils.copy(is, fos);
-				is.close();
-				fos.close();
-				// 2. 업로드된 파일정보 DB에 저장하기
-				roomInfoVo.setRimainimg(roomsavefilename);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			if (roomInfoVo.getRiroomtype() != null) {
+				roomInfoVo.setAid(aidseq);
+				// 파일 업로드,상세방db에저장하기
+				// 메인이미지
+				String roompath = sc.getRealPath("/resources/hjy/roommain_temp");
+				String roomorgfilename = fileList.get(fileNum).getOriginalFilename();// 전송된 파일명
+				String roomsavefilename = UUID.randomUUID() + "_" + roomorgfilename;// 저장할 파일명(중복되지 않는 이름으로 만들기)
+				try {
+					// 1. 파일 업로드하기
+					InputStream is = fileList.get(fileNum).getInputStream();
+					FileOutputStream fos = new FileOutputStream(roompath + "//" + roomsavefilename);
+					FileCopyUtils.copy(is, fos);
+					is.close();
+					fos.close();
+					// 2. 업로드된 파일정보 DB에 저장하기
+					roomInfoVo.setRimainimg(roomsavefilename);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 
-			// 추가이미지1
-			fileNum += roomInfoVoList.getRoom_InfoVo().size();
-			String roomexpath1 = sc.getRealPath("/resources/hjy/roomextra_temp");
-			String roomexorgfilename1 = fileList.get(fileNum).getOriginalFilename();// 전송된 파일명
-			String roomexsavefilename1 = UUID.randomUUID() + "_" + roomexorgfilename1;// 저장할 파일명(중복되지 않는 이름으로 만들기)
-			try {
-				// 1. 파일 업로드하기
-				InputStream is = fileList.get(fileNum).getInputStream();
-				FileOutputStream fos = new FileOutputStream(roomexpath1 + "//" + roomexsavefilename1);
-				FileCopyUtils.copy(is, fos);
-				is.close();
-				fos.close();
-				// 2. 업로드된 파일정보 DB에 저장하기
-				roomInfoVo.setRiextraimg1(roomexsavefilename1);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+				// 추가이미지1
+				fileNum += roomInfoVoList.getRoom_InfoVo().size();
+				String roomexpath1 = sc.getRealPath("/resources/hjy/roomextra_temp");
+				String roomexorgfilename1 = fileList.get(fileNum).getOriginalFilename();// 전송된 파일명
+				String roomexsavefilename1 = UUID.randomUUID() + "_" + roomexorgfilename1;// 저장할 파일명(중복되지 않는 이름으로 만들기)
+				try {
+					// 1. 파일 업로드하기
+					InputStream is = fileList.get(fileNum).getInputStream();
+					FileOutputStream fos = new FileOutputStream(roomexpath1 + "//" + roomexsavefilename1);
+					FileCopyUtils.copy(is, fos);
+					is.close();
+					fos.close();
+					// 2. 업로드된 파일정보 DB에 저장하기
+					roomInfoVo.setRiextraimg1(roomexsavefilename1);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 
-			// 추가이미지2
-			fileNum += roomInfoVoList.getRoom_InfoVo().size();
-			String roomexorgfilename2 = fileList.get(fileNum).getOriginalFilename();// 전송된 파일명
-			String roomexsavefilename2 = UUID.randomUUID() + "_" + roomexorgfilename2;// 저장할 파일명(중복되지 않는 이름으로 만들기)
-			try {
-				// 1. 파일 업로드하기
-				InputStream is = fileList.get(fileNum).getInputStream();
-				FileOutputStream fos = new FileOutputStream(roomexpath1 + "//" + roomexsavefilename2);
-				FileCopyUtils.copy(is, fos);
-				is.close();
-				fos.close();
-				// 2. 업로드된 파일정보 DB에 저장하기
-				roomInfoVo.setRiextraimg2(roomexsavefilename2);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			int n1 = roomInfo_tempservice.insert(roomInfoVo);
-			int riidseq = roomInfo_tempservice.seq();
+				// 추가이미지2
+				fileNum += roomInfoVoList.getRoom_InfoVo().size();
+				String roomexorgfilename2 = fileList.get(fileNum).getOriginalFilename();// 전송된 파일명
+				String roomexsavefilename2 = UUID.randomUUID() + "_" + roomexorgfilename2;// 저장할 파일명(중복되지 않는 이름으로 만들기)
+				try {
+					// 1. 파일 업로드하기
+					InputStream is = fileList.get(fileNum).getInputStream();
+					FileOutputStream fos = new FileOutputStream(roomexpath1 + "//" + roomexsavefilename2);
+					FileCopyUtils.copy(is, fos);
+					is.close();
+					fos.close();
+					// 2. 업로드된 파일정보 DB에 저장하기
+					roomInfoVo.setRiextraimg2(roomexsavefilename2);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				int n1 = roomInfo_tempservice.insert(roomInfoVo);
+				int riidseq = roomInfo_tempservice.seq();
 
-			// 추가요금정보
-			Additional_feeVo additional_feeVo = additional_feeVoList.getAdditional_feeVo().get(i);
-			additional_feeVo.setRiid(riidseq);
-			int n2 = additional_fee_tempservice.insert(additional_feeVo);
+				// 추가요금정보
+				Additional_feeVo additional_feeVo = additional_feeVoList.getAdditional_feeVo().get(i);
+				additional_feeVo.setRiid(riidseq);
+				int n2 = additional_fee_tempservice.insert(additional_feeVo);
+			}
 		}
-
 		// 기간정보
 		for (int i = 0; i < periodVoList.getPeriodVo().size(); i++) {
 			PeriodVo periodVo = periodVoList.getPeriodVo().get(i);
-			periodVo.setAid(aidseq);
-			int n3 = period_tempservice.insert(periodVo);
+			if (periodVo.getPeseason() != null) {
+				periodVo.setAid(aidseq);
+				int n3 = period_tempservice.insert(periodVo);
+			}
 		}
 
 		sendMail(accommodationsVo, additional_feeVoList, periodVoList, roomInfoVoList);
@@ -383,8 +391,9 @@ public class HotelManageController {
 		sb.append(
 				"<div style=\"background-color:#DFCFBE left center no-repeat; border-top:1px solid #d7d7d7; border-bottom:1px solid #d7d7d7; padding:10px 10px 10px 50px;\">");
 		sb.append("<p style=\"line-height:1.4em; font-weight:bold;\">객실세부정보</p>");
-			for (int i = 0; i < roomInfoVoList.getRoom_InfoVo().size(); i++) {
-				Room_InfoVo roomInfoVo = roomInfoVoList.getRoom_InfoVo().get(i);
+		for (int i = 0; i < roomInfoVoList.getRoom_InfoVo().size(); i++) {
+			Room_InfoVo roomInfoVo = roomInfoVoList.getRoom_InfoVo().get(i);
+			if (roomInfoVo.getRiroomtype() != null) {
 				sb.append("<p style=\"font-size:11px; color:#636363;\">");
 				sb.append("객실종류: " + roomInfoVo.getRiroomtype());
 				sb.append("</p>");
@@ -434,21 +443,26 @@ public class HotelManageController {
 				sb.append("</p>");
 				sb.append("<hr style='border-bottom:1px solid #d7d7d7;'>");
 			}
+		}
 		sb.append("</div>");
 		sb.append("<div style=\"padding:20px 50px; line-height:1.6em; border-bottom:1px solid #d7d7d7;\">");
 		sb.append("기간정보<br>");
 		for (PeriodVo periodVo : periodVoList.getPeriodVo()) {
-			sb.append("시즌: " + periodVo.getPeseason() + "<br>");
-			sb.append("시즌시작날짜: " + periodVo.getPestart() + "<br>");
-			sb.append("시즌끝날짜: " + periodVo.getPeend() + "<br>");
-			sb.append("<hr style='border-bottom:1px solid #d7d7d7;'>");
+			if (periodVo.getPeseason() != null) {
+				sb.append("시즌: " + periodVo.getPeseason() + "<br>");
+				sb.append("시즌시작날짜: " + periodVo.getPestart() + "<br>");
+				sb.append("시즌끝날짜: " + periodVo.getPeend() + "<br>");
+				sb.append("<hr style='border-bottom:1px solid #d7d7d7;'>");
+			}
 		}
 		sb.append("</div>");
 		sb.append("</div>");
 		sb.append(
 				"<div style=\"font-size:11px; background-color:#f4f4f4; text-align:center; line-height:1.3em; padding:20px 30px; text-align:center; font-size:18px; font-weight:bold; margin-top:50px;\">");
-		sb.append("<a href='http://localhost:8090/project/hjy/ok?aid=" + accommodationsVo.getAid() + "' style='color:#754c24;'>등록</a><br>");
-		sb.append("<a href='http://localhost:8090/project/hjy/no?aid=" + accommodationsVo.getAid() + "' style='color:#754c24;'>거부</a>");
+		sb.append("<a href='http://localhost:8090/project/hjy/ok?aid=" + accommodationsVo.getAid()
+				+ "' style='color:#754c24;'>등록</a><br>");
+		sb.append("<a href='http://localhost:8090/project/hjy/no?aid=" + accommodationsVo.getAid()
+				+ "' style='color:#754c24;'>거부</a>");
 		sb.append("</div>");
 		sb.append("</div>");
 		sb.append("</div>");
