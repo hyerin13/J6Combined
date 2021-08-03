@@ -11,12 +11,11 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
 $(function(){
-	/*
 	$("#search").click(function(){
 		let checkin=$("#checkin").val();
 		let checkout=$("#checkout").val();
 		$.ajax({
-			url:"project/lhjcjy/firstsearch",
+			url:"final/lhjcjy/firstsearch",
 			data:{"rcheckin":checkin, "rcheckout":checkout},
 			type:"post",
 			dataType:"json",
@@ -25,7 +24,6 @@ $(function(){
 			}
 		})
 	}),
-	*/
 	$("#searchHotel").autocomplete({
 		source:function(request,response){
 			let aname=$("#searchHotel").val();
