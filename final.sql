@@ -1,3 +1,13 @@
+--날짜테이블 생성
+create table date_t (ds varchar2(10));
+--데이터 입력
+insert into date_t
+SELECT TO_CHAR( TO_DATE('20180101', 'YYYYMMDD') + ROWNUM-1, 'YYYYMMDD') AS DAY
+FROM DUAL
+CONNECT BY level <= ROUND( TO_DATE('20241231', 'YYYYMMDD') - TO_DATE('20180101', 'YYYYMMDD') );
+commit;
+
+
 
 /* Drop Tables */
 

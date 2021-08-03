@@ -18,12 +18,6 @@ public class AccommodationsController {
 	@RequestMapping(value="/user/kjy/accommodations", method= RequestMethod.GET)
 	public ModelAndView AccommodationsForm() {
 		ModelAndView mv=new ModelAndView("user/kjy/accommodations");
-		try {
-			List<AccommodationsVo> list=service.list();
-			mv.addObject("list", list);
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
 		return mv;
 	}
 }
