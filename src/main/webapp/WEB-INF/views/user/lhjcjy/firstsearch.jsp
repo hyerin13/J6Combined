@@ -59,7 +59,12 @@ body {
 
 <!------ Include the above in your HEAD tag ---------->
 <script type="text/javascript">
-
+function collectInfo(){
+	let countRoom=$("#countRoom").val();
+	let countPeople=$("#countPeople").val();
+	console.log(countRoom)
+	$("#showInfo").val("객실"+countRoom+"인원"+countPeople);
+}
 $(function(){
 	/*
 	$("#search").click(function(){
@@ -174,12 +179,7 @@ $(function(){
                         <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
                     </div>
                     <script type="text/javascript">
-                    function collectInfo(){
-                		let countRoom=$("#countRoom").val();
-                		let countPeople=$("#countPeople").val();
-                		console.log(countRoom)
-                		$("#showInfo").val("객실"+countRoom+"인원"+countPeople);
-                	}
+                   
                     </script>
                 </div>
             </div>
