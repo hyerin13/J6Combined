@@ -3,12 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.mybatis.mapper.lhjcjy.FirstSearchMapper">
-	<select id="searchNotRev" resultType="com.jhta.project.vo.lhjcjy.Room_InfoVo">
-  		Select * from room_info where riid not in (select riid from reservation where rcheckin is not null)
-  	</select>
-  	<select id="searchInRev" parameterType="string" resultType="com.jhta.project.vo.lhjcjy.AccommodationsVo">
-  		select ac.* from accommodations ac, reservation rs, room_info ri where ac.aid = ri.aid and ri.riid = rs.riid 
-  		<![CDATA[ and to_char(rs.rcheckout, 'YY-MM-dd') <= to_char(#{rcheckout}, 'YY-MM-dd') ]]>
+	<select id="searchDefault" parameterType="hashmap" resultType="com.jhta.project.vo.lhjcjy.SearchVo">
+  		select ac.*,ri.* from accommodations ac, room_info ri
+		where ac.aid = ri.id and ri.riroom>(select count(rcheckin) from reservation
+		<![CDATA[ where rcheckin >= '#{rcheckin}' and rcheckout <='#{rcheckout}' and rcancel=null)) ]]>
+		and ac.aaddress like '%'||#{aaddress}||'%' 
+		<![CDATA[ and ri.rimaxper>=#{rimaxper} and ri.riminper<= #{riminper} ]]>
   	</select>
 </mapper>
 
