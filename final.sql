@@ -303,6 +303,8 @@ CREATE TABLE RESERVATION
 (
 	-- 예약아이디
 	RID NUMBER(4) NOT NULL,
+	-- 객실예약번호
+	RORDERNUM NUMBER(3),
 	-- 인원
 	RAMOUNT NUMBER(3),
 	-- 예약시작일
