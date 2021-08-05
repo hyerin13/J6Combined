@@ -50,6 +50,11 @@ public class FirstSearchControllerlhjcjy {
 			hs.put("rcheckout", checkout1);
 			hs.put("rimaxper", countPeople);
 			hs.put("countRoom", countRoom);
+			mv.addObject("aaddress", searchHotel);
+			mv.addObject("rcheckin", checkin);
+			mv.addObject("rcheckout", checkout);
+			mv.addObject("rimaxper", countPeople);
+			mv.addObject("countRoom", countRoom);
 			List<AccommodationsVolhjcjy> list = gpservice.getprice(hs);
 
 			//입력한 날짜 중간포함 리스트 얻기
@@ -110,7 +115,7 @@ public class FirstSearchControllerlhjcjy {
 			e.printStackTrace();
 		}
 
-		mv.setViewName("user/lhjcjy/firstsearch");
+		mv.setViewName("user/lhjcjy/firstsearch2");
 		return mv;
 	}
 }
