@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class Room_infoVo {
 	private int RIID;
+	private int RORDERNUM;
 	private String RIROOMTYPE;
 	private int RIROOM;
 	private String RISERVICE;

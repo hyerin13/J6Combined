@@ -8,10 +8,15 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jhta.project.service.kjy.AccommodationsService;
@@ -27,33 +32,44 @@ public class Room_infoController {
 	@Autowired private AccommodationsService accservice;
 	
 	@RequestMapping(value="/user/kjy/room_info", method= RequestMethod.GET)
-	public ModelAndView Room_infoForm(String AID, String person, String startday, String endday) {
+	public ModelAndView Room_infoForm(@RequestParam("AID")String AID, @RequestParam("person")String person,
+			@RequestParam("roomnum")String roomnum, @RequestParam("startday")String startday,  
+			@RequestParam("endday")String endday) {
 		ModelAndView mv=new ModelAndView("user/kjy/room_info");
 		try {
 			
 			//객실세부정보
+			//person(사람수),startday(시작),endday(끝), roomnum(예약할 개수)
 			int AID1=Integer.parseInt(AID);
 			DateFormat df1=new SimpleDateFormat("yyyyMMdd");
 			String STARTDAY1=startday.replace("-", "");
 			String ENDDAY1=endday.replace("-", "");
 			HashMap<String, Object> hs=new HashMap<String, Object>();
 			hs.put("AID", AID1);
-			hs.put("PERSON", person);
+			hs.put("ROOMNUM", roomnum);
 			hs.put("STARTDAY", STARTDAY1);
 			hs.put("ENDDAY", ENDDAY1);
+			hs.put("PERSON", person);
 			List<Room_infoVo> alllist=service.list(hs);
-			
+			//list가 비었을경우 result 페이지로 이동
+			if(alllist.isEmpty()) {
+				ModelAndView mv1=new ModelAndView("user/kjy/result");
+				mv1.addObject("code", "입력하신 날짜는 예약이 모두 완료되었습니다.");
+				return mv1;
+			}
 			//입력한 날짜 중간포함 리스트 얻기
 			HashMap<String, Object> hs1=new HashMap<String, Object>();
 			hs1.put("STARTDAY", STARTDAY1);
 			hs1.put("ENDDAY", ENDDAY1);
 			String days=service.daylist(hs1);
-			
+			//숙소정보
+			AccommodationsVo accvo=accservice.aidlist(AID1);
+
 			//날짜사이 성수기,준성수기,비수기 숫자 구하기
 			int OFF=0;//비수기
 			int SEMI=0;//준성수기
 			int PEAK=0;//성수기
-			
+
 			DateFormat df=new SimpleDateFormat("yyyy-MM-dd");
 			Date d1=df.parse(startday);//시작날짜
 			Date d2=df.parse(endday);//종료날짜
@@ -65,6 +81,7 @@ public class Room_infoController {
 			while( c1.compareTo( c2 ) !=1 ){
 				//비수기,성수기,준성수기 확인
 				Date day=c1.getTime();
+				//7/1~7/4
 				String peseason=peservice.list(day);
 				if(peseason.equals("비수기")) {
 					OFF++;//분류별 카운터
@@ -79,8 +96,8 @@ public class Room_infoController {
 			int offprice=0;//비수기
 			int semiprice=0;//준성수기
 			int peakprice=0;//성수기
-			String perimg=null;			
 			DecimalFormat formatt=new DecimalFormat("###,###,###");//콤마찍기
+
 			for(Room_infoVo vo:alllist) {
 				//총금액
 				offprice=vo.getRIOFF();
@@ -104,16 +121,16 @@ public class Room_infoController {
 				}else if(OFF<1 && SEMI<1 && PEAK>0) {
 					vo.setPRICE("성수기 "+PEAK+"박, 요금: "+peakpr);
 				}
-				
+
 				int sum=(OFF*offprice)+(semiprice*SEMI)+(peakprice*PEAK);
 				String finalsum=formatt.format(sum);
 				vo.setSUM(finalsum);
-				
+
 				//특수문자 치환(,->√ ,♥, ♡)
 				String service=vo.getRISERVICE();
 				service=service.replace(",", "√ ");
 				vo.setRISERVICE(service);
-				
+
 				//인원그림(♥, ♡)
 				int maxper=vo.getRIMAXPER();
 				//최대인원
@@ -130,7 +147,7 @@ public class Room_infoController {
 				}else if(maxper==6) {
 					vo.setPERIMG("resources/images/kjy/room_info/person6.png");
 				}
-				
+
 				//현재인원
 				if(person.equals("1")) {
 					vo.setMINPERIMG("resources/images/kjy/room_info/minperson1.png");
@@ -145,8 +162,8 @@ public class Room_infoController {
 				}else if(person.equals("6")) {
 					vo.setMINPERIMG("resources/images/kjy/room_info/minperson6.png");
 				}
-				
-				
+
+
 				//예약이 꽉찼을경우 페이지이동
 				if(!days.equals(vo.getREDAY())) {
 					ModelAndView mv1=new ModelAndView("user/kjy/result");
@@ -154,13 +171,13 @@ public class Room_infoController {
 					return mv1;
 				}
 			}
-			//숙소정보
-			AccommodationsVo accvo=accservice.aidlist(AID1);
-			
+
+			mv.addObject("STARTDAY",STARTDAY1);
+			mv.addObject("ENDDAY",ENDDAY1);
 			mv.addObject("accvo",accvo);
 			mv.addObject("person", person);
 			mv.addObject("list",alllist);
-		}catch (Exception e) {
+		}catch(Exception e){
 			e.printStackTrace();
 		}
 		return mv;

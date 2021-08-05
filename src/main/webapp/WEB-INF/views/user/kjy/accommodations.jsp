@@ -12,6 +12,7 @@
 <form action="${pageContext.request.contextPath }/user/kjy/room_info">
 	<input type="text" name="AID" value="호텔번호">
 	<input type="text" name="person" value="인원">
+	<input type="text" name="roomnum" value="예약할개수">
 	<input type="date" name="startday">
 	<input type="date" name="endday">
 	<input type="submit">
