@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% String cp=request.getContextPath(); %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -138,57 +139,48 @@ $(function(){
 </script>
 </head>
 <body>
-<h1>숙소이름</h1>
-<div>
-<h3>호텔 검색</h3>
-검색
-<input type="text" id="searchHotel" name="searchHotel"><br>
-체크인
-<input type="date" name="checkin"><br>
-체크아웃
-<input type="date" name="checkout"><br>
-객실인원
-
-<!-- 인원,객실수 -->
-<div class="container">
-   <div class="row">
-      <div class="col-md-12">
-            <div class="input-group" id="adv-search">
-                <input type="button" class="form-control" id="showInfo" value="" />
-                <div class="input-group-btn">
-                    <div class="btn-group" role="group">
-                        <div class="dropdown dropdown-lg">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="caret"></span></button>
-                            <div class="dropdown-menu dropdown-menu-right" role="menu">
-                                <form class="form-horizontal" role="form" action="javascript:collectInfo()" method="get">
-                                  <div class="form-group">
-                                    <label for="filter">객실수</label>
-                                    <input type="number" min="1" id="countRoom">
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="contain">인원수</label>
-                                    <input type="number" min="1" id="countPeople">
-                                  </div>
-                                
-                                  <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                                </form> 
-                           		<!-- <input type="button" onclick="collectInfo()" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                            -->
-                            </div>
-                        </div>
-                        <button type="button" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-                    </div>
-                    <script type="text/javascript">
-                   
-                    </script>
-                </div>
-            </div>
-          </div>
-        </div>
-   </div>
-</div>
-<input type="button" value="검색" id="search">
-
-</div>
+<form method="post" action="${pageContext.request.contextPath }/lhjcjy/firstsearch">
+	<div>
+	호텔명 or 지역
+	<input type="text" id="searchHotel" name="searchHotel">
+	체크인
+	<input type="date" name="checkin">
+	체크아웃
+	<input type="date" name="checkout">
+	<div class="form-group">
+	  <label for="filter">객실수</label>
+	  <input type="number" min="1" id="countRoom" name="countRoom">
+	</div>
+	<div class="form-group">
+	  <label for="contain">인원수</label>
+	  <input type="number" min="1" id="countPeople" name="countPeople">
+	</div>                  
+	<input type="submit" value="검색" id="search">
+	</div>
+</form>
+<div class="accommList">
+	<c:forEach var="vo" items="${list }">
+		<div class="eachList">
+		    <div class="card">
+		        <div class="card-body">
+		            <div class="row">
+		                <div class="col-md-3">
+		                   <img src = "#"> 이미지
+		                </div>
+		                <div class="col-md-7">
+		                    <h3>${vo.aname }</h3>
+		                    <small>${vo.aaddress }</small>
+		                    <p><small>지도보기?뭐든추가</small></p>
+		                </div>
+		                <div class="col-md-2">
+		                	<h5>가격</h5>
+		                    <button type="button" class="btn">예약하기</button>  
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+	</c:forEach>
+</div>     
 </body>
 </html>
