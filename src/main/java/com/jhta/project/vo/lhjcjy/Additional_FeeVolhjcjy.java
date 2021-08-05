@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Additional_FeeVo {
+public class Additional_FeeVolhjcjy {
 	private int afid;
 	private int afpersonnel;
 	private int afbreakfast;

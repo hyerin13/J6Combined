@@ -13,12 +13,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jhta.project.service.lhjcjy.FirstSearchService;
-import com.jhta.project.vo.lhjcjy.AccommodationsVo;
+import com.jhta.project.service.lhjcjy.FirstSearchServicelhjcjy;
+import com.jhta.project.vo.lhjcjy.AccommodationsVolhjcjy;
 
 @RestController
 public class FirstSearchAjaxControllerlhjcjy {
-	@Autowired private FirstSearchService service;
+	@Autowired private FirstSearchServicelhjcjy service;
 	
 	@RequestMapping(value="/lhjcjy/ajax/auto", produces= {MediaType.APPLICATION_JSON_VALUE})
 	public HashMap<String, Object> autolist(String aname,HttpServletRequest request,

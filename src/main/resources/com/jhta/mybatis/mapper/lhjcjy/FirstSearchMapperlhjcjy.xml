@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jhta.mybatis.mapper.lhjcjy.FirstSearchMapper">
-	<select id="searchDefault" parameterType="hashmap" resultType="com.jhta.project.vo.lhjcjy.SearchVo">
+<mapper namespace="com.jhta.mybatis.mapper.lhjcjy.FirstSearchMapperlhjcjy">
+	<select id="searchDefault" parameterType="hashmap" resultType="com.jhta.project.vo.lhjcjy.SearchVolhjcjy">
   		select distinct ac.* from accommodations ac,
 		( 
 		select ri.* from room_info ri where ri.riroom>(select count(rcheckin) from reservation

@@ -30,7 +30,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Room_InfoVo {
+public class Room_InfoVolhjcjy {
 	private int riid;
 	private String riroomtype;
 	private int riroom;

@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class SearchVo {
+public class SearchVolhjcjy {
 	private int aid;
 	private String aname;
 	private String aaddress;

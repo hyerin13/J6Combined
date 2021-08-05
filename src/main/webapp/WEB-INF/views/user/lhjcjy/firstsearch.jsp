@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% String cp=request.getContextPath(); %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -68,20 +67,6 @@ function collectInfo(){
 }
 $(function(){
 	/*
-	$("#search").click(function(){
-		let checkin=$("#checkin").val();
-		let checkout=$("#checkout").val();
-		$.ajax({
-			url:"final/lhjcjy/firstsearch",
-			data:{"rcheckin":checkin, "rcheckout":checkout},
-			type:"post",
-			dataType:"json",
-			success:function(data){
-				$(data.list)
-			}
-		})
-	}),
-
 	function collectInfo(){
 		let countRoom=$("#countRoom").val();
 		let countPeople=$("#countPeople").val();
@@ -165,7 +150,7 @@ $(function(){
 		        <div class="card-body">
 		            <div class="row">
 		                <div class="col-md-3">
-		                   <img src = "#"> 이미지
+		                   <img src="${pageContext.request.contextPath }/resources/img/${vo.amainimg }" width="300" height="250">
 		                </div>
 		                <div class="col-md-7">
 		                    <h3>${vo.aname }</h3>
@@ -173,7 +158,7 @@ $(function(){
 		                    <p><small>지도보기?뭐든추가</small></p>
 		                </div>
 		                <div class="col-md-2">
-		                	<h5>가격</h5>
+		                	<h5>${vo.SUM}원</h5>
 		                    <button type="button" class="btn">예약하기</button>  
 		                </div>
 		            </div>
@@ -181,6 +166,6 @@ $(function(){
 		    </div>
 		</div>
 	</c:forEach>
-</div>     
+</div>         
 </body>
 </html>
