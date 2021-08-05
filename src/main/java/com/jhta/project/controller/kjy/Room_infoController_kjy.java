@@ -26,7 +26,7 @@ import com.jhta.project.vo.kjy.AccommodationsVo;
 import com.jhta.project.vo.kjy.Room_infoVo;
 
 @Controller
-public class Room_infoController {
+public class Room_infoController_kjy {
 	@Autowired private Room_infoService service;
 	@Autowired private PeriodService peservice;
 	@Autowired private AccommodationsService accservice;

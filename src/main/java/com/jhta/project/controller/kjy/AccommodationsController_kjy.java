@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 @Controller
-public class AccommodationsController {
+public class AccommodationsController_kjy {
 	
 	@RequestMapping(value="/user/kjy/accommodations", method= RequestMethod.GET)
 	public ModelAndView AccommodationsForm() {

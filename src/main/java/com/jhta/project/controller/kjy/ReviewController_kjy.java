@@ -16,7 +16,7 @@ import com.jhta.project.util.kjy.PageUtil;
 import com.jhta.project.vo.kjy.ReviewVo;
 
 @Controller
-public class ReviewController {
+public class ReviewController_kjy {
 	@Autowired private ReviewMapperkjy service;
 	
 	@RequestMapping(value="/user/kjy/review1", produces = {MediaType.APPLICATION_JSON_VALUE})

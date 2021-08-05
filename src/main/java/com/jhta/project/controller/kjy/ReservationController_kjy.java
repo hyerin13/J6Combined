@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class ReservationController {
+public class ReservationController_kjy {
 	
 	@RequestMapping(value="/user/kjy/reservation", method = RequestMethod.GET)
 	public ModelAndView ReservationForm(String RIID, String STARTDAY, String ENDDAY, String RAMOUNT, String MID, 
