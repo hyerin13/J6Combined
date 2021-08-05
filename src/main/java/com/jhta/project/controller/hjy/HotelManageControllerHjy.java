@@ -47,7 +47,7 @@ import com.jhta.project.vo.hjy.PeriodVo;
 import com.jhta.project.vo.hjy.Room_InfoVo;
 
 @Controller
-public class HotelManageController {
+public class HotelManageControllerHjy {
 	@Autowired
 	AccommodationsServiceHjy accommodationsservice;
 	@Autowired
@@ -69,7 +69,7 @@ public class HotelManageController {
 
 	@GetMapping("hjy/hotelForm")
 	public String hotelInsertForm(String type) {
-		return "user/lhjcjy/firstsearch";
+		return "user/hjy/hotelManage/form";
 	}
 
 	@GetMapping("hjy/ok")
@@ -212,10 +212,6 @@ public class HotelManageController {
 //		 MultipartFile file1,MultipartFile rfilemain,MultipartFile rfileextra1,MultipartFile rfileextra2
 		// temp 테이블에 저장하기
 		// 다중파일 가져와서 저장하기
-		System.out.println(roomInfoVoList.getRoom_InfoVo().get(0));
-		System.out.println(roomInfoVoList.getRoom_InfoVo().get(1));
-		System.out.println(roomInfoVoList.getRoom_InfoVo().get(2));
-		System.out.println(roomInfoVoList.getRoom_InfoVo().get(3));
 
 		List<MultipartFile> fileList = mtfRequest.getFiles("file");
 		// 다중파일 vo에 세팅하기
