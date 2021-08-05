@@ -16,7 +16,7 @@ import com.jhta.project.service.lhjcjy.FirstSearchService;
 import com.jhta.project.vo.lhjcjy.SearchVo;
 
 @Controller
-public class FirstSearchController {
+public class FirstSearchControllerlhjcjy {
 	@Autowired private FirstSearchService service;
 	
 	@GetMapping("lhjcjy/firstsearch") //

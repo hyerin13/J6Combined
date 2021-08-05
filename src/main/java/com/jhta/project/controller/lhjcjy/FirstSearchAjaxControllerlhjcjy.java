@@ -17,7 +17,7 @@ import com.jhta.project.service.lhjcjy.FirstSearchService;
 import com.jhta.project.vo.lhjcjy.AccommodationsVo;
 
 @RestController
-public class FirstSearchAjaxController {
+public class FirstSearchAjaxControllerlhjcjy {
 	@Autowired private FirstSearchService service;
 	
 	@RequestMapping(value="/lhjcjy/ajax/auto", produces= {MediaType.APPLICATION_JSON_VALUE})
