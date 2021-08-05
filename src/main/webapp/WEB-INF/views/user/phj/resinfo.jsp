@@ -7,13 +7,14 @@
 <meta charset="UTF-8">
 <title>예약페이지</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
 <style>
 	.box{
 		float:left;
-		width:65%;
+		width:650px;
 		border:solid 1px;
-		border-color:gray;
+		border-color:#BDBDBD;
 		border-image:liner-gradient(to right,gray,white);
 		margin:2% 2% 2% 2%;
 		padding:7px;
@@ -49,30 +50,32 @@
 	<div class="header">
 		<jsp:include page="../jhr/header.jsp" flush="true"/>
 	</div>
-<div>
+
+<form class="form-inline" >
 <div class="box">
-	<label class="labelpadding">
+	<label>
 	<< 고객님의 정보를 입력해 주세요 >>
 	</label><br>
 	<br>
-	<label class="labelpadding">
+	<div class="form-group ">
+	<label >
 		영문이름
 	</label>
 	<br>
-	<input type="text" class="sInput"><br>
+	<input id="endName" type="text" class="form-control" required><br>
 	<br>
-	<label class="labelpadding">
+	<label>
 		이메일
 	</label>
 	<br>
-	<input type="text" id="email" oninput="checkEmail()" class="sInput" style="color:gray"
+	<input type="text" id="email" oninput="checkEmail()" class="form-control" style="color:gray" required
 	placeholder="오탈자에 주의해 주세요" onfocus="this.placeholder=''" onblur="this.placeholder='오탈자에 주의해 주세요'"><br>
 	<br>
-	<label class="labelpadding">
+	<label>
 		이메일 재입력
 	</label>
 	<br>
-	<input type="text" id="emailcheck" oninput="checkEmail()" class="sInput"><br>
+	<input type="text" id="emailcheck" oninput="checkEmail()" class="form-control"><br>
 	<div id="emailOk">
 	</div>
 	<br>
@@ -80,8 +83,10 @@
 		전화번호(선택 사항)
 	</label>
 	<br>
-	<input type="text" class="sInput"><br>
+	<input type="text" class="form-control"><br>
 	<br>
+	</div>
+	<div>
 	<label>
 		거주 국가/지역<br>
 		<select>
@@ -147,11 +152,12 @@
 	</div>
 	<div style="float:right; width:70%">
 		<span style="color:green; font-style:bold; float:right;">부담 제로 - 예약 무료 취소 가능!</span><br>
-		<a href="${pageContext.request.contextPath }/pay"><input type="button" value="마지막 단계로 이동하기" style="float:right;"></a><br>
+		<a href="${pageContext.request.contextPath }/pay"><input type="button" value="마지막 단계로 이동하기" style="float:right;" id="resOk"></a><br>
 		<span style="color:green; font-style:bold; float:right;">즉시 예약해 이 객실과 요금을 확보하세요!</span><br>
 	</div>
+	</div>
 </div>
-</div>
+</form>
 <div id="hotelInfo" class="hotel">
 	호텔정보
 </div><br>
@@ -166,14 +172,6 @@
 </div>
 </body>
 <script type="text/javascript">
-	$(document).ready(function(){
-		let div="내용입력";
-		if($("#bookForSomeoneElse").is(":checked")){
-			alert("체크!");
-		}else{
-			
-		}
-	});
 	function checkEmail(){
 		var email=$("#email").val();
 		var emailcheck=$("#emailcheck").val();
@@ -185,5 +183,24 @@
 			$("#emailOk").html(com).css("color","#FF0000");
 		}
 	}
+	$(function(){
+		$('#resOk').click(function(){
+			let rresname=$("#engName").val();
+			let rresemail=$("#emailcheck").val();
+			$.ajax({
+				url:'/project/reservation',
+				data:{"rresname":rresname,"rresemail":rresemail},
+				type:"post",
+				dataType:"json",
+				success:function(data){
+					if(data.code=='예약성공'){
+						alert(data.code);
+					}else{
+						alert("실패");
+					}
+				}
+			})
+		})
+	})
 </script>
 </html>

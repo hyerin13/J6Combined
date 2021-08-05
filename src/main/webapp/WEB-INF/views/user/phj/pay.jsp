@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <style>
 	.paybox{
 		float:left;
@@ -53,26 +54,27 @@
 	</div>
 	</div>
 </div>
-테스트
-결제아이디
-결제수단
-결제날짜
-총 비용
+<button id="payment">결제</button>
 <div class="footer" style="clear:both;">
 	<jsp:include page="../jhr/footer.jsp" flush="true"/>
 </div>
 </body>
 <script type="text/javascript">
-	function checkEmail(){
-		var email=$("#email").val();
-		var emailcheck=$("#emailcheck").val();
-		if(email==emailcheck){
-			let com="입력하신 이메일 주소로 예약 확정서가 발송됩니다."
-			$("#emailOk").html(com).css("color","#9FC93C");
-		}else{
-			let com="이메일'과 '이메일 재입력'에 입력된 이메일 주소가 일치하지 않습니다."
-			$("#emailOk").html(com).css("color","#FF0000");
-		}
-	}
+	$(function(){
+		$('#payment').click(function(){
+			$.ajax({
+				url:'/project/kakaopay',
+				dataType:'json',
+				success:function(data){
+					window.open(data.next_redirect_pc_url);
+				},
+				error:function(error){
+					alert(error);
+				}
+			})
+		})
+	})
+	
+	
 </script>
 </html>

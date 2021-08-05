@@ -14,7 +14,7 @@ public class AccommodationsInfo {
 	
 	@RequestMapping(value="phj/accoinfo")
 	public String accoinfo(int aid,Model model) {
-		AccommodationsVo vo=service.select(aid);
+		AccommodationsVo vo=service.select(1);
 		model.addAttribute("vo",vo);
 		return "resinfo";
 	}
