@@ -90,6 +90,7 @@
 	left: 550px;
 	width: 450px;
 	height: 100px;
+	border-radius: 10px;
 }
 
 .title {
@@ -225,6 +226,16 @@
 	right: 0px;
 	font-size: 10px;
 }
+#reserimg{
+	position:absolute;
+	top:30px;
+	right: 300px;
+	width: 300px;
+	height: 150px;
+	z-index: 0;
+	opacity: 0.6;
+}
+
 
 #reviewbox {
 	position: relative;
@@ -304,7 +315,7 @@
 	top: 10px;
 	left: 10px;
 	font-size: 20px;
-	font-weight: normal;
+	font-weight: bold;
 }
 
 .reviewid {
@@ -312,6 +323,7 @@
 	top: 42px;
 	left: 10px;
 	font-size: 12px;
+	font-weight: bold;
 }
 
 .recontent {
@@ -321,6 +333,7 @@
 	width: 800px;
 	height: 70px;
 	font-size: 15px;
+	font-weight: bold;
 }
 
 .restar {
@@ -328,6 +341,7 @@
 	top: 15px;
 	right: 10px;
 	font-size: 15px;
+	font-weight: bold;
 }
 
 #page {
@@ -379,9 +393,10 @@
 			 	<p class="person">최대&nbsp;${vo.RIMAXPER }인</p>
 			 	<img class="minpersonimg" src="${pageContext.request.contextPath }/${vo.MINPERIMG }">
 			 	<p class="minperson">현재&nbsp;${person}인</p>
+			 	<img src="${pageContext.request.contextPath }/${vo.RESERIMG }" onerror="this.style.display='none'" id="reserimg">
 			 	<!-- session에 id가 있는지 확인후 없을경우 로그인페이지로 -->
 			 	<c:choose>
-			 		<c:when test="${empty sessionScope.mid }">
+			 		<c:when test="${empty sessionScope.MID }">
 			 			<input type="button" class="btn btn-primary" class="btn" value="바로예약" onclick="loginpage()">
 			 		</c:when>
 			 		<c:otherwise>

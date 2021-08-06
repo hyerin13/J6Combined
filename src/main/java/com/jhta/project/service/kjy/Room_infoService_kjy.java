@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jhta.mybatis.mapper.kjy.Room_infoMapperkjy;
-import com.jhta.project.vo.kjy.Room_infoVo;
+import com.jhta.project.vo.kjy.Room_infoVo_kjy;
 
 @Service
-public class Room_infoService {
+public class Room_infoService_kjy {
 	@Autowired private Room_infoMapperkjy mapper;
-	public List<Room_infoVo> list(HashMap<String, Object> map){
+	public List<Room_infoVo_kjy> list(HashMap<String, Object> map){
 		return mapper.list(map);
 	}
 	public String daylist(HashMap<String, Object> map) {

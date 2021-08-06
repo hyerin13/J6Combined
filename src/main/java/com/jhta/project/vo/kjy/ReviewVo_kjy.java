@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class ReviewVo {
+public class ReviewVo_kjy {
 	private int REID;
 	private String RETITLE;
 	private String RECONTENT;

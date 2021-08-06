@@ -2,8 +2,8 @@ package com.jhta.mybatis.mapper.kjy;
 
 import java.util.List;
 
-import com.jhta.project.vo.kjy.AccommodationsVo;
+import com.jhta.project.vo.kjy.AccommodationsVo_kjy;
 
 public interface AccommodationsMapperkjy {
-	AccommodationsVo aidlist(int AID1);
+	AccommodationsVo_kjy aidlist(int AID1);
 }

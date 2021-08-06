@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jhta.mybatis.mapper.kjy.ReviewMapperkjy;
-import com.jhta.project.vo.kjy.ReviewVo;
+import com.jhta.project.vo.kjy.ReviewVo_kjy;
 
 @Service
-public class ReviewService {
+public class ReviewService_kjy {
 	@Autowired private ReviewMapperkjy mapper;
-	public List<ReviewVo> list(HashMap<String, Object> map){
+	public List<ReviewVo_kjy> list(HashMap<String, Object> map){
 		return mapper.list(map);
 	}
 	public HashMap<String, Object> sumstar(int AID) {

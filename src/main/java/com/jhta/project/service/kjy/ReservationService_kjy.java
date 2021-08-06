@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.jhta.mybatis.mapper.kjy.ReservationMapperkjy;
 
 @Service
-public class ReservationService {
+public class ReservationService_kjy {
 	@Autowired private ReservationMapperkjy mapper;
 	public HashMap<String, Object> datelist(Date day){
 		return mapper.datelist(day);

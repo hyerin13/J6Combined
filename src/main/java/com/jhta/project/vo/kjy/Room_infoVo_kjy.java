@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Room_infoVo {
+public class Room_infoVo_kjy {
 	private int RIID;
 	private int RORDERNUM;
 	private String RIROOMTYPE;
@@ -30,4 +30,6 @@ public class Room_infoVo {
 	private String PERIMG; //최대인원이미지
 	private String MINPERIMG; //현재인원이미지
 	private String REDAY; //예약가능날짜
+	private int RESERNUM;//예약가능인원
+	private String RESERIMG;//마감임박이미지
 }

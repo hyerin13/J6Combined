@@ -9,32 +9,31 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.jhta.project.service.kjy.AccommodationsService;
-import com.jhta.project.service.kjy.PeriodService;
-import com.jhta.project.service.kjy.Room_infoService;
-import com.jhta.project.vo.kjy.AccommodationsVo;
-import com.jhta.project.vo.kjy.Room_infoVo;
+import com.jhta.project.service.kjy.AccommodationsService_kjy;
+import com.jhta.project.service.kjy.PeriodService_kjy;
+import com.jhta.project.service.kjy.Room_infoService_kjy;
+import com.jhta.project.vo.kjy.AccommodationsVo_kjy;
+import com.jhta.project.vo.kjy.Room_infoVo_kjy;
 
 @Controller
 public class Room_infoController_kjy {
-	@Autowired private Room_infoService service;
-	@Autowired private PeriodService peservice;
-	@Autowired private AccommodationsService accservice;
+	@Autowired private Room_infoService_kjy service;
+	@Autowired private PeriodService_kjy peservice;
+	@Autowired private AccommodationsService_kjy accservice;
 	
 	@RequestMapping(value="/user/kjy/room_info", method= RequestMethod.GET)
 	public ModelAndView Room_infoForm(@RequestParam("AID")String AID, @RequestParam("person")String person,
 			@RequestParam("roomnum")String roomnum, @RequestParam("startday")String startday,  
-			@RequestParam("endday")String endday) {
+			@RequestParam("endday")String endday,
+			HttpServletRequest request) {
 		ModelAndView mv=new ModelAndView("user/kjy/room_info");
 		try {
 			
@@ -50,7 +49,7 @@ public class Room_infoController_kjy {
 			hs.put("STARTDAY", STARTDAY1);
 			hs.put("ENDDAY", ENDDAY1);
 			hs.put("PERSON", person);
-			List<Room_infoVo> alllist=service.list(hs);
+			List<Room_infoVo_kjy> alllist=service.list(hs);
 			//list가 비었을경우 result 페이지로 이동
 			if(alllist.isEmpty()) {
 				ModelAndView mv1=new ModelAndView("user/kjy/result");
@@ -63,7 +62,7 @@ public class Room_infoController_kjy {
 			hs1.put("ENDDAY", ENDDAY1);
 			String days=service.daylist(hs1);
 			//숙소정보
-			AccommodationsVo accvo=accservice.aidlist(AID1);
+			AccommodationsVo_kjy accvo=accservice.aidlist(AID1);
 
 			//날짜사이 성수기,준성수기,비수기 숫자 구하기
 			int OFF=0;//비수기
@@ -96,9 +95,10 @@ public class Room_infoController_kjy {
 			int offprice=0;//비수기
 			int semiprice=0;//준성수기
 			int peakprice=0;//성수기
+			int resernum=0;//예약 가능한 인원
 			DecimalFormat formatt=new DecimalFormat("###,###,###");//콤마찍기
 
-			for(Room_infoVo vo:alllist) {
+			for(Room_infoVo_kjy vo:alllist) {
 				//총금액
 				offprice=vo.getRIOFF();
 				semiprice=vo.getRISEMIPEAK();
@@ -161,6 +161,12 @@ public class Room_infoController_kjy {
 					vo.setMINPERIMG("resources/images/kjy/room_info/minperson5.png");
 				}else if(person.equals("6")) {
 					vo.setMINPERIMG("resources/images/kjy/room_info/minperson6.png");
+				}
+				
+				//마감임박
+				resernum=vo.getRESERNUM();
+				if(resernum <= 5) {
+					vo.setRESERIMG("resources/images/kjy/room_info/reserimg1.png");
 				}
 
 

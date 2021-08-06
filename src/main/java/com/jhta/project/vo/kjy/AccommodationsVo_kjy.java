@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class AccommodationsVo {
+public class AccommodationsVo_kjy {
 	private int AID;
 	private String ACATE;
 	private String ANAME;

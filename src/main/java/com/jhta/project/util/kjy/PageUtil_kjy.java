@@ -9,7 +9,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class PageUtil {
+public class PageUtil_kjy {
 	private int pageNum; //페이지 번호
 	private int startRow; //시작행번호
 	private int endRow; //끝행번호
@@ -25,7 +25,7 @@ public class PageUtil {
 	 * @param pageBlockCount 보여질 페이지 갯수
 	 * @param totalRowCount 전체 글의 갯수
 	 */
-	public PageUtil(int pageNum,int rowBlockCount,int pageBlockCount,int totalRowCount) {
+	public PageUtil_kjy(int pageNum,int rowBlockCount,int pageBlockCount,int totalRowCount) {
 		this.pageNum=pageNum;
 		this.rowBlockCount=rowBlockCount;
 		this.pageBlockCount=pageBlockCount;

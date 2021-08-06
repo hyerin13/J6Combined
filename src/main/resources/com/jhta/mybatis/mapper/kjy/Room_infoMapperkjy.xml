@@ -3,15 +3,15 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.mybatis.mapper.kjy.Room_infoMapperkjy">
-	<select id="list" resultType="com.jhta.project.vo.kjy.Room_infoVo" parameterType="hashmap">
+	<select id="list" resultType="com.jhta.project.vo.kjy.Room_infoVo_kjy" parameterType="hashmap">
 		<![CDATA[
 		SELECT f.* FROM(
             SELECT e.*, DENSE_RANK() OVER(ORDER BY length(e.REDAY) desc) AS RANK  FROM(
-            SELECT d.RIID, d.RIROOMTYPE, d.RIROOM,d.RISERVICE,d.RISIZE,d.RIMINPER,d.RIMAXPER,d.RIPEAK,d.RISEMIPEAK,d.RIOFF,d.RIMAINIMG,d.RIEXTRAIMG1,d.RIEXTRAIMG2,d.AID, LISTAGG(d.ds,',') WITHIN GROUP (ORDER BY d.ds) AS REDAY FROM(
+            SELECT d.RIID, d.RIROOMTYPE, d.RIROOM,d.RISERVICE,d.RISIZE,d.RIMINPER,d.RIMAXPER,d.RIPEAK,d.RISEMIPEAK,d.RIOFF,d.RIMAINIMG,d.RIEXTRAIMG1,d.RIEXTRAIMG2,d.AID, LISTAGG(d.ds,',') WITHIN GROUP (ORDER BY d.ds) AS REDAY, d.RESERNUM FROM(
 				SELECT b.*
      				, a.ds
                     , NVL(SUM(TRANSLATE(c.RCANCEL,'N','1')),0) AS 예약인원수
-     				, b.RIROOM - NVL(SUM(TRANSLATE(c.RCANCEL,'N','1')),0) AS 예약가능인원
+     				, b.RIROOM - NVL(SUM(TRANSLATE(c.RCANCEL,'N','1')),0) AS RESERNUM
  				 FROM (SELECT ds
           	FROM date_t
          	WHERE ds BETWEEN #{STARTDAY} AND #{ENDDAY}
@@ -29,7 +29,7 @@
  			GROUP BY b.RIID, b.RIROOMTYPE, b.RIROOM, b.RISERVICE, b.RISIZE, b.RIMINPER,b.RIMAXPER,b.RIPEAK,b.RISEMIPEAK,b.RIOFF,b.RIMAINIMG,b.RIEXTRAIMG1,b.RIEXTRAIMG2,b.AID,a.ds
 			HAVING b.RIROOM - NVL(SUM(TRANSLATE(c.RCANCEL,'N','1')),0) >= #{ROOMNUM} and RIMAXPER >=#{PERSON}
 			order by count(b.RIID) over(PARTITION BY a.ds),a.ds
-		) d group by d.RIID, d.RIROOMTYPE, d.RIROOM,d.RISERVICE,d.RISIZE,d.RIMINPER,d.RIMAXPER,d.RIPEAK,d.RISEMIPEAK,d.RIOFF,d.RIMAINIMG,d.RIEXTRAIMG1,d.RIEXTRAIMG2,d.AID
+		) d group by d.RESERNUM , d.RIID, d.RIROOMTYPE, d.RIROOM,d.RISERVICE,d.RISIZE,d.RIMINPER,d.RIMAXPER,d.RIPEAK,d.RISEMIPEAK,d.RIOFF,d.RIMAINIMG,d.RIEXTRAIMG1,d.RIEXTRAIMG2,d.AID
         ) e )f where RANK=1
 		]]>
 	</select>

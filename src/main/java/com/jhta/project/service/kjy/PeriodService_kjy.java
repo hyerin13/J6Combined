@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.jhta.mybatis.mapper.kjy.PeriodMapperkjy;
 
 @Service
-public class PeriodService {
+public class PeriodService_kjy {
 	@Autowired private PeriodMapperkjy mapper;
 	public String list(Date day) {
 		return mapper.list(day);

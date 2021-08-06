@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jhta.mybatis.mapper.kjy.ReviewMapperkjy;
-import com.jhta.project.util.kjy.PageUtil;
-import com.jhta.project.vo.kjy.ReviewVo;
+import com.jhta.project.util.kjy.PageUtil_kjy;
+import com.jhta.project.vo.kjy.ReviewVo_kjy;
 
 @Controller
 public class ReviewController_kjy {
@@ -23,12 +23,12 @@ public class ReviewController_kjy {
 	public @ResponseBody HashMap<String, Object> list(@RequestParam(value="pageNum",defaultValue = "1") int pageNum, String AID){
 		int AID1=Integer.parseInt(AID);
 		int count=service.count(AID1);
-		PageUtil pu=new PageUtil(pageNum, 5, 5, count);
+		PageUtil_kjy pu=new PageUtil_kjy(pageNum, 5, 5, count);
 		HashMap<String, Object> pmap=new HashMap<String, Object>();
 		pmap.put("startRowNum", pu.getStartRow());
 		pmap.put("endRowNum", pu.getEndRow());
 		pmap.put("AID", AID1);
-		List<ReviewVo> list=service.list(pmap);
+		List<ReviewVo_kjy> list=service.list(pmap);
 		
 		HashMap<String, Object> map=new HashMap<String, Object>();
 		map.put("result", list);
