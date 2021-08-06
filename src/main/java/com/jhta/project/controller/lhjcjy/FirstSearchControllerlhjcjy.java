@@ -50,6 +50,7 @@ public class FirstSearchControllerlhjcjy {
 			hs.put("rcheckout", checkout1);
 			hs.put("rimaxper", countPeople);
 			hs.put("countRoom", countRoom);
+			
 			mv.addObject("aaddress", searchHotel);
 			mv.addObject("rcheckin", checkin);
 			mv.addObject("rcheckout", checkout);

@@ -159,12 +159,13 @@ $(function(){
 		                </div>
 		                <div class="col-md-2">
 		                	<h5>${vo.SUM}원</h5>
-		                    <button type="button" class="btn">예약하기</button>  
+		                     <button class="btn" onclick="location.href='${pageContext.request.contextPath }/user/kjy/room_info?AID=${vo.aid}&person=${rimaxper}&roomnum=${countRoom}&startday=${rcheckin}&endday=${rcheckout}'">예약하기</button> 
+
 		                </div>
 		            </div>
 		        </div>
 		    </div>
-		</div>
+		</div>   
 	</c:forEach>
 </div>         
 </body>
