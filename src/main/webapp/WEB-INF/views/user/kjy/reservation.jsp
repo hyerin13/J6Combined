@@ -9,9 +9,9 @@
 <body>
 <form action="${pageContext.request.contextPath }/">
 	예약아이디<input type="text" name="RID" value="1">
-	총금액<input type="text" name="PTOTAL" value="${SUM }">
-	아이디<input type="text" name="MID" value="${MID }">
-	객실아이디<input type="text" name="RIID" value="${RIID }">
+	총금액<input type="text" name="PTOTAL" value="${sum }">
+	아이디<input type="text" name="MID" value="${mid }">
+	객실아이디<input type="text" name="RIID" value="${riid }">
 	<input type="submit" value="결제페이지">
 </form>
 </body>

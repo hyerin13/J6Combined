@@ -134,11 +134,11 @@
 </head>
 <body>
 <div id="headbox">
-	<p class="name">${vo.MNAME }님</p>
+	<p class="name">${vo.mname }님</p>
 	<p class="memt">돌아오셔서 반갑습니다.</p>
 	<div class="profile">
 		<p class=" initial">${initial }</p>
-		<img src="${pageContext.request.contextPath }/resources/images/kjy/mypage/${vo.MPROFILE}" onerror="this.style.display='none'" id="proimg">
+		<img src="${pageContext.request.contextPath }/resources/images/kjy/mypage/${vo.mprofile}" onerror="this.style.display='none'" id="proimg">
 	</div>
 </div>
 <div id="contentbox">

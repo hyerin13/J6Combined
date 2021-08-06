@@ -358,49 +358,49 @@
 <!-- 이미지 크게 일단 하나 -->
 <div id="content">
 	<div id="largeimgbox">
-	<p class="anme">${accvo.ANAME}</p>
-	<p class="agrade">${accvo.AGRADE}&nbsp;|&nbsp;</p>
-	<p class="aadress">${accvo.AADDRESS}</p>
+	<p class="anme">${accvo.aname}</p>
+	<p class="agrade">${accvo.agrade}&nbsp;|&nbsp;</p>
+	<p class="aadress">${accvo.aaddress}</p>
 	<div class="detailbox">
-		<p class="adetail">${accvo.ADETAIL}</p>
+		<p class="adetail">${accvo.adetail}</p>
 	</div>
 	<div id="googlemap">
-		<input type="hidden" value="${accvo.ANAME}" id="googlename">
-		<input type="hidden" value="${accvo.AXCOORDI }" id="googlex">
-		<input type="hidden" value="${accvo.AYCOORDI }" id="googley">
+		<input type="hidden" value="${accvo.aname}" id="googlename">
+		<input type="hidden" value="${accvo.axcoordi}" id="googlex">
+		<input type="hidden" value="${accvo.aycoordi}" id="googley">
 	</div>
 		<div class="largeimg">
-			<img src="${pageContext.request.contextPath }/resources/images/kjy/accommodations/${accvo.AMAINIMG}" class="amainimg">
+			<img src="${pageContext.request.contextPath }/resources/images/kjy/accommodations/${accvo.amainimg}" class="amainimg">
 		</div>
 	</div>
 	<p class="title">객실정보</p>
 	<c:forEach var="vo" items="${list }" varStatus="status">
-		<input type="hidden" value="${vo.AID }" id="AID">
+		<input type="hidden" value="${vo.aid }" id="aid">
 		
 		<div id="room_info">
 			<div id="imgbox">
-				<img src="${pageContext.request.contextPath }/resources/images/kjy/room_info/${vo.RIMAINIMG}" id="smallimg1">
-				<img src="${pageContext.request.contextPath }/resources/images/kjy/room_info/${vo.RIEXTRAIMG1}" id="smallimg2">
-				<img src="${pageContext.request.contextPath }/resources/images/kjy/room_info/${vo.RIEXTRAIMG2}" id="smallimg3">			
+				<img src="${pageContext.request.contextPath }/resources/images/kjy/room_info/${vo.rimainimg }" id="smallimg1">
+				<img src="${pageContext.request.contextPath }/resources/images/kjy/room_info/${vo.riextraimg1}" id="smallimg2">
+				<img src="${pageContext.request.contextPath }/resources/images/kjy/room_info/${vo.riextraimg2}" id="smallimg3">			
 			</div>
 			<div id="romm_name">
-				<h2 class="name">${vo.RIROOMTYPE}</h2>
+				<h2 class="name">${vo.riroomtype}</h2>
 				<p class="serv">부가서비스</p>
-				<p class="subname">${vo.RISERVICE }</p>
-				<p class="sumprice">₩&nbsp;${vo.SUM}</p>
-				<p class="price"><a href="javascript:void(0);" title="${vo.PRICE}">요금세부정보</a></p>
-			 	<img class="personimg" src="${pageContext.request.contextPath }/${vo.PERIMG }">
-			 	<p class="person">최대&nbsp;${vo.RIMAXPER }인</p>
-			 	<img class="minpersonimg" src="${pageContext.request.contextPath }/${vo.MINPERIMG }">
+				<p class="subname">${vo.riservice}</p>
+				<p class="sumprice">₩&nbsp;${vo.sum}</p>
+				<p class="price"><a href="javascript:void(0);" title="${vo.price}">요금세부정보</a></p>
+			 	<img class="personimg" src="${pageContext.request.contextPath }/${vo.perimg}">
+			 	<p class="person">최대&nbsp;${vo.rimaxper}인</p>
+			 	<img class="minpersonimg" src="${pageContext.request.contextPath }/${vo.minperimg}">
 			 	<p class="minperson">현재&nbsp;${person}인</p>
-			 	<img src="${pageContext.request.contextPath }/${vo.RESERIMG }" onerror="this.style.display='none'" id="reserimg">
+			 	<img src="${pageContext.request.contextPath }/${vo.reserimg}" onerror="this.style.display='none'" id="reserimg">
 			 	<!-- session에 id가 있는지 확인후 없을경우 로그인페이지로 -->
 			 	<c:choose>
-			 		<c:when test="${empty sessionScope.MID }">
+			 		<c:when test="${empty sessionScope.mid }">
 			 			<input type="button" class="btn btn-primary" class="btn" value="바로예약" onclick="loginpage()">
 			 		</c:when>
 			 		<c:otherwise>
-			 			<input type="button" class="btn btn-primary" class="btn" value="바로예약" onclick="location.href='${pageContext.request.contextPath }/user/kjy/reservation?RIID=${vo.RIID}&STARTDAY=${STARTDAY}&ENDDAY=${ENDDAY}&RAMOUNT=${person }&SUM=${vo.SUM }'">
+			 			<input type="button" class="btn btn-primary" class="btn" value="바로예약" onclick="location.href='${pageContext.request.contextPath }/user/kjy/reservation?riid=${vo.riid}&startday=${startday}&endday=${endday}&ramount=${person }&sum=${vo.sum }'">
 			 		</c:otherwise>
 			 	</c:choose>
 			</div>
@@ -480,29 +480,29 @@
 	}
 	
 	//리뷰 총점
-	var AID=$("#AID").val();
-	var SSTAR=0;
-	var SUMSTAR=0;
-	var CNT=0;
+	var aid=$("#aid").val();
+	var sstar=0;
+	var sumstar=0;
+	var cnt=0;
 	$.ajax({
 		url:"${pageContext.request.contextPath }/user/kjy/review2",
-		data:{"AID":AID},
+		data:{"aid":aid},
 		dataType:"json",
 		success:function(d){
-			SUMSTAR=d.SUMSTAR;
-			CNT=d.CNT;
-			if(SUMSTAR==1){
-				SSTAR="★☆☆☆☆"
-			}else if(SUMSTAR==2){
-				SSTAR="★★☆☆☆";
-			}else if(SUMSTAR==3){
-				SSTAR="★★★☆☆";
-			}else if(SUMSTAR==4){
-				SSTAR="★★★★☆";
-			}else if(SUMSTAR==5){
-				SSTAR="★★★★★";
+			sumstar=d.SUMSTAR;
+			cnt=d.CNT;
+			if(sumstar==1){
+				sstar="★☆☆☆☆"
+			}else if(sumstar==2){
+				sstar="★★☆☆☆";
+			}else if(sumstar==3){
+				sstar="★★★☆☆";
+			}else if(sumstar==4){
+				sstar="★★★★☆";
+			}else if(sumstar==5){
+				sstar="★★★★★";
 			}
-			let html="<p class='sumstart'>"+CNT+"개의 리뷰 전체평점: "+SSTAR+"</p>";
+			let html="<p class='sumstart'>"+cnt+"개의 리뷰 전체평점: "+sstar+"</p>";
 			$("#reviewbox").append(html);
 		}
 	});
@@ -511,31 +511,31 @@
 		$("#totalreview").empty();
 		$.ajax({
 			url:"${pageContext.request.contextPath }/user/kjy/review1",
-			data:{"AID":AID,"pageNum":pageNum},
+			data:{"aid":aid,"pageNum":pageNum},
 			dataType:"json",
 			success:function(data){
 				$(data.result).each(function(i,d){
-					let RETITLE=d.retitle;
-					let RECONTENT=d.recontent;
-					let RERDATE=d.rerdate;
-					let RESTAR=d.restar;
-					let MID=d.mid;
-					if(RESTAR==1){
-						RESTAR="★☆☆☆☆"
-					}else if(RESTAR==2){
-						RESTAR="★★☆☆☆";
-					}else if(RESTAR==3){
-						RESTAR="★★★☆☆";
-					}else if(RESTAR==4){
-						RESTAR="★★★★☆";
-					}else if(RESTAR==5){
-						RESTAR="★★★★★";
+					let retitle=d.retitle;
+					let recontent=d.recontent;
+					let rerdate=d.rerdate;
+					let restar=d.restar;
+					let mid=d.mid;
+					if(restar==1){
+						restar="★☆☆☆☆"
+					}else if(restar==2){
+						restar="★★☆☆☆";
+					}else if(restar==3){
+						restar="★★★☆☆";
+					}else if(restar==4){
+						restar="★★★★☆";
+					}else if(restar==5){
+						restar="★★★★★";
 					}
 					let html="<div id='review'>"+
-					"<p class='retitle'>"+RETITLE+"</p>"+
-					"<p class='reviewid'>(작성자: "+MID+")</p>"+
-					"<p class='recontent'>"+RECONTENT+"</p>"+
-					"<p class='restar'>평점: "+RESTAR+"</p>"+
+					"<p class='retitle'>"+retitle+"</p>"+
+					"<p class='reviewid'>(작성자: "+mid+")</p>"+
+					"<p class='recontent'>"+recontent+"</p>"+
+					"<p class='restar'>평점: "+restar+"</p>"+
 					"</div>";
 					$("#totalreview").append(html);
 				});
