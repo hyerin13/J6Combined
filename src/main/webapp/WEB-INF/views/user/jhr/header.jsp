@@ -8,7 +8,7 @@
 <div class="header">
 	<div class="header_container">
 		<div class="logo">
-			<a href="#" class="logo_container">
+			<a href="${pageContext.request.contextPath}/" class="logo_container">
 				<div class="logo_img">
 					<svg class="svg_image" viewBox="0 0 190 24">
 						<g fill="none">
@@ -37,7 +37,14 @@
 						<a href="#">마이트립</a>
 					</div>
 					<div class="nav_login">
-						<a href="#">로그인</a>
+				 	<c:choose>
+				 		<c:when test="${empty mid }">
+							<a href="${pageContext.request.contextPath }/jhr/login">로그인</a>
+ 						</c:when>			
+				 		<c:otherwise>
+							<a href="${pageContext.request.contextPath }/jhr/logout">로그아웃</a>
+				 		</c:otherwise>
+ 					</c:choose>
 					</div>
 				</div>
 			</div>
