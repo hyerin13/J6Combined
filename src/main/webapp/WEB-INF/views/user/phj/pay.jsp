@@ -31,6 +31,7 @@
 	<jsp:include page="../jhr/header.jsp" flush="true"/>
 </div>
 <div class="paybox">
+	<span style="color:red">결과코드 ${code }</span><br>
 	<span style="border:solid; border-color:gray">안전 결제  | 모든 카드 정보는 왼벽하게 암호화되어 안전하게 보호됩니다.</span>
 	<br>
 	<div >

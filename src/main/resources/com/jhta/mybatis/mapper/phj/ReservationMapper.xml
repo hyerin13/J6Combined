@@ -5,7 +5,7 @@
 <mapper namespace="com.jhta.mybatis.mapper.phj.ReservationMapper">
 	<insert id="insertRes" parameterType="com.jhta.project.vo.phj.ReservationVo">
 		insert into reservation 
-		values(seq_reservation.nextval,#{ramount},#{rcheckin},#{rcheckout},
+		values(seq_reservation.nextval,#{rordernum},#{ramount},#{rcheckin},#{rcheckout},
 		#{rresname},#{rresphone},#{rresemail},#{rexbreaknum},#{rexbed},
 		#{rexperson},#{rcancel},#{mid},#{riid})
 	</insert>

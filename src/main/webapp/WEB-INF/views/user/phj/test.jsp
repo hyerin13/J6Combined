@@ -8,5 +8,6 @@
 </head>
 <body>
 테스트
+<a href="${pageContext.request.contextPath }/user/kjy/accommodations">테스트</a><br>
 </body>
 </html>

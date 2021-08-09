@@ -33,7 +33,7 @@ public class PaymentController {
 	public String fail() {
 		return "user/phj/fail";
 	}
-	
+		
 	@ResponseBody
 	@RequestMapping("/kakaopay")
 	public String kakaoPay() {

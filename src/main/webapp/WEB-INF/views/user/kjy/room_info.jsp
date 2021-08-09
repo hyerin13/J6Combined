@@ -395,14 +395,16 @@
 			 	<p class="minperson">현재&nbsp;${person}인</p>
 			 	<img src="${pageContext.request.contextPath }/${vo.reserimg}" onerror="this.style.display='none'" id="reserimg">
 			 	<!-- session에 id가 있는지 확인후 없을경우 로그인페이지로 -->
-			 	<c:choose>
+			 		<c:choose>
 			 		<c:when test="${empty sessionScope.mid }">
 			 			<input type="button" class="btn btn-primary" class="btn" value="바로예약" onclick="loginpage()">
 			 		</c:when>
 			 		<c:otherwise>
-			 			<input type="button" class="btn btn-primary" class="btn" value="바로예약" onclick="location.href='${pageContext.request.contextPath }/user/kjy/reservation?riid=${vo.riid}&startday=${startday}&endday=${endday}&ramount=${person }&sum=${vo.sum }'">
+			 			<input type="button" class="btn btn-primary" class="btn" value="예약테스트" onclick="location.href='${pageContext.request.contextPath }/phj/reservation?riid=${vo.riid}&startday=${startday}&endday=${endday}&ramount=${person }&sum=${vo.sum }'">
 			 		</c:otherwise>
 			 	</c:choose>
+			 	
+			 	
 			</div>
 		</div>
 	</c:forEach>

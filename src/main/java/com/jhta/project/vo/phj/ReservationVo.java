@@ -1,6 +1,5 @@
 package com.jhta.project.vo.phj;
 
-import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,9 +10,10 @@ import lombok.NoArgsConstructor;
 @Data
 public class ReservationVo {
 	private int rid;
+	private int rordernum;
 	private int ramount;
-	private Date rcheckin;
-	private Date rcheckout;
+	private String rcheckin;
+	private String rcheckout;
 	private String rresname;
 	private String rresphone;
 	private String rresemail;

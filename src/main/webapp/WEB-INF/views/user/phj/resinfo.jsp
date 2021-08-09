@@ -51,112 +51,109 @@
 		<jsp:include page="../jhr/header.jsp" flush="true"/>
 	</div>
 
-<form class="form-inline" >
-<div class="box">
-	<label>
-	<< 고객님의 정보를 입력해 주세요 >>
-	</label><br>
-	<br>
-	<div class="form-group ">
-	<label >
-		영문이름
-	</label>
-	<br>
-	<input id="endName" type="text" class="form-control" required><br>
-	<br>
-	<label>
-		이메일
-	</label>
-	<br>
-	<input type="text" id="email" oninput="checkEmail()" class="form-control" style="color:gray" required
-	placeholder="오탈자에 주의해 주세요" onfocus="this.placeholder=''" onblur="this.placeholder='오탈자에 주의해 주세요'"><br>
-	<br>
-	<label>
-		이메일 재입력
-	</label>
-	<br>
-	<input type="text" id="emailcheck" oninput="checkEmail()" class="form-control"><br>
-	<div id="emailOk">
-	</div>
-	<br>
-	<label>
-		전화번호(선택 사항)
-	</label>
-	<br>
-	<input type="text" class="form-control"><br>
-	<br>
-	</div>
-	<div>
-	<label>
-		거주 국가/지역<br>
+
+<form class="form-inline" id="insertOk">
+	<div class="box">
+	총금액<input type="text" name="sum" value="${sum }"><br>
+	총인원<input type="text" id="ramount" name="ramount" value="${ramount }"><br>
+	아이디<input type="text" id="mid" name="mid" value="${mid }"><br>
+	객실아이디<input type="text" id="riid" name="riid" value="${riid }"><br>
+	체크인<input type="text" id="rcheckin" name="startday" value="${startday } "><br>
+	체크아웃<input type="text" id="rcheckout" name="endday" value="${endday }"><br>
+	취소여부<input type="text" id="rcancel" name="rcancel" value="N"><br>
+	
+		<label>
+		<< 고객님의 정보를 입력해 주세요 >>
+		</label><br>
+		<br>
+		<div class="form-group ">
+		<label >
+			영문이름
+		</label>
+		<br>
+		<input id="engName" name="rresname" type="text" class="form-control" required size="70px"><br>
+		<br>
+		<label>
+			이메일
+		</label>
+		<br>
+		<input type="text"  id="email" oninput="checkEmail()" class="form-control" style="color:gray" required size="70px"
+		placeholder="오탈자에 주의해 주세요" onfocus="this.placeholder=''" onblur="this.placeholder='오탈자에 주의해 주세요'"><br>
+		<br>
+		<label>
+			이메일 재입력
+		</label>
+		<br>
+		<input type="text" name="rresemail" id="emailcheck" size="70px" oninput="checkEmail()" class="form-control"><br>
+		<div id="emailOk">
+		</div>
+		<br>
+		<label>
+			전화번호(선택 사항)
+		</label>
+		<br>
+		<input type="text" id="rresphone"name="rresphone" size="70px" class="form-control"><br>
+		<br>
+		</div>
+		<div>
+		- 조식추가 <input type="number" id="rexbreaknum" value="0"><br>
+		- 침대추가 <input type="number" id="rexbed" value="0"><br>
+		- 인원추가 <input type="number" id="rexperson" value="0"><br>
+		<br>
+		<input id="bookForSomeoneElse" name="bookForSomeoneElse" type ="checkbox">
+		<span>예약자와 투숙자가 다를 경우 클릭해서 투숙객 정보를 입력해 주세요.</span><br>
+		<div id="elseInfo">
+			
+		</div>
+		<br>
+		<label>
+			<< 특별 요청하기 >><br>
+			<span>특별 요청 사항 반영 여부는 숙소 여건에 따라 달라질 수 있습니다. 예약 완료 즉시 요청 사항을 숙소/호스트에게 전달 하겠습니다.</span><br>
+		</label>
+		<div>
+			급연/흡연 가능 객실 선택(이용 가능 여부는 여건에 따라 달라질 수 있음)<br>
+			<input type="radio" value="non-smoking"> 금연 객실
+			<input type="radio" value="smoking"> 흡연 객실<br>
+			침대 구성 선택(이용 가능 여부는 여건에 따라 달라질 수 있음)<br>
+			<input type="radio" value="onebed"> 큰 침대를 원합니다
+			<input type="radio" value="twobed"> 트윈베드를 원합니다<br>
+		</div>
+		<span>
+			특별 요청 사항 더 추가하기<br>
+		</span><br>
+		<label>
+			<< 숙소 도착 예정 시간 >><br>
+			<span>더 원활한 체크인을 위해 숙소 도착 예정 시간을 숙소 혹은 호스트에게 전달해 드립니다.</span><br>
+		</label>
 		<select>
-			<option value="212">대한민국</option>
-			<option value="198">말레이시아</option>
-			<option value="181">미국</option>
-			<option value="114">싱가포르</option>
-			<option value="107">영국</option>
-			<option value="192">인도네시아</option>
-			<option value="3">일본</option>
-			<option value="191">중국</option>
-			<option value="106">태국</option>
-			<option value="139">호주</option>
+				<option>미정</option>
+			<optgroup label="오전">
+				<option value="0-2">00:00-02:00</option>
+				<option value="2-4">02:00-04:00</option>
+				<option value="4-6">04:00-06:00</option>
+				<option value="6-8">06:00-08:00</option>
+				<option value="8-10">08:00-10:00</option>
+				<option value="10-12">10:00-12:00</option>
+			</optgroup>
+			<optgroup label="오후">
+				<option value="12-2">12:00-02:00</option>
+				<option value="2-4">02:00-04:00</option>
+				<option value="4-6">04:00-06:00</option>
+				<option value="6-8">06:00-08:00</option>
+				<option value="8-10">08:00-10:00</option>
+				<option value="10-0">10:00-00:00</option>
+			</optgroup>
 		</select>
-	</label><br>
-	<br>
-	<input id="bookForSomeoneElse" name="bookForSomeoneElse" type ="checkbox">
-	<span>예약자와 투숙자가 다를 경우 클릭해서 투숙객 정보를 입력해 주세요.</span><br>
-	<div id="elseInfo">
-		
+		<div>
+			<input type="checkbox"> 본인은 이용약관에 동의하며 18세 이상임을 확인합니다.
+		</div>
+		<div style="float:right; width:70%">
+			<span style="color:green; font-style:bold; float:right;">부담 제로 - 예약 무료 취소 가능!</span><br>
+			<input type="submit" value="마지막 단계로 이동하기" style="float:right;" id="resOk"><br>
+			<span style="color:green; font-style:bold; float:right;">즉시 예약해 이 객실과 요금을 확보하세요!</span><br>
+		</div>
+		</div>
 	</div>
-	<br>
-	<label>
-		<< 특별 요청하기 >><br>
-		<span>특별 요청 사항 반영 여부는 숙소 여건에 따라 달라질 수 있습니다. 예약 완료 즉시 요청 사항을 숙소/호스트에게 전달 하겠습니다.</span><br>
-	</label>
-	<div>
-		급연/흡연 가능 객실 선택(이용 가능 여부는 여건에 따라 달라질 수 있음)<br>
-		<input type="radio" value="non-smoking"> 금연 객실
-		<input type="radio" value="smoking"> 흡연 객실<br>
-		침대 구성 선택(이용 가능 여부는 여건에 따라 달라질 수 있음)<br>
-		<input type="radio" value="onebed"> 큰 침대를 원합니다
-		<input type="radio" value="twobed"> 트윈베드를 원합니다<br>
-	</div>
-	<span>
-		특별 요청 사항 더 추가하기<br>
-	</span><br>
-	<label>
-		<< 숙소 도착 예정 시간 >><br>
-		<span>더 원활한 체크인을 위해 숙소 도착 예정 시간을 숙소 혹은 호스트에게 전달해 드립니다.</span><br>
-	</label>
-	<select>
-			<option>미정</option>
-		<optgroup label="오전">
-			<option value="0-2">00:00-02:00</option>
-			<option value="2-4">02:00-04:00</option>
-			<option value="4-6">04:00-06:00</option>
-			<option value="6-8">06:00-08:00</option>
-			<option value="8-10">08:00-10:00</option>
-			<option value="10-12">10:00-12:00</option>
-		</optgroup>
-		<optgroup label="오후">
-			<option value="12-2">12:00-02:00</option>
-			<option value="2-4">02:00-04:00</option>
-			<option value="4-6">04:00-06:00</option>
-			<option value="6-8">06:00-08:00</option>
-			<option value="8-10">08:00-10:00</option>
-			<option value="10-0">10:00-00:00</option>
-		</optgroup>
-	</select>
-	<div>
-		<input type="checkbox"> 본인은 이용약관에 동의하며 18세 이상임을 확인합니다.
-	</div>
-	<div style="float:right; width:70%">
-		<span style="color:green; font-style:bold; float:right;">부담 제로 - 예약 무료 취소 가능!</span><br>
-		<a href="${pageContext.request.contextPath }/pay"><input type="button" value="마지막 단계로 이동하기" style="float:right;" id="resOk"></a><br>
-		<span style="color:green; font-style:bold; float:right;">즉시 예약해 이 객실과 요금을 확보하세요!</span><br>
-	</div>
-	</div>
-</div>
 </form>
 <div id="hotelInfo" class="hotel">
 	호텔정보
@@ -183,24 +180,58 @@
 			$("#emailOk").html(com).css("color","#FF0000");
 		}
 	}
-	$(function(){
-		$('#resOk').click(function(){
-			let rresname=$("#engName").val();
-			let rresemail=$("#emailcheck").val();
+	$(document).ready(function(){
+		$('#insertOk').submit(function(e){
+			e.preventDefault();
+			var rid=0;
+			var ramount=parseInt($("#ramount").val());
+			var rcheckin=parseInt($("#rcheckin").val());
+			var rcheckout=parseInt($("#rcheckout").val());
+			var rresname=$("#engName").val();
+			var rresemail=$("#emailcheck").val();
+			var rresphone=$("#rresphone").val();
+			var rexbreaknum=$("#rexbreaknum").val();
+			var rexbed=$("#rexbed").val();
+			var rexperson=$("#rexperson").val();
+			var rcancel=$("#rcancel").val();
+			var mid=$("#mid").val();
+			var riid=parseInt($("#riid").val());
+			var rordernum=0;
+			console.log("눌렸냐");
 			$.ajax({
-				url:'/project/reservation',
-				data:{"rresname":rresname,"rresemail":rresemail},
+				url:'/project/phj/insert',
+				data:JSON.stringify({"rid":rid,"rordernum":rordernum,"ramount":ramount,"rcheckin":rcheckin,"rcheckout":rcheckout,
+					"rresname":rresname,"rresphone":rresphone,"rresemail":rresemail,"rexbreaknum":rexbreaknum,
+					"rexbed":rexbed,"rexperson":rexperson,"rcancel":rcancel,"mid":mid,"riid":riid}),
 				type:"post",
 				dataType:"json",
+				contentType:'application/json',
 				success:function(data){
-					if(data.code=='예약성공'){
-						alert(data.code);
+					console.log(data);
+					if(data.code=='success'){
+						console.log(data.code);
+						location.href="user/phj/pay"; //컨트롤러 매핑주소
 					}else{
 						alert("실패");
 					}
 				}
 			})
 		})
+/*		호텔정보
+		var riid=parseInt($("#riid").val());
+		$.ajax({
+			url:"/project/accm?riid="+riid,
+			dataType:"json",
+			success:function(d){
+				let info="";
+				$(d).each(function(){
+					 info += "id:"+this.id+" pwd:"+this.pwd+" email:"+this.email+"<br>";
+				})
+				$("#showDetail").html(info);
+			}
+		})
+		
+		*/
 	})
 </script>
 </html>
