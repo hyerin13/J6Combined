@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.jhta.project.vo.hjy.PeriodVo;
 
-public interface Period_tempMapper_hjy {
+public interface Period_tempMapperHjy {
 	public int seq();
 	public List<PeriodVo> find(int aid);
 	public int insert(PeriodVo vo);

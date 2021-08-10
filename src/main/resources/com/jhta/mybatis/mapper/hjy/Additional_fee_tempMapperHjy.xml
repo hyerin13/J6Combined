@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jhta.mybatis.mapper.hjy.Additional_fee_tempMapper_hjy">
+<mapper namespace="com.jhta.mybatis.mapper.hjy.Additional_fee_tempMapperHjy">
 	<select id="seq" resultType="int">
 		select seq_additional_fee_temp.currval from dual
 	</select>

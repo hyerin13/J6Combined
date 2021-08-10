@@ -46,7 +46,7 @@
   </div>
 </div>
 <div>
-<input type="button" value="새글 작성하기">
+<button><a href="${pageContext.request.contextPath }/hjy/newPost?category=">새글 작성하기</a></button>
 </div>
 <div>
 	<c:choose>

@@ -5,11 +5,11 @@ package com.jhta.project.service.hjy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.jhta.mybatis.mapper.hjy.Additional_fee_tempMapper_hjy;
+import com.jhta.mybatis.mapper.hjy.Additional_fee_tempMapperHjy;
 import com.jhta.project.vo.hjy.Additional_feeVo;
 @Service
 public class Additional_fee_tempService_hjy {
-	@Autowired Additional_fee_tempMapper_hjy mapper;
+	@Autowired Additional_fee_tempMapperHjy mapper;
 	public int seq() {
 		return mapper.seq();
 	}

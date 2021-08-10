@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhta.mybatis.mapper.hjy.firstsearch.GetPriceMapperHjy">
+	
+	<select id="getprice" parameterType="hashmap" resultType="com.jhta.project.vo.lhjcjy.AccommodationsVolhjcjy">
+	<![CDATA[
+	SELECT g.*,ac.* FROM(
+SELECT f.*,ROW_NUMBER() OVER (PARTITION BY f.AID ORDER BY f.RIOFF asc) AS NUM  FROM(
+             SELECT e.* FROM (
+            SELECT d.RIID, d.RIROOMTYPE, d.RIROOM,d.RISERVICE,d.RISIZE,d.RIMINPER,d.RIMAXPER,d.RIPEAK,d.RISEMIPEAK,d.RIOFF,d.RIMAINIMG,d.RIEXTRAIMG1,d.RIEXTRAIMG2,d.AID, LISTAGG(d.ds,',') WITHIN GROUP (ORDER BY d.ds) AS REDAY FROM(
+            SELECT b.*
+                 , a.ds
+                    , NVL(SUM(TRANSLATE(c.RCANCEL,'N','1')),0) AS 예약인원수
+                 , b.RIROOM - NVL(SUM(TRANSLATE(c.RCANCEL,'N','1')),0) AS 예약가능인원
+              FROM (SELECT ds
+             FROM date_t
+            WHERE ds BETWEEN #{rcheckin} AND #{rcheckout}
+           ) a
+          CROSS JOIN
+             (SELECT x.*
+             FROM room_info x
+            INNER JOIN accommodations y
+            ON x.AID = y.AID
+           ) b
+           LEFT OUTER JOIN reservation c
+          ON b.RIID = c.RIID
+            AND a.ds BETWEEN c.RCHECKIN AND c.RCHECKOUT
+          GROUP BY b.RIID, b.RIROOMTYPE, b.RIROOM, b.RISERVICE, b.RISIZE, b.RIMINPER,b.RIMAXPER,b.RIPEAK,b.RISEMIPEAK,b.RIOFF,b.RIMAINIMG,b.RIEXTRAIMG1,b.RIEXTRAIMG2,b.AID,a.ds
+         HAVING b.RIROOM - NVL(SUM(TRANSLATE(c.RCANCEL,'N','1')),0) >= #{countRoom} and RIMAXPER >= #{rimaxper}
+         order by count(b.RIID) over(PARTITION BY a.ds),a.ds
+      ) d group by d.RIID, d.RIROOMTYPE, d.RIROOM,d.RISERVICE,d.RISIZE,d.RIMINPER,d.RIMAXPER,d.RIPEAK,d.RISEMIPEAK,d.RIOFF,d.RIMAINIMG,d.RIEXTRAIMG1,d.RIEXTRAIMG2,d.AID
+        ) e )f ) g INNER JOIN accommodations ac ON g.AID=ac.AID where g.NUM=1 and (aaddress like '%'||#{aaddress}||'%' or aname like '%'||#{aname}||'%')
+        ]]>
+			<foreach collection="facilities" item="arr">
+			  		and g.riservice like '%'||#{arr}||'%'
+			</foreach>
+	</select>
+	<select id="daylist" resultType="string" parameterType="hashmap">
+		SELECT LISTAGG(ds,',') WITHIN GROUP (ORDER BY ds) as DS FROM date_t WHERE ds BETWEEN #{STARTDAY} AND #{ENDDAY}
+	</select>
+</mapper>

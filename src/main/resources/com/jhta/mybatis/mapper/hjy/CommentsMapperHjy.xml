@@ -6,7 +6,10 @@
   	<select id="list" resultType="com.jhta.project.vo.hjy.CommentsVo" parameterType="int">
   		select * from
 		(select c.*,rownum rnum from 
-		(select * from comments whrere bid = #{bid} order by cref desc,cstep asc) c);
+		(select * from comments where bid = #{bid} order by cref asc,cstep asc) c)
+  	</select>
+  	<select id="find" resultType="com.jhta.project.vo.hjy.CommentsVo" parameterType="int">
+  		select * from comments where cid = #{cid}
   	</select>
   	<!-- 댓글개수 세는 쿼리 -->
   	<insert id="insert" parameterType="com.jhta.project.vo.hjy.CommentsVo">
@@ -17,7 +20,16 @@
   		insert into comments values
   		(seq_comments.nextval,#{ccontent},sysdate,#{cref},#{cstep},#{clev},#{bid},#{mid})
   	</insert>
-  	<update id="update" parameterType="int">
-  		update comments set cstep = cstep+1 where cstep>${cstep}
+  	<update id="update" parameterType="hashmap">
+  		update comments set cstep = cstep+1 where cstep>=${cstep} and cid not in (#{cid})
   	</update>
+  	<update id="upcateCcontent" parameterType="hashmap">
+  		update comments set ccontent=#{ccontent} where cid=#{cid} 
+  	</update>
+  	<delete id="deleteComment" parameterType="int">
+  		delete comments where cref=#{cref} and clev>#{clev}
+  	</delete>
+  	<select id="seq" resultType="int">
+  		select seq_comments.currval from dual 
+  	</select>
   </mapper>

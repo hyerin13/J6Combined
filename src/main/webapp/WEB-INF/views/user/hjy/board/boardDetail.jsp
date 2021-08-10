@@ -178,6 +178,10 @@ body .no-padding {
 			<th>작성일</th>
 			<td>${vo.brdate }</td>
 		</tr>
+		<tr>
+			<th>내용</th>
+			<td>${vo.bcontent }</td>
+		</tr>
 	</table>
 	<br>
 
@@ -195,9 +199,7 @@ body .no-padding {
 		</div>
 		<br>
 		<hr>
-		<div id="cmtMain">
-			<div id="cmt"></div>
-		</div>
+		<div id="cmt"></div>
 		<!-- 
 		<div class="writeForm">
 			<textarea id="cmtComment" rows="3" cols="50"></textarea>
@@ -215,16 +217,13 @@ body .no-padding {
 			</div>
 			<!-- Widget Area -->
 		</div>
-		<div id="">
-		
-		</div>
 		<script type="text/javascript">
 			$(document).ready(function() {
 				list();
 				$("#btnAdd").click(function(){
 					$.ajax({
 						url:"${pageContext.request.contextPath }/hjy/commentInsert",
-						data:{"ccontent":$("#ccontentText").val(),"bid":${vo.bid}},
+						data:{"ccontent":$("#ccontentText").val(),"bid":${vo.bid},"mid":"${id}"},
 						type:"post",
 						dataType:"json",
 						success:function(data){
@@ -238,7 +237,6 @@ body .no-padding {
 					$("#ccontentText").val("")
 				});
 			});
-			var html = "";
 			function list(){
 				$.ajax({
 					url:"${pageContext.request.contextPath }/hjy/commentList",
@@ -247,24 +245,30 @@ body .no-padding {
 					dataType:"json",
 					success:function(data){
 						$("#cmt").empty();
-						html +="<ul>";
+						let html ="<ul>";
 						for (var i = 0; i < data.list.length; i++) {
 							html +="<li class='row' id='cmt"+i+"'>";
-							html +="<div>";
 							if(data.list[i].clev>0){
 								for (var j = 0; j < data.list[i].clev; j++) {
-									html += "&nbsp;&nbsp";
+									html += "&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp";
 								}
-								html +="[re]";
+								html +="<img src='https://img.echosting.cafe24.com/design/skin/admin/ko_KR/ico_re.gif' style='object-fit: none;'>";
 							}
+							html +="<div>";
 							html +="<strong> <img src=''> <span>"+data.list[i].mid+"</span> ";
 							let crdate = dateFormat(data.list[i].crdate);
 							html +="<span style='color: gray;'>("+crdate+")</span> </strong>";
 							html +="<div>";
-							html +="<span id='comment'>"+data.list[i].ccontent+"</span>";
+							html +="<span>"+data.list[i].ccontent+"</span>";
 							html +="</div>";
 							html +="<div>";
-							html +="<a href='javascript:addForm()' id='addBtn'>답글</a>";
+							html +="<a href='javascript:commentPlus("+data.list[i].cid+","+i+")'>답글</a>";
+							if(data.list[i].mid=='${id}'){
+								html +="<span>|</span><a href='javascript:updateForm("+data.list[i].cid+","+i+")'>수정</a>";
+								html +="<span>|</span><a href='javascript:deleteForm("+data.list[i].cid+")'>삭제</a>";
+							}
+							html +="</div>";
+							html +="<div id='cmtcmt"+i+"'>";
 							html +="</div>";
 							html +="</div>";
 							html +="</li>";
@@ -274,11 +278,10 @@ body .no-padding {
 					}
 				})
 			}
-			function commentPlus(vo){
-				<%--javascript:commentPlus("+data.list[i]+")'--%>
+			function deleteForm(cid){
 				$.ajax({
-					url:"${pageContext.request.contextPath }/hjy/commentPlus",
-					data:{"vo":vo},
+					url:"${pageContext.request.contextPath }/hjy/deleteForm",
+					data:{"cid":cid},
 					type:"post",
 					dataType:"json",
 					success:function(data){
@@ -290,6 +293,99 @@ body .no-padding {
 					}
 				});
 			}
+			function updateForm(cid, num){
+					$.ajax({
+						url:"${pageContext.request.contextPath }/hjy/findComment",
+						data:{"cid":cid},
+						type:"post",
+						dataType:"json",
+						success:function(data){
+							let updateHtml = "";
+							if(data.clev>0){
+								for (var j = 0; j < data.vo.clev; j++) {
+									updateHtml += "&nbsp;&nbsp";
+								}
+								updateHtml +="[re]";
+							}
+							updateHtml +="<div>";
+							updateHtml +="<strong> <img src=''> <span>"+data.vo.mid+"</span> ";
+							let crdate = dateFormat(data.vo.crdate);
+							updateHtml +="<span style='color: gray;'>("+crdate+")</span> </strong>";
+							updateHtml +="<div>";
+							updateHtml +="<input type='text' value='"+data.vo.ccontent+"' id='ccontent"+num+"'>";
+							updateHtml +="</div>";
+							updateHtml +="<div>";
+							updateHtml +="<a href='javascript:list()'>취소</a>";
+							updateHtml +="<span>|</span><a href='javascript:updatedb("+cid+","+num+")'>확인</a>";
+							updateHtml +="</div>";
+							updateHtml +="</div>";
+							$("#cmt"+num).html(updateHtml);
+						}
+					});
+			}
+			function updatedb(cid,num){
+				$.ajax({
+					url:"${pageContext.request.contextPath }/hjy/updateComment",
+					data:{"cid":cid,"ccontent":$("#ccontent"+num).val()},
+					type:"post",
+					dataType:"json",
+					success:function(data){
+						if(data.code=='success'){
+							list();
+						}else{
+							alert(data.code)
+						}
+					}
+				});
+			}
+			
+			function commentPlusDb(cid,num){
+				$.ajax({
+					url:"${pageContext.request.contextPath }/hjy/updateCommentPlus",
+					data:{"cid":cid,"ccontent":$("#cmtcmttext"+num).val()},
+					type:"post",
+					dataType:"json",
+					success:function(data){
+						if(data.code=='success'){
+							list();
+						}else{
+							alert(data.code)
+						}
+					}
+				});
+			}
+
+			function commentPlus(cid,num){
+				$.ajax({
+					url:"${pageContext.request.contextPath }/hjy/findComment",
+					data:{"cid":cid},
+					type:"post",
+					dataType:"json",
+					success:function(data){
+						let cmtHtml = "";
+						if(data.clev>0){
+							for (var j = 0; j < data.vo.clev; j++) {
+								cmtHtml += "&nbsp;&nbsp";
+							}
+							cmtHtml +="[re]";
+						}
+						cmtHtml +="<div>";
+						cmtHtml +="<strong> <img src=''> <span>"+data.vo.mid+"</span> ";
+						let crdate = dateFormat(data.vo.crdate);
+						cmtHtml +="<span style='color: gray;'>("+crdate+")</span> </strong>";
+						cmtHtml +="<div>";
+						cmtHtml +="<input type='text' value='"+data.vo.ccontent+"' id='cmtcmttext"+num+"'>";
+						cmtHtml +="</div>";
+						cmtHtml +="<div>";
+						cmtHtml +="<a href='javascript:list()'>취소</a>";
+						cmtHtml +="<span>|</span><a href='javascript:commentPlusDb("+cid+","+num+")'>확인</a>";
+						cmtHtml +="</div>";
+						cmtHtml +="</div>";
+						$("#cmtcmt"+num).append(cmtHtml);
+					}
+				});
+			}
+			
 			function dateFormat(date) {
 				var dt = new Date(date.production_date);
 		        let month = dt.getMonth() + 1;

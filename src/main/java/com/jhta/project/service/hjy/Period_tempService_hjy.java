@@ -6,14 +6,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.jhta.mybatis.mapper.hjy.PeriodMapper_hjy;
-import com.jhta.mybatis.mapper.hjy.Period_tempMapper_hjy;
+import com.jhta.mybatis.mapper.hjy.PeriodMapperHjy;
+import com.jhta.mybatis.mapper.hjy.Period_tempMapperHjy;
 import com.jhta.project.vo.hjy.Additional_feeVo;
 import com.jhta.project.vo.hjy.PeriodVo;
 
 @Service
 public class Period_tempService_hjy {
-	@Autowired Period_tempMapper_hjy mapper;
+	@Autowired Period_tempMapperHjy mapper;
 	public int seq() {
 		return mapper.seq();
 	}

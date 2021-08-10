@@ -3,6 +3,8 @@ package com.jhta.project.controller.hjy;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.mail.Session;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.ui.Model;
@@ -16,6 +18,13 @@ import com.jhta.project.vo.hjy.CommentsVo;
 public class CommentsAjaxControllerHjy {
 	@Autowired
 	CommentsServiceHjy commentsService;
+	
+	/**
+	 * commList
+	 * 댓글목록 불러오기
+	 * @param bid
+	 * @return list
+	 */
 	@RequestMapping(value="hjy/commentList", produces= {MediaType.APPLICATION_JSON_VALUE})
 	public HashMap<String, Object> commentList(int bid) {
 		HashMap<String, Object> map = new HashMap<String,Object>();
@@ -27,12 +36,22 @@ public class CommentsAjaxControllerHjy {
 		}
 		return map;
 	}
+	
+	/**
+	 * CommentInsert
+	 * 댓글등록하기
+	 * @param model
+	 * @param vo
+	 * @param mid
+	 * @return 성공,실패여부
+	 */
 	@RequestMapping(value="hjy/commentInsert", produces= {MediaType.APPLICATION_JSON_VALUE})
-	public HashMap<String, Object> list(Model model, CommentsVo vo) {
+	public HashMap<String, Object> CommentInsert(Model model, CommentsVo vo,String mid) {
 		HashMap<String, Object> map = new HashMap<String,Object>();
 		try {
 			vo.setClev(0);
 			vo.setCstep(0);
+			vo.setMid(mid);
 			commentsService.insert(vo);
 			map.put("code", "success");
 		}catch(Exception e) {
@@ -41,16 +60,91 @@ public class CommentsAjaxControllerHjy {
 		}
 		return map;
 	}
-	@RequestMapping(value="hjy/commentPlus", produces= {MediaType.APPLICATION_JSON_VALUE})
-	public HashMap<String, Object> commentPlus(CommentsVo vo) {
+	
+	/**
+	 * findComment
+	 * int cid에 해당하는 글에 대한 정보(vo) 리턴
+	 * @param cid
+	 * @return vo
+	 */
+	@RequestMapping(value="hjy/findComment", produces= {MediaType.APPLICATION_JSON_VALUE})
+	public HashMap<String, Object> findComment(int cid) {
 		HashMap<String, Object> map = new HashMap<String,Object>();
+			CommentsVo vo = commentsService.find(cid);
+			map.put("vo", vo);
 		try {
-			vo.setClev(vo.getClev()+1);
-			commentsService.insertPlus(vo);
-			commentsService.update(vo.getCstep());
-			vo.setCstep(vo.getCstep()+1);
 		}catch(Exception e) {
 			e.printStackTrace();
+		}
+		return map;
+	}
+	
+	/**
+	 * updateComment
+	 * 수정한 댓글 db에 update
+	 * @param cid
+	 * @param ccontent
+	 * @return 성공,실패여부
+	 */
+	@RequestMapping(value="hjy/updateComment", produces= {MediaType.APPLICATION_JSON_VALUE})
+	public HashMap<String, Object> updateComment(int cid,String ccontent) {
+		HashMap<String, Object> map = new HashMap<String,Object>();
+		map.put("cid", cid);
+		map.put("ccontent", ccontent);
+		try {
+			commentsService.upcateCcontent(map);
+			map.put("code", "success");
+		}catch(Exception e) {
+			e.printStackTrace();
+			map.put("code", "fail");
+		}
+		return map;
+	}
+	
+	/**
+	 * updateCommentPlus
+	 * 댓글의 댓글 db에 저장하기
+	 * @param cid
+	 * @param ccontent
+	 * @return 성공,실패여부
+	 */
+	@RequestMapping(value="hjy/updateCommentPlus", produces= {MediaType.APPLICATION_JSON_VALUE})
+	public HashMap<String, Object> updateCommentPlus(int cid,String ccontent) {
+		HashMap<String, Object> map = new HashMap<String,Object>();
+		try {
+			CommentsVo vo = commentsService.find(cid);
+			vo.setClev(vo.getClev()+1);
+			vo.setCstep(vo.getCstep()+1);
+			vo.setCcontent(ccontent);
+			commentsService.insertPlus(vo);
+			map.put("cstep", vo.getCstep());
+			map.put("cid", commentsService.seq());
+			commentsService.update(map);
+			map.put("code", "success");
+		}catch(Exception e) {
+			e.printStackTrace();
+			map.put("code", "fail");
+		}
+		return map;
+	}
+	
+	/**
+	 * 댓글 삭제하기
+	 * deleteForm
+	 * @param cid
+	 * @return 성공,실패여부
+	 */
+	@RequestMapping(value="hjy/deleteForm", produces= {MediaType.APPLICATION_JSON_VALUE})
+	public HashMap<String, Object> deleteForm(int cid) {
+		HashMap<String, Object> map = new HashMap<String,Object>();
+		try {
+			CommentsVo vo = commentsService.find(cid);
+			commentsService.deleteComment(vo.getCref());
+			map.put("code", "success");
+
+		}catch(Exception e) {
+			e.printStackTrace();
+			map.put("code", "fail");
 		}
 		return map;
 	}

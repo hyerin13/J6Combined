@@ -72,6 +72,11 @@ public class HotelManageControllerHjy {
 		return "user/hjy/hotelManage/form";
 	}
 
+	/**
+	 * hotelAllow
+	 * 메일에서 등록버튼 눌렀을때 수행
+	 * @param aid
+	 */
 	@GetMapping("hjy/ok")
 	public void hotelAllow(String aid) {
 //		찐db에 저장하기
@@ -156,6 +161,11 @@ public class HotelManageControllerHjy {
 
 	}
 
+	/**
+	 * hotelRefusal
+	 * 메일에서 거부 눌렀을때 수행
+	 * @param aid
+	 */
 	@GetMapping("hjy/no")
 	public void hotelRefusal(String aid) {
 		// 거부
@@ -206,14 +216,25 @@ public class HotelManageControllerHjy {
 		accommodations_tempservice.delete(Integer.parseInt(aid));
 	}
 
+	/**
+	 * hotelRequest
+	 * 호텔등록폼에서 등록버튼 눌렀을때 수행.
+	 * tempdb, tempimg폴더에 저장하기,메일보내기메소드 포함.
+	 * @param accommodationsVo
+	 * @param additional_feeVoList
+	 * @param periodVoList
+	 * @param roomInfoVoList
+	 * @param mtfRequest
+	 * @return
+	 */
 	@RequestMapping(value = "hjy/hotelreq", method = RequestMethod.POST)
 	public String hotelRequest(AccommodationsVo accommodationsVo, Additional_feeVo additional_feeVoList,
 			PeriodVo periodVoList, Room_InfoVo roomInfoVoList, MultipartHttpServletRequest mtfRequest) {
-//		 MultipartFile file1,MultipartFile rfilemain,MultipartFile rfileextra1,MultipartFile rfileextra2
+		
 		// temp 테이블에 저장하기
 		// 다중파일 가져와서 저장하기
-
 		List<MultipartFile> fileList = mtfRequest.getFiles("file");
+		
 		// 다중파일 vo에 세팅하기
 		fileList.get(0).getOriginalFilename();
 
@@ -318,6 +339,13 @@ public class HotelManageControllerHjy {
 		return "user/hjy/hotelManage/result";
 	}
 
+	/**
+	 * 메일보내기
+	 * @param accommodationsVo
+	 * @param additional_feeVoList
+	 * @param periodVoList
+	 * @param roomInfoVoList
+	 */
 	public static void sendMail(AccommodationsVo accommodationsVo, Additional_feeVo additional_feeVoList,
 			PeriodVo periodVoList, Room_InfoVo roomInfoVoList) {
 

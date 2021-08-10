@@ -63,6 +63,12 @@ public class BoardControllerHjy {
 		model.addAttribute("prevVo", prevVo);
 		return "user/hjy/board/boardDetail";
 	}
+	
+	/**
+	 * 로그인 진입시 사용
+	 * @param session
+	 * @return
+	 */
 	@GetMapping("hjy/logintest")
 	public String loginTest(HttpSession session) {
 		return "user/hjy/board/login";
