@@ -167,6 +167,7 @@
 					console.log(data);
 					if(data.code=='success'){
 						console.log(data.code);
+						location.href="/project/approval";
 					}else{
 						alert("실패");
 					}
