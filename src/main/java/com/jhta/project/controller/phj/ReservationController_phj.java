@@ -37,9 +37,32 @@ public class ReservationController_phj {
 		mv.addObject("mid",mid);
 		return mv;
 	}
+	@RequestMapping(value="phj/reservationOk",method=RequestMethod.GET)
+	public ModelAndView ReservationInsert(ReservationVo vo,String sum) {
+		ModelAndView mv=new ModelAndView("user/phj/pay");
+		mv.addObject("sum", sum);
+		mv.addObject("rid", vo.getRid());
+		mv.addObject("ramount", vo.getRamount());
+		mv.addObject("rcheckin", vo.getRcheckin());
+		mv.addObject("rcheckout", vo.getRcheckout());
+		mv.addObject("rresname", vo.getRresname());
+		mv.addObject("rresemail", vo.getRresemail());
+		mv.addObject("rresphone", vo.getRresphone());
+		mv.addObject("rexbreaknum", vo.getRexbreaknum());
+		mv.addObject("rexbed",vo.getRexbed());
+		mv.addObject("rexperson", vo.getRexperson());
+		mv.addObject("rcancel", vo.getRcancel());
+		mv.addObject("mid", vo.getMid());
+		mv.addObject("riid", vo.getRiid());
+		mv.addObject("rordernum", vo.getRordernum());
+		mv.addObject("code","success");
+		mv.addObject("code","fail");
+		return mv;
+	}
+	
 	@RequestMapping(value="phj/insert",produces = {MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody HashMap<String, String> insert(
-			@RequestBody ReservationVo vo,Model model) {
+			@RequestBody ReservationVo vo) {
 		HashMap<String, String> map=new HashMap<String, String>();
 		try {
 			service.insertRes(vo);

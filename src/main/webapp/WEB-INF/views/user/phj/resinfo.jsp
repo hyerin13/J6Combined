@@ -52,14 +52,14 @@
 	</div>
 
 
-<form class="form-inline" id="insertOk">
+<form class="form-inline" id="insertOk" action="${pageContext.request.contextPath }/phj/reservationOk">
 	<div class="box">
 	총금액<input type="text" name="sum" value="${sum }"><br>
 	총인원<input type="text" id="ramount" name="ramount" value="${ramount }"><br>
 	아이디<input type="text" id="mid" name="mid" value="${mid }"><br>
 	객실아이디<input type="text" id="riid" name="riid" value="${riid }"><br>
-	체크인<input type="text" id="rcheckin" name="startday" value="${startday } "><br>
-	체크아웃<input type="text" id="rcheckout" name="endday" value="${endday }"><br>
+	체크인<input type="text" id="rcheckin" name="rcheckin" value="${startday } "><br>
+	체크아웃<input type="text" id="rcheckout" name="rcheckout" value="${endday }"><br>
 	취소여부<input type="text" id="rcancel" name="rcancel" value="N"><br>
 	
 		<label>
@@ -77,7 +77,7 @@
 			이메일
 		</label>
 		<br>
-		<input type="text"  id="email" oninput="checkEmail()" class="form-control" style="color:gray" required size="70px"
+		<input type="text" id="email" oninput="checkEmail()" class="form-control" style="color:gray" required size="70px"
 		placeholder="오탈자에 주의해 주세요" onfocus="this.placeholder=''" onblur="this.placeholder='오탈자에 주의해 주세요'"><br>
 		<br>
 		<label>
@@ -180,7 +180,7 @@
 			$("#emailOk").html(com).css("color","#FF0000");
 		}
 	}
-	$(document).ready(function(){
+/*	$(document).ready(function(){
 		$('#insertOk').submit(function(e){
 			e.preventDefault();
 			var rid=0;
@@ -199,7 +199,7 @@
 			var rordernum=0;
 			console.log("눌렸냐");
 			$.ajax({
-				url:'/project/phj/insert',
+				url:'/project/phj/reservation',
 				data:JSON.stringify({"rid":rid,"rordernum":rordernum,"ramount":ramount,"rcheckin":rcheckin,"rcheckout":rcheckout,
 					"rresname":rresname,"rresphone":rresphone,"rresemail":rresemail,"rexbreaknum":rexbreaknum,
 					"rexbed":rexbed,"rexperson":rexperson,"rcancel":rcancel,"mid":mid,"riid":riid}),
@@ -210,14 +210,13 @@
 					console.log(data);
 					if(data.code=='success'){
 						console.log(data.code);
-						location.href="user/phj/pay"; //컨트롤러 매핑주소
 					}else{
 						alert("실패");
 					}
 				}
 			})
 		})
-/*		호텔정보
+		호텔정보
 		var riid=parseInt($("#riid").val());
 		$.ajax({
 			url:"/project/accm?riid="+riid,
@@ -231,7 +230,7 @@
 			}
 		})
 		
-		*/
-	})
+		
+	})*/
 </script>
 </html>

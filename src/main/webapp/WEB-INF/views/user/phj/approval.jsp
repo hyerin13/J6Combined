@@ -7,6 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<div class="header">
+		<jsp:include page="../jhr/header.jsp" flush="true"/>
+	</div>
+		결제완료!
+	<div class="footer" style="clear:both;">
+		<jsp:include page="../jhr/footer.jsp" flush="true"/>
+	</div>
 </body>
 </html>
