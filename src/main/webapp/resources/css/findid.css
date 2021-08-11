@@ -165,6 +165,10 @@ body {
     border-radius:2px;
 }
 
+.point_color {
+	color: #ee1c25;
+	margin-right:3px;
+}
 .errmsg {
 	display:block;
     box-sizing:border-box;
