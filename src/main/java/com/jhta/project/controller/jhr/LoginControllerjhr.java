@@ -28,6 +28,7 @@ public class LoginControllerjhr {
 		MembersVo vo=service.isMember(map);
 		if(vo!=null) { //회원인 경우 세션에 아이디 담기
 			session.setAttribute("mid", mid);
+			session.setAttribute("mpw", mpw);
 			return "redirect:/";
 		} else {
 			model.addAttribute("errMsg", "아이디 또는 비밀번호가 맞지 않습니다.");

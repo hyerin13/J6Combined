@@ -34,7 +34,7 @@
 			<div class="nav_account">
 				<div class="nav_account_container">
 					<div class="nav_mypage">
-						<a href="#">마이트립</a>
+						<a href="${pageContext.request.contextPath }/user/kjy/mypage">마이트립</a>
 					</div>
 					<div class="nav_login">
 				 	<c:choose>
