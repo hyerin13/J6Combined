@@ -125,7 +125,7 @@ public class FirstSearchControllerHjy {
 			e.printStackTrace();
 		}
 
-		mv.setViewName("user/hjy/firstsearch/fileSearch2");
+		mv.setViewName("user/hjy/firstsearch/firstSearch2");
 		return mv;
 	}
 }

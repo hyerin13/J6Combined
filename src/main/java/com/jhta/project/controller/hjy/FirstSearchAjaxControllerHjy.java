@@ -52,15 +52,16 @@ public class FirstSearchAjaxControllerHjy {
 	
 	@RequestMapping(value = "hjy/firstsearchajax", method = RequestMethod.POST)
 	public HashMap<String, Object> search(String searchHotel, String checkin, String checkout, String countPeople, String countRoom,
-			@RequestParam(value="facilities") String[] facilities) {
-
+			@RequestParam(value="facilities", required = false) String[] facilities) {
 		logger.debug(searchHotel);
 		logger.debug(checkin);
 		logger.debug(checkout);
 		logger.debug(countPeople);
 		logger.debug(countRoom);
-		for (int i = 0; i < facilities.length; i++) {
-			logger.debug(facilities[i]);
+		if(facilities !=null) {
+			for (int i = 0; i < facilities.length; i++) {
+				logger.debug(facilities[i]);
+			}
 		}
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		HashMap<String, Object> hs = new HashMap<String, Object>();
@@ -68,7 +69,6 @@ public class FirstSearchAjaxControllerHjy {
 			DateFormat df1=new SimpleDateFormat("yyyyMMdd");
 			String checkin1=checkin.replace("-", "");
 			String checkout1=checkout.replace("-", "");
-			
 			hs.put("facilities", facilities);
 			hs.put("aaddress", searchHotel);
 			hs.put("aname", searchHotel);
@@ -145,4 +145,5 @@ public class FirstSearchAjaxControllerHjy {
 		}
 		return result;
 	}
+	
 }

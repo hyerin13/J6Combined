@@ -185,9 +185,10 @@ button:hover {
 				<input type="text" id="find" name="aaddress"> <input
 					type="button" value="주소 검색" onclick="go()">
 			</div>
-			<div id="map" style="width: 100%; height: 400px;"></div> <input
-			type="hidden" name="axcoordi" id="xcoordi"> <input
-			type="hidden" name="aycoordi" id="ycoordi">
+			<div id="map" style="width: 100%; height: 400px;">
+				<input type="hidden" name="axcoordi" id="xcoordi"> 
+				<input type="hidden" name="aycoordi" id="ycoordi">
+			</div> 
 			<div class="line-box">
 				<div class="line"></div>
 			</div>
@@ -465,6 +466,7 @@ $(document).ready(function(){
 	
 var xcoordi; 
 var ycoordi; 
+
 var map = new naver.maps.Map("map", {
 	  center: new naver.maps.LatLng(37.3595316, 127.1052133),
 	  zoom: 15,

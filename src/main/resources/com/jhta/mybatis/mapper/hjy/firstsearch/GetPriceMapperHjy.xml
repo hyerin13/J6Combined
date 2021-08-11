@@ -33,9 +33,11 @@ SELECT f.*,ROW_NUMBER() OVER (PARTITION BY f.AID ORDER BY f.RIOFF asc) AS NUM  F
       ) d group by d.RIID, d.RIROOMTYPE, d.RIROOM,d.RISERVICE,d.RISIZE,d.RIMINPER,d.RIMAXPER,d.RIPEAK,d.RISEMIPEAK,d.RIOFF,d.RIMAINIMG,d.RIEXTRAIMG1,d.RIEXTRAIMG2,d.AID
         ) e )f ) g INNER JOIN accommodations ac ON g.AID=ac.AID where g.NUM=1 and (aaddress like '%'||#{aaddress}||'%' or aname like '%'||#{aname}||'%')
         ]]>
+        <if test="facilities!=null">
 			<foreach collection="facilities" item="arr">
 			  		and g.riservice like '%'||#{arr}||'%'
 			</foreach>
+        </if>
 	</select>
 	<select id="daylist" resultType="string" parameterType="hashmap">
 		SELECT LISTAGG(ds,',') WITHIN GROUP (ORDER BY ds) as DS FROM date_t WHERE ds BETWEEN #{STARTDAY} AND #{ENDDAY}
