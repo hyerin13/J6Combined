@@ -193,7 +193,7 @@ a {
 									      <div class="card-body">
 									      		<ul class="list-unstyled">
 													<li>
-														<button id="gomap">지도로 보기</button>
+														<button id="gomap">지도로 보기.</button>
 													</li>
 												</ul>
 									      </div>
