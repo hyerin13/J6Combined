@@ -22,6 +22,7 @@ import com.jhta.project.service.lhjcjy.FirstSearchServicelhjcjy;
 import com.jhta.project.service.lhjcjy.GetPriceServicelhjcjy;
 import com.jhta.project.service.lhjcjy.PeriodServicelhjcjy;
 import com.jhta.project.vo.lhjcjy.AccommodationsVolhjcjy;
+import com.jhta.project.vo.lhjcjy.RangeSlider_GetMinMaxVolhjcjy;
 import com.jhta.project.vo.lhjcjy.SearchVolhjcjy;
 
 
@@ -112,6 +113,8 @@ public class FirstSearchControllerlhjcjy {
 				String finalsum=formatt.format(sum);
 				vo.setSUM(finalsum); //가격
 			}
+			RangeSlider_GetMinMaxVolhjcjy minmax=service.rangeSlider_getMinMax(hs);
+			mv.addObject("minmax", minmax);
 			mv.addObject("list", list);
 		}catch(Exception e) {
 			e.printStackTrace();

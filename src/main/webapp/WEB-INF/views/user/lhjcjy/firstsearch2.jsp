@@ -10,33 +10,6 @@
 body {
     padding-top: 50px;
 }
-.dropdown.dropdown-lg .dropdown-menu {
-    margin-top: -1px;
-    padding: 6px 20px;
-}
-.input-group-btn .btn-group {
-    display: flex !important;
-}
-.btn-group .btn {
-    border-radius: 0;
-    margin-left: -1px;
-}
-.btn-group .btn:last-child {
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
-}
-.btn-group .form-horizontal .btn[type="submit"] {
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-}
-.form-horizontal .form-group {
-    margin-left: 0;
-    margin-right: 0;
-}
-.form-group .form-control:last-child {
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-}
 
 @media screen and (min-width: 768px) {
     #adv-search {
@@ -56,7 +29,7 @@ body {
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-
+<link rel="stylesheet" href="style.css">
 <!------ Include the above in your HEAD tag ---------->
 <script type="text/javascript">
 function collectInfo(){
@@ -65,19 +38,11 @@ function collectInfo(){
 	console.log(countRoom)
 	$("#showInfo").val("객실"+countRoom+"인원"+countPeople);
 }
+//자동완성 - 지윤
 $(function(){
-	/*
-	function collectInfo(){
-		let countRoom=$("#countRoom").val();
-		let countPeople=$("#countPeople").val();
-		console.log(countRoom)
-		$("#showInfo").val("객실"+countRoom+"인원"+countPeople);
-	}
-	*/
 	$("#searchHotel").autocomplete({
 		source:function(request,response){
 			let aname=$("#searchHotel").val();
-			//console.log(aname);
 			$.ajax({
 				type:'get',
 				url:"/project/lhjcjy/ajax/auto",
@@ -120,10 +85,150 @@ $(function(){
         .append( "<div>" + item.value +"</div>" )    //여기에다가 원하는 모양의 HTML을 만들면 UI가 원하는 모양으로 변함.
         .appendTo( ul );
  	};
+ 	
+ 	//가격순 정렬 - 지윤
+ 	$("#sort").change(function(){
+		//alert($("#sort").val());
+		if(this.value=="price"){
+			let searchHotel=$("#searchHotel").val();
+			let checkin=$("input[name=checkin]").val();
+			let checkout=$("input[name=checkout]").val();
+			let countPeople=$("input[name=countPeople]").val();
+			let countRoom=$("input[name=countRoom]").val();
+			$("#accommList").empty(); //얘도 안되는듯?
+			console.log(checkin);
+			$.ajax({
+				url:"/project/lhjcjy/sortbyprice",
+				dataType:"json",
+				type:"get",
+				data:{"searchHotel":searchHotel,"checkin":checkin, "checkout":checkout,"countPeople":countPeople,"countRoom":countRoom },
+				success:function(data){
+					//alert("ㅎㅎㅎㅎㅎ");
+					$(data.list).each(function(i,d){
+						let amainimg=d.amainimg;
+						let aname=d.aname;
+						let aaddress=d.aaddress;
+						let star=d.star;
+						let amountSum=d.amountSum;
+						//alert(aname); //여기까지 넘어옴
+						let li="<div class='accommList'>";
+						li += "<div class='eachList'>";
+						li += "<div class='card'>";
+						li += "<div class='card-body'>";
+						li += "<div class='row'>";
+						li += "<div class='col-md-3'>";
+						li += "<img src='${pageContext.request.contextPath }/resources/img/"+amainimg+"' width='300' height='250'>";
+						li += "</div>";
+						li += "<div class='col-md-7'>";
+						li += "<h3>"+aname+"</h3>";
+						li += "<small>"+aaddress+"</small>";
+						li += "</div>";
+						li += "<div class='col-md-2'>";
+						if(star==0){
+							li += "<h3> </h3>";
+						}else{
+							li += "<h3>"+star+"</h3>";
+						}
+						li += "<h5>"+amountSum+"원</h5>";
+						li += "</div>";
+						li += "</div>";
+						li += "</div>";
+						li += "</div>";
+						li += "</div>";
+						li += "</div>";
+						$("#accommList").append(li);
+					})
+				}
+			})
+		}
+	})
+
+	   //가격 range slider -지윤
+        $('#slider').slider({
+            orientation:'horizontal',
+             min:${minmax.minSum},
+             max:${minmax.maxSum},
+             step:10000,
+             range:true,
+             values:[${minmax.minSum},${minmax.maxSum}],
+             
+             create:function(e, ui){ //text 박스에 value값 나타냄
+                 var values = $(this).slider('option','values');
+                 $('#count_min').val(values[0]);
+                 $('#count_max').val(values[1]);
+             },
+             change:function(e,ui){ //value 가 change 되었을 때
+                 $('#count_min').val(ui.values[0]);
+                 $('#count_max').val(ui.values[1]);
+                 
+                let searchHotel=$("#searchHotel").val();
+         		let checkin=$("input[name=checkin]").val();
+         		let checkout=$("input[name=checkout]").val();
+         		let countPeople=$("input[name=countPeople]").val();
+         		let countRoom=$("input[name=countRoom]").val();
+         		let minprice=$("#count_min").val();
+         		let maxprice=$("#count_max").val();
+         		alert(minprice+maxprice);
+         		$("#accommList").empty();
+         				
+         		$.ajax({
+        			url:"/project/lhjcjy/rangeslider",
+        			dataType:"json",
+        			type:"get",
+        			data:{"searchHotel":searchHotel,"checkin":checkin, "checkout":checkout,"countPeople":countPeople,"countRoom":countRoom, "minprice":minprice, "maxprice":maxprice },
+        			success:function(data){
+        				console.log("1");
+        				$(data.list).each(function(i,d){
+        					console.log("2");
+        					let amainimg=d.amainimg;
+        					let aname=d.aname;
+        					let aaddress=d.aaddress;
+        					let star=d.star;
+        					let amountSum=d.amountSum;
+        					console.log(amountSum);
+        					let li="<div class='accommList'>";
+        					li += "<div class='eachList'>";
+        					li += "<div class='card'>";
+        					li += "<div class='card-body'>";
+        					li += "<div class='row'>";
+        					li += "<div class='col-md-3'>";
+        					li += "<img src='${pageContext.request.contextPath }/resources/img/"+amainimg+"' width='300' height='250'>";
+        					li += "</div>";
+        					console.log("!!!!!!");
+        					li += "<div class='col-md-7'>";
+        					li += "<h3>"+aname+"</h3>";
+        					li += "<small>"+aaddress+"</small>";
+        					li += "</div>";
+        					li += "<div class='col-md-2'>";
+        					if(star==0){
+        						li += "<h3> </h3>";
+        					}else{
+        						li += "<h3>"+star+"</h3>";
+        					}
+        					li += "<h5>"+amountSum+"원</h5>";
+        					li += "</div>";
+        					li += "</div>";
+        					li += "</div>";
+        					li += "</div>";
+        					li += "</div>";
+        					li += "</div>";
+        					$("#accommList").append(li);
+        					console.log("3");
+        				})
+        			}
+        		})
+                 
+             }
+         });
 });
 </script>
 </head>
 <body>
+	<form>
+		<input id="count_min" type="text" size="10" class="price-range-field" />
+		~ <input id="count_max" type="text" size="10" class="price-range-field" />
+		<div id="slider"></div>
+	</form>
 <form method="post" action="${pageContext.request.contextPath }/lhjcjy/firstsearch">
 	<div>
 	호텔명 or 지역
@@ -143,7 +248,12 @@ $(function(){
 	<input type="submit" value="검색" id="search">
 	</div>
 </form>
-<div class="accommList">
+	<select name="sort" id="sort">
+		<option value="all">전체</option>
+		<option value="price">가격</option>
+		<option value="star">평점</option>
+	</select>
+<div class="accommList" id="accommList">
 	<c:forEach var="vo" items="${list }">
 		<div class="eachList">
 		    <div class="card">
@@ -158,7 +268,8 @@ $(function(){
 		                    <p><small>지도보기?뭐든추가</small></p>
 		                </div>
 		                <div class="col-md-2">
-		                	<h5>${vo.SUM}원</h5>
+		                	<h3>${vo.restar }</h3>
+							<h5>${vo.SUM}원</h5>
 		                     <button class="btn" onclick="location.href='${pageContext.request.contextPath }/user/kjy/room_info?AID=${vo.aid}&person=${rimaxper}&roomnum=${countRoom}&startday=${rcheckin}&endday=${rcheckout}'">예약하기</button> 
 
 		                </div>

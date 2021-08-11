@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.jhta.mybatis.mapper.lhjcjy.AutoCompleteMapperlhjcjy;
 import com.jhta.mybatis.mapper.lhjcjy.FirstSearchMapperlhjcjy;
+import com.jhta.project.vo.lhjcjy.RangeSlider_GetMinMaxVolhjcjy;
 import com.jhta.project.vo.lhjcjy.SearchVolhjcjy;
+
 
 
 
@@ -24,5 +26,7 @@ public class FirstSearchServicelhjcjy {
 	public List<SearchVolhjcjy> searchDefault(HashMap<String, Object> map){
 		return mapper.searchDefault(map);
 	}
-	
+	public RangeSlider_GetMinMaxVolhjcjy rangeSlider_getMinMax(HashMap<String, Object> map) {
+		return mapper.rangeSlider_getMinMax(map);
+	}
 }

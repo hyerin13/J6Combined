@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class AccommodationsVolhjcjy {
+public class AccommodationsVo2lhjcjy {
 	private int aid;
 	private String acate;
 	private String aname;
@@ -43,10 +43,12 @@ public class AccommodationsVolhjcjy {
 	private Date aregdate;
 	private String aisdel;
 	
-	private String SUM; //전체금액
+	private String amountSum; //전체금액
+	private String sum; //전체금액
 	private String REDAY; //예약가능날짜
 	private int RIPEAK;
 	private int RISEMIPEAK;
 	private int RIOFF;
 	private int restar;
+	private int star;
 }
