@@ -1,11 +1,60 @@
 --날짜테이블 생성
-create table date_t (ds varchar2(10));
+create table date_t (ds varchar2(10) NOT NULL PRIMARY KEY);
 --데이터 입력
 insert into date_t
 SELECT TO_CHAR( TO_DATE('20180101', 'YYYYMMDD') + ROWNUM-1, 'YYYYMMDD') AS DAY
 FROM DUAL
 CONNECT BY level <= ROUND( TO_DATE('20241231', 'YYYYMMDD') - TO_DATE('20180101', 'YYYYMMDD') );
 commit;
+
+--호텔체인 생성
+create table hotelchain(krchainname varchar2(100) NOT NULL PRIMARY KEY, engchainname varchar2(100));
+--데이터 입력
+insert into hotelchain values('jw메리어트호텔','jwmarriotthotel');
+insert into hotelchain values('노보텔호텔','novotelhotel');
+insert into hotelchain values('라마다호텔','ramadahotel');
+insert into hotelchain values('라한호텔','lahanhotel');
+insert into hotelchain values('르메르디앙호텔','lemeridienhotel');
+insert into hotelchain values('리츠칼튼호텔','ritzcarltonhotel');
+insert into hotelchain values('만다린오리엔탈 호텔','mandarinorientalhotel');
+insert into hotelchain values('메리어트인터내셔널호텔','marriottinternationalhotel');
+insert into hotelchain values('베스트웨스턴호텔','bestwesternhotel');
+insert into hotelchain values('아코르호텔','accorhotel');
+insert into hotelchain values('월도프애스토리아호텔','waldorfastoriahotel');
+insert into hotelchain values('인터콘티넨털호텔','intercontinentalhotel');
+insert into hotelchain values('코업호텔','co-ophotel');
+insert into hotelchain values('콘래드호텔','conradhotel');
+insert into hotelchain values('포시즌스호텔','fourseasonshotel');
+insert into hotelchain values('힐튼호텔','hiltonhotel');
+insert into hotelchain values('롯데호텔','lottehotel');
+insert into hotelchain values('베니키아호텔','benikeahotel');
+insert into hotelchain values('신라호텔','shillahotel');
+
+--(국내)항공사 입력
+create table airline(airname varchar2(100) NOT NULL PRIMARY KEY);
+--데이터 입력
+insert into airline values('대한항공');
+insert into airline values('아시아나항공');
+insert into airline values('티웨이항공');
+insert into airline values('진에어');
+insert into airline values('에어서울');
+insert into airline values('에어부산');
+insert into airline values('제주항공');
+insert into airline values('이스타항공');
+insert into airline values('플라이강원');
+insert into airline values('에어로케이항공');
+
+--(국내)공항 입력
+create table airport(portname varchar2(100) NOT NULL PRIMARY KEY);
+--데이터 입력
+insert into airport values('김포국제공항');
+insert into airport values('김해국제공항');
+insert into airport values('제주국제공항');
+insert into airport values('대구국제공항');
+insert into airport values('청주국제공항');
+insert into airport values('무안국제공항');
+insert into airport values('인천국제공항');
+
 
 
 /* Drop Tables */

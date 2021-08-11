@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +21,7 @@ public class MembersVo {
 	private String memail; //이메일
 	private Date mrdate; //가입일 : DATE DEFAULT SYSDATE
 	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private Date mbirth; //생년월일
 	private String mprofile; //프로필사진
 	private String mdrop; //탈퇴여부 : 탈퇴 -> Y

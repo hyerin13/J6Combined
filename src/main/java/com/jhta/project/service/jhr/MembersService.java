@@ -29,4 +29,13 @@ public class MembersService {
    public MembersVo checkId(String mid) {
 	  return mapper.checkId(mid);
    }
+   public int update(MembersVo vo) {
+	  return mapper.update(vo);
+   }
+   public MembersVo find(String mid) {
+	   return mapper.find(mid);
+   }
+   public int delete(MembersVo vo) {
+	   return mapper.delete(vo);
+   }
 }

@@ -11,4 +11,7 @@ public interface MembersMapper {
 	MembersVo checkPw(HashMap<String,String> map);
 	int resetPw(MembersVo vo);
 	MembersVo checkId(String mid);
+	int update(MembersVo vo);
+	MembersVo find(String mid);
+	int delete(MembersVo vo);
 }

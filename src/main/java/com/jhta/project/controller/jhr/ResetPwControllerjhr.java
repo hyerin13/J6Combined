@@ -2,6 +2,8 @@ package com.jhta.project.controller.jhr;
 
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,6 +45,22 @@ public class ResetPwControllerjhr {
 		} catch(Exception e) {
 			e.printStackTrace();
 			return "user/jhr/resetpw";
+		}
+	}
+	
+	@GetMapping("/jhr/mypageResetpw")
+	public String updateForm() {
+		return "user/jhr/mypageResetpw";
+	}
+	@PostMapping("/jhr/mypageResetpw")
+	public String mypageResetpw(MembersVo vo,Model model, HttpSession session) {
+		try {
+			service.resetPw(vo);
+			session.invalidate();
+			return "redirect:/jhr/login";
+		} catch(Exception e) {
+			e.printStackTrace();
+			return "user/jhr/mypageResetpw";
 		}
 	}
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,7 +51,7 @@
 		position:absolute;
 		font-size:100px;
 		color: white;
-		top:-70px;
+		top:0px;
 		left:70px;
 	}
 	#proimg{
@@ -61,12 +62,27 @@
 		height: 200px;
 		border-radius: 100px;
 	}
-	
+	.profiledel{
+		position: absolute;
+		top:0px;
+		right:0px;
+		font-size:20px;
+		cursor:pointer;
+	}
+	#profileup{
+		position: absolute;
+		top:160px;
+		right:-10px;
+		width:50px;
+		height: 40px;
+		cursor: pointer;
+		border-radius: 100px;
+	}
 	
 	#contentbox{
 		position:absolute;
 		left:400px;
-		top:600px;
+		top:450px;
 		width:1000px;
 		margin:0; 
 		padding:0;
@@ -90,7 +106,10 @@
 		border:1px solid #ddd;
 	}
 	.tabnav li{
+		position:relative;
+		left:-40px;
 		display: inline-block;  
+		width:200px;
 		height:46px; 
 		text-align:center; 
 		border-right:1px solid #ddd;
@@ -124,11 +143,11 @@
 	}
 	.tabcontent{
 		position:relative;
-		padding: 20px; 
+		top:0px;
 		width:1000px;
-		height:244px; 
-		border:1px solid #ddd; 
-		border-top:none;
+		height:600px; 
+		 
+		
 	}
 </style>
 </head>
@@ -137,24 +156,52 @@
 	<p class="name">${vo.mname }님</p>
 	<p class="memt">돌아오셔서 반갑습니다.</p>
 	<div class="profile">
-		<p class=" initial">${initial }</p>
-		<img src="${pageContext.request.contextPath }/resources/images/kjy/mypage/${vo.mprofile}" onerror="this.style.display='none'" id="proimg">
+		<c:choose>
+			<c:when test="${!empty vo.mprofile}">
+				<img src="${pageContext.request.contextPath }/resources/images/kjy/mypage/${vo.mprofile}" id="proimg">
+				<p class="profiledel">&times;</p>
+				<img src="${pageContext.request.contextPath }/resources/images/kjy/mypage/profileup.jpg" id="profileup">				
+			</c:when>
+			<c:otherwise>
+				<p class=" initial">${initial }</p>
+				<img src="${pageContext.request.contextPath }/resources/images/kjy/mypage/profileup.jpg" id="profileup">
+			</c:otherwise>
+		</c:choose>
 	</div>
 </div>
 <div id="contentbox">
 	<div class="tab">
     	<ul class="tabnav">
-      		<li><a href="#tab01">탭1</a></li>
-      		<li><a href="#tab02">탭2</a></li>
+      		<li><a href="#tab01">계정관리</a></li>
+      		<li><a href="#tab02">환경설정</a></li>
+      		<li><a href="#tab03">예약내역</a></li>
+      		<li><a href="#tab04">문의내역</a></li>
+      		<li><a href="#tab05">회원탈퇴</a></li>
     	</ul>
     <div class="tabcontent">
-    <div id="tab01">tab1 content</div>
-    <div id="tab02">tab2 content</div>
+    <div id="tab01">
+    	<jsp:include page="/WEB-INF/views/user/jhr/mypageUpdate.jsp"/>
+    </div>
+    <div id="tab02">
+    	<jsp:include page="/WEB-INF/views/user/kjy/preferences.jsp"/>
+	</div>
+	<div id="tab03">
+    	<jsp:include page="/WEB-INF/views/user/kjy/preferences.jsp"/>
+	</div>
+	<div id="tab04">
+    	<jsp:include page="/WEB-INF/views/user/kjy/preferences.jsp"/>
+	</div>
+	<div id="tab05">
+    	<jsp:include page="/WEB-INF/views/user/kjy/preferences.jsp"/>
+	</div>
   	</div>
   </div><!--tab-->
 </div>	
 </body>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(function(){
 	  $('.tabcontent > div').hide();
@@ -165,5 +212,31 @@
 	    return false;
 	  }).filter(':eq(0)').click();
 	});
+	
+	$(".profiledel").click(function(){
+		if(confirm("정말 삭제하시겠습니까?") == true){
+			$.ajax({
+				type:'get',
+				url:"${pageContext.request.contextPath }/user/kjy/profiledel",
+				dataType:"json",
+				success:function(d){
+					if(d==1){
+						alert("삭제가 완료되었습니다.");
+						refresh();//현재 페이지 새로고침
+					}
+				}
+			});
+		}else{
+			return;
+		}
+	});
+	
+	$("#profileup").click(function(){
+		console.log("test");
+	});
+	
+	function refresh(){
+		location.reload();
+	}     
 </script>
 </html>

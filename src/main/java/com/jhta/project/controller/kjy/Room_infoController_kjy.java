@@ -50,10 +50,10 @@ public class Room_infoController_kjy {
 			hs.put("endday", endday1);
 			hs.put("person", person);
 			List<Room_infoVo_kjy> alllist=service.list(hs);
+			System.out.println(alllist);
 			//list가 비었을경우 result 페이지로 이동
 			if(alllist.isEmpty()) {
 				ModelAndView mv1=new ModelAndView("user/kjy/result");
-				System.out.println("null");
 				mv1.addObject("code", "입력하신 날짜는 예약이 모두 완료되었습니다.");
 				return mv1;
 			}
@@ -172,9 +172,10 @@ public class Room_infoController_kjy {
 
 
 				//예약이 꽉찼을경우 페이지이동
+				System.out.println("날짜리스트days:"+days);
+				System.out.println("예약날짜:"+vo.getReday());
 				if(!days.equals(vo.getReday())) {
 					ModelAndView mv1=new ModelAndView("user/kjy/result");
-					System.out.println("day : "+days);
 					mv1.addObject("code", "입력하신 날짜는 예약이 모두 완료되었습니다.");
 					return mv1;
 				}

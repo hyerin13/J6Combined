@@ -12,4 +12,7 @@ public class MypageService_kjy {
 	public MypageVo_kjy list(String mid) {
 		return mapper.list(mid);
 	}
+	public int profiledel(String mid) {
+		return mapper.profiledel(mid);
+	}
 }
