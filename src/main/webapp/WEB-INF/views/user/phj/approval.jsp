@@ -18,7 +18,7 @@
 			<th style="font-size: 20px;text-align: center;">${mid }님의 예약이 완료되었습니다!</th>
 		</tr>
 		<tr>
-			<td style="font-size: 18px;text-align: center;">예약 확인은 마이페이지에서 해주세요!</td>
+			<td style="font-size: 17px;text-align: center;">예약 확인은 <a href="">마이페이지</a>에서 해주세요!</td>
 		</tr>
 	</table>
 		
