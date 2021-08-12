@@ -117,9 +117,23 @@ $(function(){
 						let amainimg=d.amainimg;
 						let aname=d.aname;
 						let aaddress=d.aaddress;
-						let star=d.star;
-						console.log(star);
+						//let star=d.star;
+						let grade = d.agrade;
 						let amountsum=d.amountsum;
+						let restar = d.star;
+						if(restar == 5){
+							let star = "★★★★★";
+						}else if(restar == 4){
+							star="★★★★☆";
+						}else if(restar == 3){
+							star="★★★☆☆";
+						}else if(restar == 2){
+							star = "★★☆☆☆";
+						}else if(restar == 1){
+							star = "★☆☆☆☆";
+						}else if(restar == 0){
+							star="☆☆☆☆☆";
+						}
 						let li="<div class='accommList'>";
 						li += "<div class='eachList'>";
 						li += "<div class='card'>";
@@ -133,11 +147,12 @@ $(function(){
 						li += "<small>"+aaddress+"</small>";
 						li += "</div>";
 						li += "<div class='col-md-2'>";
-						if(star==0){
-							li += "<h5> </h5>";
-						}else{
-							li += "<h5>"+star+"</h5>";
-						}
+						if(grade == null){
+    						li += "<h5> </h5>";
+    					}else{
+    						li += "<h5>" + grade + "성급</h5>";
+    					}
+						li += "<h5>" + star + "</h5>";
 						li += "<h4>"+amountsum+"원</h4>";
 						li += "<button class=\"btn\" onclick=\"location.href='{pageContext.request.contextPath }/user/kjy/room_info?aid="+aid+"&person="+countPeople+"&roomnum="+countRoom+"&startday="+checkin+"&endday="+checkout+"'\">예약하기</button>" 
 						li += "</div>";
@@ -170,8 +185,24 @@ $(function(){
 						let amainimg=d.amainimg;
 						let aname=d.aname;
 						let aaddress=d.aaddress;
-						let star=d.star;
+						//let star=d.star;
+						let grade = d.agrade;
 						let amountsum=d.amountsum;
+						let restar = d.star;
+						console.log("restar:"+restar);
+						if(restar == 5){
+							let star = "★★★★★";
+						}else if(restar == 4){
+							star="★★★★☆";
+						}else if(restar == 3){
+							star="★★★☆☆";
+						}else if(restar == 2){
+							star = "★★☆☆☆";
+						}else if(restar == 1){
+							star = "★☆☆☆☆";
+						}else if(restar == 0){
+							star="☆☆☆☆☆";
+						}
 						let li="<div class='accommList'>";
 						li += "<div class='eachList'>";
 						li += "<div class='card'>";
@@ -185,11 +216,12 @@ $(function(){
 						li += "<small>"+aaddress+"</small>";
 						li += "</div>";
 						li += "<div class='col-md-2'>";
-						if(star==0){
-							li += "<h5> </h5>";
-						}else{
-							li += "<h5>"+star+"</h5>";
-						}
+						if(grade == null){
+    						li += "<h5> </h5>";
+    					}else{
+    						li += "<h5>" + grade + "성급</h5>";
+    					}
+						li += "<h5>" + star + "</h5>";
 						li += "<h4>"+amountsum+"원</h4>";
 						li += "<button class=\"btn\" onclick=\"location.href='{pageContext.request.contextPath }/user/kjy/room_info?aid="+aid+"&person="+countPeople+"&roomnum="+countRoom+"&startday="+checkin+"&endday="+checkout+"'\">예약하기</button>" 
 						li += "</div>";
@@ -223,8 +255,23 @@ $(function(){
 						let amainimg=d.amainimg;
 						let aname=d.aname;
 						let aaddress=d.aaddress;
-						let star=d.star;
+						let grade = d.agrade;
+						//let star=d.star;
 						let amountsum=d.amountsum;
+						let restar = d.star;
+						if(restar == 5){
+							let star = "★★★★★";
+						}else if(restar == 4){
+							star="★★★★☆";
+						}else if(restar == 3){
+							star="★★★☆☆";
+						}else if(restar == 2){
+							star = "★★☆☆☆";
+						}else if(restar == 1){
+							star = "★☆☆☆☆";
+						}else if(restar == 0){
+							star="☆☆☆☆☆";
+						}
 						let li="<div class='accommList'>";
 						li += "<div class='eachList'>";
 						li += "<div class='card'>";
@@ -238,11 +285,12 @@ $(function(){
 						li += "<small>"+aaddress+"</small>";
 						li += "</div>";
 						li += "<div class='col-md-2'>";
-						if(star==0){
-							li += "<h5> </h5>";
-						}else{
-							li += "<h5>"+star+"</h5>";
-						}
+						if(grade == null){
+    						li += "<h5> </h5>";
+    					}else{
+    						li += "<h5>" + grade + "성급</h5>";
+    					}
+						li += "<h5>" + star + "</h5>";
 						li += "<h4>"+amountsum+"원</h4>";
 						li += "<button class=\"btn\" onclick=\"location.href='{pageContext.request.contextPath }/user/kjy/room_info?aid="+aid+"&person="+countPeople+"&roomnum="+countRoom+"&startday="+checkin+"&endday="+checkout+"'\">예약하기</button>" 
 						li += "</div>";
@@ -356,7 +404,6 @@ $(function(){
          		let countRoom=$("input[name=countRoom]").val();
          		let minprice=$("#count_min").val();
          		let maxprice=$("#count_max").val();
-         		alert(minprice+maxprice);
          		$("#accommList").empty();
          				
          		$.ajax({
@@ -370,8 +417,23 @@ $(function(){
         					let amainimg=d.amainimg;
         					let aname=d.aname;
         					let aaddress=d.aaddress;
-        					let star=d.star;
+        					let grade = d.agrade;
+        					//let star=d.star;
         					let amountsum=d.amountsum;
+        					let restar = d.star;
+    						if(restar == 5){
+    							let star = "★★★★★";
+    						}else if(restar == 4){
+    							star="★★★★☆";
+    						}else if(restar == 3){
+    							star="★★★☆☆";
+    						}else if(restar == 2){
+    							star = "★★☆☆☆";
+    						}else if(restar == 1){
+    							star = "★☆☆☆☆";
+    						}else if(restar == 0){
+    							star="☆☆☆☆☆";
+    						}
         					let li="<div class='accommList'>";
         					li += "<div class='eachList'>";
         					li += "<div class='card'>";
@@ -386,11 +448,12 @@ $(function(){
         					li += "<small>"+aaddress+"</small>";
         					li += "</div>";
         					li += "<div class='col-md-2'>";
-        					if(star==0){
+        					if(grade == null){
         						li += "<h5> </h5>";
         					}else{
-        						li += "<h5>"+star+"</h5>";
+        						li += "<h5>" + grade + "성급</h5>";
         					}
+        					li += "<h5>" + star + "</h5>";
         					li += "<h4>"+amountsum+"원</h4>";
         					li += "<button class=\"btn\" onclick=\"location.href='{pageContext.request.contextPath }/user/kjy/room_info?aid="+aid+"&person="+countPeople+"&roomnum="+countRoom+"&startday="+checkin+"&endday="+checkout+"'\">예약하기</button>" 
         					li += "</div>";
@@ -406,6 +469,12 @@ $(function(){
                  
              }
          });
+        $('#count_min').change(function(){
+    		$('#slider').slider('values',0,$(this).val());
+    	})
+    	$('#count_max').change(function(){
+    		$('#slider').slider('values',1,$(this).val());
+    	})
 	   
      // 평점 div박스
    		$(".star_section_field").click(function(){
@@ -626,7 +695,26 @@ $(function(){
 		                </div>
 		                <div class="col-md-2">
 		                	<h5>${vo.agrade }성급</h5>
-		                	<h5>${vo.restar }점</h5>
+						<c:choose>
+		                <c:when test="${vo.restar==5 }">
+		                	<h5>★★★★★</h5>
+		                </c:when>
+		                 <c:when test="${vo.restar==4 }">
+		                	<h5>★★★★☆</h5>
+		                </c:when>
+		                 <c:when test="${vo.restar==3 }">
+		                	<h5>★★★☆☆</h5>
+		                </c:when>
+		                 <c:when test="${vo.restar==2 }">
+		                	<h5>★★☆☆☆</h5>
+		                </c:when>
+		                 <c:when test="${vo.restar==1 }">
+		                	<h5>★☆☆☆☆</h5>
+		                </c:when>
+		                <c:otherwise>
+		               		<h5>☆☆☆☆☆점</h5>
+		                </c:otherwise>	
+		                </c:choose>
 							<h4>${vo.amountsum}원</h4>
 		                    <button class="btn" onclick="location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid=${vo.aid}&person=${rimaxper}&roomnum=${countRoom}&startday=${rcheckin}&endday=${rcheckout}'">예약하기</button> 
 		                </div>

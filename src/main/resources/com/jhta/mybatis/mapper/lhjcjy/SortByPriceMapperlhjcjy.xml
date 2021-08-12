@@ -8,7 +8,7 @@
 		parameterType="hashmap">
 		<![CDATA[
 		        select * from (select finfinfin.*, ROW_NUMBER() OVER(PARTITION BY aname ORDER BY aname, amountsum) rnum from(        
-select amountsum,star, ac.amainimg,ac.aname,ac.aaddress from (
+select amountsum,star, ac.amainimg,ac.aname,ac.aaddress,ac.aid,ac.agrade  from (
         select riid, sum(amount) amountsum from(
         select fin.* ,
         case when peseason ='성수기' then ripeak when peseason ='준성수기' then risemipeak when peseason ='비수기' then rioff end as amount
@@ -29,7 +29,7 @@ select amountsum,star, ac.amainimg,ac.aname,ac.aaddress from (
 	<select id="sortPrice_low" resultType="com.jhta.project.vo.lhjcjy.AccommodationsVo2lhjcjy" parameterType="hashmap">
 		<![CDATA[
 		        select * from (select finfinfin.*, ROW_NUMBER() OVER(PARTITION BY aname ORDER BY aname, amountsum) rnum from(        
-select amountsum,star,ac.amainimg,ac.aname,ac.aaddress from (
+select amountsum,star,ac.amainimg,ac.aname,ac.aaddress,ac.aid,ac.agrade  from (
         select riid, sum(amount) amountsum from(
         select fin.* ,
         case when peseason ='성수기' then ripeak when peseason ='준성수기' then risemipeak when peseason ='비수기' then rioff end as amount
@@ -53,7 +53,7 @@ select amountsum,star,ac.amainimg,ac.aname,ac.aaddress from (
 		parameterType="hashmap">
 		<![CDATA[
 		        select * from (select finfinfin.*, ROW_NUMBER() OVER(PARTITION BY aname ORDER BY aname, amountsum) rnum from(        
-select amountsum,star,ac.amainimg,ac.aname,ac.aaddress from (
+select amountsum,star,ac.amainimg,ac.aname,ac.aaddress,ac.aid,ac.agrade  from (
         select riid, sum(amount) amountsum from(
         select fin.* ,
         case when peseason ='성수기' then ripeak when peseason ='준성수기' then risemipeak when peseason ='비수기' then rioff end as amount
@@ -74,7 +74,7 @@ select amountsum,star,ac.amainimg,ac.aname,ac.aaddress from (
 	<select id="rangeSlider_price" resultType="com.jhta.project.vo.lhjcjy.AccommodationsVo2lhjcjy" parameterType="hashmap">
 		<![CDATA[
 		        select * from (select finfinfin.*, ROW_NUMBER() OVER(PARTITION BY aname ORDER BY aname, amountsum) rnum from(        
-select amountsum,star, ac.amainimg,ac.aname,ac.aaddress from (
+select amountsum,star, ac.amainimg,ac.aname,ac.aaddress,ac.aid,ac.agrade from (
         select riid, sum(amount) amountsum from(
         select fin.* ,
         case when peseason ='성수기' then ripeak when peseason ='준성수기' then risemipeak when peseason ='비수기' then rioff end as amount

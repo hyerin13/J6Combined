@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.jhta.project.service.lhjcjy.FirstSearchServicelhjcjy;
 import com.jhta.project.service.lhjcjy.GetPriceServicelhjcjy;
 import com.jhta.project.service.lhjcjy.PeriodServicelhjcjy;
+import com.jhta.project.vo.lhjcjy.AccommodationsVo2lhjcjy;
 import com.jhta.project.vo.lhjcjy.AccommodationsVolhjcjy;
 import com.jhta.project.vo.lhjcjy.RangeSlider_GetMinMaxVolhjcjy;
 import com.jhta.project.vo.lhjcjy.SearchVolhjcjy;
@@ -58,7 +59,7 @@ public class FirstSearchControllerlhjcjy {
 			mv.addObject("rimaxper", countPeople);
 			mv.addObject("countRoom", countRoom);
 			List<AccommodationsVolhjcjy> list = gpservice.getprice(hs);
-
+			//List<AccommodationsVo2lhjcjy> list = service.searchDefault(hs);
 			//입력한 날짜 중간포함 리스트 얻기
 			HashMap<String, Object> hs1=new HashMap<String, Object>();
 			String STARTDAY1=checkin.replace("-", "");
@@ -69,6 +70,7 @@ public class FirstSearchControllerlhjcjy {
 			RangeSlider_GetMinMaxVolhjcjy minmax=service.rangeSlider_getMinMax(hs);
 			mv.addObject("minmax", minmax);
 			mv.addObject("list", list);
+			System.out.println(list);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
