@@ -287,7 +287,7 @@ $(function(){
 						}else if(restar == 0){
 							star="☆☆☆☆☆";
 						}
-						let price = d.amountSum;
+						let price = d.amountsum;
 						let grade = d.agrade;
 						//console.log(aname + ", " + address + ", " + star + ", " + price);
 						let aid = d.aid;
@@ -440,7 +440,7 @@ $(function(){
 						}else if(restar == 0){
 							star="☆☆☆☆☆";
 						}
-						let price = d.amountSum;
+						let price = d.amountsum;
 						let grade = d.agrade;
 						console.log(aname + ", " + address + ", " + star + ", " + price);
 						let aid = d.aid;
@@ -517,7 +517,7 @@ $(function(){
 						}else if(restar == 0){
 							star="☆☆☆☆☆";
 						}
-						let price = d.amountSum;
+						let price = d.amountsum;
 						let grade = d.agrade;
 						console.log(aname + ", " + address + ", " + star + ", " + price + ", " + grade);
 						let aid = d.aid;

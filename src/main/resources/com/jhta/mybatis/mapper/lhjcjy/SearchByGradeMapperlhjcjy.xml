@@ -12,7 +12,7 @@
   	<select id="getGradeSec" parameterType="hashmap" resultType="com.jhta.project.vo.lhjcjy.SearchVolhjcjy">
   		<![CDATA[ select * from (select finfinfin.*, row_number() over(partition by aname order by aname, amountsum) rnum from (  
         select amountSum, nvl(star,0) restar, ri.riid, ri.riroom, ri.aid, ac.aname, ac.aaddress, ac.amainimg, ac.agrade from (
-        select riid, sum(amount) amountSum from (
+        select riid, sum(amount) amountsum from (
         select fin.* ,
         case when peseason ='성수기' then ripeak when peseason ='준성수기' then risemipeak when peseason ='비수기' then rioff end as amount
         from

@@ -26,7 +26,7 @@ public class SearchVolhjcjy {
 	private String aisdel;
 	
 	private String sum; //전체금액
-	private String amountSum; //평점순 전체금액
+	private String amountsum; //평점순 전체금액
 	private String reday; //예약가능날짜
 	private int ripeak;
 	private int risemipeak;
