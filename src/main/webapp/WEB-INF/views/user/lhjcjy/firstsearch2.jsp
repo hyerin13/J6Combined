@@ -107,7 +107,7 @@ $(function(){
 						let aaddress=d.aaddress;
 						let star=d.star;
 						console.log(star);
-						let amountSum=d.amountSum;
+						let amountsum=d.amountsum;
 						let li="<div class='accommList'>";
 						li += "<div class='eachList'>";
 						li += "<div class='card'>";
@@ -126,8 +126,8 @@ $(function(){
 						}else{
 							li += "<h3>"+star+"</h3>";
 						}
-						li += "<h5>"+amountSum+"원</h5>";
-						li += "<button class=\"btn\" onclick=\"location.href='{pageContext.request.contextPath }/user/kjy/room_info?AID="+aid+"&person="+countPeople+"&roomnum="+countRoom+"&startday="+checkin+"&endday="+checkout+"'\">예약하기</button>" 
+						li += "<h5>"+amountsum+"원</h5>";
+						li += "<button class=\"btn\" onclick=\"location.href='{pageContext.request.contextPath }/user/kjy/room_info?aid="+aid+"&person="+countPeople+"&roomnum="+countRoom+"&startday="+checkin+"&endday="+checkout+"'\">예약하기</button>" 
 						li += "</div>";
 						li += "</div>";
 						li += "</div>";
@@ -159,7 +159,7 @@ $(function(){
 						let aname=d.aname;
 						let aaddress=d.aaddress;
 						let star=d.star;
-						let amountSum=d.amountSum;
+						let amountsum=d.amountsum;
 						let li="<div class='accommList'>";
 						li += "<div class='eachList'>";
 						li += "<div class='card'>";
@@ -178,8 +178,8 @@ $(function(){
 						}else{
 							li += "<h3>"+star+"</h3>";
 						}
-						li += "<h5>"+amountSum+"원</h5>";
-						li += "<button class=\"btn\" onclick=\"location.href='{pageContext.request.contextPath }/user/kjy/room_info?AID="+aid+"&person="+countPeople+"&roomnum="+countRoom+"&startday="+checkin+"&endday="+checkout+"'\">예약하기</button>" 
+						li += "<h5>"+amountsum+"원</h5>";
+						li += "<button class=\"btn\" onclick=\"location.href='{pageContext.request.contextPath }/user/kjy/room_info?aid="+aid+"&person="+countPeople+"&roomnum="+countRoom+"&startday="+checkin+"&endday="+checkout+"'\">예약하기</button>" 
 						li += "</div>";
 						li += "</div>";
 						li += "</div>";
@@ -212,7 +212,7 @@ $(function(){
 						let aname=d.aname;
 						let aaddress=d.aaddress;
 						let star=d.star;
-						let amountSum=d.amountSum;
+						let amountsum=d.amountsum;
 						let li="<div class='accommList'>";
 						li += "<div class='eachList'>";
 						li += "<div class='card'>";
@@ -231,8 +231,8 @@ $(function(){
 						}else{
 							li += "<h3>"+star+"</h3>";
 						}
-						li += "<h5>"+amountSum+"원</h5>";
-						li += "<button class=\"btn\" onclick=\"location.href='{pageContext.request.contextPath }/user/kjy/room_info?AID="+aid+"&person="+countPeople+"&roomnum="+countRoom+"&startday="+checkin+"&endday="+checkout+"'\">예약하기</button>" 
+						li += "<h5>"+amountsum+"원</h5>";
+						li += "<button class=\"btn\" onclick=\"location.href='{pageContext.request.contextPath }/user/kjy/room_info?aid="+aid+"&person="+countPeople+"&roomnum="+countRoom+"&startday="+checkin+"&endday="+checkout+"'\">예약하기</button>" 
 						li += "</div>";
 						li += "</div>";
 						li += "</div>";
@@ -261,6 +261,7 @@ $(function(){
 						let aname = d.aname;
 						let address = d.aaddress;
 						let restar = d.restar;
+						console.log(restar)
 						if(restar == 5){
 							let star = "★★★★★";
 						}else if(restar == 4){
@@ -316,11 +317,11 @@ $(function(){
 	   //가격 range slider -지윤
         $('#slider').slider({
             orientation:'horizontal',
-             min:${minmax.minSum},
-             max:${minmax.maxSum},
+             min:${minmax.minsum},
+             max:${minmax.maxsum},
              step:10000,
              range:true,
-             values:[${minmax.minSum},${minmax.maxSum}],
+             values:[${minmax.minsum},${minmax.maxsum}],
              
              create:function(e, ui){ //text 박스에 value값 나타냄
                  var values = $(this).slider('option','values');
@@ -353,7 +354,7 @@ $(function(){
         					let aname=d.aname;
         					let aaddress=d.aaddress;
         					let star=d.star;
-        					let amountSum=d.amountSum;
+        					let amountsum=d.amountsum;
         					let li="<div class='accommList'>";
         					li += "<div class='eachList'>";
         					li += "<div class='card'>";
@@ -373,8 +374,8 @@ $(function(){
         					}else{
         						li += "<h3>"+star+"</h3>";
         					}
-        					li += "<h5>"+amountSum+"원</h5>";
-        					li += "<button class=\"btn\" onclick=\"location.href='{pageContext.request.contextPath }/user/kjy/room_info?AID="+aid+"&person="+countPeople+"&roomnum="+countRoom+"&startday="+checkin+"&endday="+checkout+"'\">예약하기</button>" 
+        					li += "<h5>"+amountsum+"원</h5>";
+        					li += "<button class=\"btn\" onclick=\"location.href='{pageContext.request.contextPath }/user/kjy/room_info?aid="+aid+"&person="+countPeople+"&roomnum="+countRoom+"&startday="+checkin+"&endday="+checkout+"'\">예약하기</button>" 
         					li += "</div>";
         					li += "</div>";
         					li += "</div>";
@@ -438,8 +439,8 @@ $(function(){
 		                </div>
 		                <div class="col-md-2">
 		                	<h3>${vo.restar }</h3>
-							<h5>${vo.SUM}원</h5>
-		                     <button class="btn" onclick="location.href='${pageContext.request.contextPath }/user/kjy/room_info?AID=${vo.aid}&person=${rimaxper}&roomnum=${countRoom}&startday=${rcheckin}&endday=${rcheckout}'">예약하기</button> 
+							<h5>${vo.amountsum}원</h5>
+		                     <button class="btn" onclick="location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid=${vo.aid}&person=${rimaxper}&roomnum=${countRoom}&startday=${rcheckin}&endday=${rcheckout}'">예약하기</button> 
 
 		                </div>
 		            </div>

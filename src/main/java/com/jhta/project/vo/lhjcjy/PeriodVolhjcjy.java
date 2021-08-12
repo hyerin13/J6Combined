@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class PeriodVolhjcjy {
-	private int PEID;
-	private String PESEASON;
-	private Date PESTART;
-	private Date PEEND;
-	private int AID;
+	private int peid;
+	private String peseason;
+	private Date pestart;
+	private Date peend;
+	private int aid;
 }

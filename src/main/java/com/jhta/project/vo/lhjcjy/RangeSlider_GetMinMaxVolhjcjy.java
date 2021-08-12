@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 
 public class RangeSlider_GetMinMaxVolhjcjy {
-	private int minSum;
-	private int maxSum;
+	private int minsum;
+	private int maxsum;
 	
 }
