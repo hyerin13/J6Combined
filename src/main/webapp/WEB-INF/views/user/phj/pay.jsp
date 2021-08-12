@@ -1,21 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>결제페이지</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 
 <style>
 	.paybox{
 		float:left;
-		width:65%;
+		width:75%;
 		border:solid 1px;
-		border-color:gray;
+		border-color:#BDBDBD;
 		border-image:liner-gradient(to right,gray,white);
 		margin:2% 2% 2% 2%;
 		padding:7px;
@@ -34,31 +36,45 @@
 	<jsp:include page="../jhr/header.jsp" flush="true"/>
 </div>
 <div class="paybox">
-	<span style="color:red">결과코드 ${code }</span><br>
-	총가격<input type="text" value="${sum }">
-	예약아이디<input type="text" id="rid" value="${rid }">
-	인원<input type="text" id="ramount" value="${ramount }">
-	체크인<input type="text" id="rcheckin" value="${rcheckin }">
-	체크아웃<input type="text" id="rcheckout" value="${rcheckout }">
-	예약자이름<input type="text" id="rresname" value="${rresname }">
-	이메일<input type="text" id="rresemail" value="${rresemail }">
-	전화번호<input type="text" id="rresphone" value="${rresphone }">
-	조식추가<input type="text" id="rexbreaknum" value="${rexbreaknum }">
-	침대추가<input type="text" id="rexbed" value="${rexbed }">
-	인원추가<input type="text" id="rexperson" value="${rexperson }">
-	취소여부<input type="text" id="rcancel" value="${rcancel }">
-	예약자 아이디<input type="text" id="mid" value="${mid }">
-	객실아이디<input type="text" id="riid" value="${riid }">
-	객실예약번호<input type="text" id="rordernum" value="${rordernum }">
-	<br>
-	<br>
-	<span style="border:solid; border-color:gray">안전 결제  | 모든 카드 정보는 왼벽하게 암호화되어 안전하게 보호됩니다.</span>
-	<br>
-	<br>
-	<div >
-	<input type="button" id="card" value="신용/직불카드">
+	방가격<input type="text" id=sum value="${sum }"><br>
+	예약아이디<input type="text" id="rid" value="${rid }"><br>
+	인원<input type="text" id="ramount" value="${ramount }"><br>
+	체크인<input type="text" id="rcheckin" value="${rcheckin }"><br>
+	체크아웃<input type="text" id="rcheckout" value="${rcheckout }"><br>
+	예약자이름<input type="text" id="rresname" value="${rresname }"><br>
+	이메일<input type="text" id="rresemail" value="${rresemail }"><br>
+	전화번호<input type="text" id="rresphone" value="${rresphone }"><br>
+	조식추가<input type="text" id="rexbreaknum" value="${rexbreaknum }"><br>
+	침대추가<input type="text" id="rexbed" value="${rexbed }"><br>
+	인원추가<input type="text" id="rexperson" value="${rexperson }"><br>
+	취소여부<input type="text" id="rcancel" value="${rcancel }"><br>
+	예약자 아이디<input type="text" id="mid" value="${mid }"><br>
+	객실아이디<input type="text" id="riid" value="${riid }"><br>
+	객실예약번호<input type="text" id="rordernum" value="${rordernum }"><br>
+	인원추가<input type="text" id="rexperson" value="${rexperson }"><br>
+	조식추가<input type="text" id="rexbreaknum" value="${rexbreaknum }"><br>
+	침대추가<input type="text" id="rexbed" value="${rexbed }"><br>
 	
-	<input type="button" id="kakao" value="카카오 바로결제">
+	인원가격<input type="text" id="personfee" value="${personfee }"><br>
+	조식가격<input type="text" id="breakfastfee" value="${breakfastfee }"><br>
+	침대가격<input type="text" id="bedfee" value="${bedfee }"><br>
+	<br>
+	<br>
+	<table class="table">
+		<tr>
+			<th>결제 가격 </th>
+			<td><input name="totalFee" id="totalFee"type="text" value="" style="border: none"></td>
+		</tr>
+	</table>
+	<br>
+	<span style="border:none; border-color:gray; font-size: 17px;">안전 결제  | 모든 카드 정보는 왼벽하게 암호화되어 안전하게 보호됩니다.</span>
+	<br>
+	<br>
+	<div>
+	<span style="font-size:17px;">결제방법 선택</span>
+	<input type="button" id="card" value="신용/직불카드" class="btn btn-link" style="border-color: #6799FF; border-radius: 5px;">
+	
+	<input type="button" id="kakao" value="카카오 바로결제" class="btn btn-warning">
 
 	</div>
 </div>
@@ -68,6 +84,23 @@
 </div>
 </body>
 <script type="text/javascript">
+	$(document).ready(function(){
+		$.ajax({
+			success:function(e){
+				var rexperson=parseInt($("#rexperson").val());
+				var rexbreaknum=parseInt($("#rexbreaknum").val());
+				var rexbed=parseInt($("#rexbed").val());
+				var personfee=parseInt($("#personfee").val());
+				var breakfastfee=parseInt($("#breakfastfee").val());
+				var bedfee=parseInt($("#bedfee").val());
+				var sum=parseInt($("#sum").val());
+				console.log(sum*1000);
+				var total=(sum*1000)+(rexperson*personfee)+(rexbreaknum*breakfastfee)+(rexbed*bedfee);
+				$('input[name=totalFee]').attr('value',total);
+				
+			}
+		})
+	})
 	$(function(){
 		$('#kakao').click(function(){
 			$.ajax({
@@ -84,6 +117,7 @@
 	})
 	
 	$("#card").click(function () {
+		var totalFee=parseInt($("#totalFee").val());
 		var rid=0;
 		var ramount=parseInt($("#ramount").val());
 		var rcheckin=$("#rcheckin").val();
@@ -97,8 +131,8 @@
 		var rcancel=$("#rcancel").val();
 		var mid=$("#mid").val();
 		var riid=parseInt($("#riid").val());
-		var rordernum=0;
-		
+		var rordernum=22;
+		console.log("예약"+rordernum);
 		var IMP = window.IMP; // 생략가능
 		IMP.init('imp42648943');
 		// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
@@ -134,8 +168,8 @@
 		*/
 		name: '주문명:결제테스트',
 		//결제창에서 보여질 이름
-		amount: 1000,
-		//가격
+		amount: 500,
+		//가격 totalFee
 		buyer_email: 'guswn3618@gmail.com',
 		buyer_name: '박현주',
 		buyer_tel: '010-1234-5678',

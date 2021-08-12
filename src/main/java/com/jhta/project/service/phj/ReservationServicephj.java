@@ -16,4 +16,7 @@ public class ReservationServicephj {
 	public int insertRes(ReservationVo vo) {
 		return mapper.insertRes(vo);
 	}
+	public ReservationVo selectRes(String mid) {
+		return mapper.selectRes(mid);
+	}
 }

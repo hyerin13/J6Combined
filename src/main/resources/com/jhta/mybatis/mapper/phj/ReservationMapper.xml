@@ -9,4 +9,7 @@
 		#{rresname},#{rresphone},#{rresemail},#{rexbreaknum},#{rexbed},
 		#{rexperson},#{rcancel},#{mid},#{riid})
 	</insert>
+	<select id="selectRes" parameterType="String" resultType="com.jhta.project.vo.phj.ReservationVo">
+		select * from reservation where mid=#{mid}
+	</select> 
 </mapper>

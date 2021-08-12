@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class PaymentController {
@@ -22,8 +23,10 @@ public class PaymentController {
 		return "user/phj/pay";
 	}
 	@GetMapping("/approval")
-	public String approval() {
-		return "user/phj/approval";
+	public ModelAndView approval(String mid) {
+		ModelAndView mv=new ModelAndView("user/phj/approval");
+		mv.addObject("mid",mid);
+		return mv;
 	}
 	@GetMapping("/cancle")
 	public String cancle() {

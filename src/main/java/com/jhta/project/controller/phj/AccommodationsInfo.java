@@ -1,12 +1,17 @@
 package com.jhta.project.controller.phj;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jhta.project.service.phj.AccommodationsService_phj;
+import com.jhta.project.vo.hjy.Room_InfoVo;
 import com.jhta.project.vo.phj.AccommodationsVo;
 
 @Controller
@@ -17,10 +22,15 @@ public class AccommodationsInfo {
 		return "user/phj/test";
 	}
 	
-	@RequestMapping(value="phj/accoinfo")
-	public String accoinfo(int aid,Model model) {
-		AccommodationsVo vo=service.select(1);
-		model.addAttribute("vo",vo);
-		return "resinfo";
+	@GetMapping(value="/phj/accoinfo/{aid}",produces = {MediaType.APPLICATION_JSON_VALUE})
+	public @ResponseBody HashMap<String, Object> accoinfo(@PathVariable("aid")int aid) {
+		AccommodationsVo vo=service.select(aid);
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		map.put("aname",vo.getAname());
+		map.put("amainimg",vo.getAmainimg());
+		map.put("agrade",vo.getAgrade());
+		map.put("aaddress",vo.getAaddress());
+		return map;
 	}
+	
 }

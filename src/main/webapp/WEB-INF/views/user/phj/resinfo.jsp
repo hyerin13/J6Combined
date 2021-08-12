@@ -23,12 +23,15 @@
 		float:left;
 		border:solid 1px;
 		width:25%;
+		border-color:#BDBDBD;
 		margin:2% 1% 1% 2%;
 		
 	}
 	.totalinfo{
 		float:left;
 		border:solid 1px;
+		width:25%;
+		border-color:#BDBDBD;
 		margin:1% 1% 1% 2%;
 	}
 	.bill{
@@ -61,6 +64,11 @@
 	체크인<input type="text" id="rcheckin" name="rcheckin" value="${startday } "><br>
 	체크아웃<input type="text" id="rcheckout" name="rcheckout" value="${endday }"><br>
 	취소여부<input type="text" id="rcancel" name="rcancel" value="N"><br>
+	호텔번호<input type="text" id="aid" name="aid" value="${aid }"><br>
+	최대인원<input type="text" id="rimaxper" name="rimaxper" value="rimaxper"><br>
+	조식<input type="text" name="breakfastfee" value="breakfastfee" style="border: none"><br>
+	침대<input type="text" name="bedfee" value="bedfee" style="border: none"><br>
+	인원<input type="text" name="personfee" value="personfee" style="border: none"><br>
 	
 		<label>
 		<< 고객님의 정보를 입력해 주세요 >>
@@ -96,9 +104,10 @@
 		<br>
 		</div>
 		<div>
-		- 조식추가 <input type="number" id="rexbreaknum" value="0"><br>
-		- 침대추가 <input type="number" id="rexbed" value="0"><br>
-		- 인원추가 <input type="number" id="rexperson" value="0"><br>
+		- 조식추가 <input type="number" name="rexbreaknum" id="rexbreaknum" value="0" min="0" max="rexperson"><br>
+		- 침대추가 <input type="number" name="rexbed"id="rexbed" value="0" min="0" max="1"><br>
+		- 인원추가 <input type="number" name="rexperson" id="rexperson" value="0" min="0" max="rexperson"><br>
+		
 		<br>
 		<input id="bookForSomeoneElse" name="bookForSomeoneElse" type ="checkbox">
 		<span>예약자와 투숙자가 다를 경우 클릭해서 투숙객 정보를 입력해 주세요.</span><br>
@@ -159,10 +168,34 @@
 	호텔정보
 </div><br>
 <div class="totalinfo">
-	예약정보
-</div><br>
-<div class="bill">
-	결제가격
+<br>
+	&nbsp;<label>  ${mid} 님의 예약현황</label><br>
+	<table class="table" style="size: 90px;">
+		<tr>
+			<th style="size: 30px">체크인 </th>
+			<td >${startday }</td>
+		</tr>
+		<tr>
+			<th style="size: 30px">체크아웃 </th>
+			<td >${endday }</td>
+		</tr>
+		<tr>
+			<th style="size: 30px">방금액 </th>
+			<td >${sum }</td>
+		</tr>
+		<tr>
+			<th style="size: 30px">조식추가요금 </th>
+			<td ><input type="text" name="breakfastfee" value="breakfastfee" style="border: none"></td>
+		</tr>
+		<tr>
+			<th style="size: 30px">침대추가요금 </th>
+			<td ><input type="text" name="bedfee" value="bedfee" style="border: none"></td>
+		</tr>
+		<tr>
+			<th style="size: 30px">인원추가요금 </th>
+			<td ><input type="text" name="personfee" value="personfee" style="border: none"></td>
+		</tr>
+	</table>
 </div><br>
 <div class="footer" style="clear:both;">
 		<jsp:include page="../jhr/footer.jsp" flush="true"/>
@@ -180,8 +213,9 @@
 			$("#emailOk").html(com).css("color","#FF0000");
 		}
 	}
-/*	$(document).ready(function(){
-		$('#insertOk').submit(function(e){
+
+	$(document).ready(function(){
+/*		$('#insertOk').submit(function(e){
 			e.preventDefault();
 			var rid=0;
 			var ramount=parseInt($("#ramount").val());
@@ -215,22 +249,67 @@
 					}
 				}
 			})
-		})
-		호텔정보
-		var riid=parseInt($("#riid").val());
+		}) */
+		var aid=parseInt($("#aid").val());
 		$.ajax({
-			url:"/project/accm?riid="+riid,
-			dataType:"json",
+			url:"/project/phj/accoinfo/"+aid,
+			dataType:"json",			
 			success:function(d){
+				console.log(aid);
 				let info="";
-				$(d).each(function(){
-					 info += "id:"+this.id+" pwd:"+this.pwd+" email:"+this.email+"<br>";
-				})
-				$("#showDetail").html(info);
+				
+				info +="<h3>"+ d.aname +"</h3>"+ "<br>" +
+				 d.amainimg + "<br>" +
+				 d.agrade + "<br>" +
+				 d.aaddress;
+				
+				$("#hotelInfo").html(info);
 			}
 		})
-		
-		
-	})*/
+/*		
+		var rcheckin=parseInt($("#rcheckin").val());
+		var rcheckout=parseInt($("#rcheckout").val());
+		$.ajax({
+			url:"/project/phj/roominfo/"+riid,
+			dataType:"json",			
+			success:function(data){
+				console.log(data.riroomtype);
+				let roominfo="";
+				
+				roominfo +="<h3>"+ data.riroomtype +"</h3>"+ "<br>" +
+				rcheckin + "<br>" +
+				rcheckout;
+				
+				$("#totalinfo").html(roominfo);
+			}
+		})*/
+		var riid=parseInt($("#riid").val());
+		var ramount=parseInt($("#ramount").val());
+		$.ajax({
+			url:"/project/phj/roominfo/"+riid,
+			dataType:"json",			
+			success:function(data){
+				console.log("방타입 : "+data.riroomtype);
+				console.log("최대인원 : "+data.rimaxper);
+				var rexperson=data.rimaxper-ramount;
+				console.log("인원추가 : " + rexperson);
+				$('input[name=rimaxper]').attr('value',data.rimaxper);
+				$('input[name=rexperson]').attr('max',rexperson);
+				$('input[name=rexbreaknum]').attr('max',rexperson);
+			}
+		})
+		$.ajax({
+			url:"/project/phj/addfee/"+riid,
+			dataType:"json",			
+			success:function(e){
+				console.log("인원추가 : "+e.personfee);
+				console.log("침대추가 : "+e.bedfee);
+				console.log("조식추가 : "+e.breakfastfee);
+				$('input[name=personfee]').attr('value',e.personfee);
+				$('input[name=bedfee]').attr('value',e.bedfee);
+				$('input[name=breakfastfee]').attr('value',e.breakfastfee);
+			}
+		})
+	})
 </script>
 </html>
