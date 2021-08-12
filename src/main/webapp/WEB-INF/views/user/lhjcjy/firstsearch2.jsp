@@ -624,8 +624,8 @@ $(function(){
 		                    <p><small>지도보기?뭐든추가</small></p>
 		                </div>
 		                <div class="col-md-2">
-		                	<h5>${vo.agrade }</h5>
-		                	<h5>${vo.restar }</h5>
+		                	<h5>${vo.agrade }성급</h5>
+		                	<h5>${vo.restar }점</h5>
 							<h4>${vo.amountsum}원</h4>
 		                    <button class="btn" onclick="location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid=${vo.aid}&person=${rimaxper}&roomnum=${countRoom}&startday=${rcheckin}&endday=${rcheckout}'">예약하기</button> 
 		                </div>
