@@ -427,9 +427,9 @@ $(function(){
 						let amainimg = d.amainimg;
 						let aname = d.aname;
 						let address = d.aaddress;
-						if(restar >= 5){
+						if(restar == 5){
 							let star = "★★★★★";
-						}else if(restar >= 4){
+						}else if(restar == 4){
 							star="★★★★☆";
 						}else if(restar == 3){
 							star="★★★☆☆";
@@ -503,9 +503,10 @@ $(function(){
 						let amainimg = d.amainimg;
 						let aname = d.aname;
 						let address = d.aaddress;
-						if(restar >= 5){
+						console.log("평점: " + restar);
+						if(restar == 5){
 							let star = "★★★★★";
-						}else if(restar >= 4){
+						}else if(restar == 4){
 							star="★★★★☆";
 						}else if(restar == 3){
 							star="★★★☆☆";
