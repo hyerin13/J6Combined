@@ -85,11 +85,114 @@ $(function(){
         .append( "<div>" + item.value +"</div>" )    //여기에다가 원하는 모양의 HTML을 만들면 UI가 원하는 모양으로 변함.
         .appendTo( ul );
  	};
- 	
- 	//가격순 정렬 - 지윤
- 	$("#sort").change(function(){
-		//alert($("#sort").val());
-		if(this.value=="price"){
+ 	//전체 정렬
+	$("#sort").change(function(){
+		if(this.value=="all"){
+			let searchHotel=$("#searchHotel").val();
+			let checkin=$("input[name=checkin]").val();
+			let checkout=$("input[name=checkout]").val();
+			let countPeople=$("input[name=countPeople]").val();
+			let countRoom=$("input[name=countRoom]").val();
+			$("#accommList").empty(); 
+			$.ajax({
+				url:"${pageContext.request.contextPath }/lhjcjy/sortbyall",
+				dataType:"json",
+				type:"get",
+				data:{"searchHotel":searchHotel,"checkin":checkin, "checkout":checkout,"countPeople":countPeople,"countRoom":countRoom },
+				success:function(data){
+					$(data.list).each(function(i,d){
+						let aid= d.aid;
+						let amainimg=d.amainimg;
+						let aname=d.aname;
+						let aaddress=d.aaddress;
+						let star=d.star;
+						console.log(star);
+						let amountSum=d.amountSum;
+						let li="<div class='accommList'>";
+						li += "<div class='eachList'>";
+						li += "<div class='card'>";
+						li += "<div class='card-body'>";
+						li += "<div class='row'>";
+						li += "<div class='col-md-3'>";
+						li += "<img src='${pageContext.request.contextPath }/resources/images/accommodations/"+amainimg+"' width='300' height='250'>";
+						li += "</div>";
+						li += "<div class='col-md-7'>";
+						li += "<h3>"+aname+"</h3>";
+						li += "<small>"+aaddress+"</small>";
+						li += "</div>";
+						li += "<div class='col-md-2'>";
+						if(star==0){
+							li += "<h3> </h3>";
+						}else{
+							li += "<h3>"+star+"</h3>";
+						}
+						li += "<h5>"+amountSum+"원</h5>";
+						li += "<button class=\"btn\" onclick=\"location.href='{pageContext.request.contextPath }/user/kjy/room_info?AID="+aid+"&person="+countPeople+"&roomnum="+countRoom+"&startday="+checkin+"&endday="+checkout+"'\">예약하기</button>" 
+						li += "</div>";
+						li += "</div>";
+						li += "</div>";
+						li += "</div>";
+						li += "</div>";
+						li += "</div>";
+						$("#accommList").append(li);
+					})
+				}
+			})
+		}
+ 	//가격순 오름차순 정렬 - 지윤
+		if(this.value=="price_low"){
+			let searchHotel=$("#searchHotel").val();
+			let checkin=$("input[name=checkin]").val();
+			let checkout=$("input[name=checkout]").val();
+			let countPeople=$("input[name=countPeople]").val();
+			let countRoom=$("input[name=countRoom]").val();
+			$("#accommList").empty(); 
+			$.ajax({
+				url:"${pageContext.request.contextPath }/lhjcjy/sortbyprice_low",
+				dataType:"json",
+				type:"get",
+				data:{"searchHotel":searchHotel,"checkin":checkin, "checkout":checkout,"countPeople":countPeople,"countRoom":countRoom },
+				success:function(data){
+					$(data.list).each(function(i,d){
+						let aid= d.aid;
+						let amainimg=d.amainimg;
+						let aname=d.aname;
+						let aaddress=d.aaddress;
+						let star=d.star;
+						let amountSum=d.amountSum;
+						let li="<div class='accommList'>";
+						li += "<div class='eachList'>";
+						li += "<div class='card'>";
+						li += "<div class='card-body'>";
+						li += "<div class='row'>";
+						li += "<div class='col-md-3'>";
+						li += "<img src='${pageContext.request.contextPath }/resources/images/accommodations/"+amainimg+"' width='300' height='250'>";
+						li += "</div>";
+						li += "<div class='col-md-7'>";
+						li += "<h3>"+aname+"</h3>";
+						li += "<small>"+aaddress+"</small>";
+						li += "</div>";
+						li += "<div class='col-md-2'>";
+						if(star==0){
+							li += "<h3> </h3>";
+						}else{
+							li += "<h3>"+star+"</h3>";
+						}
+						li += "<h5>"+amountSum+"원</h5>";
+						li += "<button class=\"btn\" onclick=\"location.href='{pageContext.request.contextPath }/user/kjy/room_info?AID="+aid+"&person="+countPeople+"&roomnum="+countRoom+"&startday="+checkin+"&endday="+checkout+"'\">예약하기</button>" 
+						li += "</div>";
+						li += "</div>";
+						li += "</div>";
+						li += "</div>";
+						li += "</div>";
+						li += "</div>";
+						$("#accommList").append(li);
+					})
+				}
+			})
+		}
+ 	//가격 내림차순 정렬 
+		if(this.value=="price_high"){
 			let searchHotel=$("#searchHotel").val();
 			let checkin=$("input[name=checkin]").val();
 			let checkout=$("input[name=checkout]").val();
@@ -98,13 +201,13 @@ $(function(){
 			$("#accommList").empty(); 
 			console.log(checkin);
 			$.ajax({
-				url:"/project/lhjcjy/sortbyprice",
+				url:"${pageContext.request.contextPath }/lhjcjy/sortbyprice_high",
 				dataType:"json",
 				type:"get",
 				data:{"searchHotel":searchHotel,"checkin":checkin, "checkout":checkout,"countPeople":countPeople,"countRoom":countRoom },
 				success:function(data){
 					$(data.list).each(function(i,d){
-						let aid= d.aid;
+						let aid=d.aid;
 						let amainimg=d.amainimg;
 						let aname=d.aname;
 						let aaddress=d.aaddress;
@@ -186,7 +289,7 @@ $(function(){
 						html	+= "<div class='card-body'>";
 						html	+= "<div class='row'>";
 						html	+= "<div class='col-md-3'>";
-						html	+= "<img src='${pageContext.request.contextPath }/resources/img/" + amainimg + "' width='300' height='250'>";
+						html	+= "<img src='${pageContext.request.contextPath }/resources/images/accommodations/" + amainimg + "' width='300' height='250'>";
 						html	+= "</div>";
 						html	+= "<div class='col-md-7'>";
 						html	+= "<h3>" + aname + "</h3>";
@@ -315,7 +418,8 @@ $(function(){
 </form>
 	<select name="sort" id="sort">
 		<option value="all">전체</option>
-		<option value="price">가격</option>
+		<option value="price_low">가격(낮은순)</option>
+		<option value="price_high">가격(높은순)</option>
 		<option value="star">평점</option>
 	</select>
 <div class="accommList" id="accommList">
