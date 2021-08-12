@@ -696,19 +696,19 @@ $(function(){
 		                <div class="col-md-2">
 		                	<h5>${vo.agrade }성급</h5>
 						<c:choose>
-		                <c:when test="${vo.restar==5 }">
+		                <c:when test="${vo.star==5 }">
 		                	<h5>★★★★★</h5>
 		                </c:when>
-		                 <c:when test="${vo.restar==4 }">
+		                 <c:when test="${vo.star==4 }">
 		                	<h5>★★★★☆</h5>
 		                </c:when>
-		                 <c:when test="${vo.restar==3 }">
+		                 <c:when test="${vo.star==3 }">
 		                	<h5>★★★☆☆</h5>
 		                </c:when>
-		                 <c:when test="${vo.restar==2 }">
+		                 <c:when test="${vo.star==2 }">
 		                	<h5>★★☆☆☆</h5>
 		                </c:when>
-		                 <c:when test="${vo.restar==1 }">
+		                 <c:when test="${vo.star==1 }">
 		                	<h5>★☆☆☆☆</h5>
 		                </c:when>
 		                <c:otherwise>
