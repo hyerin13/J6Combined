@@ -288,7 +288,7 @@ $(function(){
 							star="☆☆☆☆☆";
 						}
 						let price = d.amountSum;
-						let grade = d.acgrade;
+						let grade = d.agrade;
 						//console.log(aname + ", " + address + ", " + star + ", " + price);
 						let aid = d.aid;
 						let person = d.rimaxper;
