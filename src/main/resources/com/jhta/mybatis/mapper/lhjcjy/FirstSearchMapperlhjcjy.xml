@@ -17,7 +17,7 @@
 		<![CDATA[
 		select min(amountSum) as minSum, max(amountSum) as maxSum from (
 		  select * from (select finfinfin.*, ROW_NUMBER() OVER(PARTITION BY aname ORDER BY aname, amountsum) rnum from(        
-			select amountSum,star, ac.amainimg,ac.aname,ac.aaddress from (
+			select amountSum,star, ac.amainimg,ac.aname,ac.aaddress, ac.agrade from (
         		select riid, sum(amount) amountSum from(
         			select fin.* ,
         			case when peseason ='성수기' then ripeak when peseason ='준성수기' then risemipeak when peseason ='비수기' then rioff end as amount from

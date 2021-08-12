@@ -134,9 +134,9 @@ $(function(){
 						li += "</div>";
 						li += "<div class='col-md-2'>";
 						if(star==0){
-							li += "<h4> </h4>";
+							li += "<h5> </h5>";
 						}else{
-							li += "<h4>"+star+"</h4>";
+							li += "<h5>"+star+"</h5>";
 						}
 						li += "<h4>"+amountsum+"원</h4>";
 						li += "<button class=\"btn\" onclick=\"location.href='{pageContext.request.contextPath }/user/kjy/room_info?aid="+aid+"&person="+countPeople+"&roomnum="+countRoom+"&startday="+checkin+"&endday="+checkout+"'\">예약하기</button>" 
@@ -186,11 +186,11 @@ $(function(){
 						li += "</div>";
 						li += "<div class='col-md-2'>";
 						if(star==0){
-							li += "<h4> </h4>";
+							li += "<h5> </h5>";
 						}else{
-							li += "<h4>"+star+"</h4>";
+							li += "<h5>"+star+"</h5>";
 						}
-						li += "<h4>"+amountsum+"원</h5>";
+						li += "<h4>"+amountsum+"원</h4>";
 						li += "<button class=\"btn\" onclick=\"location.href='{pageContext.request.contextPath }/user/kjy/room_info?aid="+aid+"&person="+countPeople+"&roomnum="+countRoom+"&startday="+checkin+"&endday="+checkout+"'\">예약하기</button>" 
 						li += "</div>";
 						li += "</div>";
@@ -239,9 +239,9 @@ $(function(){
 						li += "</div>";
 						li += "<div class='col-md-2'>";
 						if(star==0){
-							li += "<h4> </h4>";
+							li += "<h5> </h5>";
 						}else{
-							li += "<h4>"+star+"</h4>";
+							li += "<h5>"+star+"</h5>";
 						}
 						li += "<h4>"+amountsum+"원</h4>";
 						li += "<button class=\"btn\" onclick=\"location.href='{pageContext.request.contextPath }/user/kjy/room_info?aid="+aid+"&person="+countPeople+"&roomnum="+countRoom+"&startday="+checkin+"&endday="+checkout+"'\">예약하기</button>" 
@@ -312,11 +312,11 @@ $(function(){
 						html	+= "</div>";
 						html	+= "<div class='col-md-2'>";
 						if(grade == null){
-    						html += "<h4> </h4>";
+    						html += "<h5> </h5>";
     					}else{
-    						html += "<h4>" + grade + "</h4>";
+    						html += "<h5>" + grade + "</h5>";
     					}
-						html	+= "<h4>" + star + "</h4>";
+						html	+= "<h5>" + star + "</h5>";
 						html	+= "<h4>" + price + "원</h4>";
 						html	+= "<button class='btn' onclick=" + "location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid=" + aid + "&person=" + person + "&roomnum=" + roomnum + "&startday=" + rcheckin + "&endday=" + rcheckout + "'>예약하기</button>";
 						html	+= "</div>";
@@ -387,9 +387,9 @@ $(function(){
         					li += "</div>";
         					li += "<div class='col-md-2'>";
         					if(star==0){
-        						li += "<h4> </h4>";
+        						li += "<h5> </h5>";
         					}else{
-        						li += "<h4>"+star+"</h4>";
+        						li += "<h5>"+star+"</h5>";
         					}
         					li += "<h4>"+amountsum+"원</h4>";
         					li += "<button class=\"btn\" onclick=\"location.href='{pageContext.request.contextPath }/user/kjy/room_info?aid="+aid+"&person="+countPeople+"&roomnum="+countRoom+"&startday="+checkin+"&endday="+checkout+"'\">예약하기</button>" 
@@ -465,11 +465,11 @@ $(function(){
 						html	+= "</div>";
 						html	+= "<div class='col-md-2'>";
 						if(grade == null){
-    						html += "<h4> </h4>";
+    						html += "<h5> </h5>";
     					}else{
-    						html += "<h4>" + grade + "</h4>";
+    						html += "<h5>" + grade + "</h5>";
     					}
-						html	+= "<h4>" + star + "</h4>";
+						html	+= "<h5>" + star + "</h5>";
 						html	+= "<h4>" + price + "원</h4>";
 						html	+= "<button class='btn' onclick=" + "location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid=" + aid + "&person=" + person + "&roomnum=" + roomnum + "&startday=" + rcheckin + "&endday=" + rcheckout + "'>예약하기</button>";
 						html	+= "</div>";
@@ -541,11 +541,11 @@ $(function(){
 						html	+= "</div>";
 						html	+= "<div class='col-md-2'>";
 						if(grade == null){
-    						html += "<h4> </h4>";
+    						html += "<h5> </h5>";
     					}else{
-    						html += "<h4>" + grade + "</h4>";
+    						html += "<h5>" + grade + "</h5>";
     					}
-						html	+= "<h4>" + star + "</h4>";
+						html	+= "<h5>" + star + "</h5>";
 						html	+= "<h4>" + price + "원</h4>";
 						html	+= "<button class='btn' onclick=" + "location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid=" + aid + "&person=" + person + "&roomnum=" + roomnum + "&startday=" + rcheckin + "&endday=" + rcheckout + "'>예약하기</button>";
 						html	+= "</div>";
@@ -569,13 +569,15 @@ $(function(){
 		<div id="slider"></div>
 	</form>
 	<div class ="star_section">
+		<h4>평점</h4>
 		<div class="star_section_field" id="1">1+</div>
 		<div class="star_section_field" id="2">2+</div>
 		<div class="star_section_field" id="3">3+</div>
 		<div class="star_section_field" id="4">4+</div>
 		<div class="star_section_field" id="5">5</div>
 	</div><br>
-	<div class ="grade_section">
+	<div class ="grade_section">	
+		<h4>성급</h4>
 		<div class="grade_section_field" id="1">1+</div>
 		<div class="grade_section_field" id="2">2+</div>
 		<div class="grade_section_field" id="3">3+</div>
@@ -622,8 +624,8 @@ $(function(){
 		                    <p><small>지도보기?뭐든추가</small></p>
 		                </div>
 		                <div class="col-md-2">
-		                	<h4>${vo.agrade }</h4>
-		                	<h4>${vo.restar }</h4>
+		                	<h5>${vo.agrade }</h5>
+		                	<h5>${vo.restar }</h5>
 							<h4>${vo.amountsum}원</h4>
 		                    <button class="btn" onclick="location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid=${vo.aid}&person=${rimaxper}&roomnum=${countRoom}&startday=${rcheckin}&endday=${rcheckout}'">예약하기</button> 
 		                </div>
