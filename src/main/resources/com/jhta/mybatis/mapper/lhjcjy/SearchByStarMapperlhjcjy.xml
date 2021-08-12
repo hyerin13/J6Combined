@@ -5,7 +5,7 @@
 <mapper namespace="com.jhta.mybatis.mapper.lhjcjy.SearchByStarMapperlhjcjy">
 	<select id="getStarList" parameterType="hashmap" resultType="com.jhta.project.vo.lhjcjy.SearchVolhjcjy">
   		<![CDATA[ select * from (select finfinfin.*, row_number() over(partition by aname order by aname, amountsum) rnum from (  
-        select amountSum, nvl(star,0) restar, ri.riid, ri.riroom, ri.riservice, ri.risize, ri.riminper, ri.rimaxper, ri.rimainimg, ri.riextraimg1, ri.riextraimg2, ri.aid, ac.aname from (
+        select amountSum, nvl(star,0) restar, ri.riid, ri.riroom, ri.aid, ac.aname, ac.aaddress, ac.amainimg from (
         select riid, sum(amount) amountSum from (
         select fin.* ,
         case when peseason ='성수기' then ripeak when peseason ='준성수기' then risemipeak when peseason ='비수기' then rioff end as amount

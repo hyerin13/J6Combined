@@ -104,7 +104,7 @@ $(function(){
 				data:{"searchHotel":searchHotel,"checkin":checkin, "checkout":checkout,"countPeople":countPeople,"countRoom":countRoom },
 				success:function(data){
 					$(data.list).each(function(i,d){
-						let aid=string(d.aid);
+						let aid= d.aid;
 						let amainimg=d.amainimg;
 						let aname=d.aname;
 						let aaddress=d.aaddress;
@@ -142,7 +142,7 @@ $(function(){
 			})
 		}
 		if(this.value == "star"){
-			let searchHotel = $("input[name=searchHotel]").val();
+			let searchHotel = $("#searchHotel").val();
 			let checkin = $("input[name=checkin]").val();
 			let checkout = $("input[name=checkout]").val();
 			let countPeople = $("input[name=countPeople]").val();
@@ -157,14 +157,28 @@ $(function(){
 						let amainimg = d.amainimg;
 						let aname = d.aname;
 						let address = d.aaddress;
-						let star = d.restar;
+						let restar = d.restar;
+						if(restar == 5){
+							let star = "★★★★★";
+						}else if(restar == 4){
+							star="★★★★☆";
+						}else if(restar == 3){
+							star="★★★☆☆";
+						}else if(restar == 2){
+							star = "★★☆☆☆";
+						}else if(restar == 1){
+							star = "★☆☆☆☆";
+						}else if(restar == 0){
+							star="☆☆☆☆☆";
+						}
 						let price = d.amountSum;
-						//console.log(aname + ", " + address + ", " + star + ", " + price);
+						console.log(aname + ", " + address + ", " + star + ", " + price);
 						let aid = d.aid;
 						let person = d.rimaxper;
 						let roomnum = d.countRoom;
 						let rcheckin = d.rcheckin;
 						let rcheckout = d.rcheckout;
+						console.log(aid + ", " + person + ", " + roomnum + ", " + rcheckin + ", " + rcheckout);
 						
 						let html = "<div class='accommList'>";
 						html    += "<div class='eachList'>";
@@ -180,9 +194,9 @@ $(function(){
 						html	+= "<p><small>지도보기?뭐든추가</small></p>";
 						html	+= "</div>";
 						html	+= "<div class='col-md-2'>";
-						html	+= "<h5>" + star + "점</h5>";
+						html	+= "<h5>" + star + "</h5>";
 						html	+= "<h5>" + price + "원</h5>";
-						html	+= "<button class='btn' onclick=" + "location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid=aid&person=person&roomnum=roomnum&startday=rcheckin&endday=rcheckout'>예약하기</button>";
+						html	+= "<button class='btn' onclick=" + "location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid=" + aid + "&person=" + person + "&roomnum=" + roomnum + "&startday=" + rcheckin + "&endday=" + rcheckout + "'>예약하기</button>";
 						html	+= "</div>";
 						html	+= "</div>";
 						html	+= "</div>";
@@ -231,7 +245,7 @@ $(function(){
         			data:{"searchHotel":searchHotel,"checkin":checkin, "checkout":checkout,"countPeople":countPeople,"countRoom":countRoom, "minprice":minprice, "maxprice":maxprice },
         			success:function(data){
         				$(data.list).each(function(i,d){
-        					let aid=string(d.aid);
+        					let aid=d.aid;
         					let amainimg=d.amainimg;
         					let aname=d.aname;
         					let aaddress=d.aaddress;
