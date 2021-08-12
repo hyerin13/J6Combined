@@ -45,4 +45,5 @@ public class AccommodationsVo2lhjcjy {
 	
 	private String amountsum; //전체금액
 	private int restar;
+	private int star;
 }
