@@ -314,7 +314,7 @@ $(function(){
 						if(grade == null){
     						html += "<h5> </h5>";
     					}else{
-    						html += "<h5>" + grade + "</h5>";
+    						html += "<h5>" + grade + "성급</h5>";
     					}
 						html	+= "<h5>" + star + "</h5>";
 						html	+= "<h4>" + price + "원</h4>";
@@ -467,7 +467,7 @@ $(function(){
 						if(grade == null){
     						html += "<h5> </h5>";
     					}else{
-    						html += "<h5>" + grade + "</h5>";
+    						html += "<h5>" + grade + "성급</h5>";
     					}
 						html	+= "<h5>" + star + "</h5>";
 						html	+= "<h4>" + price + "원</h4>";
@@ -543,7 +543,7 @@ $(function(){
 						if(grade == null){
     						html += "<h5> </h5>";
     					}else{
-    						html += "<h5>" + grade + "</h5>";
+    						html += "<h5>" + grade + "성급</h5>";
     					}
 						html	+= "<h5>" + star + "</h5>";
 						html	+= "<h4>" + price + "원</h4>";
