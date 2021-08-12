@@ -95,7 +95,7 @@ $(function(){
 			let checkout=$("input[name=checkout]").val();
 			let countPeople=$("input[name=countPeople]").val();
 			let countRoom=$("input[name=countRoom]").val();
-			$("#accommList").empty(); //얘도 안되는듯?
+			$("#accommList").empty(); 
 			console.log(checkin);
 			$.ajax({
 				url:"/project/lhjcjy/sortbyprice",
@@ -103,21 +103,20 @@ $(function(){
 				type:"get",
 				data:{"searchHotel":searchHotel,"checkin":checkin, "checkout":checkout,"countPeople":countPeople,"countRoom":countRoom },
 				success:function(data){
-					//alert("ㅎㅎㅎㅎㅎ");
 					$(data.list).each(function(i,d){
+						let aid=string(d.aid);
 						let amainimg=d.amainimg;
 						let aname=d.aname;
 						let aaddress=d.aaddress;
 						let star=d.star;
 						let amountSum=d.amountSum;
-						//alert(aname); //여기까지 넘어옴
 						let li="<div class='accommList'>";
 						li += "<div class='eachList'>";
 						li += "<div class='card'>";
 						li += "<div class='card-body'>";
 						li += "<div class='row'>";
 						li += "<div class='col-md-3'>";
-						li += "<img src='${pageContext.request.contextPath }/resources/img/"+amainimg+"' width='300' height='250'>";
+						li += "<img src='${pageContext.request.contextPath }/resources/images/accommodations/"+amainimg+"' width='300' height='250'>";
 						li += "</div>";
 						li += "<div class='col-md-7'>";
 						li += "<h3>"+aname+"</h3>";
@@ -130,6 +129,7 @@ $(function(){
 							li += "<h3>"+star+"</h3>";
 						}
 						li += "<h5>"+amountSum+"원</h5>";
+						li += "<button class=\"btn\" onclick=\"location.href='{pageContext.request.contextPath }/user/kjy/room_info?AID="+aid+"&person="+countPeople+"&roomnum="+countRoom+"&startday="+checkin+"&endday="+checkout+"'\">예약하기</button>" 
 						li += "</div>";
 						li += "</div>";
 						li += "</div>";
@@ -177,22 +177,20 @@ $(function(){
         			type:"get",
         			data:{"searchHotel":searchHotel,"checkin":checkin, "checkout":checkout,"countPeople":countPeople,"countRoom":countRoom, "minprice":minprice, "maxprice":maxprice },
         			success:function(data){
-        				console.log("1");
         				$(data.list).each(function(i,d){
-        					console.log("2");
+        					let aid=string(d.aid);
         					let amainimg=d.amainimg;
         					let aname=d.aname;
         					let aaddress=d.aaddress;
         					let star=d.star;
         					let amountSum=d.amountSum;
-        					console.log(amountSum);
         					let li="<div class='accommList'>";
         					li += "<div class='eachList'>";
         					li += "<div class='card'>";
         					li += "<div class='card-body'>";
         					li += "<div class='row'>";
         					li += "<div class='col-md-3'>";
-        					li += "<img src='${pageContext.request.contextPath }/resources/img/"+amainimg+"' width='300' height='250'>";
+        					li += "<img src='${pageContext.request.contextPath }/resources/images/accommodations/"+amainimg+"' width='300' height='250'>";
         					li += "</div>";
         					console.log("!!!!!!");
         					li += "<div class='col-md-7'>";
@@ -206,6 +204,7 @@ $(function(){
         						li += "<h3>"+star+"</h3>";
         					}
         					li += "<h5>"+amountSum+"원</h5>";
+        					li += "<button class=\"btn\" onclick=\"location.href='{pageContext.request.contextPath }/user/kjy/room_info?AID="+aid+"&person="+countPeople+"&roomnum="+countRoom+"&startday="+checkin+"&endday="+checkout+"'\">예약하기</button>" 
         					li += "</div>";
         					li += "</div>";
         					li += "</div>";
@@ -213,7 +212,6 @@ $(function(){
         					li += "</div>";
         					li += "</div>";
         					$("#accommList").append(li);
-        					console.log("3");
         				})
         			}
         		})
@@ -260,7 +258,7 @@ $(function(){
 		        <div class="card-body">
 		            <div class="row">
 		                <div class="col-md-3">
-		                   <img src="${pageContext.request.contextPath }/resources/img/${vo.amainimg }" width="300" height="250">
+		                   <img src="${pageContext.request.contextPath }/resources/images/accommodations/${vo.amainimg }" width="300" height="250">
 		                </div>
 		                <div class="col-md-7">
 		                    <h3>${vo.aname }</h3>
