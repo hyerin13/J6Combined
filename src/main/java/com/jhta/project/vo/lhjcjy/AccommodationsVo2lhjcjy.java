@@ -44,11 +44,5 @@ public class AccommodationsVo2lhjcjy {
 	private String aisdel;
 	
 	private String amountSum; //전체금액
-	private String sum; //전체금액
-	private String REDAY; //예약가능날짜
-	private int RIPEAK;
-	private int RISEMIPEAK;
-	private int RIOFF;
 	private int restar;
-	private int star;
 }

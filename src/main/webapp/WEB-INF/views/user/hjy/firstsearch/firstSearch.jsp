@@ -158,7 +158,7 @@ $(function(){
 		                    <p><small>지도보기?뭐든추가</small></p>
 		                </div>
 		                <div class="col-md-2">
-		                	<h5>${vo.SUM}원</h5>
+		                	<h5>${vo.amountsum}원</h5>
 		                    <button type="button" class="btn">예약하기</button>  
 		                </div>
 		            </div>

@@ -2,44 +2,52 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jhta.mybatis.mapper.hjy.firstsearch.GetPriceMapperHjy">
-	
-	<select id="getprice" parameterType="hashmap" resultType="com.jhta.project.vo.lhjcjy.AccommodationsVolhjcjy">
+<mapper
+	namespace="com.jhta.mybatis.mapper.hjy.firstsearch.GetPriceMapperHjy">
+
+	<select id="getprice" parameterType="hashmap"
+		resultType="com.jhta.project.vo.lhjcjy.AccommodationsVolhjcjy">
 	<![CDATA[
-	SELECT g.*,ac.* FROM(
-SELECT f.*,ROW_NUMBER() OVER (PARTITION BY f.AID ORDER BY f.RIOFF asc) AS NUM  FROM(
-             SELECT e.* FROM (
-            SELECT d.RIID, d.RIROOMTYPE, d.RIROOM,d.RISERVICE,d.RISIZE,d.RIMINPER,d.RIMAXPER,d.RIPEAK,d.RISEMIPEAK,d.RIOFF,d.RIMAINIMG,d.RIEXTRAIMG1,d.RIEXTRAIMG2,d.AID, LISTAGG(d.ds,',') WITHIN GROUP (ORDER BY d.ds) AS REDAY FROM(
-            SELECT b.*
-                 , a.ds
-                    , NVL(SUM(TRANSLATE(c.RCANCEL,'N','1')),0) AS 예약인원수
-                 , b.RIROOM - NVL(SUM(TRANSLATE(c.RCANCEL,'N','1')),0) AS 예약가능인원
-              FROM (SELECT ds
-             FROM date_t
-            WHERE ds BETWEEN #{rcheckin} AND #{rcheckout}
-           ) a
-          CROSS JOIN
-             (SELECT x.*
-             FROM room_info x
-            INNER JOIN accommodations y
-            ON x.AID = y.AID
-           ) b
-           LEFT OUTER JOIN reservation c
-          ON b.RIID = c.RIID
-            AND a.ds BETWEEN c.RCHECKIN AND c.RCHECKOUT
-          GROUP BY b.RIID, b.RIROOMTYPE, b.RIROOM, b.RISERVICE, b.RISIZE, b.RIMINPER,b.RIMAXPER,b.RIPEAK,b.RISEMIPEAK,b.RIOFF,b.RIMAINIMG,b.RIEXTRAIMG1,b.RIEXTRAIMG2,b.AID,a.ds
-         HAVING b.RIROOM - NVL(SUM(TRANSLATE(c.RCANCEL,'N','1')),0) >= #{countRoom} and RIMAXPER >= #{rimaxper}
-         order by count(b.RIID) over(PARTITION BY a.ds),a.ds
-      ) d group by d.RIID, d.RIROOMTYPE, d.RIROOM,d.RISERVICE,d.RISIZE,d.RIMINPER,d.RIMAXPER,d.RIPEAK,d.RISEMIPEAK,d.RIOFF,d.RIMAINIMG,d.RIEXTRAIMG1,d.RIEXTRAIMG2,d.AID
-        ) e )f ) g INNER JOIN accommodations ac ON g.AID=ac.AID where g.NUM=1 and (aaddress like '%'||#{aaddress}||'%' or aname like '%'||#{aname}||'%')
+        select * from (select fin.*, ROW_NUMBER() OVER(PARTITION BY aname ORDER BY aname, amountsum) rnum from(        
+			select amountSum,star restar, ri.riid, ri.riroom,ri.RISERVICE,ri.RISIZE,ri.RIMINPER,ri.RIMAXPER,ri.RIMAINIMG,ri.RIEXTRAIMG1,ri.RIEXTRAIMG2,ri.aid,ac.aname,ac.aaddress,ac.axcoordi,ac.aycoordi	 from (
+        		select riid, sum(amount) amountSum from(
+        			select fin.* ,
+        			case when peseason ='성수기' then ripeak when peseason ='준성수기' then risemipeak when peseason ='비수기' then rioff end as amount
+        			from
+        			(select a.*,dt.ds from 
+            		( select pr.pestart, pr.peend, pr.peseason, ri.riid, ri.ripeak, ri.risemipeak, ri.rioff from room_info ri left outer join
+           			(select ri.riid from review r, reservation re, room_info ri where r.rid=re.rid and re.riid=ri.riid group by ri.riid) cnt
+            		on ri.riid=cnt.riid left outer join accommodations ac on ac.aid=ri.aid left outer join period pr on pr.aid=ac.aid) a,date_t dt  
+            		where ds >=#{rcheckin} and ds <=#{rcheckout}) fin
+            	where to_date(ds,'yy/mm/dd')>=pestart and to_date(ds,'yy/mm/dd')<=peend)
+        		group by riid) finfin, room_info ri, accommodations ac, 
+        		(select riid,star from (
+        			(select ri.riid ,cnt.star star from room_info ri left outer join
+        			(select nvl(avg(r.restar),0) star,ri.riid from review r,reservation re, room_info ri where r.rid=re.rid and re.riid=ri.riid group by ri.riid) cnt
+       				on ri.riid=cnt.riid left outer join accommodations ac on ac.aid=ri.aid left outer join period pr on pr.aid=ac.aid)) group by riid,star) star
+        		where star.riid = ri.riid 
+        		and ri.riid=finfin.riid 
+        		and ac.aid = ri.aid 
+        		and ac.aisdel is null 
+        		and ri.riroom-(select count(rcheckin) from reservation where rcheckin <= #{rcheckin} 
+        		and rcheckout >= #{rcheckout} and rcancel is null)>=#{countRoom}
+        		and ri.rimaxper>= 2 
+        		and ri.riminper<=5 
+        		and (ac.aaddress like '%'||#{aaddress}||'%' or ac.aname like '%'||#{aname}||'%'))fin) 
+        	where rnum = 1
         ]]>
-        <if test="facilities!=null">
+		<if test="facilities!=null">
 			<foreach collection="facilities" item="arr">
-			  		and g.riservice like '%'||#{arr}||'%'
+				and riservice like '%'||#{arr}||'%'
 			</foreach>
-        </if>
+		</if>
+		<if test="bookmark!=null">
+			and aname like '%'||#{bookmark}||'%'
+		</if>
 	</select>
 	<select id="daylist" resultType="string" parameterType="hashmap">
-		SELECT LISTAGG(ds,',') WITHIN GROUP (ORDER BY ds) as DS FROM date_t WHERE ds BETWEEN #{STARTDAY} AND #{ENDDAY}
+		SELECT
+		LISTAGG(ds,',') WITHIN GROUP (ORDER BY ds) as DS FROM date_t WHERE ds
+		BETWEEN #{STARTDAY} AND #{ENDDAY}
 	</select>
 </mapper>
