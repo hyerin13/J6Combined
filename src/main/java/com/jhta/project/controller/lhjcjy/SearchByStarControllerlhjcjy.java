@@ -43,4 +43,28 @@ public class SearchByStarControllerlhjcjy {
 		}
 		return map;
 	}
+	
+	@RequestMapping(value = "lhjcjy/starsection", produces = {MediaType.APPLICATION_JSON_VALUE})
+	public @ResponseBody HashMap<String, Object> starsection(String searchHotel, String checkin, String checkout, String countPeople, String countRoom, int restar){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		try {
+			String checkin1=checkin.replace("-", "");
+			String checkout1=checkout.replace("-", "");
+			map.put("aaddress", searchHotel);
+			map.put("aname", searchHotel);
+			map.put("rcheckin", checkin1);
+			map.put("rcheckout", checkout1);
+			map.put("rimaxper", countPeople);
+			map.put("riminper", countPeople);
+			map.put("countRoom", countRoom);
+			map.put("restar", restar);
+			//System.out.println("ajax: " + searchHotel + ", " + checkin  + ", " + checkout  + ", " + countRoom  + ", " + countPeople );
+			List<SearchVolhjcjy> list = service.getStarSec(map);
+			map.put("list", list);
+			//System.out.println("ajax: " + list);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return map;
+	}
 }

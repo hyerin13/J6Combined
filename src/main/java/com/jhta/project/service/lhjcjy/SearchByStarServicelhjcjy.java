@@ -21,4 +21,7 @@ public class SearchByStarServicelhjcjy {
 		return mapper.getStarList(map);
 	}
 	
+	public List<SearchVolhjcjy> getStarSec(HashMap<String, Object> map){
+		return mapper.getStarSec(map);
+	}
 }

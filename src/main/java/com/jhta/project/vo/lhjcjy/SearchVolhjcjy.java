@@ -19,6 +19,7 @@ public class SearchVolhjcjy {
 	private String aycoordi;
 	private String atotalroom;
 	private String agrade;
+	private String acgrade;
 	private String adetail;
 	private String amainimg;
 	private Date aregdate;
@@ -32,15 +33,7 @@ public class SearchVolhjcjy {
 	private int rioff;
 
 	private int riid;
-	private String riroomtype;
-	private int riroom;
-	private String riservice;
-	private String risize;
-	private int riminper;
-	private int rimaxper;
-	private String rimainimg;
-	private String riextraimg1;
-	private String riextraimg2;
+
 	private int afid;
 	private int afpersonnel;
 	

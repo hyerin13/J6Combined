@@ -8,4 +8,5 @@ import com.jhta.project.vo.lhjcjy.SearchVolhjcjy;
 
 public interface SearchByStarMapperlhjcjy {
 	public List<SearchVolhjcjy> getStarList(HashMap<String, Object> map);
+	public List<SearchVolhjcjy> getStarSec(HashMap<String, Object> map);
 }
