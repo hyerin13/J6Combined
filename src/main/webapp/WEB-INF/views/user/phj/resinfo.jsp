@@ -79,14 +79,15 @@
 			영문이름
 		</label>
 		<br>
-		<input id="engName" name="rresname" type="text" class="form-control" required size="70px"><br>
+		<input id="engName" name="rresname" type="text" class="form-control" required size="70px" placeholder="투숙객의 이름을 입력해주세요."
+		onfocus="this.placeholder=''" onblur="this.placeholder='투숙객의 이름을 입력해주세요.'"><br>
 		<br>
 		<label>
 			이메일
 		</label>
 		<br>
 		<input type="text" id="email" oninput="checkEmail()" class="form-control" style="color:gray" required size="70px"
-		placeholder="오탈자에 주의해 주세요" onfocus="this.placeholder=''" onblur="this.placeholder='오탈자에 주의해 주세요'"><br>
+		placeholder="오탈자에 주의해 주세요" onfocus="this.placeholder=''" onblur="this.placeholder='오탈자에 주의해 주세요.'"><br>
 		<br>
 		<label>
 			이메일 재입력
@@ -109,9 +110,6 @@
 		- 인원추가 <input type="number" name="rexperson" id="rexperson" value="0" min="0" max="rexperson"><br>
 		
 		<br>
-		<input id="bookForSomeoneElse" name="bookForSomeoneElse" type ="checkbox">
-		<span>예약자와 투숙자가 다를 경우 클릭해서 투숙객 정보를 입력해 주세요.</span><br>
-		<div id="elseInfo">
 			
 		</div>
 		<br>
@@ -154,7 +152,7 @@
 			</optgroup>
 		</select>
 		<div>
-			<input type="checkbox"> 본인은 이용약관에 동의하며 18세 이상임을 확인합니다.
+			<input type="checkbox" required="required"> 본인은 이용약관에 동의하며 18세 이상임을 확인합니다.
 		</div>
 		<div style="float:right; width:70%">
 			<span style="color:green; font-style:bold; float:right;">부담 제로 - 예약 무료 취소 가능!</span><br>
