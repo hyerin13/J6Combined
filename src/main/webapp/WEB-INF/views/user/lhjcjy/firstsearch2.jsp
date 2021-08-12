@@ -141,7 +141,60 @@ $(function(){
 				}
 			})
 		}
-	})
+		if(this.value == "star"){
+			let searchHotel = $("input[name=searchHotel]").val();
+			let checkin = $("input[name=checkin]").val();
+			let checkout = $("input[name=checkout]").val();
+			let countPeople = $("input[name=countPeople]").val();
+			let countRoom = $("input[name=countRoom]").val();
+	 		$("#accommList").empty();
+			$.ajax({
+		 		url : "${pageContext.request.contextPath }/lhjcjy/firstsearchStar",
+				data : {"searchHotel" : searchHotel, "checkin" : checkin, "checkout" : checkout, "countRoom" : countRoom, "countPeople" : countPeople},
+				dataType : "json",
+				success : function(data){
+					$(data.list).each(function(i,d){
+						let amainimg = d.amainimg;
+						let aname = d.aname;
+						let address = d.aaddress;
+						let star = d.restar;
+						let price = d.amountSum;
+						//console.log(aname + ", " + address + ", " + star + ", " + price);
+						let aid = d.aid;
+						let person = d.rimaxper;
+						let roomnum = d.countRoom;
+						let rcheckin = d.rcheckin;
+						let rcheckout = d.rcheckout;
+						
+						let html = "<div class='accommList'>";
+						html    += "<div class='eachList'>";
+						html	+= "<div class='card'>";
+						html	+= "<div class='card-body'>";
+						html	+= "<div class='row'>";
+						html	+= "<div class='col-md-3'>";
+						html	+= "<img src='${pageContext.request.contextPath }/resources/img/" + amainimg + "' width='300' height='250'>";
+						html	+= "</div>";
+						html	+= "<div class='col-md-7'>";
+						html	+= "<h3>" + aname + "</h3>";
+						html	+= "<small>" + address + "</small>";
+						html	+= "<p><small>지도보기?뭐든추가</small></p>";
+						html	+= "</div>";
+						html	+= "<div class='col-md-2'>";
+						html	+= "<h5>" + star + "점</h5>";
+						html	+= "<h5>" + price + "원</h5>";
+						html	+= "<button class='btn' onclick=" + "location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid=aid&person=person&roomnum=roomnum&startday=rcheckin&endday=rcheckout'>예약하기</button>";
+						html	+= "</div>";
+						html	+= "</div>";
+						html	+= "</div>";
+						html	+= "</div>";
+						html	+= "</div>";
+						html	+= "</div>";
+						$("#accommList").append(html);
+					});
+				}	
+		 	});
+		}
+	});
 
 	   //가격 range slider -지윤
         $('#slider').slider({
