@@ -5,7 +5,7 @@
 <mapper namespace="com.jhta.mybatis.mapper.lhjcjy.GetPriceMapperlhjcjy">
 	<select id="getprice" parameterType="hashmap" resultType="com.jhta.project.vo.lhjcjy.AccommodationsVolhjcjy">
 	<![CDATA[
-	         select * from (select fin.*, ROW_NUMBER() OVER(PARTITION BY aname ORDER BY aname, amountsum) rnum from(        
+	        select * from (select fin.*, ROW_NUMBER() OVER(PARTITION BY aname ORDER BY aname, amountsum) rnum from(        
 			select (amountSum+addfee.exper)amountsum,star restar, ri.riid, ri.riroom,ri.RISERVICE,ri.RISIZE,ri.RIMINPER,ri.RIMAXPER,ri.RIMAINIMG,ri.RIEXTRAIMG1,ri.RIEXTRAIMG2,ri.aid,ac.aname,ac.aaddress,ac.axcoordi,ac.aycoordi,ac.aphone from (
         		select riid, sum(amount) amountSum from(
         			select fin.* ,
@@ -22,10 +22,11 @@
         			(select ri.riid ,cnt.star star from room_info ri left outer join
         			(select nvl(avg(r.restar),0) star,ri.riid from review r,reservation re, room_info ri where r.rid=re.rid and re.riid=ri.riid group by ri.riid) cnt
        				on ri.riid=cnt.riid left outer join accommodations ac on ac.aid=ri.aid left outer join period pr on pr.aid=ac.aid)) group by riid,star) star,
-       				(select ri.riid,(af.afpersonnel*(#{rimaxper}-ri.riminper))exper from additional_fee af,room_info ri where af.riid=ri.riid and (#{rimaxper}-ri.riminper>0)) addfee
+       				(select ri.riid,(af.afpersonnel*(#{rimaxper}-ri.riminper))exper from additional_fee af,room_info ri where af.riid=ri.riid) addfee
         		where star.riid = ri.riid 
         		and ri.riid=finfin.riid 
         		and ac.aid = ri.aid 
+        		and addfee.riid=ri.riid
         		and ac.aisdel is null 
         		and ri.riroom-(select count(rcheckin) from reservation where rcheckin <= #{rcheckin} 
         		and rcheckout >= #{rcheckout} and rcancel is null)>=#{countRoom}
