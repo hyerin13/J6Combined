@@ -201,14 +201,16 @@ a {
 								    	  $("#gomap").click(function() {
 								    		  if($("#gomap").html()=="지도로 보기"){
 									    		  $("#gomap").html("돌아가기")
+									    		  $("#location").attr('class','collapse')
 									    		  $("#list").empty();
-									    		  let html = "<div id='gomapchange' style='width:100%; height:1400px;'></div>"
+									    		  let html = "<div id='gomapchange' style='width:100%; height:1400px;'></div>";
 									    		  let templist= new Array(); 
 												  checklist(templist)
 									    		  $("#list").append(html);
 												  testgomapchange(templist)
 												}else{
 											    	  $("#gomap").html("지도로 보기")
+											    	  $("#location").attr('class','collapse show')
 										    		  $("#list").empty();
 											    	  let templist= new Array(); 
 														checklist(templist)
@@ -226,17 +228,23 @@ a {
 								    		      })
 									    		var latlngs = [];
 									    	    var contentString=[];
+									    	    var fac = "";
+									    	    for (var i = 0; i < facilities.length; i++) {
+													fac+=facilities[i];
+													if(i !=facilities.length-1){
+														fac+=",";
+													}
+												}
+									    	    console.log("fac: ",fac)
 									    		  $.ajax({
 														url:"${pageContext.request.contextPath }/hjy/firstsearchajax",
 														 async: false,
 														data:{"searchHotel":"${aaddress }","checkin":"${rcheckin }","checkout":"${rcheckout }","countRoom":"${countRoom }","countPeople":"${rimaxper}",
-															"facilities":facilities,"xcoordi":axcoordi,"ycoordi":aycoordi,"distance":distance},
-														type:"post",
+															"fac":fac,"xcoordi":axcoordi,"ycoordi":aycoordi,"distance":distance},
+														type:"get",
 														dataType:"json",
 														success:function(data){
 															if(data.code=='success'){
-																console.log("testgomapchange 파라미터: " +facilities,axcoordi,aycoordi,distance)
-																console.log("data수: "+data.list.length)
 										    		        	for (var i = 0; i < data.list.length; i++) {
 																	let listxy = changeXY(data.list[i].axcoordi,data.list[i].aycoordi);
 																	latlngs.push(new naver.maps.LatLng(listxy[1], listxy[0]));
@@ -387,7 +395,6 @@ a {
 													 	}
 													}else{
 														if($("#gomap").html()=="돌아가기"){
-															console.log(templist)
 															  testgomapchange(templist)
 													 	}else{
 															list(templist)
@@ -497,20 +504,7 @@ a {
 											}
 											return xy;
 										}
-										//거리안에 있는지 측정하기위한function
-										function isdistancein1(coords1, coords2) {
-										  const { lat: lat1, lon: lon1 } = coords1;
-										  const { lat: lat2, lon: lon2 } = coords2;
-										  const degToRad = x => x * Math.PI / 180;
-										  const R = 6371;
-										  const halfDLat = degToRad(lat2 - lat1) / 2;  
-										  const halfDLon = degToRad(lon2 - lon1) / 2;  
-										  const a = Math.sin(halfDLat) * Math.sin(halfDLat) + 
-										            Math.cos(degToRad(lat1)) * Math.cos(degToRad(lat2)) * 
-										            Math.sin(halfDLon) * Math.sin(halfDLon);  
-										  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)); 
-										  return R * c; 
-										}
+										
 										function isdistancein(coords1, coords2) {
 											var isdistanceinlat1 = coords1[0];
 											var isdistanceinlon1 = coords1[1];
@@ -530,6 +524,7 @@ a {
 										    return Math.round(d*1000);
 										}
 										function list(facilities,xcoordi,ycoordi,distance){
+											let changecnt=0;
 											   $.ajax({
 													url:"${pageContext.request.contextPath }/hjy/firstsearchajax",
 													traditional :true,
@@ -547,7 +542,6 @@ a {
 																   let testxy = changeXY(data.list[i].axcoordi,data.list[i].aycoordi)
 																   //기준좌표
 																   	let refcoordi = [xcoordi, ycoordi];
-																   console.log("refcoordi: ",refcoordi)
 																   //db에서 불러온 좌표
 																	let dbcoordi = [testxy[1],testxy[0]];
 																	console.log("숙소이름: "+data.list[i].aname);
@@ -569,9 +563,9 @@ a {
 																		html+="<div class='col-md-7'>";
 																		html+="<h3>"+data.list[i].aname+"</h3>";
 																		html+="<small>"+data.list[i].aaddress+"</small>";
-																		html+="<div id='map"+i+"' style='width: 200px; height: 200px;'>지도넣기"
-																		html+="<input type='hidden' id='axcoordi"+i+"' value="+data.list[i].axcoordi+">";
-																		html+="<input type='hidden' id='aycoordi"+i+"' value="+data.list[i].aycoordi+">";
+																		html+="<div id='map"+changecnt+"' style='width: 200px; height: 200px;'>지도넣기"
+																		html+="<input type='hidden' id='axcoordi"+changecnt+"' value="+data.list[i].axcoordi+">";
+																		html+="<input type='hidden' id='aycoordi"+changecnt+"' value="+data.list[i].aycoordi+">";
 																		html+="</div>";
 																		html+="</div>";
 																		html+="<div class='col-md-2'>";
@@ -586,6 +580,7 @@ a {
 																		html+="</div>";
 																		html+="</div>";
 																		html+="</div>";
+																		changecnt++;
 																	}
 															   }else{
 																html+="<div class='row mb-3'>";
@@ -620,12 +615,19 @@ a {
 																html+="</div>";
 																html+="</div>";
 																html+="</div>";
+																
 															   }
 															   $("#list").append(html);
 															}
-															   for (var i = 0; i < data.list.length; i++) {
+														   if(changecnt!=0){
+															   for (var i = 0; i < changecnt; i++) {
 															   		mainMapList(i);
 															   }
+														   }else{
+														   for (var i = 0; i < data.list.length; i++) {
+														   		mainMapList(i);
+														   }
+														   }
 														}else{
 															alert("fail")
 														}
@@ -928,8 +930,8 @@ a {
 													});
 													}
 													else{
-													//console.log(index,"번째 x"+$("#aycoordi"+index).val())
-													//console.log(index,"번째 y"+$("#axcoordi"+index).val())
+													console.log(index,"번째 x"+$("#aycoordi"+index).val())
+													console.log(index,"번째 y"+$("#axcoordi"+index).val())
 													var hotelDetailMap = new naver.maps.Map('map'+index, {
 													    center: new naver.maps.LatLng($("#aycoordi"+index).val(), $("#axcoordi"+index).val()),
 													    zoom: 15

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ctc.wstx.shaded.msv_core.driver.textui.Debug;
 import com.jhta.project.service.hjy.FavoriteServiceHjy;
 import com.jhta.project.service.hjy.FirstSearchServiceHjy;
 import com.jhta.project.service.hjy.GetPriceServiceHjy;
@@ -54,17 +55,28 @@ public class FirstSearchAjaxControllerHjy {
 		return map;
 	}
 	
+	@RequestMapping(value = "hjy/firstsearchajax", method = RequestMethod.GET)
+	public HashMap<String, Object> searchGet(String searchHotel, String checkin, String checkout, String countPeople, String countRoom,
+			 String fac, HttpSession session) {
+		String [] facilities = fac.split(",");
+		return execute(searchHotel, checkin, checkout, countPeople, countRoom,facilities,session);
+	}
+	
 	@RequestMapping(value = "hjy/firstsearchajax", method = RequestMethod.POST)
-	public HashMap<String, Object> search(String searchHotel, String checkin, String checkout, String countPeople, String countRoom,
-			@RequestParam(value="facilities", required = false) String[] facilities, HttpSession session) {
+	public HashMap<String, Object> searchPOST(String searchHotel, String checkin, String checkout, String countPeople, String countRoom,
+			@RequestParam(value="facilities", required = false)  String[] facilities, HttpSession session) {
+		return execute(searchHotel, checkin, checkout, countPeople, countRoom,facilities,session);
+
+	}
+	private HashMap<String, Object> execute(String searchHotel, String checkin, String checkout, String countPeople, String countRoom,
+			String[] facilities, HttpSession session){
 		logger.debug(searchHotel);
 		logger.debug(checkin);
 		logger.debug(checkout);
 		logger.debug(countPeople);
 		logger.debug(countRoom);
-		
 		String bookmark = "";
-		if(facilities !=null) {
+		if(facilities!=null) {
 			for (int i = 0; i < facilities.length; i++) {
 				logger.debug(facilities[i]);
 				if(facilities[i].equals("즐겨찾기")) {
@@ -72,6 +84,7 @@ public class FirstSearchAjaxControllerHjy {
 				};
 				
 			}
+			
 		}
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		HashMap<String, Object> hs = new HashMap<String, Object>();
