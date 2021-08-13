@@ -525,7 +525,7 @@ $(function(){
 						html	+= "<div class='card-body'>";
 						html	+= "<div class='row'>";
 						html	+= "<div class='col-md-3'>";
-						html	+= "<img src='${pageContext.request.contextPath }/resources/img/" + amainimg + "' width='300' height='250'>";
+						html	+= "<img src='${pageContext.request.contextPath }/resources/images/accommodations/" + amainimg + "' width='300' height='250'>";
 						html	+= "</div>";
 						html	+= "<div class='col-md-7'>";
 						html	+= "<h3>" + aname + "</h3>";
@@ -602,7 +602,7 @@ $(function(){
 						html	+= "<div class='card-body'>";
 						html	+= "<div class='row'>";
 						html	+= "<div class='col-md-3'>";
-						html	+= "<img src='${pageContext.request.contextPath }/resources/img/" + amainimg + "' width='300' height='250'>";
+						html	+= "<img src='${pageContext.request.contextPath }/resources/images/accommodations/" + amainimg + "' width='300' height='250'>";
 						html	+= "</div>";
 						html	+= "<div class='col-md-7'>";
 						html	+= "<h3>" + aname + "</h3>";
