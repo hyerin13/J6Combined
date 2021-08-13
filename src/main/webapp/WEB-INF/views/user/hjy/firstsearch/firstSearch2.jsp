@@ -58,46 +58,6 @@ a {
 }
 
 
-
-.dropdown.dropdown-lg .dropdown-menu {
-    margin-top: -1px;
-    padding: 6px 20px;
-}
-.input-group-btn .btn-group {
-    display: flex !important;
-}
-.btn-group .btn {
-    border-radius: 0;
-    margin-left: -1px;
-}
-.btn-group .btn:last-child {
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
-}
-.btn-group .form-horizontal .btn[type="submit"] {
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-}
-.form-horizontal .form-group {
-    margin-left: 0;
-    margin-right: 0;
-}
-.form-group .form-control:last-child {
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-}
-@media screen and (min-width: 768px) {
-    #adv-search {
-        width: 500px;
-        margin: 0 auto;
-    }
-    .dropdown.dropdown-lg {
-        position: static !important;
-    }
-    .dropdown.dropdown-lg .dropdown-menu {
-        min-width: 500px;
-    }
-}
 </style>
 <script
 	src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -235,7 +195,6 @@ a {
 														fac+=",";
 													}
 												}
-									    	    console.log("fac: ",fac)
 									    		  $.ajax({
 														url:"${pageContext.request.contextPath }/hjy/firstsearchajax",
 														 async: false,
@@ -246,12 +205,16 @@ a {
 														success:function(data){
 															if(data.code=='success'){
 										    		        	for (var i = 0; i < data.list.length; i++) {
-																	let listxy = changeXY(data.list[i].axcoordi,data.list[i].aycoordi);
-																	latlngs.push(new naver.maps.LatLng(listxy[1], listxy[0]));
+										    		        		if(aycoordi>100){
+																		let listxy = changeXY(data.list[i].axcoordi,data.list[i].aycoordi);
+																		latlngs.push(new naver.maps.LatLng(listxy[1], listxy[0]));
+										    		        		}else{
+																		latlngs.push(new naver.maps.LatLng(data.list[i].aycoordi, data.list[i].axcoordi));
+										    		        		}
 																	if(data.list[i].amainimg==null){
 																		contentString.push(
 															    		          '<div class="iw_inner"><h3>'+data.list[i].aname+'</h3><p>'+data.list[i].aaddress
-															    		          +'<br /> <img src="${pageContext.request.contextPath }/resources/img/220i0z000000mulfw433F_Z_1080_808_R5_D.jsp" width="300" height="250" /><br />'
+															    		          +'<br /> <img src="${pageContext.request.contextPath }/resources/images/accommodations/220i0z000000mulfw433F_Z_1080_808_R5_D.jpg" width="300" height="250" /><br />'
 															    		          +'전화번호: '+data.list[i].aphone+' | 가격: '+data.list[i].amountsum+'<br/>'
 															    		          +"<button class='btn' onclick=\""
 																				  +"location.href='${pageContext.request.contextPath }/user/kjy/room_info?AID="+data.list[i].aid
@@ -261,7 +224,7 @@ a {
 																   }else{
 																	   contentString.push(
 															    		          '<div class="iw_inner"><h3>'+data.list[i].aname+'</h3><p>'+data.list[i].aaddress
-															    		          +'<br /> <img src="${pageContext.request.contextPath }/resources/hjy/hotelmain/'+data.list[i].amainimg+'width="300" height="250"/><br />'
+															    		          +'<br /> <img src="${pageContext.request.contextPath }/resources/images/accommodations/'+data.list[i].amainimg+'"width="300" height="250"/><br />'
 															    		          +data.list[i].aphone+' | '+data.list[i].amountsum+'<br/>'
 															    		          +"<button class='btn' onclick=\""
 																				  +"location.href='${pageContext.request.contextPath }/user/kjy/room_info?AID="+data.list[i].aid
@@ -555,9 +518,9 @@ a {
 																		html+="<div class='row'>";
 																		html+="<div class='col-md-3'>";
 																		if(data.list[i].amainimg==null){
-																			html+="<img src='${pageContext.request.contextPath }/resources/img/220i0z000000mulfw433F_Z_1080_808_R5_D.jsp' width='300' height='250'>";
+																			html+="<img src='${pageContext.request.contextPath }/resources/images/accommodations/220i0z000000mulfw433F_Z_1080_808_R5_D.jpg' width='300' height='250'>";
 																		}else{
-																			html+="<img src='${pageContext.request.contextPath }/resources/hjy/hotelmain/"+data.list[i].amainimg+"'width='300' height='250'>";
+																			html+="<img src='${pageContext.request.contextPath }/resources/images/accommodations/"+data.list[i].amainimg+"'width='300' height='250'>";
 																		}
 																		html+="</div>";
 																		html+="<div class='col-md-7'>";
@@ -590,9 +553,9 @@ a {
 																html+="<div class='row'>";
 																html+="<div class='col-md-3'>";
 																if(data.list[i].amainimg==null){
-																	html+="<img src='${pageContext.request.contextPath }/resources/img/220i0z000000mulfw433F_Z_1080_808_R5_D.jsp' width='300' height='250'>";
+																	html+="<img src='${pageContext.request.contextPath }/resources/images/accommodations/220i0z000000mulfw433F_Z_1080_808_R5_D.jpg' width='300' height='250'>";
 																}else{
-																	html+="<img src='${pageContext.request.contextPath }/resources/hjy/hotelmain/"+data.list[i].amainimg+"'width='300' height='250'>";
+																	html+="<img src='${pageContext.request.contextPath }/resources/images/accommodations/"+data.list[i].amainimg+"'width='300' height='250'>";
 																}
 																html+="</div>";
 																html+="<div class='col-md-7'>";
@@ -880,19 +843,13 @@ a {
 									<div class="row">
 										<div class="col-md-3">
 											<c:choose>
-												<c:when test="${vo.amainimg eq null}">
-													<!-- 
-														src="${pageContext.request.contextPath }/resources/img/220i0z000000mulfw433F_Z_1080_808_R5_D.jsp"
-													 -->
+												<c:when test="${vo.amainimg eq null or vo.amainimg==''}">
 													<img
-														src=""
+														src="${pageContext.request.contextPath }/resources/images/accommodations/220i0z000000mulfw433F_Z_1080_808_R5_D.jpg"
 														width="300" height="250">
 												</c:when>
 												<c:otherwise>
-													<!-- 
-														src="${pageContext.request.contextPath }/resources/hjy/hotelmain/${vo.amainimg }"
-													 -->
-													<img src=""
+													<img src="${pageContext.request.contextPath }/resources/images/accommodations/${vo.amainimg }"
 														width="300" height="250">
 												</c:otherwise>
 											</c:choose>
@@ -910,38 +867,41 @@ a {
 												function mainMapList(index){
 													var mainmaplist = new Array();
 													mainmaplist.push(index);
-													if($("#axcoordi"+index).val()*1>100){
-												    // point array 1
-												    var point1 = [$("#axcoordi"+index).val()*1, $("#aycoordi"+index).val()*1]
-												    var firstProjection = "+proj=tmerc +lat_0=38 +lon_0=127 +k=1 +x_0=200000 +y_0=500000 +ellps=bessel +units=m +no_defs"; // from
-												    var secondProjection = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"; // to
-												   
-												    // #1. 변환한 위도 경도 값 저장
-												    var lonAndLat1 = proj4(firstProjection, secondProjection, point1);// from 경위도
-													
-													var mainmap = new naver.maps.Map('map'+index, {
-													   center: new naver.maps.LatLng(lonAndLat1[1], lonAndLat1[0]),
-													    zoom: 15
-													});
-													
-													var testmarker = new naver.maps.Marker({
-													    position: new naver.maps.LatLng(lonAndLat1[1],lonAndLat1[0]),
-													    map: mainmap
-													});
+													if($("#aycoordi"+index).val()*1>100){
+													    // point array 1
+													    var point1 = [$("#axcoordi"+index).val()*1, $("#aycoordi"+index).val()*1]
+													    var firstProjection = "+proj=tmerc +lat_0=38 +lon_0=127 +k=1 +x_0=200000 +y_0=500000 +ellps=bessel +units=m +no_defs"; // from
+													    var secondProjection = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"; // to
+													   
+													    // #1. 변환한 위도 경도 값 저장
+													    var lonAndLat1 = proj4(firstProjection, secondProjection, point1);// from 경위도
+														
+														var mainmap = new naver.maps.Map('map'+index, {
+														   center: new naver.maps.LatLng(lonAndLat1[1], lonAndLat1[0]),
+														    zoom: 15
+														});
+														
+														var testmarker = new naver.maps.Marker({
+														    position: new naver.maps.LatLng(lonAndLat1[1],lonAndLat1[0]),
+														    map: mainmap
+														});
 													}
 													else{
-													console.log(index,"번째 x"+$("#aycoordi"+index).val())
-													console.log(index,"번째 y"+$("#axcoordi"+index).val())
-													var hotelDetailMap = new naver.maps.Map('map'+index, {
-													    center: new naver.maps.LatLng($("#aycoordi"+index).val(), $("#axcoordi"+index).val()),
-													    zoom: 15
-													});
-	
-												var hotelDetailmarker = new naver.maps.Marker({
-												    position: new naver.maps.LatLng($("#aycoordi"+index).val(), $("#axcoordi"+index).val()),
-												    map: hotelDetailMap
-												});
-												}
+														console.log(index,"번째 x"+$("#aycoordi"+index).val())
+														console.log(index,"번째 y"+$("#axcoordi"+index).val())
+														let copy3 = $("#aycoordi"+index).val();
+														$("#aycoordi"+index).val($("#axcoordi"+index).val());
+														$("#axcoordi"+index).val(copy3)
+														var hotelDetailMap = new naver.maps.Map('map'+index, {
+														    center: new naver.maps.LatLng($("#axcoordi"+index).val(), $("#aycoordi"+index).val()),
+														    zoom: 15
+														});
+			
+														var hotelDetailmarker = new naver.maps.Marker({
+														    position: new naver.maps.LatLng($("#axcoordi"+index).val(), $("#aycoordi"+index).val()),
+														    map: hotelDetailMap
+														});
+													}
 												}
 												</script>
 											

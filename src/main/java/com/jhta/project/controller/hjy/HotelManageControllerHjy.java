@@ -89,7 +89,7 @@ public class HotelManageControllerHjy {
 		// 파일 경로 옮기기 temp->찐으로
 		String hotelpath_temp = sc.getRealPath("/resources/hjy/hotelmain_temp");
 		String srcFile = hotelpath_temp + "//" + accommodationsVo.getAmainimg();
-		String hotelpath = sc.getRealPath("/resources/hjy/hotelmain");
+		String hotelpath = sc.getRealPath("/resources/images/accommodations");
 		String dstFile = hotelpath + "//" + accommodationsVo.getAmainimg();
 		File src = new File(srcFile);
 		File dst = new File(dstFile);
@@ -109,7 +109,7 @@ public class HotelManageControllerHjy {
 			// 파일 경로 옮기기 temp->찐으로
 			String roommainpath_temp = sc.getRealPath("/resources/hjy/roommain_temp");
 			String roomsrcFile = roommainpath_temp + "//" + roomInfoVo.getRimainimg();
-			String roommainpath = sc.getRealPath("/resources/hjy/roommain");
+			String roommainpath = sc.getRealPath("/resources/images/room_info");
 			String roomdstFile = roommainpath + "//" + roomInfoVo.getRimainimg();
 			File roomsrc = new File(roomsrcFile);
 			File roomdst = new File(roomdstFile);
@@ -120,7 +120,7 @@ public class HotelManageControllerHjy {
 			}
 			String roomexpath_temp = sc.getRealPath("/resources/hjy/roomextra_temp");
 			String roomexsrcFile = roomexpath_temp + "//" + roomInfoVo.getRiextraimg1();
-			String roomexpath = sc.getRealPath("/resources/hjy/roomextra");
+			String roomexpath = sc.getRealPath("/resources/images/room_info");
 			String roomexdstFile = roomexpath + "//" + roomInfoVo.getRiextraimg1();
 			File roomexsrc = new File(roomexsrcFile);
 			File roomexdst = new File(roomexdstFile);

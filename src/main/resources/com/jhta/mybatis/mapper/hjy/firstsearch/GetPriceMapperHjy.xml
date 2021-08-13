@@ -9,7 +9,7 @@
 		resultType="com.jhta.project.vo.lhjcjy.AccommodationsVolhjcjy">
 	<![CDATA[
         select * from (select fin.*, ROW_NUMBER() OVER(PARTITION BY aname ORDER BY aname, amountsum) rnum from(        
-			select (amountSum+addfee.exper)amountsum,star restar, ri.riid, ri.riroom,ri.RISERVICE,ri.RISIZE,ri.RIMINPER,ri.RIMAXPER,ri.RIMAINIMG,ri.RIEXTRAIMG1,ri.RIEXTRAIMG2,ri.aid,ac.aname,ac.aaddress,ac.axcoordi,ac.aycoordi,ac.aphone from (
+			select (amountSum+addfee.exper)amountsum,star restar, ri.riid, ri.riroom,ri.RISERVICE,ri.RISIZE,ri.RIMINPER,ri.RIMAXPER,ri.RIMAINIMG,ri.RIEXTRAIMG1,ri.RIEXTRAIMG2,ri.aid,ac.aname,ac.amainimg,ac.aaddress,ac.axcoordi,ac.aycoordi,ac.aphone from (
         		select riid, sum(amount) amountSum from(
         			select fin.* ,
         			case when peseason ='성수기' then ripeak when peseason ='준성수기' then risemipeak when peseason ='비수기' then rioff end as amount

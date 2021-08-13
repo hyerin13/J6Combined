@@ -111,7 +111,7 @@ public class FirstSearchAjaxControllerHjy {
 			result.put("rimaxper", countPeople);
 			result.put("countRoom", countRoom);
 			List<AccommodationsVolhjcjy> list = gpservice.getprice(hs);
-
+			
 			//입력한 날짜 중간포함 리스트 얻기
 			HashMap<String, Object> hs1=new HashMap<String, Object>();
 			String STARTDAY1=checkin.replace("-", "");
