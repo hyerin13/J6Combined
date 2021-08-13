@@ -11,20 +11,16 @@
 	background: #d8622b;
 	color: #fff !important;
 }
-
 body {
 	background: #f4f4f4;
 }
-
 img {
 	width: 100%;
 	max-height: 560px;
 }
-
 a {
 	color: #696969;
 }
-
 /*별점 칠하기 css*/
 .star-rating {
 	display: flex;
@@ -35,12 +31,10 @@ a {
 	padding: 0 0.2em;
 	width: 100px;
 }
-
 /*기존 라디오 버튼 사라짐*/
 .star-rating input {
 	display: none;
 }
-
 .star-rating label {
 	-webkit-text-fill-color: transparent;
 	/* Will override color (regardless of order) */
@@ -55,9 +49,6 @@ a {
 /*호버시 변경*/
 .star-rating label:hover, .star-rating label:hover ~ label {
 	-webkit-text-fill-color: pink;
-}
-
-
 </style>
 <script
 	src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -167,7 +158,7 @@ a {
 									    		  let templist= new Array(); 
 												  checklist(templist)
 									    		  $("#list").append(html);
-												  testgomapchange(templist)
+												  gomapchange(templist)
 												}else{
 											    	  $("#gomap").html("지도로 보기")
 											    	  $("#location").attr('class','collapse show')
@@ -181,7 +172,7 @@ a {
 														}
 										      	}
 											})
-											function testgomapchange(facilities,axcoordi,aycoordi,distance){
+											function gomapchange(facilities,axcoordi,aycoordi,distance){
 									    		  let gomapchange = new naver.maps.Map('gomapchange', {
 								    		          center: new naver.maps.LatLng(ycoordi, xcoordi),
 								    		          zoom: 13
@@ -205,7 +196,7 @@ a {
 														success:function(data){
 															if(data.code=='success'){
 										    		        	for (var i = 0; i < data.list.length; i++) {
-										    		        		if(aycoordi>100){
+										    		        		if(data.list[i].aycoordi>100){
 																		let listxy = changeXY(data.list[i].axcoordi,data.list[i].aycoordi);
 																		latlngs.push(new naver.maps.LatLng(listxy[1], listxy[0]));
 										    		        		}else{
@@ -245,11 +236,11 @@ a {
 									    		              map: gomapchange
 									    		          });
 									    		          marker.set('seq', i);
-		
+									    		          
 										    		      markerList.push(marker);
 										    		      
 										    		      marker.addListener('click', marckerClick);
-		
+										    		      
 										    		      marker = null;
 									    		  }
 	
@@ -332,14 +323,14 @@ a {
 													checklist(templist)
 													if($("#locationamount").val()!="none"){
 													 	if($("#gomap").html()=="돌아가기"){
-															  testgomapchange(templist,locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val())
+															  gomapchange(templist,locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val())
 													 	}else{
 															list(templist,locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val())
 													 	}
 													}else{
 														if($("#gomap").html()=="돌아가기"){
 															console.log(templist)
-															  testgomapchange(templist)
+															  gomapchange(templist)
 													 	}else{
 															list(templist)
 													 	}
@@ -352,13 +343,13 @@ a {
 												checklist(templist)
 													if($("#locationamount").val()!="none"){
 													 	if($("#gomap").html()=="돌아가기"){
-															  testgomapchange(templist,locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val())
+															  gomapchange(templist,locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val())
 													 	}else{
 															list(templist,locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val())
 													 	}
 													}else{
 														if($("#gomap").html()=="돌아가기"){
-															  testgomapchange(templist)
+															  gomapchange(templist)
 													 	}else{
 															list(templist)
 													 	}
@@ -371,13 +362,13 @@ a {
 												checklist(templist)
 												if($("#locationamount").val()!="none"){
 												 	if($("#gomap").html()=="돌아가기"){
-														  testgomapchange(templist,locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val())
+														  gomapchange(templist,locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val())
 												 	}else{
 														list(templist,locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val())
 												 	}
 												}else{
 													if($("#gomap").html()=="돌아가기"){
-														  testgomapchange(templist)
+														  gomapchange(templist)
 												 	}else{
 														list(templist)
 												 	}
@@ -451,7 +442,8 @@ a {
 										//좌표 위도경도로 변환계
 										function changeXY(xcoordi,ycoordi){
 											let xy=[];
-											if(xcoordi*1>100){
+											if(ycoordi*1>100){
+												console.log('변환계 사용')
 												// point array 1
 											    var point1 = [xcoordi*1, ycoordi*1]
 											    var firstProjection = "+proj=tmerc +lat_0=38 +lon_0=127 +k=1 +x_0=200000 +y_0=500000 +ellps=bessel +units=m +no_defs"; // from
@@ -462,12 +454,14 @@ a {
 												xy.push(lonAndLat1[0])
 												xy.push(lonAndLat1[1])
 											}else{
+												console.log('변환계 사용안함')
 												xy.push(xcoordi)
 												xy.push(ycoordi)
 											}
 											return xy;
 										}
 										
+										//두 위치사이의 거리구하기 -지영
 										function isdistancein(coords1, coords2) {
 											var isdistanceinlat1 = coords1[0];
 											var isdistanceinlon1 = coords1[1];
@@ -497,16 +491,16 @@ a {
 													dataType:"json",
 													success:function(data){
 														if(data.code=='success'){
-															console.log("파라미터: " +facilities,xcoordi,ycoordi,distance)
 														   $("#list").empty();
 														   for (var i = 0; i < data.list.length; i++) {
 															   let html = "";
 															   if(xcoordi){
-																   let testxy = changeXY(data.list[i].axcoordi,data.list[i].aycoordi)
+																   	let testxy = changeXY(data.list[i].axcoordi,data.list[i].aycoordi)
 																   //기준좌표
 																   	let refcoordi = [xcoordi, ycoordi];
 																   //db에서 불러온 좌표
 																	let dbcoordi = [testxy[1],testxy[0]];
+																   
 																	console.log("숙소이름: "+data.list[i].aname);
 																	console.log("두개사이의 거리: "+isdistancein(refcoordi, dbcoordi),"m");
 																	console.log("distance: "+distance)
@@ -578,18 +572,17 @@ a {
 																html+="</div>";
 																html+="</div>";
 																html+="</div>";
-																
 															   }
 															   $("#list").append(html);
 															}
-														   if(changecnt!=0){
-															   for (var i = 0; i < changecnt; i++) {
+														   	   if(changecnt!=0){
+															   		for (var i = 0; i < changecnt; i++) {
+															   			mainMapList(i);
+															   		}
+															   }else{
+															   for (var i = 0; i < data.list.length; i++) {
 															   		mainMapList(i);
 															   }
-														   }else{
-														   for (var i = 0; i < data.list.length; i++) {
-														   		mainMapList(i);
-														   }
 														   }
 														}else{
 															alert("fail")
@@ -743,25 +736,20 @@ a {
 									  	      }
 									  	      return alert('Geocode Error, address:' + address);
 									  	    }
-
 									  	    if (response.v2.meta.totalCount === 0) {
 									  	      return alert('검색결과가 없습니다.');
 									  	    }
-
 									  	    var htmlAddresses = [],
 									  	      item = response.v2.addresses[0],
 									  	      point = new naver.maps.Point(item.x, item.y);
 									  	      xcoordi = item.x;
 									  	      ycoordi = item.y;
-
 									  	    if (item.roadAddress) {
 									  	      htmlAddresses.push('[도로명 주소] ' + item.roadAddress);
 									  	    }
-
 									  	    if (item.jibunAddress) {
 									  	      htmlAddresses.push('[지번 주소] ' + item.jibunAddress);
 									  	    }
-
 									  	    if (item.englishAddress) {
 									  	      htmlAddresses.push('[영문명 주소] ' + item.englishAddress);
 									  	    }
@@ -771,30 +759,29 @@ a {
 									  	searchAddressToCoordinate($("#searchHotel").val());
 									    
 									    var locationposition = new naver.maps.LatLng(ycoordi, xcoordi);
-
 									    var locationmap = new naver.maps.Map('locationmap', {
 									        center: locationposition,
 									        zoom: 15
 									    });
-
 									    var locationmarker = new naver.maps.Marker({
 									        position: locationposition,
 									        map: locationmap
 									    });
 									    var circle =[];
-
+									    
 									    naver.maps.Event.addListener(locationmap, 'click', function(e) {
 									    	locationmarker.setPosition(e.coord);
 									    });
 									    
 									    function makeCircle(locationmap,locationposition,size){
-									    	circle.push(new naver.maps.Circle({
-										        map: locationmap,
-										        center: locationposition,
-										        radius: size,//m단위의 반지름 입력
-										        fillColor: 'crimson',
-										        fillOpacity: 0.8
-										    })
+									    	circle.push(
+								    			new naver.maps.Circle({
+											        map: locationmap,
+											        center: locationposition,
+											        radius: size,//m단위의 반지름 입력
+											        fillColor: 'crimson',
+											        fillOpacity: 0.8
+											    })
 									    	);
 									    }
 									    </script>
@@ -887,8 +874,6 @@ a {
 														});
 													}
 													else{
-														console.log(index,"번째 x"+$("#aycoordi"+index).val())
-														console.log(index,"번째 y"+$("#axcoordi"+index).val())
 														let copy3 = $("#aycoordi"+index).val();
 														$("#aycoordi"+index).val($("#axcoordi"+index).val());
 														$("#axcoordi"+index).val(copy3)
@@ -896,7 +881,7 @@ a {
 														    center: new naver.maps.LatLng($("#axcoordi"+index).val(), $("#aycoordi"+index).val()),
 														    zoom: 15
 														});
-			
+	
 														var hotelDetailmarker = new naver.maps.Marker({
 														    position: new naver.maps.LatLng($("#axcoordi"+index).val(), $("#aycoordi"+index).val()),
 														    map: hotelDetailMap
