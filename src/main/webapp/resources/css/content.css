@@ -153,6 +153,7 @@ body {
 
 /*top_search*/
 .search {
+	width:1500px;
 	display:block;
 	box-sizing:border-box;
 	margin-bottom:-30px !important;
@@ -263,7 +264,7 @@ body {
     margin:0 -2px -4px -2px !important;
 }
 .search_insert_container {
-	width:100%!important;
+	width:600px !important;
 	display:flex !important;
 	margin-left:-58.05px !important;
 	margin-bottom:4px !important;
@@ -276,13 +277,13 @@ body {
     margin:0 -2px -4px -2px !important;
 }
 .search_insert_city {
-	width:50% !important;
+	width:473px !important;
 	display:inline-block !important;
 	padding:0 2px !important;
 	margin-bottom:4px !important;
 }
 .search_city_display {
-	width:473px;
+	/*width:473px;*/
 	height:54px !important;
 	display:flex !important;
 	align-items:center !important;
@@ -335,7 +336,7 @@ body {
 	letter-spacing:normal;
 }
 .search_insert_date {
-	width:50% !important;
+	width:500px !important;
 	display:inline-block !important;
 	box-sizing:border-box;
 	margin-bottom:4px !important;
@@ -544,6 +545,151 @@ body {
     white-space:nowrap !important;
     cursor:pointer !important;
     -webkit-writing-mode:horizontal-tb !important;
+}
+.search_insert_countRoom {
+	width:150px !important;
+	display:inline-block !important;
+	padding:0 6px !important;
+	padding-right:2px !important;
+	margin-bottom:4px !important;
+}
+.search_room_display {
+	/*width:473px;*/
+	height:54px !important;
+	display:flex !important;
+	align-items:center !important;
+	cursor:text !important;
+	box-sizing:border-box;
+	position:relative;
+	background-color:#f4f4f4 !important;
+	color:#17232c !important;
+	padding:0 16px 0 48px !important;
+	border-radius:2px !important;
+	font-family:Helvetica Neue,Helvetica Neue,Helvetica,Arial,sans-serif!important;
+	font-size:15px !important;
+	font-weight:400 !important;
+	letter-spacing:normal;
+}
+.search_room_display svg {
+	width:24px !important;
+	height:24px !important;
+	display:block !important;
+	position:absolute !important;
+	left:16px !important;
+	top:50% !important;
+	box-sizing:border-box;
+	cursor:text !important;
+	overflow:hidden;
+	color:#232b38 !important;
+	margin-top:-12px !important;
+	pointer-events:none !important;
+}
+.room_text_wrap {
+	display:block;
+	box-sizing:border-box;
+	cursor:text !important;
+	overflow:hidden !important;
+	padding-left:5px !important;
+	color:#17232c !important;
+}
+.room_text {
+	display:block;
+	box-sizing:border-box;
+	line-height:20px !important;
+	white-space:nowrap !important;
+	text-overflow:ellipsis !important;
+	overflow:hidden !important;
+	color:#17232c !important;
+	cursor:text !important;
+	font-family:Helvetica Neue,Helvetica Neue,Helvetica,Arial,sans-serif!important;
+	font-size:15px !important;
+	font-weight:400 !important;
+	letter-spacing:normal;
+}
+.search_insert_countPeople {
+	width:150px !important;
+	display:inline-block !important;
+	padding:0 6px !important;
+	padding-right:2px !important;
+	margin-bottom:4px !important;
+}
+.search_people_display {
+	/*width:473px;*/
+	height:54px !important;
+	display:flex !important;
+	align-items:center !important;
+	cursor:text !important;
+	box-sizing:border-box;
+	position:relative;
+	background-color:#f4f4f4 !important;
+	color:#17232c !important;
+	padding:0 16px 0 48px !important;
+	border-radius:2px !important;
+	font-family:Helvetica Neue,Helvetica Neue,Helvetica,Arial,sans-serif!important;
+	font-size:15px !important;
+	font-weight:400 !important;
+	letter-spacing:normal;
+}
+.search_people_display svg {
+	width:24px !important;
+	height:24px !important;
+	display:block !important;
+	position:absolute !important;
+	left:16px !important;
+	top:50% !important;
+	box-sizing:border-box;
+	cursor:text !important;
+	overflow:hidden;
+	color:#232b38 !important;
+	margin-top:-12px !important;
+	pointer-events:none !important;
+}
+.people_text_wrap {
+	display:block;
+	box-sizing:border-box;
+	cursor:text !important;
+	overflow:hidden !important;
+	padding-left:5px !important;
+	color:#17232c !important;
+}
+.people_text {
+	display:block;
+	box-sizing:border-box;
+	line-height:20px !important;
+	white-space:nowrap !important;
+	text-overflow:ellipsis !important;
+	overflow:hidden !important;
+	color:#17232c !important;
+	cursor:text !important;
+	font-family:Helvetica Neue,Helvetica Neue,Helvetica,Arial,sans-serif!important;
+	font-size:15px !important;
+	font-weight:400 !important;
+	letter-spacing:normal;
+}
+
+.city_text input[type="text"] {
+	width:395px;
+	background-color:#f4f4f4;
+	/*border:0.1px solid black;*/
+	border:none;
+}
+.date_innertext input[type="date"] {
+	background-color:#f4f4f4;
+	/*border:0.1px solid black;*/
+	border:none;
+}
+.room_text input[type="number"] {
+	background-color:#f4f4f4;
+	/*border:0.1px solid black;*/
+	border:none;
+}
+.people_text input[type="number"] {
+	background-color:#f4f4f4;
+	/*border:0.1px solid black;*/
+	border:none;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: none;
 }
 
 /*space1*/
