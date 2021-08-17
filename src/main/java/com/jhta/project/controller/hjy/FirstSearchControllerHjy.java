@@ -30,7 +30,7 @@ import com.jhta.project.vo.lhjcjy.SearchVolhjcjy;
 
 @Controller
 public class FirstSearchControllerHjy {
-	@Autowired private GetPriceServiceHjy gpservice;
+	@Autowired private GetPriceServiceHjy gpservicehjy;
 	Logger logger = LoggerFactory.getLogger(FirstSearchControllerHjy.class);
 
 	@GetMapping("hjy/firstsearch") //
@@ -64,7 +64,7 @@ public class FirstSearchControllerHjy {
 			mv.addObject("rcheckout", checkout);
 			mv.addObject("rimaxper", countPeople);
 			mv.addObject("countRoom", countRoom);
-			List<AccommodationsVolhjcjy> list = gpservice.getprice(hs);
+			List<AccommodationsVolhjcjy> list = gpservicehjy.getprice(hs);
 			mv.addObject("list", list);
 		}catch(Exception e) {
 			e.printStackTrace();

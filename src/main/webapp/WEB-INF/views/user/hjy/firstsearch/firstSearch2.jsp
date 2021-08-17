@@ -64,7 +64,7 @@ a {
 <body>
 <script type="text/javascript">
 $(document).ready(function() {
-	//아코디언 제목? 메뉴? 누르면 숨기기/보이기효과-지영
+	//아코디언 제목? 메뉴? 누르면 숨기기/보이기효과-지영o
 	$("#accordion button").click(function() {
 		if($($(this).attr('data-target')).attr('class')=='collapse show'){
 			$($(this).attr('data-target')).attr('class','collapse')
@@ -73,7 +73,7 @@ $(document).ready(function() {
 		}
 	});
 
-	//즐겨찾기 체크박스 클릭 시 실행되는 ajax -지영
+	//즐겨찾기 체크박스 클릭 시 실행되는 ajax -지영o
 	$("#favorite input").click(function() {
 		if(!sessionStorage.getItem('id') ){
 			alert('로그인 하셔야 이용할 수 있는 서비스입니다.')
@@ -81,9 +81,12 @@ $(document).ready(function() {
 		}else{
 			let templist= new Array(); 
 			checklist(templist)
+			//인근반경 거리가 상관없음일때
 			if($("#locationamount").val()!="none"){
+				//지도로보기로 지도가 펼쳐져 있을때				
 			 	if($("#gomap").html()=="돌아가기"){
 					  gomapchange(templist,locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val())
+				//리스트가 나올때				
 			 	}else{
 					list(templist,locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val())
 			 	}
@@ -97,7 +100,7 @@ $(document).ready(function() {
 			}
 		}
 	})
-	//편의시설 체크박스 클릭 시 실행되는 ajax -지영
+	//편의시설 체크박스 클릭 시 실행되는 ajax -지영o
 	$("#facilities input").click(function() {
 		let templist= new Array(); 
 		checklist(templist)
@@ -116,7 +119,7 @@ $(document).ready(function() {
 			}
 	})
 		
-	//무료시설 체크박스 클릭 시 실행되는 ajax -지영
+	//무료시설 체크박스 클릭 시 실행되는 ajax -지영o
 	$("#forFree input").click(function() {
 		let templist= new Array(); 
 		checklist(templist)
@@ -135,7 +138,7 @@ $(document).ready(function() {
 		}
 	})
 	
-	//숙소이름 자동완성 검색 -지영
+	//숙소이름 자동완성 검색 -지영o
 	$("#searchHotelname").autocomplete({
 		source:function(request,response){
 			let aname=$("#searchHotelname").val();
@@ -183,7 +186,7 @@ $(document).ready(function() {
         .appendTo( ul );
  	};
  	
- 	//거리를 통한 검색의 select옵션이 변경되었을때 실행될 함수 -지영
+ 	//거리를 통한 검색의 select옵션이 변경되었을때 실행될 함수 -지영o
  	$("#locationamount").change(function() {
     	for (var i = 0; i < circle.length; i++) {
 	    	circle[i].setMap(null);
@@ -199,32 +202,33 @@ $(document).ready(function() {
     	}
 		
     })
+	//지도로 보기 클릭시 효과 -지영o
+	$("#gomap").click(function() {
+	  if($("#gomap").html()=="지도로 보기"){
+		 console.log('test')
+		  $("#gomap").html("돌아가기")
+		  $("#location").attr('class','collapse')
+		  $("#list").empty();
+		  let html = "<div id='gomapchange' style='width:100%; height:1400px;'></div>";
+		  let templist= new Array(); 
+		  checklist(templist)
+		  $("#list").append(html);
+		  gomapchange(templist)
+		}else{
+	    	  $("#gomap").html("지도로 보기")
+	    	  $("#location").attr('class','collapse show')
+			  $("#list").empty();
+	    	  let templist= new Array(); 
+				checklist(templist)
+				if($("#locationamount").val()!="none"){
+					list(templist,locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val())
+				}else{
+					list(templist);
+				}
+	  	}
+	})
 });
 
-//지도로 보기 클릭시 효과 -지영
-$("#gomap").click(function() {
-  if($("#gomap").html()=="지도로 보기"){
-	  $("#gomap").html("돌아가기")
-	  $("#location").attr('class','collapse')
-	  $("#list").empty();
-	  let html = "<div id='gomapchange' style='width:100%; height:1400px;'></div>";
-	  let templist= new Array(); 
-	  checklist(templist)
-	  $("#list").append(html);
-	  gomapchange(templist)
-	}else{
-    	  $("#gomap").html("지도로 보기")
-    	  $("#location").attr('class','collapse show')
-		  $("#list").empty();
-    	  let templist= new Array(); 
-			checklist(templist)
-			if($("#locationamount").val()!="none"){
-				list(templist,locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val())
-			}else{
-				list(templist);
-			}
-  	}
-})
 
 //지도로 보기 ajax받아와서 뿌려주기 -지영
 function gomapchange(facilities,axcoordi,aycoordi,distance){
@@ -385,9 +389,8 @@ var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 var d = r * c; // Distance in km
 return Math.round(d*1000);
 }
-
 //위의 검색조건,왼쪽 검색조건에 맞는 list뽑아주기 ajax
-function list(facilities,xcoordi,ycoordi,distance){
+function list(facilities,xcoordi,ycoordi,distance,sort){
 let changecnt=0;
    $.ajax({
 		url:"${pageContext.request.contextPath }/hjy/firstsearchajax",
@@ -401,6 +404,7 @@ let changecnt=0;
 			   $("#list").empty();
 			   for (var i = 0; i < data.list.length; i++) {
 				   let html = "";
+				   //xcoordi값이 있을때
 				   if(xcoordi){
 					   	let testxy = changeXY(data.list[i].axcoordi,data.list[i].aycoordi)
 					   //기준좌표
