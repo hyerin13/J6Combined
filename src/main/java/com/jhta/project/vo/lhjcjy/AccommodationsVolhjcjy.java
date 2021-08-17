@@ -43,6 +43,7 @@ public class AccommodationsVolhjcjy {
 	private Date aregdate;
 	private String aisdel;
 	
+	private int riid;
 	private String amountsum; //전체금액
 	private int restar;
 }

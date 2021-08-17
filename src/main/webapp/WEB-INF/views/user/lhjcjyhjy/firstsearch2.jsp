@@ -1577,7 +1577,13 @@ function mainMapList(index){
 							                 <c:when test="${vo.restar==1 }">
 							                	<h5>★☆☆☆☆</h5>
 							                </c:when>
+							                 <c:when test="${vo.restar==0 }">
+							                 ${vo.riid }
+							                 ${vo.restar }
+							                	<h5>☆☆☆☆☆</h5>
+							                </c:when>
 							                <c:otherwise>
+							                	${vo.restar }
 							               		<h5>☆☆☆☆☆</h5>
 							                </c:otherwise>	
 							                </c:choose>
