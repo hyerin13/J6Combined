@@ -32,7 +32,6 @@ import com.jhta.project.vo.lhjcjy.AccommodationsVolhjcjy;
 @RestController
 public class FirstSearchAjaxControllerHjy {
 	@Autowired private FirstSearchServiceHjy service;
-	@Autowired private PeriodServicefirstSearchHjy peservice;
 	@Autowired private GetPriceServiceHjy gpservice;
 	@Autowired private FavoriteServiceHjy favoriteService;
 
@@ -57,19 +56,19 @@ public class FirstSearchAjaxControllerHjy {
 	
 	@RequestMapping(value = "hjy/firstsearchajax", method = RequestMethod.GET)
 	public HashMap<String, Object> searchGet(String searchHotel, String checkin, String checkout, String countPeople, String countRoom,
-			 String fac, HttpSession session) {
+			 String fac, String minprice, String maxprice, HttpSession session) {
 		String [] facilities = fac.split(",");
-		return execute(searchHotel, checkin, checkout, countPeople, countRoom,facilities,session);
+		return execute(searchHotel, checkin, checkout, countPeople, countRoom,facilities,minprice,maxprice,session);
 	}
 	
 	@RequestMapping(value = "hjy/firstsearchajax", method = RequestMethod.POST)
 	public HashMap<String, Object> searchPOST(String searchHotel, String checkin, String checkout, String countPeople, String countRoom,
-			@RequestParam(value="facilities", required = false)  String[] facilities, HttpSession session) {
-		return execute(searchHotel, checkin, checkout, countPeople, countRoom,facilities,session);
+			@RequestParam(value="facilities", required = false)  String[] facilities, String minprice, String maxprice, HttpSession session) {
+		return execute(searchHotel, checkin, checkout, countPeople, countRoom,facilities,minprice,maxprice,session);
 
 	}
 	private HashMap<String, Object> execute(String searchHotel, String checkin, String checkout, String countPeople, String countRoom,
-			String[] facilities, HttpSession session){
+			String[] facilities, String minprice, String maxprice, HttpSession session){
 		logger.debug(searchHotel);
 		logger.debug(checkin);
 		logger.debug(checkout);
@@ -82,9 +81,7 @@ public class FirstSearchAjaxControllerHjy {
 				if(facilities[i].equals("즐겨찾기")) {
 					bookmark=facilities[i];
 				};
-				
 			}
-			
 		}
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		HashMap<String, Object> hs = new HashMap<String, Object>();
@@ -104,6 +101,10 @@ public class FirstSearchAjaxControllerHjy {
 			hs.put("rcheckout", checkout1);
 			hs.put("rimaxper", countPeople);
 			hs.put("countRoom", countRoom);
+			hs.put("minprice", minprice);
+			hs.put("maxprice", maxprice);
+			logger.debug("최소가격설정:"+minprice);
+			logger.debug("최대가격설정:"+maxprice);
 			
 			result.put("aaddress", searchHotel);
 			result.put("rcheckin", checkin);
@@ -111,7 +112,6 @@ public class FirstSearchAjaxControllerHjy {
 			result.put("rimaxper", countPeople);
 			result.put("countRoom", countRoom);
 			List<AccommodationsVolhjcjy> list = gpservice.getprice(hs);
-			
 			//입력한 날짜 중간포함 리스트 얻기
 			HashMap<String, Object> hs1=new HashMap<String, Object>();
 			String STARTDAY1=checkin.replace("-", "");
