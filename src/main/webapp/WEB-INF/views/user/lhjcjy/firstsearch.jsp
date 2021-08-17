@@ -61,7 +61,6 @@ body {
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery-ui.min.css">
 
-
 <script type="text/javascript">
 function collectInfo(){
 	let countRoom=$("#countRoom").val();
