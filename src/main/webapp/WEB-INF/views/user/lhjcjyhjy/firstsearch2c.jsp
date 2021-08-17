@@ -47,18 +47,13 @@ a {
 	float: left;
 }
 </style> 
-<!-- 부트스트랩 -->
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
-<!-- jquery ui -->
+<script
+	src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<!-- css -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-<!-- x,y좌표 위도,경도로 바꾸기 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.7.5/proj4.js"></script>
-<!-- 지도추가 -->
 <script type="text/javascript"
 	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=hznya2qvqk&submodules=geocoder"></script>
 <!------ Include the above in your HEAD tag ---------->
@@ -70,6 +65,14 @@ function collectInfo(){
 	$("#showInfo").val("객실"+countRoom+"인원"+countPeople);
 }
 $(function(){
+	//아코디언 제목? 메뉴? 누르면 숨기기/보이기효과-지영
+	$("#accordion button").click(function() {
+		if($($(this).attr('data-target')).attr('class')=='collapse show'){
+			$($(this).attr('data-target')).attr('class','collapse')
+		}else{
+			$($(this).attr('data-target')).attr('class','collapse show')
+		}
+	});
 	//자동완성 - 지윤
 	$("#searchHotel").autocomplete({
 		source:function(request,response){
@@ -121,6 +124,7 @@ $(function(){
 	$("#searchHotelname").autocomplete({
 		source:function(request,response){
 			let aname=$("#searchHotelname").val();
+			//console.log(aname);
 			$.ajax({
 				type:'get',
 				url:"/project/hjy/ajax/auto",
@@ -166,93 +170,43 @@ $(function(){
  	
  	//즐겨찾기 체크박스 클릭 시 실행되는 ajax -지영
 	$("#favorite input").click(function() {
-		let grade;
-		let star;
-		//성급 몇인지 뽑아오는부분
- 		for (var i =1; i <= 5; i++) {
- 			if($("#grade"+i).attr('style')=="background-color: red"){
- 				grade = $("#grade"+i).attr('id')
- 				grade = grade.substring(5)
- 				break;
- 			};
-		}
- 		//리뷰별점 몇인지 뽑아오는부분
- 		for (var i =1; i <= 5; i++) {
- 			if($("#star"+i).attr('style')=="background-color: red"){
- 				star = $("#star"+i).attr('id')
- 				star = star.substring(4)
- 				break;
- 			};
-		}
+		//0817 추가
+	 	console.log("즐겨찾기 체크박스 클릭")
 		
 		if(!sessionStorage.getItem('id') ){
 			alert('로그인 하셔야 이용할 수 있는 서비스입니다.')
 			$(this).prop('checked',false)
 		}else{
 			let templist= new Array(); 
-			checklist(templist)
+			checklist(templist) //체크가 몇개 되어있는지, 어떤게 체크되어있는지 확인하는 펑션 
 			//인근반경 거리가 상관없음일때
 			if($("#locationamount").val()!="none"){
-				//지도로보기로 지도가 펼쳐져 있을때				
-			 	if($("#gomap").html()=="돌아가기"){
-			 		console.log("gomap성공1"+templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-					gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
-				//리스트가 나올때				
-			 	}else{
-			 		console.log("gomap성공2"+templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-					list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-			 	}
+				
 			}else{
-				if($("#gomap").html()=="돌아가기"){
-					console.log("gomap돌아가기성공1"+templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-					gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-			 	}else{
-			 		console.log("gomap돌아가기성공2"+(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star))
-					list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-			 	}
+				
 			}
 		}
 	})
 	
 	//편의시설 체크박스 클릭 시 실행되는 ajax -지영
 	$("#facilities input").click(function() {
+		console.log("편의시설 체크박스 클릭")
 		let templist= new Array(); 
 		checklist(templist)
-		let grade;
-		let star;
-		//성급 몇인지 뽑아오는부분
- 		for (var i =1; i <= 5; i++) {
- 			if($("#grade"+i).attr('style')=="background-color: red"){
- 				grade = $("#grade"+i).attr('id')
- 				grade = grade.substring(5)
- 				break;
- 			};
-		}
- 		//리뷰별점 몇인지 뽑아오는부분
- 		for (var i =1; i <= 5; i++) {
- 			if($("#star"+i).attr('style')=="background-color: red"){
- 				star = $("#star"+i).attr('id')
- 				star = star.substring(4)
- 				break;
- 			};
-		}
-			//인근반경 선택 했을때
+					
+
 			if($("#locationamount").val()!="none"){
-				//만약 지도로보기 눌렀을때
 			 	if($("#gomap").html()=="돌아가기"){
 			 		console.log("gomapok1"+templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-					gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
-				//만약 지도로보기 안눌렀을때(호텔리스트보이는상태)
+					  //gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
 			 	}else{
 			 		console.log("gomapok2"+templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-					list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
+					//list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
 			 	}
-			//인근반경 선택 안했을때
 			}else{
 				if($("#gomap").html()=="돌아가기"){
 					console.log("gomapok3"+templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-					gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-
+					  gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
 			 	}else{
 			 		console.log("gomapok4"+templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
 					list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
@@ -262,66 +216,27 @@ $(function(){
 		
 	//무료시설 체크박스 클릭 시 실행되는 ajax -지영
 	$("#forFree input").click(function() {
+		
+		console.log("무료시설 체크박스 클릭")
 		let templist= new Array(); 
 		checklist(templist)
-		let grade;
-		let star;
-		//성급 몇인지 뽑아오는부분
- 		for (var i =1; i <= 5; i++) {
- 			if($("#grade"+i).attr('style')=="background-color: red"){
- 				grade = $("#grade"+i).attr('id')
- 				grade = grade.substring(5)
- 				break;
- 			};
-		}
- 		//리뷰별점 몇인지 뽑아오는부분
- 		for (var i =1; i <= 5; i++) {
- 			if($("#star"+i).attr('style')=="background-color: red"){
- 				star = $("#star"+i).attr('id')
- 				star = star.substring(4)
- 				break;
- 			};
-		}
 		if($("#locationamount").val()!="none"){
 		 	if($("#gomap").html()=="돌아가기"){
-		 		console.log("gomapok1"+templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
-				gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
-		 	}else{
-		 		console.log("gomapok2"+templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
-				list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
-		 	}
+		 				 	}else{
+		 				 	}
 		}else{
 			if($("#gomap").html()=="돌아가기"){
 				console.log("gomapok3"+templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-				gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-
+				  //gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
 		 	}else{
 		 		console.log("gomapok4"+templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-				list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
+				//list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
 		 	}
 		}
 	})
 	
 	//거리를 통한 검색의 select옵션이 변경되었을때 실행될 함수 -지영
  	$("#locationamount").change(function() {
- 		let grade;
-		let star;
-		//성급 몇인지 뽑아오는부분
- 		for (var i =1; i <= 5; i++) {
- 			if($("#grade"+i).attr('style')=="background-color: red"){
- 				grade = $("#grade"+i).attr('id')
- 				grade = grade.substring(5)
- 				break;
- 			};
-		}
- 		//리뷰별점 몇인지 뽑아오는부분
- 		for (var i =1; i <= 5; i++) {
- 			if($("#star"+i).attr('style')=="background-color: red"){
- 				star = $("#star"+i).attr('id')
- 				star = star.substring(4)
- 				break;
- 			};
-		}
  		
     	for (var i = 0; i < circle.length; i++) {
 	    	circle[i].setMap(null);
@@ -330,253 +245,171 @@ $(function(){
     	let templist= new Array(); 
 		checklist(templist)
     	if($(this).val()=="none"){
-    		console.log(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-    		list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-    	}else{
+    		    	}else{
     	makeCircle(locationmap,locationmarker.getPosition(),$(this).val());
-    	console.log(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star);
-		list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$(this).val(),grade,star);
-    	}
+    	    	}
 		
     })
     
 	//지도로 보기 클릭시 효과 -지영
 	$("#gomap").click(function() {
-		 let grade;
-			let star;
-			//성급 몇인지 뽑아오는부분
-	 		for (var i =1; i <= 5; i++) {
-	 			if($("#grade"+i).attr('style')=="background-color: red"){
-	 				grade = $("#grade"+i).attr('id')
-	 				grade = grade.substring(5)
-	 				break;
-	 			};
-			}
-	 		//리뷰별점 몇인지 뽑아오는부분
-	 		for (var i =1; i <= 5; i++) {
-	 			if($("#star"+i).attr('style')=="background-color: red"){
-	 				star = $("#star"+i).attr('id')
-	 				star = star.substring(4)
-	 				break;
-	 			};
-			}
 	  if($("#gomap").html()=="지도로 보기"){
+		 console.log('test')
 		  $("#gomap").html("돌아가기")
 		  $("#location").attr('class','collapse')
 		  $("#list").empty();
-	 		
 		  let html = "<div id='gomapchange' style='width:100%; height:1400px;'></div>";
-		  $("#list").append(html);
 		  let templist= new Array(); 
 		  checklist(templist)
-		  console.log(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-		  gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
+		  $("#list").append(html);
+		  
+		 
+		  
 		}else{
 	    	  $("#gomap").html("지도로 보기")
 	    	  $("#location").attr('class','collapse show')
 			  $("#list").empty();
 	    	  let templist= new Array(); 
-			  checklist(templist)
-			  if($("#locationamount").val()!="none"){
-				  console.log("지도로보기 ok1"+templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star);
-				  list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
-			  }else{
-				  console.log("지도로보기 ok2"+templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-				  list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star);
-			  }
+				checklist(templist)
+				if($("#locationamount").val()!="none"){
+									}else{
+									}
 	  	}
 	})
- 	
- 	//정렬쪽
- 	//전체 정렬
-	$("#sort").change(function(){
-		let sort = $(this).val();
-		let templist = new Array();
-		let grade;
-		let star;
-		//성급 몇인지 뽑아오는부분
- 		for (var i =1; i <= 5; i++) {
- 			if($("#grade"+i).attr('style')=="background-color: red"){
- 				grade = $("#grade"+i).attr('id')
- 				grade = grade.substring(5)
- 				break;
- 			};
-		}
- 		//리뷰별점 몇인지 뽑아오는부분
- 		for (var i =1; i <= 5; i++) {
- 			if($("#star"+i).attr('style')=="background-color: red"){
- 				star = $("#star"+i).attr('id')
- 				star = star.substring(4)
- 				break;
- 			};
-		}
-		
-		if($("#locationamount").val()=="none"){
-			console.log("sort ok1"+templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-		    list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-	    		//console.log("sort__1:"+sort)
+	//셀렉트박스 정렬 -지윤
+ 	$("#sort").change(function(){
+ 			let sort=$(this).val();
+ 			console.log("sort"+sort);
+ 			
+ 			
 
-		}else{
-			console.log("sort ok2"+templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star);
- 			list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star);
- 	    	//console.log("sort__2:"+sort)
-		}
-	})
-	/*
- 	//가격순 오름차순 정렬 - 지윤
-		if(this.value=="price_low"){
-			let searchHotel=$("#searchHotel").val();
-			let checkin=$("input[name=checkin]").val();
-			let checkout=$("input[name=checkout]").val();
-			let countPeople=$("input[name=countPeople]").val();
-			let countRoom=$("input[name=countRoom]").val();
-			$("#accommList").empty(); 
-			$.ajax({
-				url:"${pageContext.request.contextPath }/lhjcjy/sortbyprice_low",
-				dataType:"json",
-				type:"get",
-				data:{"searchHotel":searchHotel,"checkin":checkin, "checkout":checkout,"countPeople":countPeople,"countRoom":countRoom },
-				success:function(data){
-					$(data.list).each(function(i,d){
-						let aid= d.aid;
-						let amainimg=d.amainimg;
-						let aname=d.aname;
-						let aaddress=d.aaddress;
-						//let star=d.star;
-						let grade = d.agrade;
-						let amountsum=d.amountsum;
-						let restar = d.star;
-						if(restar == 5){
-							let star = "★★★★★";
-						}else if(restar == 4){
-							star="★★★★☆";
-						}else if(restar == 3){
-							star="★★★☆☆";
-						}else if(restar == 2){
-							star = "★★☆☆☆";
-						}else if(restar == 1){
-							star = "★☆☆☆☆";
-						}else if(restar == 0){
-							star="☆☆☆☆☆";
-						}
-						let li="<div class='accommList'>";
-						li += "<div class='eachList'>";
-						li += "<div class='card'>";
-						li += "<div class='card-body'>";
-						li += "<div class='row'>";
-						li += "<div class='col-md-3'>";
-						li += "<img src='${pageContext.request.contextPath }/resources/images/accommodations/"+amainimg+"' width='300' height='250'>";
-						li += "</div>";
-						li += "<div class='col-md-7'>";
-						li += "<h3>"+aname+"</h3>";
-						li += "<small>"+aaddress+"</small>";
-						li += "</div>";
-						li += "<div class='col-md-2'>";
-						if(grade == null){
-    						li += "<h5> </h5>";
-    					}else{
-    						li += "<h5>" + grade + "성급</h5>";
-    					}
-						li += "<h5>" + star + "</h5>";
-						li += "<h4>"+amountsum+"원</h4>";
-						li += "<button class=\"btn\" onclick=\"location.href='{pageContext.request.contextPath }/user/kjy/room_info?aid="+aid+"&person="+countPeople+"&roomnum="+countRoom+"&startday="+checkin+"&endday="+checkout+"'\">예약하기</button>" 
-						li += "</div>";
-						li += "</div>";
-						li += "</div>";
-						li += "</div>";
-						li += "</div>";
-						li += "</div>";
-						$("#accommList").append(li);
-					})
-				}
-			})
-		}
- 	//가격 내림차순 정렬 
-		if(this.value=="price_high"){
-			let searchHotel=$("#searchHotel").val();
-			let checkin=$("input[name=checkin]").val();
-			let checkout=$("input[name=checkout]").val();
-			let countPeople=$("input[name=countPeople]").val();
-			let countRoom=$("input[name=countRoom]").val();
-			$("#accommList").empty(); 
-			$.ajax({
-				url:"${pageContext.request.contextPath }/lhjcjy/sortbyprice_high",
-				dataType:"json",
-				type:"get",
-				data:{"searchHotel":searchHotel,"checkin":checkin, "checkout":checkout,"countPeople":countPeople,"countRoom":countRoom },
-				success:function(data){
-					$(data.list).each(function(i,d){
-						let aid=d.aid;
-						let amainimg=d.amainimg;
-						let aname=d.aname;
-						let aaddress=d.aaddress;
-						let grade = d.agrade;
-						//let star=d.star;
-						let amountsum=d.amountsum;
-						let restar = d.star;
-						if(restar == 5){
-							let star = "★★★★★";
-						}else if(restar == 4){
-							star="★★★★☆";
-						}else if(restar == 3){
-							star="★★★☆☆";
-						}else if(restar == 2){
-							star = "★★☆☆☆";
-						}else if(restar == 1){
-							star = "★☆☆☆☆";
-						}else if(restar == 0){
-							star="☆☆☆☆☆";
-						}
-						let li="<div class='accommList'>";
-						li += "<div class='eachList'>";
-						li += "<div class='card'>";
-						li += "<div class='card-body'>";
-						li += "<div class='row'>";
-						li += "<div class='col-md-3'>";
-						li += "<img src='${pageContext.request.contextPath }/resources/images/accommodations/"+amainimg+"' width='300' height='250'>";
-						li += "</div>";
-						li += "<div class='col-md-7'>";
-						li += "<h3>"+aname+"</h3>";
-						li += "<small>"+aaddress+"</small>";
-						li += "</div>";
-						li += "<div class='col-md-2'>";
-						if(grade == null){
-    						li += "<h5> </h5>";
-    					}else{
-    						li += "<h5>" + grade + "성급</h5>";
-    					}
-						li += "<h5>" + star + "</h5>";
-						li += "<h4>"+amountsum+"원</h4>";
-						li += "<button class=\"btn\" onclick=\"location.href='{pageContext.request.contextPath }/user/kjy/room_info?aid="+aid+"&person="+countPeople+"&roomnum="+countRoom+"&startday="+checkin+"&endday="+checkout+"'\">예약하기</button>" 
-						li += "</div>";
-						li += "</div>";
-						li += "</div>";
-						li += "</div>";
-						li += "</div>";
-						li += "</div>";
-						$("#accommList").append(li);
-					})
-				}
-			})
-		}
-		//평점순 정렬
-		if(this.value == "star"){
-			let searchHotel = $("#searchHotel").val();
+ 			
+ 			let templist= new Array(); 
+ 			checklist(templist)
+ 			if($("#locationamount").val()=="none"){
+ 					    	}else{
+	 	    	makeCircle(locationmap,locationmarker.getPosition(),$("#locationamount").val());
+	 	    	
+ 	    	}
+			//list(facilities,xcoordi,ycoordi,distance,sort);	
+	});
+	   //가격 range slider -지윤
+        $('#slider').slider({
+            orientation:'horizontal',
+             min:${minmax.minsum},
+             max:${minmax.maxsum},
+             step:10000,
+             range:true,
+             values:[${minmax.minsum},${minmax.maxsum}],
+             
+             create:function(e, ui){ //text 박스에 value값 나타냄
+                 var values = $(this).slider('option','values');
+                 $('#count_min').val(values[0]);
+                 $('#count_max').val(values[1]);
+             },
+             change:function(e,ui){ //value 가 change 되었을 때
+                 $('#count_min').val(ui.values[0]);
+                 $('#count_max').val(ui.values[1]);
+                 
+                let searchHotel=$("#searchHotel").val();
+         		let checkin=$("input[name=checkin]").val();
+         		let checkout=$("input[name=checkout]").val();
+         		let countPeople=$("input[name=countPeople]").val();
+         		let countRoom=$("input[name=countRoom]").val();
+         		let minprice=$("#count_min").val();
+         		let maxprice=$("#count_max").val();
+         		$("#accommList").empty();
+         				
+         		$.ajax({
+        			url:"/project/lhjcjy/rangeslider",
+        			dataType:"json",
+        			type:"get",
+        			data:{"searchHotel":searchHotel,"checkin":checkin, "checkout":checkout,"countPeople":countPeople,"countRoom":countRoom, "minprice":minprice, "maxprice":maxprice },
+        			success:function(data){
+        				$(data.list).each(function(i,d){
+        					let aid=d.aid;
+        					let amainimg=d.amainimg;
+        					let aname=d.aname;
+        					let aaddress=d.aaddress;
+        					let grade = d.agrade;
+        					//let star=d.star;
+        					let amountsum=d.amountsum;
+        					let restar = d.star;
+    						if(restar == 5){
+    							let star = "★★★★★";
+    						}else if(restar == 4){
+    							star="★★★★☆";
+    						}else if(restar == 3){
+    							star="★★★☆☆";
+    						}else if(restar == 2){
+    							star = "★★☆☆☆";
+    						}else if(restar == 1){
+    							star = "★☆☆☆☆";
+    						}else if(restar == 0){
+    							star="☆☆☆☆☆";
+    						}
+        					let li="<div class='accommList'>";
+        					li += "<div class='eachList'>";
+        					li += "<div class='card'>";
+        					li += "<div class='card-body'>";
+        					li += "<div class='row'>";
+        					li += "<div class='col-md-3'>";
+        					li += "<img src='${pageContext.request.contextPath }/resources/images/accommodations/"+amainimg+"' width='300' height='250'>";
+        					li += "</div>";
+        					console.log("!!!!!!");
+        					li += "<div class='col-md-7'>";
+        					li += "<h3>"+aname+"</h3>";
+        					li += "<small>"+aaddress+"</small>";
+        					li += "</div>";
+        					li += "<div class='col-md-2'>";
+        					if(grade == null){
+        						li += "<h5> </h5>";
+        					}else{
+        						li += "<h5>" + grade + "성급</h5>";
+        					}
+        					li += "<h5>" + star + "</h5>";
+        					li += "<h4>"+amountsum+"원</h4>";
+        					li += "<button class=\"btn\" onclick=\"location.href='{pageContext.request.contextPath }/user/kjy/room_info?aid="+aid+"&person="+countPeople+"&roomnum="+countRoom+"&startday="+checkin+"&endday="+checkout+"'\">예약하기</button>" 
+        					li += "</div>";
+        					li += "</div>";
+        					li += "</div>";
+        					li += "</div>";
+        					li += "</div>";
+        					li += "</div>";
+        					$("#accommList").append(li);
+        				})
+        			}
+        		})
+                 
+             }
+         });
+        $('#count_min').change(function(){
+    		$('#slider').slider('values',0,$(this).val());
+    	})
+    	$('#count_max').change(function(){
+    		$('#slider').slider('values',1,$(this).val());
+    	})
+	   
+     // 평점 div박스
+   		$(".star_section_field").click(function(){
+   			let searchHotel = $("#searchHotel").val();
 			let checkin = $("input[name=checkin]").val();
 			let checkout = $("input[name=checkout]").val();
 			let countPeople = $("input[name=countPeople]").val();
 			let countRoom = $("input[name=countRoom]").val();
-	 		$("#accommList").empty();
+			let restar = $(this).attr("id");
+		
+			$("#accommList").empty();
 			$.ajax({
-		 		url : "${pageContext.request.contextPath }/lhjcjy/firstsearchStar",
-				data : {"searchHotel" : searchHotel, "checkin" : checkin, "checkout" : checkout, "countRoom" : countRoom, "countPeople" : countPeople},
+		 		url : "${pageContext.request.contextPath }/lhjcjy/starsection",
+				data : {"searchHotel" : searchHotel, "checkin" : checkin, "checkout" : checkout, "countRoom" : countRoom, "countPeople" : countPeople, "restar" : restar},
 				dataType : "json",
 				success : function(data){
 					$(data.list).each(function(i,d){
+						let restar = d.restar;
 						let amainimg = d.amainimg;
 						let aname = d.aname;
 						let address = d.aaddress;
-						let restar = d.restar;
 						if(restar == 5){
 							let star = "★★★★★";
 						}else if(restar == 4){
@@ -592,13 +425,13 @@ $(function(){
 						}
 						let price = d.amountsum;
 						let grade = d.agrade;
-						//console.log(aname + ", " + address + ", " + star + ", " + price);
+						console.log(aname + ", " + address + ", " + star + ", " + price);
 						let aid = d.aid;
 						let person = d.rimaxper;
 						let roomnum = d.countRoom;
 						let rcheckin = d.rcheckin;
 						let rcheckout = d.rcheckout;
-						//console.log(aid + ", " + person + ", " + roomnum + ", " + rcheckin + ", " + rcheckout);
+						console.log(aid + ", " + person + ", " + roomnum + ", " + rcheckin + ", " + rcheckout);
 						
 						let html = "<div class='accommList'>";
 						html    += "<div class='eachList'>";
@@ -631,70 +464,8 @@ $(function(){
 						$("#accommList").append(html);
 					});
 				}	
-		 	});
-		}
-		*/
-    	// 평점 div박스
-   		$(".star_section_field").click(function(){
-   			let searchHotel = $("#searchHotel").val();
-			let checkin = $("input[name=checkin]").val();
-			let checkout = $("input[name=checkout]").val();
-			let countPeople = $("input[name=countPeople]").val();
-			let countRoom = $("input[name=countRoom]").val();
-			let restar = $(this).attr("id");
-			$(this).siblings().attr('style','background-color: none');
-			for (var i =0; i <= 5-restar.substring(4); i++) {
-				$("#star"+(Number(restar.substring(4))+i)).attr('style','background-color: red');
-			}
-			
-			let templist= new Array(); 
-			checklist(templist)
-			let grade;
-			let star;
-			//성급 몇인지 뽑아오는부분
-	 		for (var i =1; i <= 5; i++) {
-	 			if($("#grade"+i).attr('style')=="background-color: red"){
-	 				grade = $("#grade"+i).attr('id')
-	 				grade = grade.substring(5)
-	 				break;
-	 			};
-			}
-	 		//리뷰별점 몇인지 뽑아오는부분
-	 		for (var i =1; i <= 5; i++) {
-	 			if($("#star"+i).attr('style')=="background-color: red"){
-	 				star = $("#star"+i).attr('id')
-	 				star = star.substring(4)
-	 				break;
-	 			};
-			}
-			//인근반경 선택 했을때
-			if($("#locationamount").val()!="none"){
-				//만약 지도로보기 눌렀을때
-			 	if($("#gomap").html()=="돌아가기"){
-					  gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
-				//만약 지도로보기 안눌렀을때(호텔리스트보이는상태)
-			 	}else{
-					let grade;
-					let star;
-			 		for (var i =0; i <= $(".grade_section_field").children().length; i++) {
-			 			if($("#grade"+i).attr('style','background-color: red')){
-			 				grade = $("#grade"+i).attr('id').substring(5)
-			 				break;
-			 			};
-					}
-					list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
-			 	}
-			//인근반경 선택 안했을때
-			}else{
-				if($("#gomap").html()=="돌아가기"){
-					  gomapchange(templist)
-			 	}else{
-			 		console.log(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-					list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-			 	}
-			}
+			});
 		});
-    	
    		// 성급 div박스
    		$(".grade_section_field").click(function(){
    			let searchHotel = $("#searchHotel").val();
@@ -703,138 +474,78 @@ $(function(){
 			let countPeople = $("input[name=countPeople]").val();
 			let countRoom = $("input[name=countRoom]").val();
 			let agrade = $(this).attr("id");
-			$(this).siblings().attr('style','background-color: none');
-			for (var i =0; i <= 6-agrade.substring(5); i++) {
-				$("#grade"+(Number(agrade.substring(5))+i)).attr('style','background-color: red');
-			}
-			
-			let templist= new Array(); 
-			checklist(templist)
-			let grade;
-			let star;
-			//성급 몇인지 뽑아오는부분
-	 		for (var i =1; i <= 5; i++) {
-	 			if($("#grade"+i).attr('style')=="background-color: red"){
-	 				grade = $("#grade"+i).attr('id')
-	 				grade = grade.substring(5)
-	 				break;
-	 			};
-			}
-	 		//리뷰별점 몇인지 뽑아오는부분
-	 		for (var i =1; i <= 5; i++) {
-	 			if($("#star"+i).attr('style')=="background-color: red"){
-	 				star = $("#star"+i).attr('id')
-	 				star = star.substring(4)
-	 				break;
-	 			};
-			}
-			//인근반경 선택 했을때
-			if($("#locationamount").val()!="none"){
-				//만약 지도로보기 눌렀을때
-			 	if($("#gomap").html()=="돌아가기"){
-					  gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
-				//만약 지도로보기 안눌렀을때(호텔리스트보이는상태)
-			 	}else{
-					let grade;
-					let star;
-			 		for (var i =0; i <= $(".grade_section_field").children().length; i++) {
-			 			if($("#grade"+i).attr('style','background-color: red')){
-			 				grade = $("#grade"+i).attr('id').substring(5)
-			 				break;
-			 			};
-					}
-			 		console.log(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
-					list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
-			 	}
-			//인근반경 선택 안했을때
-			}else{
-				if($("#gomap").html()=="돌아가기"){
-					  gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-			 	}else{
-			 		console.log(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-					list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-			 	}
-			}
-		});		
-   		
-   		//슬라이더 관련 실행
-		slider(${minmax.minsum},${minmax.maxsum})
-	    $('#count_min').change(function(){
-	    	$('#slider').slider('values',0,$(this).val());
-    	})
-    	$('#count_max').change(function(){
-	    	$('#slider').slider('values',1,$(this).val());
-    	})
+		
+			$("#accommList").empty();
+			$.ajax({
+		 		url : "${pageContext.request.contextPath }/lhjcjy/gradesection",
+				data : {"searchHotel" : searchHotel, "checkin" : checkin, "checkout" : checkout, "countRoom" : countRoom, "countPeople" : countPeople, "agrade" : agrade},
+				dataType : "json",
+				success : function(data){
+					$(data.list).each(function(i,d){
+						let restar = d.restar;
+						let amainimg = d.amainimg;
+						let aname = d.aname;
+						let address = d.aaddress;
+						console.log("평점: " + restar);
+						if(restar == 5){
+							let star = "★★★★★";
+						}else if(restar == 4){
+							star="★★★★☆";
+						}else if(restar == 3){
+							star="★★★☆☆";
+						}else if(restar == 2){
+							star = "★★☆☆☆";
+						}else if(restar == 1){
+							star = "★☆☆☆☆";
+						}else if(restar == 0){
+							star="☆☆☆☆☆";
+						}
+						let price = d.amountsum;
+						let grade = d.agrade;
+						console.log(aname + ", " + address + ", " + star + ", " + price + ", " + grade);
+						let aid = d.aid;
+						let person = d.rimaxper;
+						let roomnum = d.countRoom;
+						let rcheckin = d.rcheckin;
+						let rcheckout = d.rcheckout;
+						console.log(aid + ", " + person + ", " + roomnum + ", " + rcheckin + ", " + rcheckout);
+						
+						let html = "<div class='accommList'>";
+						html    += "<div class='eachList'>";
+						html	+= "<div class='card'>";
+						html	+= "<div class='card-body'>";
+						html	+= "<div class='row'>";
+						html	+= "<div class='col-md-3'>";
+						html	+= "<img src='${pageContext.request.contextPath }/resources/images/accommodations/" + amainimg + "' width='300' height='250'>";
+						html	+= "</div>";
+						html	+= "<div class='col-md-7'>";
+						html	+= "<h3>" + aname + "</h3>";
+						html	+= "<small>" + address + "</small>";
+						html	+= "<p><small>지도보기?뭐든추가</small></p>";
+						html	+= "</div>";
+						html	+= "<div class='col-md-2'>";
+						if(grade == null){
+    						html += "<h5> </h5>";
+    					}else{
+    						html += "<h5>" + grade + "성급</h5>";
+    					}
+						html	+= "<h5>" + star + "</h5>";
+						html	+= "<h4>" + price + "원</h4>";
+						html	+= "<button class='btn' onclick=" + "location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid=" + aid + "&person=" + person + "&roomnum=" + roomnum + "&startday=" + rcheckin + "&endday=" + rcheckout + "'>예약하기</button>";
+						html	+= "</div>";
+						html	+= "</div>";
+						html	+= "</div>";
+						html	+= "</div>";
+						html	+= "</div>";
+						html	+= "</div>";
+						$("#accommList").append(html);
+					});
+				}	
+			});
+		});				
 });
-
-//가격 range slider -지윤
-function slider(minsum,maxsum){
- $('#slider').slider({
-     orientation:'horizontal',
-      min:Number(minsum),
-      max:Number(maxsum),
-      step:10000,
-      range:true,
-      values:[minsum,maxsum],
-      create:function(e, ui){ //text 박스에 value값 나타냄
-          $('#count_min').val(minsum);
-          $('#count_max').val(maxsum);
-      },
-      change:function(e,ui){ //value 가 change 되었을 때
-          $('#count_min').val(ui.values[0]);
-          $('#count_max').val(ui.values[1]);
-          
-  		let minprice=$("#count_min").val();
-  		let maxprice=$("#count_max").val();
-  		
-  		$("#accommList").empty();
-  		
-  		let templist= new Array(); 
-		checklist(templist)
-		
-		let grade;
-		let star;
-		//성급 몇인지 뽑아오는부분
- 		for (var i =1; i <= 5; i++) {
- 			if($("#grade"+i).attr('style')=="background-color: red"){
- 				grade = $("#grade"+i).attr('id')
- 				grade = grade.substring(5)
- 				break;
- 			};
-		}
- 		//리뷰별점 몇인지 뽑아오는부분
- 		for (var i =1; i <= 5; i++) {
- 			if($("#star"+i).attr('style')=="background-color: red"){
- 				star = $("#star"+i).attr('id')
- 				star = star.substring(4)
- 				break;
- 			};
-		}
-		
-  		if($("#locationamount").val()!="none"){
-			//지도로보기로 지도가 펼쳐져 있을때				
-		 	if($("#gomap").html()=="돌아가기"){
-				  gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
-			//리스트가 나올때				
-		 	}else{
-				list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
-		 	}
-		}else{
-			if($("#gomap").html()=="돌아가기"){
-				gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-		 	}else{
-				list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-		 	}
-		}
-      }
-      
-      
-  });
-}
-
-
 //지도로 보기 ajax받아와서 뿌려주기 -지영
-function gomapchange(facilities,minprice,maxprice,sort,axcoordi,aycoordi,distance,agrade,restar){
+function gomapchange(facilities,axcoordi,aycoordi,distance){
 	  let gomapchange = new naver.maps.Map('gomapchange', {
           center: new naver.maps.LatLng(ycoordi, xcoordi),
           zoom: 13
@@ -851,8 +562,8 @@ function gomapchange(facilities,minprice,maxprice,sort,axcoordi,aycoordi,distanc
 	  $.ajax({
 			url:"${pageContext.request.contextPath }/hjy/firstsearchajax",
 			 async: false,
-			 data:{"searchHotel":"${aaddress }","checkin":"${rcheckin }","checkout":"${rcheckout }","countRoom":"${countRoom }","countPeople":"${rimaxper}",
-					"fac":fac,"minprice":minprice,"maxprice":maxprice,"sort":sort,"xcoordi":xcoordi,"ycoordi":ycoordi,"distance":distance,"restar":restar,"agrade":agrade},
+			data:{"searchHotel":"${aaddress }","checkin":"${rcheckin }","checkout":"${rcheckout }","countRoom":"${countRoom }","countPeople":"${rimaxper}",
+				"fac":fac,"xcoordi":axcoordi,"ycoordi":aycoordi,"distance":distance},
 			type:"get",
 			dataType:"json",
 			success:function(data){
@@ -993,13 +704,14 @@ var d = r * c; // Distance in km
 return Math.round(d*1000);
 }
 //위의 검색조건,왼쪽 검색조건에 맞는 list뽑아주기 ajax
-function list(facilities,minprice,maxprice,sort,xcoordi,ycoordi,distance,agrade,restar){
-	let changecnt=0;
+function list(facilities,xcoordi,ycoordi,distance,sort){
+	console.log("sort2:"+sort)
+let changecnt=0;
    $.ajax({
 		url:"${pageContext.request.contextPath }/hjy/firstsearchajax",
 		traditional :true,
 		data:{"searchHotel":"${aaddress }","checkin":"${rcheckin }","checkout":"${rcheckout }","countRoom":"${countRoom }","countPeople":"${rimaxper}",
-			"facilities":facilities,"minprice":minprice,"maxprice":maxprice,"sort":sort,"xcoordi":xcoordi,"ycoordi":ycoordi,"distance":distance,"restar":restar,"agrade":agrade},
+			"facilities":facilities,"xcoordi":xcoordi,"ycoordi":ycoordi,"distance":distance,"sort":sort},
 		type:"post",
 		dataType:"json",
 		success:function(data){
@@ -1031,7 +743,7 @@ function list(facilities,minprice,maxprice,sort,xcoordi,ycoordi,distance,agrade,
 								html+="<img src='${pageContext.request.contextPath }/resources/images/accommodations/"+data.list[i].amainimg+"'width='300' height='250'>";
 							}
 							html+="</div>";
-							html+="<div class='col-md-6'>";
+							html+="<div class='col-md-7'>";
 							html+="<h3>"+data.list[i].aname+"</h3>";
 							html+="<small>"+data.list[i].aaddress+"</small>";
 							html+="<div id='map"+changecnt+"' style='width: 200px; height: 200px;'>지도넣기"
@@ -1039,26 +751,8 @@ function list(facilities,minprice,maxprice,sort,xcoordi,ycoordi,distance,agrade,
 							html+="<input type='hidden' id='aycoordi"+changecnt+"' value="+data.list[i].aycoordi+">";
 							html+="</div>";
 							html+="</div>";
-							html+="<div class='col-md-3' style='text-align: right;'>";
-							if(data.list[i].agrade !=null){
-								html+="<h5>"+data.list[i].agrade+"성급</h5>";
-							}
-							html+="<h5>"
-							if(data.list[i].restar==5){
-								html+="★★★★★"
-							}else if(data.list[i].restar==4){
-								html+="★★★★☆"
-							}else if(data.list[i].restar==3){
-								html+="★★★☆☆"
-							}else if(data.list[i].restar==2){
-								html+="★★☆☆☆"
-							}else if(data.list[i].restar==1){
-								html+="★☆☆☆☆"
-							}else{
-								html+="☆☆☆☆☆"
-							}
-							html+="</h5>"
-							html+="<h4>"+data.list[i].amountsum+"원</h4>";
+							html+="<div class='col-md-2'>";
+							html+="<h5>"+data.list[i].amountsum+"원</h5>";
 							html+="<button class='btn' onclick=\"";
 							html+="location.href='${pageContext.request.contextPath }/user/kjy/room_info?AID="+data.list[i].aid;
 							html+="&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+${rcheckin}+"&endday="+${rcheckout}
@@ -1070,76 +764,63 @@ function list(facilities,minprice,maxprice,sort,xcoordi,ycoordi,distance,agrade,
 							html+="</div>";
 							html+="</div>";
 							changecnt++;
-					   		}
-				   		}else{
-							html+="<div class='row mb-3'>";
-							html+="<div class='col-md-12'>";
-							html+="<div class='card'>";
-							html+="<div class='card-body'>";
-							html+="<div class='row'>";
-							html+="<div class='col-md-3'>";
-							if(data.list[i].amainimg==null){
-								html+="<img src='${pageContext.request.contextPath }/resources/images/accommodations/220i0z000000mulfw433F_Z_1080_808_R5_D.jpg' width='300' height='250'>";
-							}else{
-								html+="<img src='${pageContext.request.contextPath }/resources/images/accommodations/"+data.list[i].amainimg+"'width='300' height='250'>";
-							}
-							html+="</div>";
-							html+="<div class='col-md-6'>";
-							html+="<h3>"+data.list[i].aname+"</h3>";
-							html+="<small>"+data.list[i].aaddress+"</small>";
-							html+="<div id='map"+i+"' style='width: 200px; height: 200px;'>지도넣기"
-							html+="<input type='hidden' id='axcoordi"+i+"' value="+data.list[i].axcoordi+">";
-							html+="<input type='hidden' id='aycoordi"+i+"' value="+data.list[i].aycoordi+">";
-							html+="</div>";
-							html+="</div>";
-							html+="<div class='col-md-3'style='text-align: right;>";
-							if(data.list[i].agrade !=null){
-								html+="<h5>"+data.list[i].agrade+"성급</h5>";
-							}
-							html+="<h5>"
-							if(data.list[i].restar==5){
-								html+="★★★★★"
-							}else if(data.list[i].restar==4){
-								html+="★★★★☆"
-							}else if(data.list[i].restar==3){
-								html+="★★★☆☆"
-							}else if(data.list[i].restar==2){
-								html+="★★☆☆☆"
-							}else if(data.list[i].restar==1){
-								html+="★☆☆☆☆"
-							}else{
-								html+="☆☆☆☆☆"
-							}
-							html+="</h5>"
-							html+="<h4>"+data.list[i].amountsum+"원</h4>";
-							html+="<button class='btn' onclick=\"";
-							html+="location.href='${pageContext.request.contextPath }/user/kjy/room_info?AID="+data.list[i].aid;
-							html+="&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+${rcheckin}+"&endday="+${rcheckout}
-							html+="'\">예약하기</button>";
-							html+="</div>";
-							html+="</div>";
-							html+="</div>";
-							html+="</div>";
-							html+="</div>";
-							html+="</div>";
-					   }
-					   $("#list").append(html);
-					}	
-				    if(changecnt!=0){
-					    for (var i = 0; i < changecnt; i++) {
-					  		mainMapList(i);
-					   	}
-					}else{
-						for (var i = 0; i < data.list.length; i++) {
-						    mainMapList(i);
 						}
-				   	}
-				}else{
-					alert("fail")
+						if(sort){
+							if(this.value=="all"){
+								
+							}
+						}
+				   }else{
+					html+="<div class='row mb-3'>";
+					html+="<div class='col-md-12'>";
+					html+="<div class='card'>";
+					html+="<div class='card-body'>";
+					html+="<div class='row'>";
+					html+="<div class='col-md-3'>";
+					if(data.list[i].amainimg==null){
+						html+="<img src='${pageContext.request.contextPath }/resources/images/accommodations/220i0z000000mulfw433F_Z_1080_808_R5_D.jpg' width='300' height='250'>";
+					}else{
+						html+="<img src='${pageContext.request.contextPath }/resources/images/accommodations/"+data.list[i].amainimg+"'width='300' height='250'>";
+					}
+					html+="</div>";
+					html+="<div class='col-md-7'>";
+					html+="<h3>"+data.list[i].aname+"</h3>";
+					html+="<small>"+data.list[i].aaddress+"</small>";
+					html+="<div id='map"+i+"' style='width: 200px; height: 200px;'>지도넣기"
+					html+="<input type='hidden' id='axcoordi"+i+"' value="+data.list[i].axcoordi+">";
+					html+="<input type='hidden' id='aycoordi"+i+"' value="+data.list[i].aycoordi+">";
+					html+="</div>";
+					html+="</div>";
+					html+="<div class='col-md-2'>";
+					html+="<h5>"+data.list[i].amountsum+"원</h5>";
+					html+="<button class='btn' onclick=\"";
+					html+="location.href='${pageContext.request.contextPath }/user/kjy/room_info?AID="+data.list[i].aid;
+					html+="&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+${rcheckin}+"&endday="+${rcheckout}
+					html+="'\">예약하기</button>";
+					html+="</div>";
+					html+="</div>";
+					html+="</div>";
+					html+="</div>";
+					html+="</div>";
+					html+="</div>";
+				   }
+				   $("#list").append(html);
 				}
+			   	   if(changecnt!=0){
+				   		for (var i = 0; i < changecnt; i++) {
+				   			mainMapList(i);
+				   		}
+				   }else{
+				   for (var i = 0; i < data.list.length; i++) {
+				   		mainMapList(i);
+				   }
+			   }
+			}else{
+				alert("fail")
 			}
-		})
-	}
+		}
+	})
+}
 
 //db에 받아온 주소를 좌표로 변환해서 xcoordi, ycoordi에 저장하기+왼쪽 거리검색의 센터를 해당 좌표로 지정 -지영
 function searchAddressToCoordinate(address) {
@@ -1186,7 +867,7 @@ circle.push(
 );
 }
 
-//리스트에 호텔 위치에 맞는 지도 표시하기 -지영
+//리스트에 호텔 위치에 맞는 지도+핀 표시하기 -지영
 function mainMapList(index){
 	var mainmaplist = new Array();
 	mainmaplist.push(index);
@@ -1245,7 +926,7 @@ function mainMapList(index){
 						<div class="row">
 							<div class="col-md-3">
 								<form method="post"
-									action="${pageContext.request.contextPath }/lhjcjyhjy/firstsearch">
+									action="${pageContext.request.contextPath }/hjy/firstsearch">
 									<div class="form-group">
 										<div class="form-control">
 											호텔명 or 지역 <input type="text" id="searchHotel"
@@ -1350,11 +1031,12 @@ function mainMapList(index){
 									      		<ul class="list-unstyled">
 													<li>
 														<div class ="grade_section">	
-															<div class="grade_section_field" id="grade1">1+</div>
-															<div class="grade_section_field" id="grade2">2+</div>
-															<div class="grade_section_field" id="grade3">3+</div>
-															<div class="grade_section_field" id="grade4">4+</div>
-															<div class="grade_section_field" id="grade5">5</div>
+															<h4>성급</h4>
+															<div class="grade_section_field" id="1">1+</div>
+															<div class="grade_section_field" id="2">2+</div>
+															<div class="grade_section_field" id="3">3+</div>
+															<div class="grade_section_field" id="4">4+</div>
+															<div class="grade_section_field" id="5">5</div>
 														</div><br>
 													</li>
 												</ul>
@@ -1372,11 +1054,12 @@ function mainMapList(index){
 									      		<ul class="list-unstyled">
 													<li>
 														<div class ="star_section">
-															<div class="star_section_field" id="star1">1+</div>
-															<div class="star_section_field" id="star2">2+</div>
-															<div class="star_section_field" id="star3">3+</div>
-															<div class="star_section_field" id="star4">4+</div>
-															<div class="star_section_field" id="star5">5</div>
+															<h4>평점</h4>
+															<div class="star_section_field" id="1">1+</div>
+															<div class="star_section_field" id="2">2+</div>
+															<div class="star_section_field" id="3">3+</div>
+															<div class="star_section_field" id="4">4+</div>
+															<div class="star_section_field" id="5">5</div>
 														</div>
 													</li>
 												</ul>
@@ -1545,7 +1228,7 @@ function mainMapList(index){
 												</c:otherwise>
 											</c:choose>
 										</div>
-										<div class="col-md-6">
+										<div class="col-md-7">
 											<h3>${vo.aname }</h3>
 											<small>${vo.aaddress }</small>
 											<div id="map${status.index }" style="width: 200px; height: 200px;">
@@ -1557,30 +1240,28 @@ function mainMapList(index){
 												mainMapList(${status.index });
 												</script>
 										</div>
-										<div class="col-md-3" style="text-align: right;">
-											<c:if test="${vo.agrade } !=null">
-						                		<h5>${vo.agrade }성급</h5>
-											</c:if>
-											<c:choose>
-							                <c:when test="${vo.restar==5 }">
-							                	<h5>★★★★★</h5>
-							                </c:when>
-							                 <c:when test="${vo.restar==4 }">
-							                	<h5>★★★★☆</h5>
-							                </c:when>
-							                 <c:when test="${vo.restar==3 }">
-							                	<h5>★★★☆☆</h5>
-							                </c:when>
-							                 <c:when test="${vo.restar==2 }">
-							                	<h5>★★☆☆☆</h5>
-							                </c:when>
-							                 <c:when test="${vo.restar==1 }">
-							                	<h5>★☆☆☆☆</h5>
-							                </c:when>
-							                <c:otherwise>
-							               		<h5>☆☆☆☆☆</h5>
-							                </c:otherwise>	
-							                </c:choose>
+										<div class="col-md-2">
+									                	<h5>${vo.agrade }성급</h5>
+													<c:choose>
+									                <c:when test="${vo.restar==5 }">
+									                	<h5>★★★★★</h5>
+									                </c:when>
+									                 <c:when test="${vo.restar==4 }">
+									                	<h5>★★★★☆</h5>
+									                </c:when>
+									                 <c:when test="${vo.restar==3 }">
+									                	<h5>★★★☆☆</h5>
+									                </c:when>
+									                 <c:when test="${vo.restar==2 }">
+									                	<h5>★★☆☆☆</h5>
+									                </c:when>
+									                 <c:when test="${vo.restar==1 }">
+									                	<h5>★☆☆☆☆</h5>
+									                </c:when>
+									                <c:otherwise>
+									               		<h5>☆☆☆☆☆점</h5>
+									                </c:otherwise>	
+									                </c:choose>
 											<h4>${vo.amountsum}원</h4>
 											<button class="btn"
 												onclick="location.href='${pageContext.request.contextPath }/user/kjy/room_info?AID=${vo.aid}&person=${rimaxper}&roomnum=${countRoom}&startday=${rcheckin}&endday=${rcheckout}'">예약하기</button>

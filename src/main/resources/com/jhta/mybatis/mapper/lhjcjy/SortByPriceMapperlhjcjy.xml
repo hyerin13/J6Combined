@@ -8,7 +8,7 @@
 		parameterType="hashmap">
 		<![CDATA[
 		        select * from (select fin.*, ROW_NUMBER() OVER(PARTITION BY aname ORDER BY aname, amountsum) rnum from(        
-select (amountSum+addfee.exper)amountsum,star, ac.amainimg,ac.aname,ac.aaddress,ac.aid,ac.agrade  from (
+select (amountSum+addfee.exper)amountsum,star restar, ac.amainimg,ac.aname,ac.aaddress,ac.aid,ac.agrade,ac.axcoordi,ac.aycoordi,ri.RISERVICE  from (
         select riid, sum(amount) amountsum from(
         select fin.* ,
         case when peseason ='성수기' then ripeak when peseason ='준성수기' then risemipeak when peseason ='비수기' then rioff end as amount
@@ -26,11 +26,30 @@ select (amountSum+addfee.exper)amountsum,star, ac.amainimg,ac.aname,ac.aaddress,
         where star.riid = ri.riid and ri.riid=finfin.riid and ac.aid = ri.aid and addfee.riid=ri.riid and ac.aisdel is null and ri.riroom-(select count(rcheckin) from reservation where rcheckin <= #{rcheckin} and rcheckout >=#{rcheckout} and rcancel is null)>=#{countRoom}
         and ri.rimaxper>=#{rimaxper} and ri.riminper<=#{rimaxper} and (ac.aaddress like '%'||#{aaddress}||'%' or ac.aname like '%'||#{aname}||'%') order by star asc ) fin) where rnum = 1
 	        ]]>
+	        <if test="maxprice!=null">
+			<![CDATA[
+			and amountsum<=#{maxprice} and amountsum>=#{minprice}
+			]]>
+		</if>
+		<if test="facilities!=null">
+			<foreach collection="facilities" item="arr">
+				and riservice like '%'||#{arr}||'%'
+			</foreach>
+		</if>
+		<if test="bookmark!=null">
+			and aname like '%'||#{bookmark}||'%'
+		</if>
+		<if test="restar!=null">
+			and NVL(restar,0)>=#{restar}
+		</if>
+		<if test="agrade!=null">
+            and NVL(agrade,0)>=#{agrade}
+		</if>
 	</select>
 	<select id="sortPrice_low" resultType="com.jhta.project.vo.lhjcjy.AccommodationsVo2lhjcjy" parameterType="hashmap">
 		<![CDATA[
 		        select * from (select fin.*, ROW_NUMBER() OVER(PARTITION BY aname ORDER BY aname, amountsum) rnum from(        
-select (amountSum+addfee.exper)amountsum,star,ac.amainimg,ac.aname,ac.aaddress,ac.aid,ac.agrade  from (
+select (amountSum+addfee.exper)amountsum,star restar,ac.amainimg,ac.aname,ac.aaddress,ac.aid,ac.agrade,ac.axcoordi,ac.aycoordi,ri.RISERVICE  from (
         select riid, sum(amount) amountsum from(
         select fin.* ,
         case when peseason ='성수기' then ripeak when peseason ='준성수기' then risemipeak when peseason ='비수기' then rioff end as amount
@@ -48,6 +67,25 @@ select (amountSum+addfee.exper)amountsum,star,ac.amainimg,ac.aname,ac.aaddress,a
         where star.riid = ri.riid and ri.riid=finfin.riid and ac.aid = ri.aid and ac.aisdel is null and ri.riroom-(select count(rcheckin) from reservation where rcheckin <= #{rcheckin} and rcheckout >=#{rcheckout} and rcancel is null)>=#{countRoom}
         and ri.rimaxper>=#{rimaxper} and ri.riminper<=#{rimaxper} and (ac.aaddress like '%'||#{aaddress}||'%' or ac.aname like '%'||#{aname}||'%') order by amountsum asc, star asc) fin order by amountsum asc) where rnum = 1
 	        ]]>
+	        <if test="maxprice!=null">
+			<![CDATA[
+			and amountsum<=#{maxprice} and amountsum>=#{minprice}
+			]]>
+		</if>
+		<if test="facilities!=null">
+			<foreach collection="facilities" item="arr">
+				and riservice like '%'||#{arr}||'%'
+			</foreach>
+		</if>
+		<if test="bookmark!=null">
+			and aname like '%'||#{bookmark}||'%'
+		</if>
+		<if test="restar!=null">
+			and NVL(restar,0)>=#{restar}
+		</if>
+		<if test="agrade!=null">
+            and NVL(agrade,0)>=#{agrade}
+		</if>
 	</select>
 
 		<select id="sortPrice_high"
@@ -55,7 +93,7 @@ select (amountSum+addfee.exper)amountsum,star,ac.amainimg,ac.aname,ac.aaddress,a
 		parameterType="hashmap">
 		<![CDATA[
 		        select * from (select fin.*, ROW_NUMBER() OVER(PARTITION BY aname ORDER BY aname, amountsum) rnum from(        
-select (amountSum+addfee.exper)amountsum,star,ac.amainimg,ac.aname,ac.aaddress,ac.aid,ac.agrade  from (
+select (amountSum+addfee.exper)amountsum,star restar ,ac.amainimg,ac.aname,ac.aaddress,ac.aid,ac.agrade,ac.axcoordi,ac.aycoordi,ri.RISERVICE  from (
         select riid, sum(amount) amountsum from(
         select fin.* ,
         case when peseason ='성수기' then ripeak when peseason ='준성수기' then risemipeak when peseason ='비수기' then rioff end as amount
@@ -73,11 +111,30 @@ select (amountSum+addfee.exper)amountsum,star,ac.amainimg,ac.aname,ac.aaddress,a
         where star.riid = ri.riid and ri.riid=finfin.riid and ac.aid = ri.aid  and addfee.riid=ri.riid and ac.aisdel is null and ri.riroom-(select count(rcheckin) from reservation where rcheckin <= #{rcheckin} and rcheckout >=#{rcheckout} and rcancel is null)>=#{countRoom}
         and ri.rimaxper>=#{rimaxper} and ri.riminper<=#{rimaxper} and (ac.aaddress like '%'||#{aaddress}||'%' or ac.aname like '%'||#{aname}||'%') order by amountsum desc, star asc) fin order by amountsum desc) where rnum = 1
 	        ]]>
+	        <if test="maxprice!=null">
+			<![CDATA[
+			and amountsum<=#{maxprice} and amountsum>=#{minprice}
+			]]>
+		</if>
+		<if test="facilities!=null">
+			<foreach collection="facilities" item="arr">
+				and riservice like '%'||#{arr}||'%'
+			</foreach>
+		</if>
+		<if test="bookmark!=null">
+			and aname like '%'||#{bookmark}||'%'
+		</if>
+		<if test="restar!=null">
+			and NVL(restar,0)>=#{restar}
+		</if>
+		<if test="agrade!=null">
+            and NVL(agrade,0)>=#{agrade}
+		</if>
 	</select>
 	<select id="rangeSlider_price" resultType="com.jhta.project.vo.lhjcjy.AccommodationsVo2lhjcjy" parameterType="hashmap">
 		<![CDATA[
 		        select * from (select fin.*, ROW_NUMBER() OVER(PARTITION BY aname ORDER BY aname, amountsum) rnum from(        
-select (amountSum+addfee.exper)amountsum,star, ac.amainimg,ac.aname,ac.aaddress,ac.aid,ac.agrade from (
+select (amountSum+addfee.exper)amountsum,star restar, ac.amainimg,ac.aname,ac.aaddress,ac.aid,ac.agrade,ac.axcoordi,ac.aycoordi,ri.RISERVICE from (
         select riid, sum(amount) amountsum from(
         select fin.* ,
         case when peseason ='성수기' then ripeak when peseason ='준성수기' then risemipeak when peseason ='비수기' then rioff end as amount
@@ -95,6 +152,25 @@ select (amountSum+addfee.exper)amountsum,star, ac.amainimg,ac.aname,ac.aaddress,
         where star.riid = ri.riid and ri.riid=finfin.riid and ac.aid = ri.aid  and addfee.riid=ri.riid and ac.aisdel is null and ri.riroom-(select count(rcheckin) from reservation where rcheckin <= #{rcheckin} and rcheckout >=#{rcheckout} and rcancel is null)>=#{countRoom}
         and ri.rimaxper>=#{rimaxper} and ri.riminper<=#{rimaxper} and (ac.aaddress like '%'||#{aaddress}||'%' or ac.aname like '%'||#{aname}||'%')and amountsum<=#{maxprice} and amountsum>=#{minprice} order by star asc,amountsum asc) fin order by aname asc,amountsum asc) where rnum = 1
 	        ]]>
+	        <if test="maxprice!=null">
+			<![CDATA[
+			and amountsum<=#{maxprice} and amountsum>=#{minprice}
+			]]>
+		</if>
+		<if test="facilities!=null">
+			<foreach collection="facilities" item="arr">
+				and riservice like '%'||#{arr}||'%'
+			</foreach>
+		</if>
+		<if test="bookmark!=null">
+			and aname like '%'||#{bookmark}||'%'
+		</if>
+		<if test="restar!=null">
+			and NVL(restar,0)>=#{restar}
+		</if>
+		<if test="agrade!=null">
+            and NVL(agrade,0)>=#{agrade}
+		</if>
 	</select>
 
 </mapper>

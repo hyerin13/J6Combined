@@ -27,13 +27,20 @@ import com.jhta.project.service.hjy.FavoriteServiceHjy;
 import com.jhta.project.service.hjy.FirstSearchServiceHjy;
 import com.jhta.project.service.hjy.GetPriceServiceHjy;
 import com.jhta.project.service.hjy.PeriodServicefirstSearchHjy;
+import com.jhta.project.service.lhjcjy.SearchByStarServicelhjcjy;
+import com.jhta.project.service.lhjcjy.SortByPriceServicelhycjy;
+import com.jhta.project.service.lhjcjyhjy.GetPriceServicelhjcjyhjy;
+import com.jhta.project.vo.lhjcjy.AccommodationsVo2lhjcjy;
 import com.jhta.project.vo.lhjcjy.AccommodationsVolhjcjy;
+import com.jhta.project.vo.lhjcjy.SearchVolhjcjy;
 
 @RestController
 public class FirstSearchAjaxControllerHjy {
 	@Autowired private FirstSearchServiceHjy service;
-	@Autowired private GetPriceServiceHjy gpservice;
+	@Autowired private GetPriceServicelhjcjyhjy gpservice;
 	@Autowired private FavoriteServiceHjy favoriteService;
+	@Autowired private SearchByStarServicelhjcjy sbsservice;
+	@Autowired private SortByPriceServicelhycjy sbpservice;
 
 	Logger logger = LoggerFactory.getLogger(FirstSearchAjaxControllerHjy.class);
 	
@@ -56,33 +63,39 @@ public class FirstSearchAjaxControllerHjy {
 	
 	@RequestMapping(value = "hjy/firstsearchajax", method = RequestMethod.GET)
 	public HashMap<String, Object> searchGet(String searchHotel, String checkin, String checkout, String countPeople, String countRoom,
-			 String fac, String minprice, String maxprice, HttpSession session) {
-		String [] facilities = fac.split(",");
-		return execute(searchHotel, checkin, checkout, countPeople, countRoom,facilities,minprice,maxprice,session);
+			 String fac, String minprice, String maxprice,String sort,String restar,String agrade, HttpSession session) {
+			String [] facilities = fac.split(",");
+		return execute(searchHotel, checkin, checkout, countPeople, countRoom,facilities,minprice,maxprice,sort,restar,agrade,session);
 	}
 	
 	@RequestMapping(value = "hjy/firstsearchajax", method = RequestMethod.POST)
 	public HashMap<String, Object> searchPOST(String searchHotel, String checkin, String checkout, String countPeople, String countRoom,
-			@RequestParam(value="facilities", required = false)  String[] facilities, String minprice, String maxprice, HttpSession session) {
-		return execute(searchHotel, checkin, checkout, countPeople, countRoom,facilities,minprice,maxprice,session);
+			@RequestParam(value="facilities", required = false)  String[] facilities, String minprice, String maxprice,String sort,String restar,String agrade, HttpSession session) {
+		return execute(searchHotel, checkin, checkout, countPeople, countRoom,facilities,minprice,maxprice,sort,restar,agrade,session);
 
 	}
 	private HashMap<String, Object> execute(String searchHotel, String checkin, String checkout, String countPeople, String countRoom,
-			String[] facilities, String minprice, String maxprice, HttpSession session){
-		logger.debug(searchHotel);
-		logger.debug(checkin);
-		logger.debug(checkout);
-		logger.debug(countPeople);
-		logger.debug(countRoom);
+			String[] facilities, String minprice, String maxprice,String sort,String restar,String agrade, HttpSession session){
+		logger.debug("호텔명: "+searchHotel);
+		logger.debug("체크인날짜: "+checkin);
+		logger.debug("체크아웃날짜: "+checkout);
+		logger.debug("인원수: "+countPeople);
+		logger.debug("방수: "+countRoom);
 		String bookmark = "";
 		if(facilities!=null) {
 			for (int i = 0; i < facilities.length; i++) {
-				logger.debug(facilities[i]);
+				logger.debug("체크박스: "+facilities[i]);
 				if(facilities[i].equals("즐겨찾기")) {
 					bookmark=facilities[i];
 				};
 			}
 		}
+		logger.debug("최소가격:"+minprice);
+		logger.debug("최대가격:"+maxprice);
+		logger.debug("정렬기준:"+sort);
+		logger.debug("별점기준:"+restar);
+		logger.debug("성급기준:"+agrade);
+		
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		HashMap<String, Object> hs = new HashMap<String, Object>();
 		try {
@@ -103,22 +116,45 @@ public class FirstSearchAjaxControllerHjy {
 			hs.put("countRoom", countRoom);
 			hs.put("minprice", minprice);
 			hs.put("maxprice", maxprice);
-			logger.debug("최소가격설정:"+minprice);
-			logger.debug("최대가격설정:"+maxprice);
+			if(restar!=null) {
+				hs.put("restar", restar);
+			}
+			if(agrade!=null) {
+				hs.put("agrade", agrade);
+			}
 			
 			result.put("aaddress", searchHotel);
 			result.put("rcheckin", checkin);
 			result.put("rcheckout", checkout);
 			result.put("rimaxper", countPeople);
 			result.put("countRoom", countRoom);
-			List<AccommodationsVolhjcjy> list = gpservice.getprice(hs);
+			if(sort.equals("all")) {
+				List<AccommodationsVo2lhjcjy> list=sbpservice.sortbyall(hs);
+				result.put("list", list);
+				System.out.println("calledall");
+			}else if(sort.equals("price_low")) {
+				List<AccommodationsVo2lhjcjy> list=sbpservice.sortPrice_low(hs);
+				result.put("list", list);
+				System.out.println("calledprice_low");
+			}else if(sort.equals("price_high")){
+				List<AccommodationsVo2lhjcjy> list=sbpservice.sortPrice_high(hs);
+				result.put("list", list);
+				System.out.println("calledprice_high");
+			}else if(sort.equals("star")) {
+				List<SearchVolhjcjy> list=sbsservice.getStarList(hs);
+				result.put("list", list);
+				System.out.println("calledstar");
+			}else {
+				List<AccommodationsVolhjcjy> list = gpservice.getprice(hs);
+				result.put("list", list);
+				System.out.println("calledelse");
+			}
 			//입력한 날짜 중간포함 리스트 얻기
 			HashMap<String, Object> hs1=new HashMap<String, Object>();
 			String STARTDAY1=checkin.replace("-", "");
 			String ENDDAY1=checkout.replace("-", "");
 			hs1.put("STARTDAY", STARTDAY1);
 			hs1.put("ENDDAY", ENDDAY1);
-			result.put("list", list);
 			result.put("checkin", checkin1);
 			result.put("checkout", checkout1);
 			result.put("code", "success");

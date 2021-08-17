@@ -9,7 +9,7 @@
 		resultType="com.jhta.project.vo.lhjcjy.AccommodationsVolhjcjy">
 	<![CDATA[
         	select * from (select fin.*, ROW_NUMBER() OVER(PARTITION BY aname ORDER BY aname, amountsum) rnum from(        
-			select (amountSum+addfee.exper)amountsum,star restar, ri.riid, ri.riroom,ri.RISERVICE,ri.RISIZE,ri.RIMINPER,ri.RIMAXPER,ri.RIMAINIMG,ri.RIEXTRAIMG1,ri.RIEXTRAIMG2,ri.aid,ac.aname,ac.amainimg,ac.aaddress,ac.axcoordi,ac.aycoordi,ac.aphone from (
+			select (amountSum+addfee.exper)amountsum,star restar, ri.riid, ri.riroom,ri.RISERVICE,ri.RISIZE,ri.RIMINPER,ri.RIMAXPER,ri.RIMAINIMG,ri.RIEXTRAIMG1,ri.RIEXTRAIMG2,ri.aid,ac.aname,ac.amainimg,ac.aaddress,ac.axcoordi,ac.aycoordi,ac.aphone,ac.agrade from (
         		select riid, sum(amount) amountSum from(
         			select fin.* ,
         			case when peseason ='성수기' then ripeak when peseason ='준성수기' then risemipeak when peseason ='비수기' then rioff end as amount
@@ -36,8 +36,13 @@
         		and ri.rimaxper>= #{rimaxper}
         		and ri.riminper<= #{rimaxper} 
         		and (ac.aaddress like '%'||#{aaddress}||'%' or ac.aname like '%'||#{aname}||'%'))fin) 
-        		where rnum = 1 and amountsum<=#{maxprice} and amountsum>=#{minprice}
+        		where rnum = 1 
         ]]>
+		<if test="maxprice!=null">
+			<![CDATA[
+			and amountsum<=#{maxprice} and amountsum>=#{minprice}
+			]]>
+		</if>
 		<if test="facilities!=null">
 			<foreach collection="facilities" item="arr">
 				and riservice like '%'||#{arr}||'%'
@@ -45,6 +50,12 @@
 		</if>
 		<if test="bookmark!=null">
 			and aname like '%'||#{bookmark}||'%'
+		</if>
+		<if test="restar!=null">
+			and NVL(restar,0)>=#{restar}
+		</if>
+		<if test="agrade!=null">
+            and NVL(agrade,0)>=#{agrade}
 		</if>
 	</select>
 </mapper>

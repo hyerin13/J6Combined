@@ -7,12 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jhta.mybatis.mapper.lhjcjy.GetPriceMapperlhjcjy;
+import com.jhta.mybatis.mapper.lhjcjyhjy.GetPriceMapperlhjcjyhjy;
 import com.jhta.project.vo.lhjcjy.AccommodationsVolhjcjy;
 
 
 @Service
 public class GetPriceServicelhjcjyhjy {
-	@Autowired private GetPriceMapperlhjcjy mapper;
+	@Autowired private GetPriceMapperlhjcjyhjy mapper;
 	
 	public List<AccommodationsVolhjcjy> getprice(HashMap<String, Object> map){
 		return mapper.getprice(map);
