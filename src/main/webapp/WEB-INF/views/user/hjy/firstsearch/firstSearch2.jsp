@@ -76,8 +76,12 @@ $(document).ready(function() {
 	//즐겨찾기 체크박스 클릭 시 실행되는 ajax -지영o
 	$("#favorite input").click(function() {
 		if(!sessionStorage.getItem('id') ){
-			alert('로그인 하셔야 이용할 수 있는 서비스입니다.')
-			$(this).prop('checked',false)
+			let chkLogin = confirm("로그인해야만 확인 가능한 페이지입니다. 로그인 페이지로 이동하시겠습니까?");
+			if(chkLogin == true){
+				location.href="${pageContext.request.contextPath }/jhr/login";
+			}else{
+				$(this).prop('checked',false);
+			}
 		}else{
 			let templist= new Array(); 
 			checklist(templist)
