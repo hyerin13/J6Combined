@@ -76,6 +76,7 @@ $(function(){
 		$("#showInfo").val("객실"+countRoom+"인원"+countPeople);
 	}
 	*/
+	
 	$("#searchHotel").autocomplete({
 		source:function(request,response){
 			let aname=$("#searchHotel").val();
