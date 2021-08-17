@@ -135,7 +135,7 @@ body {
     margin:0 -2px -4px -2px !important;
 }
 .search_insert_container {
-	width:1310px !important;
+	width:800px !important;
 	display:flex !important;
 	margin-left:-58.05px !important;
 	margin-bottom:4px !important;
@@ -207,7 +207,7 @@ body {
 	letter-spacing:normal;
 }
 .search_insert_date {
-	width:473px !important;
+	width:500px !important;
 	display:inline-block !important;
 	box-sizing:border-box;
 	margin-bottom:4px !important;
@@ -480,7 +480,8 @@ body {
 .search_insert_countPeople {
 	width:150px !important;
 	display:inline-block !important;
-	padding:0 2px !important;
+	padding:0 6px !important;
+	padding-right:2px !important;
 	margin-bottom:4px !important;
 }
 .search_people_display {
