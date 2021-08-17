@@ -147,7 +147,7 @@ body {
     margin:0 -2px -4px -2px !important;
 }
 .search_insert_city {
-	width:25% !important;
+	width:20% !important;
 	display:inline-block !important;
 	padding:0 2px !important;
 	margin-bottom:4px !important;
@@ -206,7 +206,7 @@ body {
 	letter-spacing:normal;
 }
 .search_insert_date {
-	width:25% !important;
+	width:20% !important;
 	display:inline-block !important;
 	box-sizing:border-box;
 	margin-bottom:4px !important;
@@ -417,7 +417,7 @@ body {
     -webkit-writing-mode:horizontal-tb !important;
 }
 .search_insert_countRoom {
-	width:25% !important;
+	width:20% !important;
 	display:inline-block !important;
 	padding:0 2px !important;
 	margin-bottom:4px !important;
@@ -476,7 +476,7 @@ body {
 	letter-spacing:normal;
 }
 .search_insert_countPeople {
-	width:25% !important;
+	width:20% !important;
 	display:inline-block !important;
 	padding:0 2px !important;
 	margin-bottom:4px !important;
