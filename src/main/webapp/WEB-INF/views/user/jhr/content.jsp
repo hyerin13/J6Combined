@@ -1,83 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <title>content.jsp</title>
-<style type="text/css">
-body {
-	padding-top: 50px;
-}
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/content.css">
 
-.dropdown.dropdown-lg .dropdown-menu {
-	margin-top: -1px;
-	padding: 6px 20px;
-}
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
 
-.input-group-btn .btn-group {
-	display: flex !important;
-}
-
-.btn-group .btn {
-	border-radius: 0;
-	margin-left: -1px;
-}
-
-.btn-group .btn:last-child {
-	border-top-right-radius: 4px;
-	border-bottom-right-radius: 4px;
-}
-
-.btn-group .form-horizontal .btn[type="submit"] {
-	border-top-left-radius: 4px;
-	border-bottom-left-radius: 4px;
-}
-
-.form-horizontal .form-group {
-	margin-left: 0;
-	margin-right: 0;
-}
-
-.form-group .form-control:last-child {
-	border-top-left-radius: 4px;
-	border-bottom-left-radius: 4px;
-}
-
-@media screen and (min-width: 768px) {
-	#adv-search {
-		width: 500px;
-		margin: 0 auto;
-	}
-	.dropdown.dropdown-lg {
-		position: static !important;
-	}
-	.dropdown.dropdown-lg .dropdown-menu {
-		min-width: 500px;
-	}
-}
-</style>
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link
-	href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
-	rel="stylesheet" id="bootstrap-css">
-<script
-	src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/content.css">
-
-<link
-	href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap"
-	rel="stylesheet">
-
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/jquery-ui.min.css">
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery-ui.min.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
 <script type="text/javascript">
 	$(function(){	
 		$("#slide_des").draggable({
@@ -143,6 +75,7 @@ body {
             target.classList.toggle("active"); 
         } 
     }
+    
     function showID(id){
     	obj=document.getElementById(id);
     		if(obj.style.display == "none") 
@@ -226,12 +159,10 @@ body {
 		<div class="top_container">
 			<div class="covid">
 				<div class="covid_container">
-					<div class="covid_imp">고객님의 여정이 코로나19(COVID-19) 발생 상황에 영향을 받을
-						수 있습니다.</div>
+					<div class="covid_imp">고객님의 여정이 코로나19(COVID-19) 발생 상황에 영향을 받을 수 있습니다.</div>
 					<div class="covid_sub">
-						<span>여행지별 여행 경보를 확인할 수 있는 알리미를 사이트에서 찾아보시기 바랍니다.</span> <span>자세한
-							내용은 <a>여기</a>에서 확인하실 수 있습니다.
-						</span>
+						<span>여행지별 여행 경보를 확인할 수 있는 알리미를 사이트에서 찾아보시기 바랍니다.</span>
+						<span>자세한 내용은 <a>여기</a>에서 확인하실 수 있습니다.</span>
 					</div>
 				</div>
 			</div>
@@ -240,34 +171,29 @@ body {
 					<div class="ad_text">
 						<h2>316만개 호텔, 한번에 비교해서 최고의 예약을</h2>
 						<p>
-							<img
-								src="${pageContext.request.contextPath}/resources/images/main/bookingcom.svg">
-							<img
-								src="${pageContext.request.contextPath}/resources/images/main/hotelscom.svg">
-							<img
-								src="${pageContext.request.contextPath}/resources/images/main/agoda.svg">
-							<img
-								src="${pageContext.request.contextPath}/resources/images/main/expedia.svg">
-							<img
-								src="${pageContext.request.contextPath}/resources/images/main/interparktour.png">
+							<img src="${pageContext.request.contextPath}/resources/images/main/bookingcom.svg">
+							<img src="${pageContext.request.contextPath}/resources/images/main/hotelscom.svg">
+							<img src="${pageContext.request.contextPath}/resources/images/main/agoda.svg">
+							<img src="${pageContext.request.contextPath}/resources/images/main/expedia.svg">
+							<img src="${pageContext.request.contextPath}/resources/images/main/interparktour.png">
 						</p>
 					</div>
 					<div class="ad_img">
-						<img
-							src="${pageContext.request.contextPath}/resources/images/main/max_with_celebrity_kr.png">
+						<img src="${pageContext.request.contextPath}/resources/images/main/max_with_celebrity_kr.png">
 					</div>
 				</div>
 			</div>
 			<div class="search">
 				<div class="search_container">
-					<form class="search_content" method="post"
-						action="${pageContext.request.contextPath }/lhjcjyhjy/firstsearch">
+					<form class="search_content">
 						<div class="search_number">
 							<div class="search_number_container">
-								<button class="search_number_button" type="button">
+								<button class="search_number_button">
 									<div class="search_number_text">
 										<div class="search_text_inner">
-											<div class="search_text">객실 1개, 투숙객 2명</div>
+											<div class="search_text">
+												객실 1개, 투숙객 2명
+											</div>
 										</div>
 									</div>
 									<div class="search_number_arr">
@@ -288,7 +214,7 @@ body {
 											</svg>
 											<div class="city_text_wrap">
 												<div class="city_text">
-													<input type="text" id="searchHotel" name="searchHotel" placeholder="도시 또는 호텔명을 검색해 보세요">
+													<input type="text" id="searchHotel" name="searchHotel" placeholder="도시 또는 호텔명을 검색해 보세요" />
 												</div>
 											</div>
 										</div>
@@ -304,12 +230,12 @@ body {
 														<input type="date" name="checkin">
 													</div>
 												</div>
-												<button class="date_btn_before" type="button">
+												<button class="date_btn_before">
 													<svg viewBox="0 0 8 5">
 														<path d="M7 1.053L4.027 4 1 1" stroke="currentColor" fill="none" style="user-select: auto;"></path>
 													</svg>
 												</button>
-												<button class="date_btn_after" type="button">
+												<button class="date_btn_after">
 													<svg viewBox="0 0 8 5">
 														<path d="M7 1.053L4.027 4 1 1" stroke="currentColor" fill="none" style="user-select: auto;"></path>
 													</svg>
@@ -325,52 +251,61 @@ body {
 														<input type="date" name="checkout">
 													</div>
 												</div>
-												<button class="date_btn_before" type="button">
+												<button class="date_btn_before">
 													<svg viewBox="0 0 8 5">
 														<path d="M7 1.053L4.027 4 1 1" stroke="currentColor" fill="none" style="user-select: auto;"></path>
 													</svg>
 												</button>
-												<button class="date_btn_after" type="button">
+												<button class="date_btn_after">
 													<svg viewBox="0 0 8 5">
 														<path d="M7 1.053L4.027 4 1 1" stroke="currentColor" fill="none" style="user-select: auto;"></path>
 													</svg>
 												</button>
-											</div>
-										</div>
-									</div>
-									<div class="search_insert_countRoom">
-										<div class="search_room_display">
-											<svg viewBox="0 0 200 200">
-					                           <path d="M160.6 180H39.4c-1.6 0-3.2-.8-4.1-2.1c-8-11.5-6.8-32.8 2.2-41.5c3.9-3.8 23.8-10.5 35.6-14C58.8 108.1 50 95.4 50 70.9C50 38.6 68.2 20 100 20s50 18.6 50 50.9c0 23.8-8.2 36.7-23.1 51.5c11.8 3.5 31.6 10.2 35.6 14c9.1 8.7 10.3 30 2.3 41.5c-1 1.3-2.6 2.1-4.2 2.1zM42.3 170h115.5c4-8.3 2.4-21.8-2.1-26.3c-3.6-2.8-31.2-12.1-38.9-13.8c-3.5-.8-5.1-4.9-3-7.8c7.9-10.8 26.3-19.2 26.3-51.2c0-18.7-6.9-40.9-40-40.9S60 52.2 60 70.9c0 31.9 18.4 40.3 26.3 51.2c2.1 2.9.5 7.1-3 7.8c-7.7 1.6-35.3 10.9-38.9 13.7c-4.6 4.5-6.1 18.1-2.1 26.4zm2.2-26.4z" />
-					                        </svg>
-											<div class="room_text_wrap">
-												<div class="room_text">
-													<input type="number" min="1" id="countRoom" name="countRoom" placeholder="객실수">
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="search_insert_countPeople">
-										<div class="search_people_display">
-											<svg viewBox="0 0 200 200">
-					                           <path d="M160.6 180H39.4c-1.6 0-3.2-.8-4.1-2.1c-8-11.5-6.8-32.8 2.2-41.5c3.9-3.8 23.8-10.5 35.6-14C58.8 108.1 50 95.4 50 70.9C50 38.6 68.2 20 100 20s50 18.6 50 50.9c0 23.8-8.2 36.7-23.1 51.5c11.8 3.5 31.6 10.2 35.6 14c9.1 8.7 10.3 30 2.3 41.5c-1 1.3-2.6 2.1-4.2 2.1zM42.3 170h115.5c4-8.3 2.4-21.8-2.1-26.3c-3.6-2.8-31.2-12.1-38.9-13.8c-3.5-.8-5.1-4.9-3-7.8c7.9-10.8 26.3-19.2 26.3-51.2c0-18.7-6.9-40.9-40-40.9S60 52.2 60 70.9c0 31.9 18.4 40.3 26.3 51.2c2.1 2.9.5 7.1-3 7.8c-7.7 1.6-35.3 10.9-38.9 13.7c-4.6 4.5-6.1 18.1-2.1 26.4zm2.2-26.4z" />
-					                        </svg>
-											<div class="people_text_wrap">
-												<div class="people_text">
-													<input type="number" min="1" id="countPeople" name="countPeople" placeholder="인원수">
-												</div>
 											</div>
 										</div>
 									</div>
 								</div>
+								<div class="search_insert_countRoom">
+									<div class="search_room_display">
+										<svg viewBox="0 0 200 200">
+				                           <path d="M160.6 180H39.4c-1.6 0-3.2-.8-4.1-2.1c-8-11.5-6.8-32.8 2.2-41.5c3.9-3.8 23.8-10.5 35.6-14C58.8 108.1 50 95.4 50 70.9C50 38.6 68.2 20 100 20s50 18.6 50 50.9c0 23.8-8.2 36.7-23.1 51.5c11.8 3.5 31.6 10.2 35.6 14c9.1 8.7 10.3 30 2.3 41.5c-1 1.3-2.6 2.1-4.2 2.1zM42.3 170h115.5c4-8.3 2.4-21.8-2.1-26.3c-3.6-2.8-31.2-12.1-38.9-13.8c-3.5-.8-5.1-4.9-3-7.8c7.9-10.8 26.3-19.2 26.3-51.2c0-18.7-6.9-40.9-40-40.9S60 52.2 60 70.9c0 31.9 18.4 40.3 26.3 51.2c2.1 2.9.5 7.1-3 7.8c-7.7 1.6-35.3 10.9-38.9 13.7c-4.6 4.5-6.1 18.1-2.1 26.4zm2.2-26.4z"/>
+				                        </svg>
+				                        <div class="room_text_wrap">
+				                        	<div class="room_text">
+					                        	<!--  
+												<div id="content_bt">
+											    	<input type="button" onclick="showID('content');" id="ttt" value="인원수,객실수">
+											        <div id="content" style="display:none;">
+													   인원수 <input type="number" min="1" id="countPeople"><br>
+												       객실수 <input type="number" min="1" id="countRoom">
+											    	</div>
+											    </div>								    	 
+										   		-->
+				                        		<input type="number" min="1" id="countRoom" name="countRoom" placeholder="객실수" />
+				                        	</div>
+				                        </div>
+									</div>
+								</div>
+								<div class="search_insert_countPeople">
+									<div class="search_people_display">
+										<svg viewBox="0 0 200 200">
+				                           <path d="M160.6 180H39.4c-1.6 0-3.2-.8-4.1-2.1c-8-11.5-6.8-32.8 2.2-41.5c3.9-3.8 23.8-10.5 35.6-14C58.8 108.1 50 95.4 50 70.9C50 38.6 68.2 20 100 20s50 18.6 50 50.9c0 23.8-8.2 36.7-23.1 51.5c11.8 3.5 31.6 10.2 35.6 14c9.1 8.7 10.3 30 2.3 41.5c-1 1.3-2.6 2.1-4.2 2.1zM42.3 170h115.5c4-8.3 2.4-21.8-2.1-26.3c-3.6-2.8-31.2-12.1-38.9-13.8c-3.5-.8-5.1-4.9-3-7.8c7.9-10.8 26.3-19.2 26.3-51.2c0-18.7-6.9-40.9-40-40.9S60 52.2 60 70.9c0 31.9 18.4 40.3 26.3 51.2c2.1 2.9.5 7.1-3 7.8c-7.7 1.6-35.3 10.9-38.9 13.7c-4.6 4.5-6.1 18.1-2.1 26.4zm2.2-26.4z"/>
+				                        </svg>
+				                        <div class="people_text_wrap">
+				                        	<div class="people_text">
+				                        		<input type="number" min="1" id="countPeople" name="countPeople" placeholder="인원수" />
+				                        	</div>
+				                        </div>
+									</div>
+								</div>
 								<div class="search_insert_button_container">
-									<button class="search_insert_button" type="submit" id="search">
+									<button class="search_insert_button">
 										<span class="search_icon_container">
-										<span class="search_icon">
-											<svg viewBox="0 0 92 92">
-												<path d="M20.8 39.27c0-11.016 8.808-19.976 19.637-19.976 10.827 0 19.635 8.96 19.635 19.972 0 11.014-8.808 19.976-19.635 19.976-10.83 0-19.64-8.96-19.64-19.976zm55.472 32.037l-15.976-16.25c3.357-4.363 5.376-9.835 5.376-15.788 0-14.16-11.32-25.67-25.232-25.67-13.923 0-25.24 11.51-25.24 25.67s11.32 25.67 25.237 25.67c4.776 0 9.227-1.388 13.04-3.74L69.84 77.85c1.77 1.8 4.664 1.8 6.432 0 1.77-1.8 1.77-4.744 0-6.544z" fill="currentColor" style="user-select: auto;"></path>
-											</svg>
-										</span>
+											<span class="search_icon">
+												<svg viewBox="0 0 92 92">
+													<path d="M20.8 39.27c0-11.016 8.808-19.976 19.637-19.976 10.827 0 19.635 8.96 19.635 19.972 0 11.014-8.808 19.976-19.635 19.976-10.83 0-19.64-8.96-19.64-19.976zm55.472 32.037l-15.976-16.25c3.357-4.363 5.376-9.835 5.376-15.788 0-14.16-11.32-25.67-25.232-25.67-13.923 0-25.24 11.51-25.24 25.67s11.32 25.67 25.237 25.67c4.776 0 9.227-1.388 13.04-3.74L69.84 77.85c1.77 1.8 4.664 1.8 6.432 0 1.77-1.8 1.77-4.744 0-6.544z" fill="currentColor" style="user-select: auto;"></path>
+												</svg>
+											</span>
 										</span>
 									</button>
 								</div>
@@ -379,348 +314,355 @@ body {
 					</form>
 				</div>
 			</div>
-
-			<div class="space1"></div>
-
-			<div class="space2">
-				<div class="space2_inner"></div>
-			</div>
-
-			<div class="other">
-				<div class="popular">
-					<div class="popular_destination">
-						<div class="popular_destination_container">
-							<div class="popular_destination_inner">
-								<div class="popular_title">
-									<h2>인기 여행지</h2>
-								</div>
-								<div class="popular_des_content">
-									<div class="prev_arr_des" id="prevDes">
-										<svg viewBox="0 0 9 16">
-									<path
-												d="M7.89 15.87l1.07-1.05L2.23 8l6.73-6.82L7.89.13.12 8l7.77 7.87"></path>
-								</svg>
-									</div>
-									<div class="popular_des_container" id="slidebox_des">
-										<div id="slide_des">
-											<ul>
-												<li><a href="#"> <img
-														src="${pageContext.request.contextPath}/resources/images/main/794e703d-city-35982-1620c5d9650.jpg">
-														<div class="popular_des_text">
-															<h3>서울</h3>
-															<h4>대한민국</h4>
-														</div>
-												</a></li>
-												<li><a href="#"> <img
-														src="${pageContext.request.contextPath}/resources/images/main/8bdba93d-city-41830-172044905bc.jpg">
-														<div class="popular_des_text">
-															<h3>부산</h3>
-															<h4>대한민국</h4>
-														</div>
-												</a></li>
-												<li><a href="#"> <img
-														src="${pageContext.request.contextPath}/resources/images/main/8ff30a1b-city-32610-17686cfdd47.jpg">
-														<div class="popular_des_text">
-															<h3>제주시</h3>
-															<h4>대한민국</h4>
-														</div>
-												</a></li>
-												<li><a href="#"> <img
-														src="${pageContext.request.contextPath}/resources/images/main/e4272fa0-city-44381-1685ca3a41f.jpg">
-														<div class="popular_des_text">
-															<h3>인천</h3>
-															<h4>대한민국</h4>
-														</div>
-												</a></li>
-												<li><a href="#"> <img
-														src="${pageContext.request.contextPath}/resources/images/main/97ff1445-city-48541-1685d9584dc.jpg">
-														<div class="popular_des_text">
-															<h3>서귀포시</h3>
-															<h4>대한민국</h4>
-														</div>
-												</a></li>
-												<li><a href="#"> <img
-														src="${pageContext.request.contextPath}/resources/images/main/07e926ab-city-52588-176cf00643c.jpg">
-														<div class="popular_des_text">
-															<h3>강릉</h3>
-															<h4>대한민국</h4>
-														</div>
-												</a></li>
-												<li><a href="#"> <img
-														src="${pageContext.request.contextPath}/resources/images/main/1ff45244-city-48734-176ddda3728.jpg">
-														<div class="popular_des_text">
-															<h3>속초</h3>
-															<h4>대한민국</h4>
-														</div>
-												</a></li>
-												<li><a href="#"> <img
-														src="${pageContext.request.contextPath}/resources/images/main/4cb1c668-city-55089-171f0446990.jpg">
-														<div class="popular_des_text">
-															<h3>여수</h3>
-															<h4>대한민국</h4>
-														</div>
-												</a></li>
-												<li><a href="#"> <img
-														src="${pageContext.request.contextPath}/resources/images/main/c8113f30-city-43930-17686d4c79f.jpg">
-														<div class="popular_des_text">
-															<h3>경주</h3>
-															<h4>대한민국</h4>
-														</div>
-												</a></li>
-												<li><a href="#"> <img
-														src="${pageContext.request.contextPath}/resources/images/main/79245e46-city-52889-17686cd7b82.jpg">
-														<div class="popular_des_text">
-															<h3>전주</h3>
-															<h4>대한민국</h4>
-														</div>
-												</a></li>
-												<li><a href="#"> <img
-														src="${pageContext.request.contextPath}/resources/images/main/dff004ea-city-55073-17061f273f3.jpg">
-														<div class="popular_des_text">
-															<h3>양양</h3>
-															<h4>대한민국</h4>
-														</div>
-												</a></li>
-												<li><a href="#"> <img
-														src="${pageContext.request.contextPath}/resources/images/main/8f6ef4b5-city-33653-171f050398e.jpg">
-														<div class="popular_des_text">
-															<h3>수원</h3>
-															<h4>대한민국</h4>
-														</div>
-												</a></li>
-											</ul>
-										</div>
-									</div>
-									<div class="next_arr_des" id="nextDes">
-										<svg viewBox="0 0 9 16">
-									<path
-												d="M1.11 15.87L.04 14.82 6.77 8 .04 1.18 1.11.13 8.88 8l-7.77 7.87"></path>
-								</svg>
-									</div>
-								</div>
-							</div>
+		</div>
+	</div>
+	
+	<div class="space1"></div>
+	
+	<div class="space2">
+		<div class="space2_inner"></div>
+	</div>
+	
+	<div class="other">
+		<div class="popular">
+			<div class="popular_destination">
+				<div class="popular_destination_container">
+					<div class="popular_destination_inner">
+						<div class="popular_title">
+							<h2>인기 여행지</h2>
 						</div>
-					</div>
-					<div class="popular_hotel">
-						<div class="popular_hotel_container">
-							<div class="popular_title">
-								<h2>지금 인기 있는 호텔</h2>
+						<div class="popular_des_content">
+							<div class="prev_arr_des" id="prevDes">
+								<svg viewBox="0 0 9 16">
+									<path d="M7.89 15.87l1.07-1.05L2.23 8l6.73-6.82L7.89.13.12 8l7.77 7.87"></path>
+								</svg>
 							</div>
-							<div class="popular_hotel_content">
-								<div class="popular_hotel_content_container">
-									<div class="prev_arr_hotel" id="prevHotel">
-										<svg viewBox="0 0 9 16">
-									<path
-												d="M7.89 15.87l1.07-1.05L2.23 8l6.73-6.82L7.89.13.12 8l7.77 7.87"></path>
-								</svg>
-									</div>
-									<div class="popular_hotel_ul_container" id="slidebox_hotel">
-										<div id="slide_hotel">
-											<ul>
-												<li>
-													<div class="popular_hotel_li_container">
-														<a href="#"> <img
-															src="${pageContext.request.contextPath}/resources/images/main/arbisoftimages-2077628-cornersuite2-385203.jpg">
-															<div class="popular_hotel_text">
-																<h3>정동진 썬크루즈</h3>
-																<h4>강릉, 대한민국</h4>
-															</div>
-														</a>
-													</div>
-												</li>
-												<li>
-													<div class="popular_hotel_li_container">
-														<a href="#"> <img
-															src="${pageContext.request.contextPath}/resources/images/main/revato-1832279-12076490-406677.jpg">
-															<div class="popular_hotel_text">
-																<h3>랜딩관 제주신화월드 호텔앤리조트</h3>
-																<h4>서귀포시, 대한민국</h4>
-															</div>
-														</a>
-													</div>
-												</li>
-												<li>
-													<div class="popular_hotel_li_container">
-														<a href="#"> <img
-															src="${pageContext.request.contextPath}/resources/images/main/8c35d8f78260b5c9.jpg">
-															<div class="popular_hotel_text">
-																<h3>세인트존스 호텔</h3>
-																<h4>강릉, 대한민국</h4>
-															</div>
-														</a>
-													</div>
-												</li>
-												<li>
-													<div class="popular_hotel_li_container">
-														<a href="#"> <img
-															src="${pageContext.request.contextPath}/resources/images/main/ice-93102-68043206_3XL-448106.jpg">
-															<div class="popular_hotel_text">
-																<h3>아난티 힐튼</h3>
-																<h4>부산, 대한민국</h4>
-															</div>
-														</a>
-													</div>
-												</li>
-												<li>
-													<div class="popular_hotel_li_container">
-														<a href="#"> <img
-															src="${pageContext.request.contextPath}/resources/images/main/revato-1374678-10966835-896878.jpg">
-															<div class="popular_hotel_text">
-																<h3>라마다 제주 시티 호텔</h3>
-																<h4>제주시, 대한민국</h4>
-															</div>
-														</a>
-													</div>
-												</li>
-												<li>
-													<div class="popular_hotel_li_container">
-														<a href="#"> <img
-															src="${pageContext.request.contextPath}/resources/images/main/revato-10104-12548353-322377.jpg">
-															<div class="popular_hotel_text">
-																<h3>제주 신라 호텔</h3>
-																<h4>서귀포시, 대한민국</h4>
-															</div>
-														</a>
-													</div>
-												</li>
-												<li>
-													<div class="popular_hotel_li_container">
-														<a href="#"> <img
-															src="${pageContext.request.contextPath}/resources/images/main/revato-1338436-11139252-293730.jpg">
-															<div class="popular_hotel_text">
-																<h3>신라스테이 해운대</h3>
-																<h4>부산, 대한민국</h4>
-															</div>
-														</a>
-													</div>
-												</li>
-												<li>
-													<div class="popular_hotel_li_container">
-														<a href="#"> <img
-															src="${pageContext.request.contextPath}/resources/images/main/hotelsdotcom-600178-0e927fd0_w-821565.jpg">
-															<div class="popular_hotel_text">
-																<h3>라마다 속초 호텔</h3>
-																<h4>속초, 대한민국</h4>
-															</div>
-														</a>
-													</div>
-												</li>
-												<li>
-													<div class="popular_hotel_li_container">
-														<a href="#"> <img
-															src="${pageContext.request.contextPath}/resources/images/main/revato-6730-9988634-820594.jpg">
-															<div class="popular_hotel_text">
-																<h3>파라다이스 호텔 부산</h3>
-																<h4>부산, 대한민국</h4>
-															</div>
-														</a>
-													</div>
-												</li>
-												<li>
-													<div class="popular_hotel_li_container">
-														<a href="#"> <img
-															src="${pageContext.request.contextPath}/resources/images/main/revato-1865922-12031689-093701.jpg">
-															<div class="popular_hotel_text">
-																<h3>스카이베이 호텔 경포</h3>
-																<h4>강릉, 대한민국</h4>
-															</div>
-														</a>
-													</div>
-												</li>
-											</ul>
-										</div>
-									</div>
-									<div class="next_arr_hotel" id="nextHotel">
-										<svg viewBox="0 0 9 16">
-									<path
-												d="M1.11 15.87L.04 14.82 6.77 8 .04 1.18 1.11.13 8.88 8l-7.77 7.87"></path>
-								</svg>
-									</div>
+							<div class="popular_des_container" id="slidebox_des">
+								<div id="slide_des">
+									<ul>
+										<li>
+											<a href="#">
+												<img src="${pageContext.request.contextPath}/resources/images/main/794e703d-city-35982-1620c5d9650.jpg">
+												<div class="popular_des_text">
+													<h3>서울</h3>
+													<h4>대한민국</h4>
+												</div>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<img src="${pageContext.request.contextPath}/resources/images/main/8bdba93d-city-41830-172044905bc.jpg">
+												<div class="popular_des_text">
+													<h3>부산</h3>
+													<h4>대한민국</h4>
+												</div>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<img src="${pageContext.request.contextPath}/resources/images/main/8ff30a1b-city-32610-17686cfdd47.jpg">
+												<div class="popular_des_text">
+													<h3>제주시</h3>
+													<h4>대한민국</h4>
+												</div>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<img src="${pageContext.request.contextPath}/resources/images/main/e4272fa0-city-44381-1685ca3a41f.jpg">
+												<div class="popular_des_text">
+													<h3>인천</h3>
+													<h4>대한민국</h4>
+												</div>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<img src="${pageContext.request.contextPath}/resources/images/main/97ff1445-city-48541-1685d9584dc.jpg">
+												<div class="popular_des_text">
+													<h3>서귀포시</h3>
+													<h4>대한민국</h4>
+												</div>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<img src="${pageContext.request.contextPath}/resources/images/main/07e926ab-city-52588-176cf00643c.jpg">
+												<div class="popular_des_text">
+													<h3>강릉</h3>
+													<h4>대한민국</h4>
+												</div>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<img src="${pageContext.request.contextPath}/resources/images/main/1ff45244-city-48734-176ddda3728.jpg">
+												<div class="popular_des_text">
+													<h3>속초</h3>
+													<h4>대한민국</h4>
+												</div>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<img src="${pageContext.request.contextPath}/resources/images/main/4cb1c668-city-55089-171f0446990.jpg">
+												<div class="popular_des_text">
+													<h3>여수</h3>
+													<h4>대한민국</h4>
+												</div>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<img src="${pageContext.request.contextPath}/resources/images/main/c8113f30-city-43930-17686d4c79f.jpg">
+												<div class="popular_des_text">
+													<h3>경주</h3>
+													<h4>대한민국</h4>
+												</div>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<img src="${pageContext.request.contextPath}/resources/images/main/79245e46-city-52889-17686cd7b82.jpg">
+												<div class="popular_des_text">
+													<h3>전주</h3>
+													<h4>대한민국</h4>
+												</div>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<img src="${pageContext.request.contextPath}/resources/images/main/dff004ea-city-55073-17061f273f3.jpg">
+												<div class="popular_des_text">
+													<h3>양양</h3>
+													<h4>대한민국</h4>
+												</div>
+											</a>
+										</li>
+										<li>
+											<a href="#">
+												<img src="${pageContext.request.contextPath}/resources/images/main/8f6ef4b5-city-33653-171f050398e.jpg">
+												<div class="popular_des_text">
+													<h3>수원</h3>
+													<h4>대한민국</h4>
+												</div>
+											</a>
+										</li>
+									</ul>
 								</div>
+							</div>
+							<div class="next_arr_des" id="nextDes">
+								<svg viewBox="0 0 9 16">
+									<path d="M1.11 15.87L.04 14.82 6.77 8 .04 1.18 1.11.13 8.88 8l-7.77 7.87"></path>
+								</svg>
 							</div>
 						</div>
 					</div>
 				</div>
-
-				<div class="faq">
-					<div class="faq_container">
-						<h6>최저가 예약을 위한 자주 묻는 질문 (FAQ)</h6>
-						<div class="faq_question">
-							<div class="faq_column">
-								<div class="faq_column_container">
-									<div class="faq_column_content">
-										<div class="faq_question_title"
-											onclick="accodionAction(this);">
-											<div class="faq_question_text">호텔스컴바인에서 최저가를 예약하는 방법은
-												무엇입니까?</div>
-											<button class="faq_question_arr">
-												<svg viewBox="0 0 10 10">
-											<path fill="currentColor"
-														d="M4.4,7.32a0.84,0.84,0,0,0,1.2,0L9.07,3.85A0.84,0.84,0,0,0,7.88,2.67L5,5.55,2.12,2.67A0.84,0.84,0,0,0,.93,3.85Z"
-														style="user-select: auto;"></path>
-										</svg>
-											</button>
-										</div>
-										<div class="faq_answer">호텔스컴바인은 국내외 주요 여행 사이트의 가격을 한곳에
-											모아 비교해드리는 메타 검색 브랜드입니다. 원하는 호텔을 다양한 옵션으로 필터링하여 한눈에 비교하고 예약할 수
-											있습니다. 게다가 호텔스컴바인은 추가 예약 수수료도 없다는 것, 잊지 마세요!</div>
-									</div>
-								</div>
-
-								<div class="faq_column_container">
-									<div class="faq_column_content">
-										<div class="faq_question_title">
-											<div class="faq_question_text">호텔스컴바인 후기의 특별한 점은 무엇입니까?</div>
-											<button class="faq_question_arr">
-												<svg viewBox="0 0 10 10">
-											<path fill="currentColor"
-														d="M4.4,7.32a0.84,0.84,0,0,0,1.2,0L9.07,3.85A0.84,0.84,0,0,0,7.88,2.67L5,5.55,2.12,2.67A0.84,0.84,0,0,0,.93,3.85Z"
-														style="user-select: auto;"></path>
-										</svg>
-											</button>
-										</div>
-										<div class="faq_answer">호텔스컴바인은 실제로 투숙했던 고객들의 생생한 후기만
-											보여드립니다. 주요 여행 사이트들의 후기를 한 번에 읽어보고 후회 없는 선택을 해보세요!</div>
-									</div>
+			</div>
+			<div class="popular_hotel">
+				<div class="popular_hotel_container">
+					<div class="popular_title">
+						<h2>지금 인기 있는 호텔</h2>
+					</div>
+					<div class="popular_hotel_content">
+						<div class="popular_hotel_content_container">
+							<div class="prev_arr_hotel" id="prevHotel">
+								<svg viewBox="0 0 9 16">
+									<path d="M7.89 15.87l1.07-1.05L2.23 8l6.73-6.82L7.89.13.12 8l7.77 7.87"></path>
+								</svg>
+							</div>
+							<div class="popular_hotel_ul_container" id="slidebox_hotel">
+								<div id="slide_hotel">
+									<ul>
+										<li>
+											<div class="popular_hotel_li_container">
+												<a href="#">
+													<img src="${pageContext.request.contextPath}/resources/images/main/arbisoftimages-2077628-cornersuite2-385203.jpg">
+													<div class="popular_hotel_text">
+														<h3>정동진 썬크루즈</h3>
+														<h4>강릉, 대한민국</h4>
+													</div>
+												</a>
+											</div>
+										</li>
+										<li>
+											<div class="popular_hotel_li_container">
+												<a href="#">
+													<img src="${pageContext.request.contextPath}/resources/images/main/revato-1832279-12076490-406677.jpg">
+													<div class="popular_hotel_text">
+														<h3>랜딩관 제주신화월드 호텔앤리조트</h3>
+														<h4>서귀포시, 대한민국</h4>
+													</div>
+												</a>
+											</div>
+										</li>
+										<li>
+											<div class="popular_hotel_li_container">
+												<a href="#">
+													<img src="${pageContext.request.contextPath}/resources/images/main/8c35d8f78260b5c9.jpg">
+													<div class="popular_hotel_text">
+														<h3>세인트존스 호텔</h3>
+														<h4>강릉, 대한민국</h4>
+													</div>
+												</a>
+											</div>
+										</li>
+										<li>
+											<div class="popular_hotel_li_container">
+												<a href="#">
+													<img src="${pageContext.request.contextPath}/resources/images/main/ice-93102-68043206_3XL-448106.jpg">
+													<div class="popular_hotel_text">
+														<h3>아난티 힐튼</h3>
+														<h4>부산, 대한민국</h4>
+													</div>
+												</a>
+											</div>
+										</li>
+										<li>
+											<div class="popular_hotel_li_container">
+												<a href="#">
+													<img src="${pageContext.request.contextPath}/resources/images/main/revato-1374678-10966835-896878.jpg">
+													<div class="popular_hotel_text">
+														<h3>라마다 제주 시티 호텔</h3>
+														<h4>제주시, 대한민국</h4>
+													</div>
+												</a>
+											</div>
+										</li>
+										<li>
+											<div class="popular_hotel_li_container">
+												<a href="#">
+													<img src="${pageContext.request.contextPath}/resources/images/main/revato-10104-12548353-322377.jpg">
+													<div class="popular_hotel_text">
+														<h3>제주 신라 호텔</h3>
+														<h4>서귀포시, 대한민국</h4>
+													</div>
+												</a>
+											</div>
+										</li>
+										<li>
+											<div class="popular_hotel_li_container">
+												<a href="#">
+													<img src="${pageContext.request.contextPath}/resources/images/main/revato-1338436-11139252-293730.jpg">
+													<div class="popular_hotel_text">
+														<h3>신라스테이 해운대</h3>
+														<h4>부산, 대한민국</h4>
+													</div>
+												</a>
+											</div>
+										</li>
+										<li>
+											<div class="popular_hotel_li_container">
+												<a href="#">
+													<img src="${pageContext.request.contextPath}/resources/images/main/hotelsdotcom-600178-0e927fd0_w-821565.jpg">
+													<div class="popular_hotel_text">
+														<h3>라마다 속초 호텔</h3>
+														<h4>속초, 대한민국</h4>
+													</div>
+												</a>
+											</div>
+										</li>
+										<li>
+											<div class="popular_hotel_li_container">
+												<a href="#">
+													<img src="${pageContext.request.contextPath}/resources/images/main/revato-6730-9988634-820594.jpg">
+													<div class="popular_hotel_text">
+														<h3>파라다이스 호텔 부산</h3>
+														<h4>부산, 대한민국</h4>
+													</div>
+												</a>
+											</div>
+										</li>
+										<li>
+											<div class="popular_hotel_li_container">
+												<a href="#">
+													<img src="${pageContext.request.contextPath}/resources/images/main/revato-1865922-12031689-093701.jpg">
+													<div class="popular_hotel_text">
+														<h3>스카이베이 호텔 경포</h3>
+														<h4>강릉, 대한민국</h4>
+													</div>
+												</a>
+											</div>
+										</li>
+									</ul>
 								</div>
 							</div>
-							<div class="faq_column">
-								<div class="faq_column_container">
-									<div class="faq_column_content">
-										<div class="faq_question_title">
-											<div class="faq_question_text">호텔스컴바인의 회원 전용 혜택은 무엇입니까?</div>
-											<button class="faq_question_arr">
-												<svg viewBox="0 0 10 10">
-											<path fill="currentColor"
-														d="M4.4,7.32a0.84,0.84,0,0,0,1.2,0L9.07,3.85A0.84,0.84,0,0,0,7.88,2.67L5,5.55,2.12,2.67A0.84,0.84,0,0,0,.93,3.85Z"
-														style="user-select: auto;"></path>
-										</svg>
-											</button>
-										</div>
-										<div class="faq_answer">호텔스컴바인 무료 가입 후 로그인하시면, 회원들에게만
-											제공하는 '시크릿 특가'를 확인하실 수 있습니다. 한 번의 회원 가입으로 최저가 그 이상의 혜택을 누려보세요!</div>
-									</div>
-								</div>
-
-								<div class="faq_column_container">
-									<div class="faq_column_content">
-										<div class="faq_question_title">
-											<div class="faq_question_text">호텔스컴바인 앱(app)이 있습니까?</div>
-											<button class="faq_question_arr">
-												<svg viewBox="0 0 10 10">
-											<path fill="currentColor"
-														d="M4.4,7.32a0.84,0.84,0,0,0,1.2,0L9.07,3.85A0.84,0.84,0,0,0,7.88,2.67L5,5.55,2.12,2.67A0.84,0.84,0,0,0,.93,3.85Z"
-														style="user-select: auto;"></path>
-										</svg>
-											</button>
-										</div>
-										<div class="faq_answer">물론입니다. 모바일과 태블릿에서도 호텔스컴바인을 사용하실
-											수 있습니다. 지금 바로 iOS 또는 안드로이드에서 "호텔스컴바인"을 검색하고 앱(APP)을 다운로드하세요!</div>
-									</div>
-								</div>
+							<div class="next_arr_hotel" id="nextHotel">
+								<svg viewBox="0 0 9 16">
+									<path d="M1.11 15.87L.04 14.82 6.77 8 .04 1.18 1.11.13 8.88 8l-7.77 7.87"></path>
+								</svg>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		
+		<div class="faq">
+			<div class="faq_container">
+				<h6>최저가 예약을 위한 자주 묻는 질문 (FAQ)</h6>
+				<div class="faq_question">
+					<div class="faq_column">
+						<div class="faq_column_container">
+							<div class="faq_column_content">
+								<div class="faq_question_title" onclick="accodionAction(this);">
+									<div class="faq_question_text">호텔스컴바인에서 최저가를 예약하는 방법은 무엇입니까?</div>
+									<button class="faq_question_arr">
+										<svg viewBox="0 0 10 10">
+											<path fill="currentColor" d="M4.4,7.32a0.84,0.84,0,0,0,1.2,0L9.07,3.85A0.84,0.84,0,0,0,7.88,2.67L5,5.55,2.12,2.67A0.84,0.84,0,0,0,.93,3.85Z" style="user-select: auto;"></path>
+										</svg>
+									</button>
+								</div>
+								<div class="faq_answer">호텔스컴바인은 국내외 주요 여행 사이트의 가격을 한곳에 모아 비교해드리는 메타 검색 브랜드입니다. 원하는 호텔을 다양한 옵션으로 필터링하여 한눈에 비교하고 예약할 수 있습니다. 게다가 호텔스컴바인은 추가 예약 수수료도 없다는 것, 잊지 마세요!</div>
+							</div>
+						</div>
+						
+						<div class="faq_column_container">
+							<div class="faq_column_content">
+								<div class="faq_question_title">
+									<div class="faq_question_text">호텔스컴바인 후기의 특별한 점은 무엇입니까?</div>
+									<button class="faq_question_arr">
+										<svg viewBox="0 0 10 10">
+											<path fill="currentColor" d="M4.4,7.32a0.84,0.84,0,0,0,1.2,0L9.07,3.85A0.84,0.84,0,0,0,7.88,2.67L5,5.55,2.12,2.67A0.84,0.84,0,0,0,.93,3.85Z" style="user-select: auto;"></path>
+										</svg>
+									</button>
+								</div>
+								<div class="faq_answer">호텔스컴바인은 실제로 투숙했던 고객들의 생생한 후기만 보여드립니다. 주요 여행 사이트들의 후기를 한 번에 읽어보고 후회 없는 선택을 해보세요!</div>
+							</div>
+						</div>
+					</div>
+					<div class="faq_column">
+						<div class="faq_column_container">
+							<div class="faq_column_content">
+								<div class="faq_question_title">
+									<div class="faq_question_text">호텔스컴바인의 회원 전용 혜택은 무엇입니까?</div>
+									<button class="faq_question_arr">
+										<svg viewBox="0 0 10 10">
+											<path fill="currentColor" d="M4.4,7.32a0.84,0.84,0,0,0,1.2,0L9.07,3.85A0.84,0.84,0,0,0,7.88,2.67L5,5.55,2.12,2.67A0.84,0.84,0,0,0,.93,3.85Z" style="user-select: auto;"></path>
+										</svg>
+									</button>
+								</div>
+								<div class="faq_answer">호텔스컴바인 무료 가입 후 로그인하시면, 회원들에게만 제공하는 '시크릿 특가'를 확인하실 수 있습니다. 한 번의 회원 가입으로 최저가 그 이상의 혜택을 누려보세요!</div>
+							</div>
+						</div>
+						
+						<div class="faq_column_container">
+							<div class="faq_column_content">
+								<div class="faq_question_title">
+									<div class="faq_question_text">호텔스컴바인 앱(app)이 있습니까?</div>
+									<button class="faq_question_arr">
+										<svg viewBox="0 0 10 10">
+											<path fill="currentColor" d="M4.4,7.32a0.84,0.84,0,0,0,1.2,0L9.07,3.85A0.84,0.84,0,0,0,7.88,2.67L5,5.55,2.12,2.67A0.84,0.84,0,0,0,.93,3.85Z" style="user-select: auto;"></path>
+										</svg>
+									</button>
+								</div>
+								<div class="faq_answer">물론입니다. 모바일과 태블릿에서도 호텔스컴바인을 사용하실 수 있습니다. 지금 바로 iOS 또는 안드로이드에서 "호텔스컴바인"을 검색하고 앱(APP)을 다운로드하세요!</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -540,6 +540,7 @@ body {
 
 .city_text input[type="text"] {
 	width:395px;
+	height:34px;
 	background-color:#f4f4f4;
 	/*border:0.1px solid black;*/
 	border:none;
@@ -562,3 +563,4 @@ body {
 input[type="date"]::-webkit-calendar-picker-indicator {
     background: none;
 }
+
