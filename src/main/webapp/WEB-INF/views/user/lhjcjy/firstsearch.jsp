@@ -61,6 +61,21 @@ body {
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery-ui.min.css">
 
 <script type="text/javascript">
+function showID(id){
+	obj=document.getElementById(id);
+		if(obj.style.display == "none") 
+		  obj.style.display="inline";
+		else
+		  obj.style.display="none";
+}
+$(function(){	
+	$("#ttt").click(function(){
+		let countRoom=$("#countRoom").val();
+		let countPeople=$("#countPeople").val();
+		console.log(countRoom)
+		$("#ttt").val("인원수:"+countRoom+"  객실수:"+countPeople)
+	})
+})
 function collectInfo(){
 	let countRoom=$("#countRoom").val();
 	let countPeople=$("#countPeople").val();
@@ -215,6 +230,14 @@ $(function(){
 								</svg>
 								<div class="room_text_wrap">
 									<div class="room_text">
+																			<!-- 
+										<div id="content_bt">
+									    	<input type="button" onclick="showID('content');" id="ttt" value="인원수,객실수">
+									        <div id="content" style="display:none;">
+											   인원수 <input type="number" min="1" id="countPeople"><br>
+										       객실수 <input type="number" min="1" id="countRoom">
+									    	</div>
+									    </div>								    	 -->
 										<input type="number" min="1" id="countRoom" name="countRoom">
 									</div>
 								</div>
