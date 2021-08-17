@@ -49,7 +49,7 @@
 		-->
 	<select id="rangeSlider_getMinMax" resultType="com.jhta.project.vo.lhjcjy.RangeSlider_GetMinMaxVolhjcjy" parameterType="hashmap">
 		<![CDATA[
-		select min(amountSum) as minSum, max(amountSum) as maxSum from (
+		select NVL(min(amountSum),0) as minSum, NVL(max(amountSum),0) as maxSum from (
 		  select * from (select finfinfin.*, ROW_NUMBER() OVER(PARTITION BY aname ORDER BY aname, amountsum) rnum from(        
 			select amountSum,star, ac.amainimg,ac.aname,ac.aaddress, ac.agrade,ac.aid  from (
         		select riid, sum(amount) amountSum from(
