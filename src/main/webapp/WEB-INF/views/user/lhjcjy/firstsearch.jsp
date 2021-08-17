@@ -230,7 +230,7 @@ $(function(){
 								</svg>
 								<div class="room_text_wrap">
 									<div class="room_text">
-																			<!-- 
+																			<!-- ..
 										<div id="content_bt">
 									    	<input type="button" onclick="showID('content');" id="ttt" value="인원수,객실수">
 									        <div id="content" style="display:none;">
