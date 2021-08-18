@@ -21,12 +21,14 @@
             		where ds >=#{rcheckin} and ds <=#{rcheckout}) fin
             	where to_date(ds,'yy/mm/dd')>=pestart and to_date(ds,'yy/mm/dd')<=peend)
         		group by riid) finfin, room_info ri, accommodations ac, 
-        		(select riid,star from (
-        			(select ri.riid ,cnt.star star from room_info ri left outer join
-        			(select nvl(avg(r.restar),0) star,ri.riid from review r,reservation re, room_info ri where r.rid=re.rid and re.riid=ri.riid group by ri.riid) cnt
-       				on ri.riid=cnt.riid left outer join accommodations ac on ac.aid=ri.aid left outer join period pr on pr.aid=ac.aid)) group by riid,star) star,
-       				(select ri.riid,(af.afpersonnel*(#{rimaxper}-ri.riminper))exper from additional_fee af,room_info ri where af.riid=ri.riid and ri.riminper<=#{rimaxper}) addfee
-        		where star.riid = ri.riid 
+        		(select aid,sum(star) star from (
+		        select riid,star,aid from (
+		        (select ri.riid ,cnt.star star,ac.aid from room_info ri left outer join
+		        (select nvl(avg(r.restar),0) star,ri.riid from review r,reservation re, room_info ri where r.rid=re.rid and re.riid=ri.riid group by ri.riid) cnt
+		        on ri.riid=cnt.riid left outer join accommodations ac on ac.aid=ri.aid left outer join period pr on pr.aid=ac.aid)) group by riid,star,aid
+		        )group by aid) star,
+     			(select ri.riid,(af.afpersonnel*(#{rimaxper}-ri.riminper))exper from additional_fee af,room_info ri where af.riid=ri.riid and ri.riminper<=#{rimaxper}) addfee
+        		where star.aid=ac.aid 
         		and ri.riid=finfin.riid 
         		and ac.aid = ri.aid 
         		and addfee.riid=ri.riid
