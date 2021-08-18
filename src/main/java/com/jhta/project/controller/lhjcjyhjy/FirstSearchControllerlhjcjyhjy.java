@@ -59,6 +59,7 @@ public class FirstSearchControllerlhjcjyhjy {
 			mv.addObject("countRoom", countRoom);
 			List<AccommodationsVolhjcjy> list = gpservice.getprice(hs);
 			
+			mv.addObject("nullmsg","조건에 맞는 호텔이 없습니다");
 			RangeSlider_GetMinMaxVolhjcjy minmax=service.rangeSlider_getMinMax(hs);
 			mv.addObject("minmax", minmax);
 			mv.addObject("list", list);

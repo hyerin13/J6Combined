@@ -392,6 +392,7 @@ $(function(){
 	$("#sort").change(function(){
 		let sort = $(this).val();
 		let templist = new Array();
+		checklist(templist)
 		let grade;
 		let star;
 		//성급 몇인지 뽑아오는부분
@@ -636,6 +637,20 @@ function gomapchange(facilities,minprice,maxprice,sort,axcoordi,aycoordi,distanc
 			success:function(data){
 				if(data.code=='success'){
 		        	for (var i = 0; i < data.list.length; i++) {
+		        		let star="";
+						if(data.list[i].restar == 5){
+							star = "★★★★★";
+						}else if(data.list[i].restar == 4){
+							star="★★★★☆";
+						}else if(data.list[i].restar == 3){
+							star="★★★☆☆";
+						}else if(data.list[i].restar == 2){
+							star = "★★☆☆☆";
+						}else if(data.list[i].restar == 1){
+							star = "★☆☆☆☆";
+						}else if(data.list[i].restar == 0){
+							star="☆☆☆☆☆";
+						}
 		        		if(data.list[i].aycoordi>100){
 							let listxy = changeXY(data.list[i].axcoordi,data.list[i].aycoordi);
 							latlngs.push(new naver.maps.LatLng(listxy[1], listxy[0]));
@@ -644,7 +659,7 @@ function gomapchange(facilities,minprice,maxprice,sort,axcoordi,aycoordi,distanc
 		        		}
 						if(data.list[i].amainimg==null){
 							contentString.push(
-				    		          '<div class="iw_inner"><h3>'+data.list[i].aname+'</h3><p>'+data.list[i].aaddress
+				    		          '<div class="iw_inner">'+'<h5>'+star+'</h5>'+'<h3>'+data.list[i].aname+'</h3>'+'<h5>'+data.list[i].agrade+'성급</h5>'+'<p>'+data.list[i].aaddress
 				    		          +'<br /> <img src="${pageContext.request.contextPath }/resources/images/accommodations/220i0z000000mulfw433F_Z_1080_808_R5_D.jpg" width="300" height="250" /><br />'
 				    		          +'전화번호: '+data.list[i].aphone+' | 가격: '+data.list[i].amountsum+'<br/>'
 				    		          +"<button class='btn' onclick=\""
@@ -654,7 +669,7 @@ function gomapchange(facilities,minprice,maxprice,sort,axcoordi,aycoordi,distanc
 									  )
 					   }else{
 						   contentString.push(
-				    		          '<div class="iw_inner"><h3>'+data.list[i].aname+'</h3><p>'+data.list[i].aaddress
+								   	  '<div class="iw_inner">'+'<h5>'+star+'</h5>'+'<h3>'+data.list[i].aname+'</h3>'+'<h5>'+data.list[i].agrade+'성급</h5>'+'<p>'+data.list[i].aaddress
 				    		          +'<br /> <img src="${pageContext.request.contextPath }/resources/images/accommodations/'+data.list[i].amainimg+'"width="300" height="250"/><br />'
 				    		          +data.list[i].aphone+' | '+data.list[i].amountsum+'<br/>'
 				    		          +"<button class='btn' onclick=\""
@@ -783,126 +798,132 @@ function list(facilities,minprice,maxprice,sort,xcoordi,ycoordi,distance,agrade,
 		success:function(data){
 			if(data.code=='success'){
 			   $("#list").empty();
-			   for (var i = 0; i < data.list.length; i++) {
-				   let html = "";
-				   //xcoordi값이 있을때
-				   if(xcoordi){
-					   	let testxy = changeXY(data.list[i].axcoordi,data.list[i].aycoordi)
-					   //기준좌표
-					   	let refcoordi = [xcoordi, ycoordi];
-					   //db에서 불러온 좌표
-						let dbcoordi = [testxy[1],testxy[0]];
-					   
-						console.log("숙소이름: "+data.list[i].aname);
-						console.log("두개사이의 거리: "+isdistancein(refcoordi, dbcoordi),"m");
-						console.log("distance: "+distance)
-						if(isdistancein(refcoordi, dbcoordi)<=distance){
-							html+="<div class='row mb-3'>";
-							html+="<div class='col-md-12'>";
-							html+="<div class='card'>";
-							html+="<div class='card-body'>";
-							html+="<div class='row'>";
-							html+="<div class='col-md-3'>";
-							if(data.list[i].amainimg==null){
-								html+="<img src='${pageContext.request.contextPath }/resources/images/accommodations/220i0z000000mulfw433F_Z_1080_808_R5_D.jpg' width='300' height='250'>";
-							}else{
-								html+="<img src='${pageContext.request.contextPath }/resources/images/accommodations/"+data.list[i].amainimg+"'width='300' height='250'>";
-							}
-							html+="</div>";
-							html+="<div class='col-md-6'>";
-							html+="<h3>"+data.list[i].aname+"</h3>";
-							html+="<small>"+data.list[i].aaddress+"</small>";
-							html+="<div id='map"+changecnt+"' style='width: 200px; height: 200px;'>지도넣기"
-							html+="<input type='hidden' id='axcoordi"+changecnt+"' value="+data.list[i].axcoordi+">";
-							html+="<input type='hidden' id='aycoordi"+changecnt+"' value="+data.list[i].aycoordi+">";
-							html+="</div>";
-							html+="</div>";
-							html+="<div class='col-md-3' style='text-align: right;'>";
-							if(data.list[i].agrade !=null){
-								html+="<h5>"+data.list[i].agrade+"성급</h5>";
-							}
-							html+="<h5>"
-							if(data.list[i].restar==5){
-								html+="★★★★★"
-							}else if(data.list[i].restar==4){
-								html+="★★★★☆"
-							}else if(data.list[i].restar==3){
-								html+="★★★☆☆"
-							}else if(data.list[i].restar==2){
-								html+="★★☆☆☆"
-							}else if(data.list[i].restar==1){
-								html+="★☆☆☆☆"
-							}else{
-								html+="☆☆☆☆☆"
-							}
-							html+="</h5>"
-							html+="<h4>"+data.list[i].amountsum+"원</h4>";
-							html+="<button class='btn' onclick=\"";
-							html+="location.href='${pageContext.request.contextPath }/user/kjy/room_info?AID="+data.list[i].aid;
-							html+="&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+${rcheckin}+"&endday="+${rcheckout}
-							html+="'\">예약하기</button>";
-							html+="</div>";
-							html+="</div>";
-							html+="</div>";
-							html+="</div>";
-							html+="</div>";
-							html+="</div>";
-							changecnt++;
-					   		}
-				   		}else{
-							html+="<div class='row mb-3'>";
-							html+="<div class='col-md-12'>";
-							html+="<div class='card'>";
-							html+="<div class='card-body'>";
-							html+="<div class='row'>";
-							html+="<div class='col-md-3'>";
-							if(data.list[i].amainimg==null){
-								html+="<img src='${pageContext.request.contextPath }/resources/images/accommodations/220i0z000000mulfw433F_Z_1080_808_R5_D.jpg' width='300' height='250'>";
-							}else{
-								html+="<img src='${pageContext.request.contextPath }/resources/images/accommodations/"+data.list[i].amainimg+"'width='300' height='250'>";
-							}
-							html+="</div>";
-							html+="<div class='col-md-6'>";
-							html+="<h3>"+data.list[i].aname+"</h3>";
-							html+="<small>"+data.list[i].aaddress+"</small>";
-							html+="<div id='map"+i+"' style='width: 200px; height: 200px;'>지도넣기"
-							html+="<input type='hidden' id='axcoordi"+i+"' value="+data.list[i].axcoordi+">";
-							html+="<input type='hidden' id='aycoordi"+i+"' value="+data.list[i].aycoordi+">";
-							html+="</div>";
-							html+="</div>";
-							html+="<div class='col-md-3'style='text-align: right;>";
-							if(data.list[i].agrade !=null){
-								html+="<h5>"+data.list[i].agrade+"성급</h5>";
-							}
-							html+="<h5>"
-							if(data.list[i].restar==5){
-								html+="★★★★★"
-							}else if(data.list[i].restar==4){
-								html+="★★★★☆"
-							}else if(data.list[i].restar==3){
-								html+="★★★☆☆"
-							}else if(data.list[i].restar==2){
-								html+="★★☆☆☆"
-							}else if(data.list[i].restar==1){
-								html+="★☆☆☆☆"
-							}else{
-								html+="☆☆☆☆☆"
-							}
-							html+="</h5>"
-							html+="<h4>"+data.list[i].amountsum+"원</h4>";
-							html+="<button class='btn' onclick=\"";
-							html+="location.href='${pageContext.request.contextPath }/user/kjy/room_info?AID="+data.list[i].aid;
-							html+="&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+${rcheckin}+"&endday="+${rcheckout}
-							html+="'\">예약하기</button>";
-							html+="</div>";
-							html+="</div>";
-							html+="</div>";
-							html+="</div>";
-							html+="</div>";
-							html+="</div>";
-					   }
+			   let html = "";
+			   if(data.list.length==0){
+				   html+="<h3>조건에 맞는 호텔이 없습니다</h3>";
+				   $("#list").append(html);
+			   }else{
+				   for (var i = 0; i < data.list.length; i++) {
+
+					   //xcoordi값이 있을때
+					   if(xcoordi){
+						   	let testxy = changeXY(data.list[i].axcoordi,data.list[i].aycoordi)
+						   //기준좌표
+						   	let refcoordi = [xcoordi, ycoordi];
+						   //db에서 불러온 좌표
+							let dbcoordi = [testxy[1],testxy[0]];
+						   
+							console.log("숙소이름: "+data.list[i].aname);
+							console.log("두개사이의 거리: "+isdistancein(refcoordi, dbcoordi),"m");
+							console.log("distance: "+distance)
+							if(isdistancein(refcoordi, dbcoordi)<=distance){
+								   	html+="<div class='row mb-3'>";
+									html+="<div class='col-md-12'>";
+									html+="<div class='card'>";
+									html+="<div class='card-body'>";
+									html+="<div class='row'>";
+									html+="<div class='col-md-3'>";
+									if(data.list[i].amainimg==null){
+										html+="<img src='${pageContext.request.contextPath }/resources/images/accommodations/220i0z000000mulfw433F_Z_1080_808_R5_D.jpg' width='300' height='250'>";
+									}else{
+										html+="<img src='${pageContext.request.contextPath }/resources/images/accommodations/"+data.list[i].amainimg+"'width='300' height='250'>";
+									}
+									html+="</div>";
+									html+="<div class='col-md-6'>";
+									html+="<h3>"+data.list[i].aname+"</h3>";
+									html+="<small>"+data.list[i].aaddress+"</small>";
+									html+="<div id='map"+changecnt+"' style='width: 200px; height: 200px;'>지도넣기"
+									html+="<input type='hidden' id='axcoordi"+changecnt+"' value="+data.list[i].axcoordi+">";
+									html+="<input type='hidden' id='aycoordi"+changecnt+"' value="+data.list[i].aycoordi+">";
+									html+="</div>";
+									html+="</div>";
+									html+="<div class='col-md-3' style='text-align: right;'>";
+									if(data.list[i].agrade !=null){
+										html+="<h5>"+data.list[i].agrade+"성급</h5>";
+									}
+									html+="<h5>"
+									if(data.list[i].restar==5){
+										html+="★★★★★"
+									}else if(data.list[i].restar==4){
+										html+="★★★★☆"
+									}else if(data.list[i].restar==3){
+										html+="★★★☆☆"
+									}else if(data.list[i].restar==2){
+										html+="★★☆☆☆"
+									}else if(data.list[i].restar==1){
+										html+="★☆☆☆☆"
+									}else{
+										html+="☆☆☆☆☆"
+									}
+									html+="</h5>"
+									html+="<h4>"+data.list[i].amountsum+"원</h4>";
+									html+="<button class='btn' onclick=\"";
+									html+="location.href='${pageContext.request.contextPath }/user/kjy/room_info?AID="+data.list[i].aid;
+									html+="&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+${rcheckin}+"&endday="+${rcheckout}
+									html+="'\">예약하기</button>";
+									html+="</div>";
+									html+="</div>";
+									html+="</div>";
+									html+="</div>";
+									html+="</div>";
+									html+="</div>";
+									changecnt++;
+							   }
+				   			}else{
+								html+="<div class='row mb-3'>";
+								html+="<div class='col-md-12'>";
+								html+="<div class='card'>";
+								html+="<div class='card-body'>";
+								html+="<div class='row'>";
+								html+="<div class='col-md-3'>";
+								if(data.list[i].amainimg==null){
+									html+="<img src='${pageContext.request.contextPath }/resources/images/accommodations/220i0z000000mulfw433F_Z_1080_808_R5_D.jpg' width='300' height='250'>";
+								}else{
+									html+="<img src='${pageContext.request.contextPath }/resources/images/accommodations/"+data.list[i].amainimg+"'width='300' height='250'>";
+								}
+								html+="</div>";
+								html+="<div class='col-md-6'>";
+								html+="<h3>"+data.list[i].aname+"</h3>";
+								html+="<small>"+data.list[i].aaddress+"</small>";
+								html+="<div id='map"+i+"' style='width: 200px; height: 200px;'>지도넣기"
+								html+="<input type='hidden' id='axcoordi"+i+"' value="+data.list[i].axcoordi+">";
+								html+="<input type='hidden' id='aycoordi"+i+"' value="+data.list[i].aycoordi+">";
+								html+="</div>";
+								html+="</div>";
+								html+="<div class='col-md-3'>";
+								if(data.list[i].agrade !=null){
+									html+="<h5>"+data.list[i].agrade+"성급</h5>";
+								}
+								html+="<h5>"
+								if(data.list[i].restar==5){
+									html+="★★★★★"
+								}else if(data.list[i].restar==4){
+									html+="★★★★☆"
+								}else if(data.list[i].restar==3){
+									html+="★★★☆☆"
+								}else if(data.list[i].restar==2){
+									html+="★★☆☆☆"
+								}else if(data.list[i].restar==1){
+									html+="★☆☆☆☆"
+								}else{
+									html+="☆☆☆☆☆"
+								}
+								html+="</h5>"
+								html+="<h4>"+data.list[i].amountsum+"원</h4>";
+								html+="<button class='btn' onclick=\"";
+								html+="location.href='${pageContext.request.contextPath }/user/kjy/room_info?AID="+data.list[i].aid;
+								html+="&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+${rcheckin}+"&endday="+${rcheckout}
+								html+="'\">예약하기</button>";
+								html+="</div>";
+								html+="</div>";
+								html+="</div>";
+								html+="</div>";
+								html+="</div>";
+								html+="</div>";
+						   	}
 					   $("#list").append(html);
-					}	
+				   }
+			   }
 				    if(changecnt!=0){
 					    for (var i = 0; i < changecnt; i++) {
 					  		mainMapList(i);
@@ -1304,78 +1325,85 @@ function mainMapList(index){
 		
 	
 	<div class="col-md-9" id="list">
-				<c:forEach var="vo" items="${list }" varStatus="status">
-					<div class="row mb-3">
-						<div class="col-md-12">
-							<div class="card">
-								<div class="card-body">
-									<div class="row">
-										<div class="col-md-3">
-											<c:choose>
-												<c:when test="${vo.amainimg eq null or vo.amainimg==''}">
-													<img
-														src="${pageContext.request.contextPath }/resources/images/accommodations/220i0z000000mulfw433F_Z_1080_808_R5_D.jpg"
-														width="300" height="250">
-												</c:when>
-												<c:otherwise>
-													<img src="${pageContext.request.contextPath }/resources/images/accommodations/${vo.amainimg }"
-														width="300" height="250">
-												</c:otherwise>
-											</c:choose>
-										</div>
-										<div class="col-md-6">
-											<h3>${vo.aname }</h3>
-											<small>${vo.aaddress }</small>
-											<div id="map${status.index }" style="width: 200px; height: 200px;">
-												 지도넣기
-												<input type="hidden" id="axcoordi${status.index }" value="${vo.axcoordi }">
-												<input type="hidden" id="aycoordi${status.index }" value="${vo.aycoordi }">
+				<c:choose>
+				<c:when test="${list.size()==0}">
+					<h3>${nullmsg}</h3>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="vo" items="${list }" varStatus="status">
+						<div class="row mb-3">
+							<div class="col-md-12">
+								<div class="card">
+									<div class="card-body">
+										<div class="row">
+											<div class="col-md-3">
+												<c:choose>
+													<c:when test="${vo.amainimg eq null or vo.amainimg==''}">
+														<img
+															src="${pageContext.request.contextPath }/resources/images/accommodations/220i0z000000mulfw433F_Z_1080_808_R5_D.jpg"
+															width="300" height="250">
+													</c:when>
+													<c:otherwise>
+														<img src="${pageContext.request.contextPath }/resources/images/accommodations/${vo.amainimg }"
+															width="300" height="250">
+													</c:otherwise>
+												</c:choose>
 											</div>
-												<script type="text/javascript">
-												mainMapList(${status.index });
-												</script>
-										</div>
-										<div class="col-md-3" style="text-align: right;">
-											<c:if test="${vo.agrade } !=null">
-						                		<h5>${vo.agrade }성급</h5>
-											</c:if>
-											<c:choose>
-							                <c:when test="${vo.restar==5 }">
-							                	<h5>★★★★★</h5>
-							                </c:when>
-							                 <c:when test="${vo.restar==4 }">
-							                	<h5>★★★★☆</h5>
-							                </c:when>
-							                 <c:when test="${vo.restar==3 }">
-							                	<h5>★★★☆☆</h5>
-							                </c:when>
-							                 <c:when test="${vo.restar==2 }">
-							                	<h5>★★☆☆☆</h5>
-							                </c:when>
-							                 <c:when test="${vo.restar==1 }">
-							                	<h5>★☆☆☆☆</h5>
-							                </c:when>
-							                 <c:when test="${vo.restar==0 }">
-							                 ${vo.riid }
-							                 ${vo.restar }
-							                	<h5>☆☆☆☆☆</h5>
-							                </c:when>
-							                <c:otherwise>
-							                	${vo.restar }
-							               		<h5>☆☆☆☆☆</h5>
-							                </c:otherwise>	
-							                </c:choose>
-											<h4>${vo.amountsum}원</h4>
-											<button class="btn"
-												onclick="location.href='${pageContext.request.contextPath }/user/kjy/room_info?AID=${vo.aid}&person=${rimaxper}&roomnum=${countRoom}&startday=${rcheckin}&endday=${rcheckout}'">예약하기</button>
-										</div>
-
+											<div class="col-md-6">
+												<h3>${vo.aname }</h3>
+												<small>${vo.aaddress }</small>
+												<div id="map${status.index }" style="width: 200px; height: 200px;">
+													 지도넣기
+													<input type="hidden" id="axcoordi${status.index }" value="${vo.axcoordi }">
+													<input type="hidden" id="aycoordi${status.index }" value="${vo.aycoordi }">
+												</div>
+													<script type="text/javascript">
+													mainMapList(${status.index });
+													</script>
+											</div>
+											<div class="col-md-3" style="text-align: right;">
+												<c:if test="${vo.agrade } !=null">
+							                		<h5>${vo.agrade }성급</h5>
+												</c:if>
+												<c:choose>
+								                <c:when test="${vo.restar==5 }">
+								                	<h5>★★★★★</h5>
+								                </c:when>
+								                 <c:when test="${vo.restar==4 }">
+								                	<h5>★★★★☆</h5>
+								                </c:when>
+								                 <c:when test="${vo.restar==3 }">
+								                	<h5>★★★☆☆</h5>
+								                </c:when>
+								                 <c:when test="${vo.restar==2 }">
+								                	<h5>★★☆☆☆</h5>
+								                </c:when>
+								                 <c:when test="${vo.restar==1 }">
+								                	<h5>★☆☆☆☆</h5>
+								                </c:when>
+								                 <c:when test="${vo.restar==0 }">
+								                 ${vo.riid }
+								                 ${vo.restar }
+								                	<h5>☆☆☆☆☆</h5>
+								                </c:when>
+								                <c:otherwise>
+								                	${vo.restar }
+								               		<h5>☆☆☆☆☆</h5>
+								                </c:otherwise>	
+								                </c:choose>
+												<h4>${vo.amountsum}원</h4>
+												<button class="btn"
+													onclick="location.href='${pageContext.request.contextPath }/user/kjy/room_info?AID=${vo.aid}&person=${rimaxper}&roomnum=${countRoom}&startday=${rcheckin}&endday=${rcheckout}'">예약하기</button>
+											</div>
+	
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					</div>
-				</c:forEach>
+						</div>
+						</c:forEach>
+					</c:otherwise>
+					</c:choose>
 			</div>
 			</div>
 			</div>
