@@ -822,7 +822,7 @@ function list(facilities,minprice,maxprice,sort,xcoordi,ycoordi,distance,agrade,
 									html+="<input type='hidden' id='aycoordi"+changecnt+"' value="+data.list[i].aycoordi+">";
 									html+="</div>";
 									html+="</div>";
-									html+="<div class='col-md-3' style='text-align: right;'>";
+									html+="<div class='col-md-3'>";
 									if(data.list[i].agrade !=null){
 										html+="<h5>"+data.list[i].agrade+"성급</h5>";
 									}
