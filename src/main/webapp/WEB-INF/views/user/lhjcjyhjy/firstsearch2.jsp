@@ -1347,7 +1347,7 @@ function mainMapList(index){
 													mainMapList(${status.index });
 													</script>
 											</div>
-											<div class="col-md-3" style="text-align: right;">
+											<div class="col-md-3">
 												<c:if test="${vo.agrade } !=null">
 							                		<h5>${vo.agrade }성급</h5>
 												</c:if>
@@ -1368,12 +1368,9 @@ function mainMapList(index){
 								                	<h5>★☆☆☆☆</h5>
 								                </c:when>
 								                 <c:when test="${vo.restar==0 }">
-								                 ${vo.riid }
-								                 ${vo.restar }
 								                	<h5>☆☆☆☆☆</h5>
 								                </c:when>
 								                <c:otherwise>
-								                	${vo.restar }
 								               		<h5>☆☆☆☆☆</h5>
 								                </c:otherwise>	
 								                </c:choose>
