@@ -128,11 +128,11 @@ public class FirstSearchAjaxControllerHjy {
 			result.put("rcheckout", checkout);
 			result.put("rimaxper", countPeople);
 			result.put("countRoom", countRoom);
-			if(sort.equals("all")) {
-				List<AccommodationsVo2lhjcjy> list=sbpservice.sortbyall(hs);
-				result.put("list", list);
-				System.out.println("calledall");
-			}else if(sort.equals("price_low")) {
+			//if(sort.equals("all")) {
+			//	List<AccommodationsVo2lhjcjy> list=sbpservice.sortbyall(hs);
+			//	result.put("list", list);
+			//	System.out.println("calledall");
+			if(sort.equals("price_low")) {
 				List<AccommodationsVo2lhjcjy> list=sbpservice.sortPrice_low(hs);
 				result.put("list", list);
 				System.out.println("calledprice_low");

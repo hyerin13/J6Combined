@@ -22,7 +22,7 @@
         			(select ri.riid ,cnt.star star from room_info ri left outer join
         			(select nvl(avg(r.restar),0) star,ri.riid from review r,reservation re, room_info ri where r.rid=re.rid and re.riid=ri.riid group by ri.riid) cnt
        				on ri.riid=cnt.riid left outer join accommodations ac on ac.aid=ri.aid left outer join period pr on pr.aid=ac.aid)) group by riid,star) star,
-       				(select ri.riid,(af.afpersonnel*(#{rimaxper}-ri.riminper))exper from additional_fee af,room_info ri where af.riid=ri.riid) addfee
+       				(select ri.riid,(af.afpersonnel*(#{rimaxper}-ri.riminper))exper from additional_fee af,room_info ri where af.riid=ri.riid and ri.riminper<=#{rimaxper}) addfee
         		where star.riid = ri.riid 
         		and ri.riid=finfin.riid 
         		and ac.aid = ri.aid 
