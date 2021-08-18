@@ -24,10 +24,11 @@ body {
 
 /*top_search*/
 .search {
-	width:1500px;
+	width:1220px;
 	display:block;
 	box-sizing:border-box;
-	margin-bottom:-30px !important;
+	margin-bottom:30px !important;
+	margin-left: 190px !important;
 }
 .search_container {
 	display:block;
@@ -135,7 +136,7 @@ body {
     margin:0 -2px -4px -2px !important;
 }
 .search_insert_container {
-	width:800px !important;
+	width:1252px !important;
 	display:flex !important;
 	margin-left:-58.05px !important;
 	margin-bottom:4px !important;
@@ -148,7 +149,7 @@ body {
     margin:0 -2px -4px -2px !important;
 }
 .search_insert_city {
-	width:473px !important;
+	width:314px !important;
 	display:inline-block !important;
 	padding:0 2px !important;
 	margin-bottom:4px !important;
@@ -206,6 +207,13 @@ body {
 	font-weight:400 !important;
 	letter-spacing:normal;
 }
+.city_text input[type="text"] {
+	width:240px;
+	height:34px;
+	background-color:#f4f4f4;
+	border:none;
+	padding-left:4px;
+}
 .search_insert_date {
 	width:500px !important;
 	display:inline-block !important;
@@ -257,7 +265,7 @@ body {
 	fill:none;
 }
 .date_innertext {
-	width:143px;
+	width:120px;
 	display:block;
 	flex:1 1 auto !important;
 	box-sizing:border-box;
@@ -418,7 +426,7 @@ body {
     -webkit-writing-mode:horizontal-tb !important;
 }
 .search_insert_countRoom {
-	width:150px !important;
+	width:130px !important;
 	display:inline-block !important;
 	padding:0 6px !important;
 	padding-right:2px !important;
@@ -478,7 +486,7 @@ body {
 	letter-spacing:normal;
 }
 .search_insert_countPeople {
-	width:150px !important;
+	width:120px !important;
 	display:inline-block !important;
 	padding:0 6px !important;
 	padding-right:2px !important;
@@ -538,29 +546,44 @@ body {
 	letter-spacing:normal;
 }
 
-.city_text input[type="text"] {
-	width:395px;
-	height:34px;
-	background-color:#f4f4f4;
-	/*border:0.1px solid black;*/
-	border:none;
-}
 .date_innertext input[type="date"] {
+	width:150px;
 	background-color:#f4f4f4;
-	/*border:0.1px solid black;*/
 	border:none;
 }
 .room_text input[type="number"] {
+	width:70px;
+	height:34px;
 	background-color:#f4f4f4;
-	/*border:0.1px solid black;*/
 	border:none;
+	padding-left:4px;
 }
 .people_text input[type="number"] {
+	width:70px;
+	height:34px;
 	background-color:#f4f4f4;
-	/*border:0.1px solid black;*/
 	border:none;
+	padding-left:4px;
 }
+/*
 input[type="date"]::-webkit-calendar-picker-indicator {
     background: none;
 }
+*/
 
+.star_section_field{
+	width: 30px;
+	height: 30px;
+	margin-left: 5px;
+	text-align: center;
+	border: 0.5px solid black;
+	float: left;
+}
+.grade_section_field{
+	width: 30px;
+	height: 30px;
+	margin-left: 5px;
+	text-align: center;
+	border: 0.5px solid black;
+	float: left;
+}

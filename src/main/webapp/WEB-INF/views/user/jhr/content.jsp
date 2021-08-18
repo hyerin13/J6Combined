@@ -55,56 +55,54 @@
 			left=Math.floor(left/259.0)*259;
 			$("#slide_hotel").animate({left:left},500);
 		});
-	});
+		var acc_state=0;
+	    function accodionAction(target) {
+	        var panel=document.getElementsByClassName("faq_answer");
+	        var accordion_button=document.getElementsByClassName("faq_question_title");
 	
-	var acc_state=0;
-    function accodionAction(target) {
-        var panel=document.getElementsByClassName("faq_answer");
-        var accordion_button=document.getElementsByClassName("faq_question_title");
-
-        if(target.nextElementSibling.style.display=='block') {
-            target.nextElementSibling.style="display:none;";
-            target.classList.toggle("active");
-        }
-        else{
-            for(i=0; i<panel.length; i++){
-                panel[i].style.display="none";
-                accordion_button[i].classList.remove("active");
-            }
-            target.nextElementSibling.style="display:block;";
-            target.classList.toggle("active"); 
-        } 
-    }
-    
-    function showID(id){
-    	obj=document.getElementById(id);
-    		if(obj.style.display == "none") 
-    		  obj.style.display="inline";
-    		else
-    		  obj.style.display="none";
-    }
-    $(function(){	
-    	$("#ttt").click(function(){
-    		let countRoom=$("#countRoom").val();
-    		let countPeople=$("#countPeople").val();
-    		console.log(countRoom)
-    		$("#ttt").val("인원수:"+countRoom+"  객실수:"+countPeople)
-    	})
-    });
-    function collectInfo(){
-    	let countRoom=$("#countRoom").val();
-    	let countPeople=$("#countPeople").val();
-    	console.log(countRoom)
-    	$("#showInfo").val("객실"+countRoom+"인원"+countPeople);
-    }
-    	/*
-    	function collectInfo(){
-    		let countRoom=$("#countRoom").val();
-    		let countPeople=$("#countPeople").val();
-    		console.log(countRoom)
-    		$("#showInfo").val("객실"+countRoom+"인원"+countPeople);
-    	}
-    	*/
+	        if(target.nextElementSibling.style.display=='block') {
+	            target.nextElementSibling.style="display:none;";
+	            target.classList.toggle("active");
+	        }
+	        else{
+	            for(i=0; i<panel.length; i++){
+	                panel[i].style.display="none";
+	                accordion_button[i].classList.remove("active");
+	            }
+	            target.nextElementSibling.style="display:block;";
+	            target.classList.toggle("active"); 
+	        } 
+	    }
+	    
+	    function showID(id){
+	    	obj=document.getElementById(id);
+	    		if(obj.style.display == "none") 
+	    		  obj.style.display="inline";
+	    		else
+	    		  obj.style.display="none";
+	    }
+	    $(function(){	
+	    	$("#ttt").click(function(){
+	    		let countRoom=$("#countRoom").val();
+	    		let countPeople=$("#countPeople").val();
+	    		console.log(countRoom)
+	    		$("#ttt").val("인원수:"+countRoom+"  객실수:"+countPeople)
+	    	})
+	    });
+	    function collectInfo(){
+	    	let countRoom=$("#countRoom").val();
+	    	let countPeople=$("#countPeople").val();
+	    	console.log(countRoom)
+	    	$("#showInfo").val("객실"+countRoom+"인원"+countPeople);
+	    }
+	    	/*
+	    	function collectInfo(){
+	    		let countRoom=$("#countRoom").val();
+	    		let countPeople=$("#countPeople").val();
+	    		console.log(countRoom)
+	    		$("#showInfo").val("객실"+countRoom+"인원"+countPeople);
+	    	}
+	    	*/
     	$("#searchHotel").autocomplete({
     		source:function(request,response){
     			let aname=$("#searchHotel").val();
