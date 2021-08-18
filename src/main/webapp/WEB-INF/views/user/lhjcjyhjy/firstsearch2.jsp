@@ -457,14 +457,6 @@ $(function(){
 					  gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
 				//만약 지도로보기 안눌렀을때(호텔리스트보이는상태)
 			 	}else{
-					let grade;
-					let star;
-			 		for (var i =0; i <= $(".grade_section_field").children().length; i++) {
-			 			if($("#grade"+i).attr('style','background-color: red')){
-			 				grade = $("#grade"+i).attr('id').substring(5)
-			 				break;
-			 			};
-					}
 					list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
 			 	}
 			//인근반경 선택 안했을때
@@ -496,6 +488,7 @@ $(function(){
 	 			if($("#grade"+i).attr('style')=="background-color: red"){
 	 				grade = $("#grade"+i).attr('id')
 	 				grade = grade.substring(5)
+	 				//console.log("grade몇인지"+grade);
 	 				break;
 	 			};
 			}
@@ -514,14 +507,6 @@ $(function(){
 					  gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
 				//만약 지도로보기 안눌렀을때(호텔리스트보이는상태)
 			 	}else{
-					let grade;
-					let star;
-			 		for (var i =0; i <= $(".grade_section_field").children().length; i++) {
-			 			if($("#grade"+i).attr('style','background-color: red')){
-			 				grade = $("#grade"+i).attr('id').substring(5)
-			 				break;
-			 			};
-					}
 			 		console.log(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
 					list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
 			 	}
@@ -663,7 +648,7 @@ function gomapchange(facilities,minprice,maxprice,sort,axcoordi,aycoordi,distanc
 				    		          +'<br /> <img src="${pageContext.request.contextPath }/resources/images/accommodations/220i0z000000mulfw433F_Z_1080_808_R5_D.jpg" width="300" height="250" /><br />'
 				    		          +'전화번호: '+data.list[i].aphone+' | 가격: '+data.list[i].amountsum+'<br/>'
 				    		          +"<button class='btn' onclick=\""
-									  +"location.href='${pageContext.request.contextPath }/user/kjy/room_info?AID="+data.list[i].aid
+									  +"location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid="+data.list[i].aid
 									  +"&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+data.checkin+"&endday="+data.checkout+"'\">예약하기</button>"
 									  +'</p></div>'
 									  )
@@ -673,7 +658,7 @@ function gomapchange(facilities,minprice,maxprice,sort,axcoordi,aycoordi,distanc
 				    		          +'<br /> <img src="${pageContext.request.contextPath }/resources/images/accommodations/'+data.list[i].amainimg+'"width="300" height="250"/><br />'
 				    		          +data.list[i].aphone+' | '+data.list[i].amountsum+'<br/>'
 				    		          +"<button class='btn' onclick=\""
-									  +"location.href='${pageContext.request.contextPath }/user/kjy/room_info?AID="+data.list[i].aid
+									  +"location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid="+data.list[i].aid
 									  +"&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+data.checkin+"&endday="+data.list[i].amainimg
 									  +"'\">예약하기</button>"
 									  +'</p></div>'
@@ -798,13 +783,13 @@ function list(facilities,minprice,maxprice,sort,xcoordi,ycoordi,distance,agrade,
 		success:function(data){
 			if(data.code=='success'){
 			   $("#list").empty();
-			   let html = "";
+			   
 			   if(data.list.length==0){
 				   html+="<h3>조건에 맞는 호텔이 없습니다</h3>";
-				   $("#list").append(html);
+				   $("#list").html(html);
 			   }else{
 				   for (var i = 0; i < data.list.length; i++) {
-
+					   let html = "";
 					   //xcoordi값이 있을때
 					   if(xcoordi){
 						   	let testxy = changeXY(data.list[i].axcoordi,data.list[i].aycoordi)
@@ -858,7 +843,7 @@ function list(facilities,minprice,maxprice,sort,xcoordi,ycoordi,distance,agrade,
 									html+="</h5>"
 									html+="<h4>"+data.list[i].amountsum+"원</h4>";
 									html+="<button class='btn' onclick=\"";
-									html+="location.href='${pageContext.request.contextPath }/user/kjy/room_info?AID="+data.list[i].aid;
+									html+="location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid="+data.list[i].aid;
 									html+="&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+${rcheckin}+"&endday="+${rcheckout}
 									html+="'\">예약하기</button>";
 									html+="</div>";
@@ -911,7 +896,7 @@ function list(facilities,minprice,maxprice,sort,xcoordi,ycoordi,distance,agrade,
 								html+="</h5>"
 								html+="<h4>"+data.list[i].amountsum+"원</h4>";
 								html+="<button class='btn' onclick=\"";
-								html+="location.href='${pageContext.request.contextPath }/user/kjy/room_info?AID="+data.list[i].aid;
+								html+="location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid="+data.list[i].aid;
 								html+="&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+${rcheckin}+"&endday="+${rcheckout}
 								html+="'\">예약하기</button>";
 								html+="</div>";
@@ -1325,6 +1310,7 @@ function mainMapList(index){
 		
 	
 	<div class="col-md-9" id="list">
+ 
 				<c:choose>
 				<c:when test="${list.size()==0}">
 					<h3>${nullmsg}</h3>
@@ -1393,7 +1379,7 @@ function mainMapList(index){
 								                </c:choose>
 												<h4>${vo.amountsum}원</h4>
 												<button class="btn"
-													onclick="location.href='${pageContext.request.contextPath }/user/kjy/room_info?AID=${vo.aid}&person=${rimaxper}&roomnum=${countRoom}&startday=${rcheckin}&endday=${rcheckout}'">예약하기</button>
+													onclick="location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid=${vo.aid}&person=${rimaxper}&roomnum=${countRoom}&startday=${rcheckin}&endday=${rcheckout}'">예약하기</button>
 											</div>
 	
 									</div>
