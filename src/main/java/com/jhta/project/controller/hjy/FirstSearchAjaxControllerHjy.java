@@ -136,18 +136,22 @@ public class FirstSearchAjaxControllerHjy {
 				List<AccommodationsVo2lhjcjy> list=sbpservice.sortPrice_low(hs);
 				result.put("list", list);
 				System.out.println("calledprice_low");
+				System.out.println(list);
 			}else if(sort.equals("price_high")){
 				List<AccommodationsVo2lhjcjy> list=sbpservice.sortPrice_high(hs);
 				result.put("list", list);
 				System.out.println("calledprice_high");
+				System.out.println(list);
 			}else if(sort.equals("star")) {
 				List<SearchVolhjcjy> list=sbsservice.getStarList(hs);
 				result.put("list", list);
 				System.out.println("calledstar");
+				System.out.println(list);
 			}else {
 				List<AccommodationsVolhjcjy> list = gpservice.getprice(hs);
 				result.put("list", list);
 				System.out.println("calledelse");
+				System.out.println(list);
 			}
 			//입력한 날짜 중간포함 리스트 얻기
 			HashMap<String, Object> hs1=new HashMap<String, Object>();
