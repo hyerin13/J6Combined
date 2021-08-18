@@ -185,10 +185,10 @@
 			</div>
 			<div class="search">
 				<div class="search_container">
-					<form class="search_content">
+					<form class="search_content" method="post" action="${pageContext.request.contextPath }/lhjcjyhjy/firstsearch">
 						<div class="search_number">
 							<div class="search_number_container">
-								<button class="search_number_button">
+								<button class="search_number_button" type="button">
 									<div class="search_number_text">
 										<div class="search_text_inner">
 											<div class="search_text">
@@ -230,12 +230,12 @@
 														<input type="date" name="checkin">
 													</div>
 												</div>
-												<button class="date_btn_before">
+												<button class="date_btn_before" type="button">
 													<svg viewBox="0 0 8 5">
 														<path d="M7 1.053L4.027 4 1 1" stroke="currentColor" fill="none" style="user-select: auto;"></path>
 													</svg>
 												</button>
-												<button class="date_btn_after">
+												<button class="date_btn_after" type="button">
 													<svg viewBox="0 0 8 5">
 														<path d="M7 1.053L4.027 4 1 1" stroke="currentColor" fill="none" style="user-select: auto;"></path>
 													</svg>
@@ -251,12 +251,12 @@
 														<input type="date" name="checkout">
 													</div>
 												</div>
-												<button class="date_btn_before">
+												<button class="date_btn_before" type="button">
 													<svg viewBox="0 0 8 5">
 														<path d="M7 1.053L4.027 4 1 1" stroke="currentColor" fill="none" style="user-select: auto;"></path>
 													</svg>
 												</button>
-												<button class="date_btn_after">
+												<button class="date_btn_after" type="button">
 													<svg viewBox="0 0 8 5">
 														<path d="M7 1.053L4.027 4 1 1" stroke="currentColor" fill="none" style="user-select: auto;"></path>
 													</svg>
@@ -299,7 +299,7 @@
 									</div>
 								</div>
 								<div class="search_insert_button_container">
-									<button class="search_insert_button">
+									<button class="search_insert_button" type="submit"id="search">
 										<span class="search_icon_container">
 											<span class="search_icon">
 												<svg viewBox="0 0 92 92">
