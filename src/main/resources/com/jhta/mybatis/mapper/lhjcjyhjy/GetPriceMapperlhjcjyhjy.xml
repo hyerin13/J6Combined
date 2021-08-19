@@ -21,7 +21,7 @@
             		where ds >=#{rcheckin} and ds <=#{rcheckout}) fin
             	where to_date(ds,'yy/mm/dd')>=pestart and to_date(ds,'yy/mm/dd')<=peend)
         		group by riid) finfin, room_info ri, accommodations ac, 
-        		(select aid,sum(star) star from (
+        		(select aid,floor(sum(star)/count(star)) star from (
 		        select riid,star,aid from (
 		        (select ri.riid ,cnt.star star,ac.aid from room_info ri left outer join
 		        (select nvl(avg(r.restar),0) star,ri.riid from review r,reservation re, room_info ri where r.rid=re.rid and re.riid=ri.riid group by ri.riid) cnt

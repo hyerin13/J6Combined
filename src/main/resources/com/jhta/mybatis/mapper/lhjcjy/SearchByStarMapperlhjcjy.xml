@@ -15,12 +15,12 @@ from
 (select ri.riid from review r, reservation re, room_info ri where r.rid=re.rid and re.riid=ri.riid group by ri.riid) cnt
 on ri.riid=cnt.riid left outer join accommodations ac on ac.aid=ri.aid left outer join period pr on pr.aid=ac.aid) a,date_t dt where ds >=#{rcheckin} and ds <= #{rcheckout}) fin
 where to_date(ds,'yy/mm/dd')>=pestart and to_date(ds,'yy/mm/dd')<=peend)
- group by riid) finfin, room_info ri, accommodations ac, (select aid,sum(star) star from (
-        select riid,star,aid from (
-        (select ri.riid ,cnt.star star,ac.aid from room_info ri left outer join
-        (select nvl(avg(r.restar),0) star,ri.riid from review r,reservation re, room_info ri where r.rid=re.rid and re.riid=ri.riid group by ri.riid) cnt
-        on ri.riid=cnt.riid left outer join accommodations ac on ac.aid=ri.aid left outer join period pr on pr.aid=ac.aid)) group by riid,star,aid
-        )group by aid) star,
+ group by riid) finfin, room_info ri, accommodations ac, (select aid,floor(sum(star)/count(star)) star from (
+		        select riid,star,aid from (
+		        (select ri.riid ,cnt.star star,ac.aid from room_info ri left outer join
+		        (select nvl(avg(r.restar),0) star,ri.riid from review r,reservation re, room_info ri where r.rid=re.rid and re.riid=ri.riid group by ri.riid) cnt
+		        on ri.riid=cnt.riid left outer join accommodations ac on ac.aid=ri.aid left outer join period pr on pr.aid=ac.aid)) group by riid,star,aid
+		        )group by aid) star,
 (select ri.riid,(af.afpersonnel*(#{rimaxper}-ri.riminper))exper from additional_fee af,room_info ri where af.riid=ri.riid and ri.riminper<=#{rimaxper}) addfee
 where star.aid=ac.aid  and ri.riid=finfin.riid and ac.aid = ri.aid and addfee.riid=ri.riid and ac.aisdel is null and ri.riroom-(select count(rcheckin) from reservation where rcheckin <= #{rcheckin} and rcheckout >= #{rcheckout} and rcancel is null)>= #{countRoom}
 and ri.rimaxper>= #{rimaxper} and (ac.aaddress like '%'||#{aaddress}||'%' or ac.aname like '%'||#{aname}||'%') order by riid asc, star desc,amountsum asc) fin order by restar desc,amountsum asc) where rnum = 1
