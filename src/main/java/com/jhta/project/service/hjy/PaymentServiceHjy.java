@@ -30,4 +30,7 @@ public class PaymentServiceHjy {
 	public List<HashMap<String, Object>> salesChart(){
 		return mapper.salesChart();
 	};
+	public List<HashMap<String, Object>> reservationRate(){
+		return mapper.reservationRate();
+	};
 }

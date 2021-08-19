@@ -8,7 +8,7 @@
 		parameterType="hashmap">
 		<![CDATA[
 		        select * from (select fin.*, ROW_NUMBER() OVER(PARTITION BY aname ORDER BY aname, amountsum) rnum from(        
-select (amountSum+addfee.exper)amountsum,star restar, ac.amainimg,ac.aname,ac.aaddress,ac.aid,ac.agrade,ac.axcoordi,ac.aycoordi,ri.RISERVICE  from (
+select (amountSum+GREATEST(addfee.exper,0))amountsum,star restar, ac.amainimg,ac.aname,ac.aaddress,ac.aid,ac.agrade,ac.axcoordi,ac.aycoordi,ri.RISERVICE  from (
         select riid, sum(amount) amountsum from(
         select fin.* ,
         case when peseason ='성수기' then ripeak when peseason ='준성수기' then risemipeak when peseason ='비수기' then rioff end as amount
@@ -24,8 +24,8 @@ select (amountSum+addfee.exper)amountsum,star restar, ac.amainimg,ac.aname,ac.aa
 		        (select nvl(avg(r.restar),0) star,ri.riid from review r,reservation re, room_info ri where r.rid=re.rid and re.riid=ri.riid group by ri.riid) cnt
 		        on ri.riid=cnt.riid left outer join accommodations ac on ac.aid=ri.aid left outer join period pr on pr.aid=ac.aid)) group by riid,star,aid
 		        )group by aid) star,
-        (select ri.riid,(af.afpersonnel*(#{rimaxper}-ri.riminper))exper from additional_fee af,room_info ri where af.riid=ri.riid and ri.riminper<=#{rimaxper}) addfee
-        where star.aid=ac.aid  and ri.riid=finfin.riid and ac.aid = ri.aid and addfee.riid=ri.riid and ac.aisdel is null and ri.riroom-(select count(rcheckin) from reservation where rcheckin <= #{rcheckin} and rcheckout >=#{rcheckout} and rcancel is null)>=#{countRoom}
+        (select ri.riid,(af.afpersonnel*(#{rimaxper}-ri.riminper))exper from additional_fee af,room_info ri where af.riid=ri.riid ) addfee
+        where star.aid=ac.aid  and ri.riid=finfin.riid and ac.aid = ri.aid and addfee.riid(+)=ri.riid and ac.aisdel is null and ri.riroom-(select count(rcheckin) from reservation where rcheckin <= #{rcheckin} and rcheckout >=#{rcheckout} and rcancel is null)>=#{countRoom}
         and ri.rimaxper>=#{rimaxper} and ri.riminper<=#{rimaxper} and (ac.aaddress like '%'||#{aaddress}||'%' or ac.aname like '%'||#{aname}||'%') order by star asc ) fin) where rnum = 1
 	        ]]>
 	        <if test="maxprice!=null">
@@ -51,7 +51,7 @@ select (amountSum+addfee.exper)amountsum,star restar, ac.amainimg,ac.aname,ac.aa
 	<select id="sortPrice_low" resultType="com.jhta.project.vo.lhjcjy.AccommodationsVo2lhjcjy" parameterType="hashmap">
 		<![CDATA[
 		        select * from (select fin.*, ROW_NUMBER() OVER(PARTITION BY aname ORDER BY aname, amountsum) rnum from(
-select (amountSum+addfee.exper)amountsum,star restar,ac.amainimg,ac.aname,ac.aaddress,ac.aid,ac.agrade,ac.axcoordi,ac.aycoordi,ri.RISERVICE,ri.riid from (
+select (amountSum+GREATEST(addfee.exper,0))amountsum,star restar,ac.amainimg,ac.aname,ac.aaddress,ac.aid,ac.agrade,ac.axcoordi,ac.aycoordi,ri.RISERVICE,ri.riid from (
 select riid, sum(amount) amountsum from(
 select fin.* ,
 case when peseason ='성수기' then ripeak when peseason ='준성수기' then risemipeak when peseason ='비수기' then rioff end as amount
@@ -67,8 +67,8 @@ group by riid) finfin, room_info ri, accommodations ac, (select aid,floor(sum(st
 		        (select nvl(avg(r.restar),0) star,ri.riid from review r,reservation re, room_info ri where r.rid=re.rid and re.riid=ri.riid group by ri.riid) cnt
 		        on ri.riid=cnt.riid left outer join accommodations ac on ac.aid=ri.aid left outer join period pr on pr.aid=ac.aid)) group by riid,star,aid
 		        )group by aid) star,
-(select ri.riid,(af.afpersonnel*(#{rimaxper}-ri.riminper))exper from additional_fee af,room_info ri where af.riid=ri.riid and ri.riminper<=#{rimaxper}) addfee
-where star.aid=ac.aid  and ri.riid=finfin.riid and ac.aid = ri.aid and addfee.riid=ri.riid and ac.aisdel is null and ri.riroom-(select count(rcheckin) from reservation where rcheckin <= #{rcheckin} and rcheckout >=#{rcheckout} and rcancel is null)>=#{countRoom}
+(select ri.riid,(af.afpersonnel*(#{rimaxper}-ri.riminper))exper from additional_fee af,room_info ri where af.riid=ri.riid) addfee
+where star.aid=ac.aid  and ri.riid=finfin.riid and ac.aid = ri.aid and addfee.riid(+)=ri.riid and ac.aisdel is null and ri.riroom-(select count(rcheckin) from reservation where rcheckin <= #{rcheckin} and rcheckout >=#{rcheckout} and rcancel is null)>=#{countRoom}
 and ri.rimaxper>=#{rimaxper} and (ac.aaddress like '%'||#{aaddress}||'%' or ac.aname like '%'||#{aname}||'%') order by riid asc,amountsum asc, star asc) fin order by amountsum asc) where rnum = 1
 	        ]]>
 	        <if test="maxprice!=null">
@@ -97,7 +97,7 @@ and ri.rimaxper>=#{rimaxper} and (ac.aaddress like '%'||#{aaddress}||'%' or ac.a
 		parameterType="hashmap">
 		<![CDATA[
 		        select * from (select fin.*, ROW_NUMBER() OVER(PARTITION BY aname ORDER BY aname, amountsum) rnum from(        
-select (amountSum+addfee.exper)amountsum,star restar ,ac.amainimg,ac.aname,ac.aaddress,ac.aid,ac.agrade,ac.axcoordi,ac.aycoordi,ri.RISERVICE,ri.riid  from (
+select (amountSum+GREATEST(addfee.exper,0))amountsum,star restar ,ac.amainimg,ac.aname,ac.aaddress,ac.aid,ac.agrade,ac.axcoordi,ac.aycoordi,ri.RISERVICE,ri.riid  from (
         select riid, sum(amount) amountsum from(
         select fin.* ,
         case when peseason ='성수기' then ripeak when peseason ='준성수기' then risemipeak when peseason ='비수기' then rioff end as amount
@@ -113,8 +113,8 @@ select (amountSum+addfee.exper)amountsum,star restar ,ac.amainimg,ac.aname,ac.aa
 		        (select nvl(avg(r.restar),0) star,ri.riid from review r,reservation re, room_info ri where r.rid=re.rid and re.riid=ri.riid group by ri.riid) cnt
 		        on ri.riid=cnt.riid left outer join accommodations ac on ac.aid=ri.aid left outer join period pr on pr.aid=ac.aid)) group by riid,star,aid
 		        )group by aid) star,
-        (select ri.riid,(af.afpersonnel*(#{rimaxper}-ri.riminper))exper from additional_fee af,room_info ri where af.riid=ri.riid and ri.riminper<=#{rimaxper}) addfee
-        where star.aid=ac.aid  and ri.riid=finfin.riid and ac.aid = ri.aid  and addfee.riid=ri.riid and ac.aisdel is null and ri.riroom-(select count(rcheckin) from reservation where rcheckin <= #{rcheckin} and rcheckout >=#{rcheckout} and rcancel is null)>=#{countRoom}
+        (select ri.riid,(af.afpersonnel*(#{rimaxper}-ri.riminper))exper from additional_fee af,room_info ri where af.riid=ri.riid) addfee
+        where star.aid=ac.aid  and ri.riid=finfin.riid and ac.aid = ri.aid  and addfee.riid(+)=ri.riid and ac.aisdel is null and ri.riroom-(select count(rcheckin) from reservation where rcheckin <= #{rcheckin} and rcheckout >=#{rcheckout} and rcancel is null)>=#{countRoom}
         and ri.rimaxper>=#{rimaxper} and (ac.aaddress like '%'||#{aaddress}||'%' or ac.aname like '%'||#{aname}||'%') order by riid asc,amountsum desc, star asc) fin order by amountsum desc) where rnum = 1
 	        ]]>
 	        <if test="maxprice!=null">

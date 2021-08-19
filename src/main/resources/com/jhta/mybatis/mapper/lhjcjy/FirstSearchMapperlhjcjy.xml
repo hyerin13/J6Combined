@@ -51,7 +51,7 @@
 		<![CDATA[
 		select NVL(min(amountSum),0) as minSum, NVL(max(amountSum),0) as maxSum from (
       select * from (select finfinfin.*, ROW_NUMBER() OVER(PARTITION BY aname ORDER BY aname, amountsum) rnum from(        
-        select (amountSum+addfee.exper)amountsum,star, ac.amainimg,ac.aname,ac.aaddress, ac.agrade,ac.aid  from (
+        select (amountSum+GREATEST(addfee.exper,0))amountsum,star, ac.amainimg,ac.aname,ac.aaddress, ac.agrade,ac.aid  from (
             select riid, sum(amount) amountSum from(
                 select fin.* ,
                 case when peseason ='성수기' then ripeak when peseason ='준성수기' then risemipeak when peseason ='비수기' then rioff end as amount from
@@ -64,9 +64,9 @@
         (select ri.riid ,cnt.star star,ac.aid from room_info ri left outer join
         (select nvl(avg(r.restar),0) star,ri.riid from review r,reservation re, room_info ri where r.rid=re.rid and re.riid=ri.riid group by ri.riid) cnt
         on ri.riid=cnt.riid left outer join accommodations ac on ac.aid=ri.aid left outer join period pr on pr.aid=ac.aid)) group by riid,star,aid) star,
-        (select ri.riid,(af.afpersonnel*(#{rimaxper}-ri.riminper))exper from additional_fee af,room_info ri where af.riid=ri.riid and ri.riminper<=#{rimaxper}) addfee
+        (select ri.riid,(af.afpersonnel*(#{rimaxper}-ri.riminper))exper from additional_fee af,room_info ri where af.riid=ri.riid) addfee
         where star.aid=ac.aid
-        and addfee.riid=ri.riid
+        and addfee.riid(+)=ri.riid
         and ri.riid=finfin.riid 
         and ac.aid = ri.aid 
         and ac.aisdel is null 

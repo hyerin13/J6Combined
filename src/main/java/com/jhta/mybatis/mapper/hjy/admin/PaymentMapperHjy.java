@@ -12,4 +12,5 @@ public interface PaymentMapperHjy {
 	public int month();
 	public int year();
 	public List<HashMap<String, Object>> salesChart();
+	public List<HashMap<String, Object>> reservationRate();
 }

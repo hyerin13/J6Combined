@@ -4,39 +4,39 @@ Chart.defaults.global.defaultFontColor = '#858796';
 //이번달 매출액
 $.ajax({
 		url:path+"hjy/admin/monthlySales",
-		traditional :true,
 		type:"get",
 		dataType:"json",
 		success:function(data){
 			$("#monthlySales").html(data.monthlySales)
 		}
 	});
+	
 //이번년 매출액
 $.ajax({
 		url:path+"hjy/admin/annualSales",
-		traditional :true,
 		type:"get",
 		dataType:"json",
 		success:function(data){
 			$("#annualSales").html(data.annualsales)
 		}
 	});
+	
 //현재 달 구하기
 $.ajax({
 		url:path+"hjy/admin/month",
-		traditional :true,
 		type:"get",
 		dataType:"json",
 		success:function(data){
 			let month =data.month
-			$("div[name=month]").eq(0).html(month+$("div[name=month]").eq(0).html())
-			$("div[name=month]").eq(1).html(month+$("div[name=month]").eq(1).html())
+			for (let i = 0; i < $("div[name=month]").length; i++) {
+				$("div[name=month]").eq(i).html(month+$("div[name=month]").eq(i).html())
+			}
 		}
 	});
+	
 //현재 년도 구하기
 $.ajax({
 		url:path+"hjy/admin/year",
-		traditional :true,
 		type:"get",
 		dataType:"json",
 		success:function(data){
@@ -45,25 +45,47 @@ $.ajax({
 			$("#year").html(year)
 		}
 	});
+	
 //전체 회원수
 $.ajax({
 		url:path+"hjy/admin/allMembers",
-		traditional :true,
 		type:"get",
 		dataType:"json",
 		success:function(data){
 			$("#allMembers").html(data.allMembers)
 		}
 	});
+	
 //이번달 회원 유입수
 $.ajax({
 		url:path+"hjy/admin/monthMembers",
-		traditional :true,
 		type:"get",
 		dataType:"json",
 		success:function(data){
 			$("#monthMembers").html(data.monthMembers)
 			$("#monthMembersBar").attr('style','width:'+data.monthMembers*10+'%')
+		}
+	});
+
+//이번달 최고 예약율 호텔 top5
+$.ajax({
+		url:path+"hjy/admin/reservationRate",
+		type:"get",
+		dataType:"json",
+		success:function(data){
+		let color = ['progress-bar bg-danger','progress-bar bg-warning','progress-bar','progress-bar bg-info','progress-bar bg-success'];
+            for (let i = 0; i < data.list.length; i++) {
+				let html = 
+					`
+						<h4 class="small font-weight-bold">${data.list[i].ANAME}<span
+		                        class="float-right">${data.list[i].PER}%</span></h4>
+		                <div class="progress mb-4">
+		                    <div class="${color[i]}" role="progressbar" style="width: ${data.list[i].PER}%"
+		                        aria-valuenow="${data.list[i].PER}" aria-valuemin="0" aria-valuemax="100"></div>
+		                </div>
+					`
+				$("#reservationRate").append(html);
+			}
 		}
 	});
 	

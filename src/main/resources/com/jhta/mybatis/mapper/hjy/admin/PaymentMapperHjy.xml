@@ -4,13 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.mybatis.mapper.hjy.admin.PaymentMapperHjy">
 	<select id="monthlySales" resultType="int">
-		select sum(ptotal) from payment where extract(month from pdate) = extract(month from sysdate)
+		select sum(ptotal) from payment where extract(month from pdate) = extract(month from sysdate) and prefund is null 
 	</select>
 	<select id="annualSales" resultType="int">
-		select sum(ptotal) from payment where extract(year from pdate) = extract(year from sysdate)
+		select sum(ptotal) from payment where extract(year from pdate) = extract(year from sysdate) and prefund is null 
 	</select>
 	<select id="payType" resultType="com.jhta.project.vo.hjy.PaymentVo">
-		select pmethod,count(pmethod) cnt from payment group by pmethod
+		select pmethod,count(pmethod) cnt from payment where prefund is null  group by pmethod
 	</select>
 	<select id="month" resultType="int">
 		select extract(month from sysdate) month from dual
@@ -26,8 +26,31 @@
 			cnt left outer join 
 			(select pdate,sum(ptotal) ptotal from (
 			select extract(month from pdate) pdate,ptotal from payment where extract(year from pdate) = extract(year from sysdate)
+			and prefund is null
 			)group by pdate) payment
 			on cnt.lv=payment.pdate order by lv
+		]]>
+	</select>
+	<select id="reservationRate" resultType="hashmap">
+		<![CDATA[
+		select fin.riid,fin.cnt,ac.aname,ROUND(cnt/ac.atotalroom*100,1) per,rownum rnum from
+		(
+			select aid, riid, substr(ds,3,4), sum(cnt) cnt from
+			(
+			    select ds,riid,count(*) cnt,aid from
+			        (
+			        select ri.riid,dt.ds,ri.aid from reservation re, room_info ri,date_t dt,payment pm 
+			        where pm.rid = re.rid 
+			        and re.riid=ri.riid 
+			        and dt.ds between re.rcheckin 
+			        and re.rcheckout 
+			        and pm.prefund is null 
+			        group by dt.ds,ri.riid,ri.aid
+			        )cnt 
+			        group by ds,riid,aid order by riid asc
+			)
+			where substr(ds,3,4) = substr(to_char(sysdate,'yyyymmdd'),3,4) group by substr(ds,3,4),cnt,riid,aid
+		)fin, accommodations ac where ac.aid = fin.aid and rownum<=5 order by rnum asc
 		]]>
 	</select>
 </mapper>

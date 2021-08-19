@@ -653,7 +653,7 @@ function gomapchange(facilities,minprice,maxprice,sort,axcoordi,aycoordi,distanc
 				    		          +data.list[i].aphone+' | '+data.list[i].amountsum+'<br/>'
 				    		          +"<button class='btn' onclick=\""
 									  +"location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid="+data.list[i].aid
-									  +"&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+data.checkin+"&endday="+data.list[i].amainimg
+									  +"&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+data.checkin+"&endday="+data.checkout
 									  +"'\">예약하기</button>"
 									  +'</p></div>'
 									  )
@@ -775,6 +775,7 @@ function list(facilities,minprice,maxprice,sort,xcoordi,ycoordi,distance,agrade,
 		type:"post",
 		dataType:"json",
 		success:function(data){
+			console.log(${rimaxper},${countRoom},${rcheckin},${rcheckout})
 			if(data.code=='success'){
 			   $("#list").empty();
 			   
@@ -820,25 +821,25 @@ function list(facilities,minprice,maxprice,sort,xcoordi,ycoordi,distance,agrade,
 									if(data.list[i].agrade !=null){
 										html+="<h5>"+data.list[i].agrade+"성급</h5>";
 									}
-									html+="<h5>"
+									html+="<h5>";
 									if(data.list[i].restar==5){
-										html+="★★★★★"
+										html+="★★★★★";
 									}else if(data.list[i].restar==4){
-										html+="★★★★☆"
+										html+="★★★★☆";
 									}else if(data.list[i].restar==3){
-										html+="★★★☆☆"
+										html+="★★★☆☆";
 									}else if(data.list[i].restar==2){
-										html+="★★☆☆☆"
+										html+="★★☆☆☆";
 									}else if(data.list[i].restar==1){
-										html+="★☆☆☆☆"
+										html+="★☆☆☆☆";
 									}else{
-										html+="☆☆☆☆☆"
+										html+="☆☆☆☆☆";
 									}
-									html+="</h5>"
+									html+="</h5>";
 									html+="<h4>"+data.list[i].amountsum+"원</h4>";
 									html+="<button class='btn' onclick=\"";
-									html+="location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid="+data.list[i].aid;
-									html+="&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+${rcheckin}+"&endday="+${rcheckout}
+									html+="location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid="+data.list[i].aid
+											+"&person=${rimaxper}&roomnum=${countRoom}&startday=${rcheckin}&endday=${rcheckout}"
 									html+="'\">예약하기</button>";
 									html+="</div>";
 									html+="</div>";
@@ -891,7 +892,7 @@ function list(facilities,minprice,maxprice,sort,xcoordi,ycoordi,distance,agrade,
 								html+="<h4>"+data.list[i].amountsum+"원</h4>";
 								html+="<button class='btn' onclick=\"";
 								html+="location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid="+data.list[i].aid;
-								html+="&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+${rcheckin}+"&endday="+${rcheckout}
+								html+="&person=${rimaxper}&roomnum=${countRoom}&startday=${rcheckin}&endday=${rcheckout}"
 								html+="'\">예약하기</button>";
 								html+="</div>";
 								html+="</div>";

@@ -95,4 +95,28 @@ public class AdminAjaxControllerHjy {
 		map.put("monthMembers",monthMembers);
 		return map;
 	}
+	/**
+	 * 매출차트
+	 * @return
+	 */
+	@GetMapping(value="hjy/admin/salesChart")
+	public HashMap<String, Object> SalesChart() {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		List<HashMap<String, Object>> salesChart=paymentService.salesChart();
+		for (int i= 0; i < salesChart.size(); i++) {
+			map.put("month"+salesChart.get(i).get("LV"), salesChart.get(i).get("PTOTAL"));
+		}
+		return map;
+	}
+	/**
+	 * 예약률 top5
+	 * @return
+	 */
+	@GetMapping(value="hjy/admin/reservationRate")
+	public HashMap<String, Object> reservationRate() {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		List<HashMap<String, Object>> reservationRate=paymentService.reservationRate();
+		map.put("list", reservationRate);
+		return map;
+	}
 }
