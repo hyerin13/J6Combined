@@ -159,7 +159,7 @@
 		var pwd2=document.getElementsByName("pwd2")[0];
 		var email=document.getElementsByName("memail")[0];
 		var ereg=/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-		var year=document.getElementsByName("mbirth")[0];
+		var birth=document.getElementsByName("mbirth")[0];
 		var phone=document.getElementsByName("mphone")[0];
 		if(name.value.trim()==""){
 			alert("이름을 입력하세요.");
@@ -203,9 +203,9 @@
 			email.focus();
 			return false;
 		}
-		if(year.value.trim()==""){
+		if(birth.value.trim()==""){
 			alert("생년월일을 입력하세요.");
-			year.focus();
+			birth.focus();
 			return false;
 		}
 		if(phone.value.trim()==""){
