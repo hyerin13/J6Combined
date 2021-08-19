@@ -56,19 +56,19 @@
 
 
 <form class="form-inline" id="insertOk" action="${pageContext.request.contextPath }/phj/reservationOk">
+	<input type="hidden" name="sum" value="${sum }"><br>
+	<input type="hidden" id="ramount" name="ramount" value="${ramount }"><br>
+	<input type="hidden" id="mid" name="mid" value="${mid }"><br>
+	<input type="hidden" id="riid" name="riid" value="${riid }"><br>
+	<input type="hidden" id="rcheckin" name="rcheckin" value="${startday } "><br>
+	<input type="hidden" id="rcheckout" name="rcheckout" value="${endday }"><br>
+	<input type="hidden" id="rcancel" name="rcancel" value="N"><br>
+	<input type="hidden" id="aid" name="aid" value="${aid }"><br>
+	<input type="hidden" id="rimaxper" name="rimaxper" value="rimaxper"><br>
+	<input type="hidden" name="breakfastfee" value="breakfastfee" style="border: none"><br>
+	<input type="hidden" name="bedfee" value="bedfee" style="border: none"><br>
+	<input type="hidden" name="personfee" value="personfee" style="border: none"><br>
 	<div class="box">
-	총금액<input type="text" name="sum" value="${sum }"><br>
-	총인원<input type="text" id="ramount" name="ramount" value="${ramount }"><br>
-	아이디<input type="text" id="mid" name="mid" value="${mid }"><br>
-	객실아이디<input type="text" id="riid" name="riid" value="${riid }"><br>
-	체크인<input type="text" id="rcheckin" name="rcheckin" value="${startday } "><br>
-	체크아웃<input type="text" id="rcheckout" name="rcheckout" value="${endday }"><br>
-	취소여부<input type="text" id="rcancel" name="rcancel" value="N"><br>
-	호텔번호<input type="text" id="aid" name="aid" value="${aid }"><br>
-	최대인원<input type="text" id="rimaxper" name="rimaxper" value="rimaxper"><br>
-	조식<input type="text" name="breakfastfee" value="breakfastfee" style="border: none"><br>
-	침대<input type="text" name="bedfee" value="bedfee" style="border: none"><br>
-	인원<input type="text" name="personfee" value="personfee" style="border: none"><br>
 	
 		<label>
 		<< 고객님의 정보를 입력해 주세요 >>
@@ -105,10 +105,11 @@
 		<br>
 		</div>
 		<div>
+		<label>추가</label><br>
 		- 조식추가 <input type="number" name="rexbreaknum" id="rexbreaknum" value="0" min="0" max="rexperson"><br>
 		- 침대추가 <input type="number" name="rexbed"id="rexbed" value="0" min="0" max="1"><br>
-		- 인원추가 <input type="number" name="rexperson" id="rexperson" value="0" min="0" max="rexperson"><br>
-		
+<!-- 		- 인원추가 <input type="number" name="rexperson" id="rexperson" value="0" min="0" max="rexperson"><br>
+ -->		
 		<br>
 			
 		</div>
@@ -121,9 +122,6 @@
 			급연/흡연 가능 객실 선택(이용 가능 여부는 여건에 따라 달라질 수 있음)<br>
 			<input type="radio" value="non-smoking"> 금연 객실
 			<input type="radio" value="smoking"> 흡연 객실<br>
-			침대 구성 선택(이용 가능 여부는 여건에 따라 달라질 수 있음)<br>
-			<input type="radio" value="onebed"> 큰 침대를 원합니다
-			<input type="radio" value="twobed"> 트윈베드를 원합니다<br>
 		</div>
 		<span>
 			특별 요청 사항 더 추가하기<br>
@@ -157,10 +155,8 @@
 		<div style="float:right; width:70%">
 			<span style="color:green; font-style:bold; float:right;">부담 제로 - 예약 무료 취소 가능!</span><br>
 			<input type="submit" value="마지막 단계로 이동하기" style="float:right;" id="resOk"><br>
-			<span style="color:green; font-style:bold; float:right;">즉시 예약해 이 객실과 요금을 확보하세요!</span><br>
 		</div>
 		</div>
-	</div>
 </form>
 <div id="hotelInfo" class="hotel">
 	호텔정보
@@ -189,10 +185,11 @@
 			<th style="size: 30px">침대추가요금 </th>
 			<td ><input type="text" name="bedfee" value="bedfee" style="border: none"></td>
 		</tr>
-		<tr>
+<!-- 	<tr>
 			<th style="size: 30px">인원추가요금 </th>
 			<td ><input type="text" name="personfee" value="personfee" style="border: none"></td>
 		</tr>
+		 -->
 	</table>
 </div><br>
 <div class="footer" style="clear:both;">
@@ -257,7 +254,7 @@
 				let info="";
 				
 				info +="<h3>"+ d.aname +"</h3>"+ "<br>" +
-				 d.amainimg + "<br>" +
+				 "<img src='"+d.amainimg+"'>" + "<br>" +
 				 d.agrade + "<br>" +
 				 d.aaddress;
 				

@@ -35,29 +35,31 @@
 <div class="header">
 	<jsp:include page="../jhr/header.jsp" flush="true"/>
 </div>
+<form method="post" action="${pageContext.request.contextPath }/phj/payOk">
 <div class="paybox">
-	방가격<input type="text" id=sum value="${sum }"><br>
-	예약아이디<input type="text" id="rid" value="${rid }"><br>
-	인원<input type="text" id="ramount" value="${ramount }"><br>
-	체크인<input type="text" id="rcheckin" value="${rcheckin }"><br>
-	체크아웃<input type="text" id="rcheckout" value="${rcheckout }"><br>
-	예약자이름<input type="text" id="rresname" value="${rresname }"><br>
-	이메일<input type="text" id="rresemail" value="${rresemail }"><br>
-	전화번호<input type="text" id="rresphone" value="${rresphone }"><br>
-	조식추가<input type="text" id="rexbreaknum" value="${rexbreaknum }"><br>
-	침대추가<input type="text" id="rexbed" value="${rexbed }"><br>
-	인원추가<input type="text" id="rexperson" value="${rexperson }"><br>
-	취소여부<input type="text" id="rcancel" value="${rcancel }"><br>
-	예약자 아이디<input type="text" id="mid" value="${mid }"><br>
-	객실아이디<input type="text" id="riid" value="${riid }"><br>
-	객실예약번호<input type="text" id="rordernum" value="${rordernum }"><br>
-	인원추가<input type="text" id="rexperson" value="${rexperson }"><br>
-	조식추가<input type="text" id="rexbreaknum" value="${rexbreaknum }"><br>
-	침대추가<input type="text" id="rexbed" value="${rexbed }"><br>
+	<input type="hidden" id=sum value="${sum }"><br>
+	<input type="hidden" name="rid" id="rid" value="${rid }"><br>
+	<input type="hidden" id="ramount" value="${ramount }"><br>
+	<input type="hidden" id="rcheckin" value="${rcheckin }"><br>
+	<input type="hidden" id="rcheckout" value="${rcheckout }"><br>
+	<input type="hidden" id="rresname" value="${rresname }"><br>
+	<input type="hidden" id="rresemail" value="${rresemail }"><br>
+	<input type="hidden" id="rresphone" value="${rresphone }"><br>
+	<input type="hidden" id="rexbreaknum" value="${rexbreaknum }"><br>
+	<input type="hidden" id="rexbed" value="${rexbed }"><br>
+	<input type="hidden" id="rexperson" value="${rexperson }"><br>
+	<input type="hidden" id="rcancel" value="${rcancel }"><br>
+	<input type="hidden" id="mid" value="${mid }"><br>
+	<input type="hidden" id="riid" value="${riid }"><br>
+	<input type="hidden" id="rordernum" value="${rordernum }"><br>
+	<input type="hidden" id="rexperson" value="${rexperson }"><br>
+	<input type="hidden" id="rexbreaknum" value="${rexbreaknum }"><br>
+	<input type="hidden" id="rexbed" value="${rexbed }"><br>
 	
-	인원가격<input type="text" id="personfee" value="${personfee }"><br>
-	조식가격<input type="text" id="breakfastfee" value="${breakfastfee }"><br>
-	침대가격<input type="text" id="bedfee" value="${bedfee }"><br>
+	<input type="hidden" id="personfee" value="${personfee }"><br>
+	<input type="hidden" id="breakfastfee" value="${breakfastfee }"><br>
+	<input type="hidden" id="bedfee" value="${bedfee }"><br>
+	<input type="hidden" name="prefund" id="prefund" value="${prefund }"><br>
 	<br>
 	<br>
 	<table class="table">
@@ -78,7 +80,7 @@
 
 	</div>
 </div>
-
+</form>
 <div class="footer" style="clear:both;">
 	<jsp:include page="../jhr/footer.jsp" flush="true"/>
 </div>

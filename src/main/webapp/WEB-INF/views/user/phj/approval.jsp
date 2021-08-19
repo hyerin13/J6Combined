@@ -13,6 +13,13 @@
 		<jsp:include page="../jhr/header.jsp" flush="true"/>
 	</div>
 	<input type="hidden" id="mid" value="${mid }">
+	<input type="hidden" id="pid" value="${pid }">
+	<input type="hidden" id="pmethod" value="${pmethod }">
+	<input type="hidden" id="pdate" value="${pdate }">
+	<input type="hidden" id="ptotal" value="${ptotal }">
+	<input type="hidden" id="prefund" value="${prefund }">
+	<input type="hidden" id="rid" value="${rid }">
+	<input type="hidden" id="mid" value="${mid }">
 	<table class="table">
 		<tr>
 			<th style="font-size: 20px;text-align: center;">${mid }님의 예약이 완료되었습니다!</th>

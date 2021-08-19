@@ -13,8 +13,12 @@ import java.net.URL;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.jhta.project.vo.phj.PaymentVo_phj;
+import com.jhta.project.vo.phj.ReservationVo;
 
 @Controller
 public class PaymentController {
@@ -36,7 +40,23 @@ public class PaymentController {
 	public String fail() {
 		return "user/phj/fail";
 	}
-		
+	
+	@RequestMapping(value="/phj/payOk",method=RequestMethod.GET)
+	public ModelAndView ReservationInsert(PaymentVo_phj vo) {
+		ModelAndView mv=new ModelAndView("user/phj/approval");
+		mv.addObject("pid", vo.getPid());
+		mv.addObject("rid", vo.getRid());
+		mv.addObject("pmethod", vo.getPmethod());
+		mv.addObject("pdate", vo.getPdate());
+		mv.addObject("ptotal", vo.getPtotal());
+		mv.addObject("prefund", vo.getPrefund());
+		mv.addObject("rid", vo.getRid());
+		mv.addObject("mid", vo.getMid());
+		mv.addObject("code","success");
+		mv.addObject("code","fail");
+		return mv;
+	}
+	
 	@ResponseBody
 	@RequestMapping("/kakaopay")
 	public String kakaoPay() {
