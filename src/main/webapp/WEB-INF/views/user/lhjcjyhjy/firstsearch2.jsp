@@ -1036,7 +1036,7 @@ function outMoveAfter(){ //버튼 클릭시 다음날로 이동
 	let oyear = date.getFullYear();
 	let omonth = (date.getMonth()+1) > 9 ? (date.getMonth()+1) : '0' + (date.getMonth()+1);
 	let odate = (date.getDate()+1) > 9 ? (date.getDate()+1) : '0' + (date.getDate()+1);
-	//console.log(oyear + omonth + odate);
+	console.log(oyear + omonth + odate);
 	$("#checkout").val(oyear + "-" + omonth + "-" + odate);
 }
 </script>

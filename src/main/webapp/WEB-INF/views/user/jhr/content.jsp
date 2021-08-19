@@ -171,6 +171,7 @@
      	//체크아웃 날짜이동
      	function outMoveBefore(){ //버튼 클릭시 하루 전날로 이동
      		let date = new Date($("#checkout").val());
+     		//console.log(date);
      		let year = date.getFullYear();
      		let month = (date.getMonth()+1) > 9 ? (date.getMonth()+1) : '0' + (date.getMonth()+1);
      		let day = (date.getDate()-1) > 9 ? (date.getDate()-1) : '0' + (date.getDate()-1);
