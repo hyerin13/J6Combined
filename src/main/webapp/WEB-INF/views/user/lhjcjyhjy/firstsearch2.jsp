@@ -1002,7 +1002,43 @@ function mainMapList(index){
 		});
 	}
 }
+//체크인 날짜이동
+function inMoveBefore(){ //버튼 클릭시 하루 전날로 이동
+	let date = new Date($("#checkin").val());
+	//console.log(date);
+	let year = date.getFullYear();
+	let month = (date.getMonth()+1) > 9 ? (date.getMonth()+1) : '0' + (date.getMonth()+1);
+	let day = (date.getDate()-1) > 9 ? (date.getDate()-1) : '0' + (date.getDate()-1);
+	//console.log(year + month + day);
+	$("#checkin").val(year + "-" + month + "-" + day);	
+}
+function inMoveAfter(){ //버튼 클릭시 다음날로 이동
+	let date = new Date($("#checkin").val());
+	//console.log(date);
+	let iyear = date.getFullYear();
+	let imonth = (date.getMonth()+1) > 9 ? (date.getMonth()+1) : '0' + (date.getMonth()+1);
+	let idate = (date.getDate()+1) > 9 ? (date.getDate()+1) : '0' + (date.getDate()+1);
+	//console.log(ye + mo + da);
+	$("#checkin").val(iyear + "-" + imonth + "-" + idate);	
+}
+//체크아웃 날짜이동
+function outMoveBefore(){ //버튼 클릭시 하루 전날로 이동
+	let date = new Date($("#checkout").val());
+	let year = date.getFullYear();
+	let month = (date.getMonth()+1) > 9 ? (date.getMonth()+1) : '0' + (date.getMonth()+1);
+	let day = (date.getDate()-1) > 9 ? (date.getDate()-1) : '0' + (date.getDate()-1);
+	$("#checkout").val(year + "-" + month + "-" + day);	
+}
 
+function outMoveAfter(){ //버튼 클릭시 다음날로 이동
+	let date = new Date($("#checkout").val());
+	console.log(date);
+	let oyear = date.getFullYear();
+	let omonth = (date.getMonth()+1) > 9 ? (date.getMonth()+1) : '0' + (date.getMonth()+1);
+	let odate = (date.getDate()+1) > 9 ? (date.getDate()+1) : '0' + (date.getDate()+1);
+	console.log(oyear + omonth + odate);
+	$("#checkout").val(oyear + "-" + omonth + "-" + odate);
+}
 </script>
 </head>
 <body>
@@ -1018,24 +1054,6 @@ function mainMapList(index){
 	<div class="search">
 				<div class="search_container">
 					<form class="search_content" method="post" action="${pageContext.request.contextPath }/lhjcjyhjy/firstsearch">
-						<div class="search_number">
-							<div class="search_number_container">
-								<button class="search_number_button" type="button">
-									<div class="search_number_text">
-										<div class="search_text_inner">
-											<div class="search_text">
-												객실 1개, 투숙객 2명
-											</div>
-										</div>
-									</div>
-									<div class="search_number_arr">
-										<svg viewBox="0 0 8 5">
-											<path d="M7 1.053L4.027 4 1 1" stroke="currentColor" fill="none" style="user-select: auto;"></path>
-										</svg>
-									</div>
-								</button>
-							</div>
-						</div>
 						<div class="search_insert">
 							<div class="search_insert_container">
 								<div class="search_insert_content">
@@ -1059,15 +1077,15 @@ function mainMapList(index){
 														<path fill-rule="evenodd" clip-rule="evenodd" d="M14.5952 3.67643H18.381C18.8149 3.67643 19.1667 4.04952 19.1667 4.50976V7.68436V18.7955C19.1667 19.2557 18.8149 19.6288 18.381 19.6288H1.61905C1.18511 19.6288 0.833333 19.2557 0.833333 18.7955V7.68436V4.50976C0.833333 4.04952 1.18511 3.67643 1.61905 3.67643H5.40476V2.1288C5.40476 1.66857 5.75654 1.29547 6.19048 1.29547C6.62441 1.29547 6.97619 1.66857 6.97619 2.1288V3.67643H13.0238V2.1288C13.0238 1.66857 13.3756 1.29547 13.8095 1.29547C14.2435 1.29547 14.5952 1.66857 14.5952 2.1288V3.67643ZM2.40476 8.51769V17.9621H17.5952V8.51769H2.40476ZM17.5952 6.85102H2.40476V5.34309H17.5952V6.85102ZM4.66667 10.0256H6.19048C6.62441 10.0256 6.97619 10.3987 6.97619 10.859V11.6526C6.97619 12.1129 6.62441 12.4859 6.19048 12.4859H4.66667C4.23273 12.4859 3.88095 12.1129 3.88095 11.6526V10.859C3.88095 10.3987 4.23273 10.0256 4.66667 10.0256ZM9.2381 10.0256H10.7619C11.1958 10.0256 11.5476 10.3987 11.5476 10.859V11.6526C11.5476 12.1129 11.1958 12.4859 10.7619 12.4859H9.2381C8.80416 12.4859 8.45238 12.1129 8.45238 11.6526V10.859C8.45238 10.3987 8.80416 10.0256 9.2381 10.0256ZM6.97619 14.8272C6.97619 14.367 6.62441 13.9939 6.19048 13.9939H4.66667C4.23273 13.9939 3.88095 14.367 3.88095 14.8272V15.6209C3.88095 16.0811 4.23273 16.4542 4.66667 16.4542H6.19048C6.62441 16.4542 6.97619 16.0811 6.97619 15.6209V14.8272ZM10.7619 13.9939C11.1958 13.9939 11.5476 14.367 11.5476 14.8272V15.6209C11.5476 16.0811 11.1958 16.4542 10.7619 16.4542H9.2381C8.80416 16.4542 8.45238 16.0811 8.45238 15.6209V14.8272C8.45238 14.367 8.80416 13.9939 9.2381 13.9939H10.7619ZM15.3333 10.0256H13.8095C13.3756 10.0256 13.0238 10.3987 13.0238 10.859V11.6526C13.0238 12.1129 13.3756 12.4859 13.8095 12.4859H15.3333C15.7673 12.4859 16.119 12.1129 16.119 11.6526V10.859C16.119 10.3987 15.7673 10.0256 15.3333 10.0256Z" fill="#4E4E4E"></path>
 													</svg>
 													<div class="date_innertext">
-														<input type="date" name="checkin" value="${rcheckin }">
+														<input type="date" id="checkin" name="checkin" value="${rcheckin }">
 													</div>
 												</div>
-												<button class="date_btn_before" type="button">
+												<button class="date_btn_before" type="button" onclick= "inMoveBefore()">
 													<svg viewBox="0 0 8 5">
 														<path d="M7 1.053L4.027 4 1 1" stroke="currentColor" fill="none" style="user-select: auto;"></path>
 													</svg>
 												</button>
-												<button class="date_btn_after" type="button">
+												<button class="date_btn_after" type="button" onclick= "inMoveAfter()">
 													<svg viewBox="0 0 8 5">
 														<path d="M7 1.053L4.027 4 1 1" stroke="currentColor" fill="none" style="user-select: auto;"></path>
 													</svg>
@@ -1080,15 +1098,15 @@ function mainMapList(index){
 														<path fill-rule="evenodd" clip-rule="evenodd" d="M14.5952 3.67643H18.381C18.8149 3.67643 19.1667 4.04952 19.1667 4.50976V7.68436V18.7955C19.1667 19.2557 18.8149 19.6288 18.381 19.6288H1.61905C1.18511 19.6288 0.833333 19.2557 0.833333 18.7955V7.68436V4.50976C0.833333 4.04952 1.18511 3.67643 1.61905 3.67643H5.40476V2.1288C5.40476 1.66857 5.75654 1.29547 6.19048 1.29547C6.62441 1.29547 6.97619 1.66857 6.97619 2.1288V3.67643H13.0238V2.1288C13.0238 1.66857 13.3756 1.29547 13.8095 1.29547C14.2435 1.29547 14.5952 1.66857 14.5952 2.1288V3.67643ZM2.40476 8.51769V17.9621H17.5952V8.51769H2.40476ZM17.5952 6.85102H2.40476V5.34309H17.5952V6.85102ZM4.66667 10.0256H6.19048C6.62441 10.0256 6.97619 10.3987 6.97619 10.859V11.6526C6.97619 12.1129 6.62441 12.4859 6.19048 12.4859H4.66667C4.23273 12.4859 3.88095 12.1129 3.88095 11.6526V10.859C3.88095 10.3987 4.23273 10.0256 4.66667 10.0256ZM9.2381 10.0256H10.7619C11.1958 10.0256 11.5476 10.3987 11.5476 10.859V11.6526C11.5476 12.1129 11.1958 12.4859 10.7619 12.4859H9.2381C8.80416 12.4859 8.45238 12.1129 8.45238 11.6526V10.859C8.45238 10.3987 8.80416 10.0256 9.2381 10.0256ZM6.97619 14.8272C6.97619 14.367 6.62441 13.9939 6.19048 13.9939H4.66667C4.23273 13.9939 3.88095 14.367 3.88095 14.8272V15.6209C3.88095 16.0811 4.23273 16.4542 4.66667 16.4542H6.19048C6.62441 16.4542 6.97619 16.0811 6.97619 15.6209V14.8272ZM10.7619 13.9939C11.1958 13.9939 11.5476 14.367 11.5476 14.8272V15.6209C11.5476 16.0811 11.1958 16.4542 10.7619 16.4542H9.2381C8.80416 16.4542 8.45238 16.0811 8.45238 15.6209V14.8272C8.45238 14.367 8.80416 13.9939 9.2381 13.9939H10.7619ZM15.3333 10.0256H13.8095C13.3756 10.0256 13.0238 10.3987 13.0238 10.859V11.6526C13.0238 12.1129 13.3756 12.4859 13.8095 12.4859H15.3333C15.7673 12.4859 16.119 12.1129 16.119 11.6526V10.859C16.119 10.3987 15.7673 10.0256 15.3333 10.0256Z" fill="#4E4E4E"></path>
 													</svg>
 													<div class="date_innertext">
-														<input type="date" name="checkout" value="${rcheckout }">
+														<input type="date" id="checkout" name="checkout" value="${rcheckout }">
 													</div>
 												</div>
-												<button class="date_btn_before" type="button">
+												<button class="date_btn_before" type="button" onclick= "outMoveBefore()">
 													<svg viewBox="0 0 8 5">
 														<path d="M7 1.053L4.027 4 1 1" stroke="currentColor" fill="none" style="user-select: auto;"></path>
 													</svg>
 												</button>
-												<button class="date_btn_after" type="button">
+												<button class="date_btn_after" type="button" onclick= "outMoveAfter()">
 													<svg viewBox="0 0 8 5">
 														<path d="M7 1.053L4.027 4 1 1" stroke="currentColor" fill="none" style="user-select: auto;"></path>
 													</svg>
