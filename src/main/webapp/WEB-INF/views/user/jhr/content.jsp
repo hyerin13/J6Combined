@@ -175,6 +175,7 @@
      		let year = date.getFullYear();
      		let month = (date.getMonth()+1) > 9 ? (date.getMonth()+1) : '0' + (date.getMonth()+1);
      		let day = (date.getDate()-1) > 9 ? (date.getDate()-1) : '0' + (date.getDate()-1);
+     		//console.log(year + month + day);
      		$("#checkout").val(year + "-" + month + "-" + day);	
      	}
 
