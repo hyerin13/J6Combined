@@ -57,14 +57,14 @@
             
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="tables.html">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>회원조회</span>
                 </a>
             </li>
              <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="charts.html">
+                <a class="nav-link" href="tables.html">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>취소/환불관리</span></a>
             </li>
@@ -79,12 +79,11 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" >
-                    <i class="fas fa-fw fa-folder"></i>
-                    <span>숙소조회/삭제</span>
+                <a class="nav-link collapsed" href="tables.html" >
+					<i class="fas fa-fw fa-wrench"></i>                    
+					<span>숙소조회/삭제</span>
                 </a>
-                <a class="nav-link collapsed" href="#" >
-                    <i class="fas fa-fw fa-folder"></i>
+                <a class="nav-link collapsed" href="charts.html" >
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>예약율</span>
                 </a>
@@ -103,13 +102,6 @@
             <!-- Sidebar Toggler (Sidebar) -->
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-            <!-- Sidebar Message -->
-            <div class="sidebar-card d-none d-lg-flex">
-                <img class="sidebar-card-illustration mb-2" src="img/undraw_rocket.svg" alt="...">
-                <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
-                <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
             </div>
 
         </ul>
@@ -344,9 +336,9 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                월간매출 (이번달 출력해주기)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1" name="month">
+                                               월 매출</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="monthlySales"></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -362,9 +354,9 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                연간매출 (이번년도 출력해주기)</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1" id="year">
+                                                년 매출</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="annualSales"></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -380,16 +372,16 @@
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">(이번달)월 회원 유입수
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1" name ="month">월 회원 유입수
                                             </div>
                                             <div class="row no-gutters align-items-center">
                                                 <div class="col-auto">
-                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="monthMembers"></div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="progress progress-sm mr-2">
-                                                        <div class="progress-bar bg-info" role="progressbar"
-                                                            style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+                                                        <div class="progress-bar bg-info" role="progressbar" id="monthMembersBar"
+                                                            style="width: 10%" aria-valuenow="50" aria-valuemin="0"
                                                             aria-valuemax="100"></div>
                                                     </div>
                                                 </div>
@@ -411,7 +403,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                 전체 회원수</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="allMembers"></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -615,7 +607,9 @@
             </div>
         </div>
     </div>
-
+	<script>
+		var path = "http://localhost:8090/project/";
+	</script>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -632,7 +626,7 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/chart-area-demo.js"></script>
     <script src="js/demo/chart-pie-demo.js"></script>
-
+    <script src="js/demo/dashboardtop-demo.js"></script>
 </body>
 
 </html>

@@ -2,34 +2,43 @@
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 
-// Pie Chart Example
-var ctx = document.getElementById("myPieChart");
-var myPieChart = new Chart(ctx, {
-  type: 'doughnut',
-  data: {
-    labels: ["Direct", "Referral", "Social"],
-    datasets: [{
-      data: [55, 30, 15],
-      backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-      hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
-      hoverBorderColor: "rgba(234, 236, 244, 1)",
-    }],
-  },
-  options: {
-    maintainAspectRatio: false,
-    tooltips: {
-      backgroundColor: "rgb(255,255,255)",
-      bodyFontColor: "#858796",
-      borderColor: '#dddfeb',
-      borderWidth: 1,
-      xPadding: 15,
-      yPadding: 15,
-      displayColors: false,
-      caretPadding: 10,
-    },
-    legend: {
-      display: false
-    },
-    cutoutPercentage: 80,
-  },
-});
+$.ajax({
+		url:path+"hjy/admin/payType",
+		traditional :true,
+		type:"get",
+		dataType:"json",
+		success:function(data){
+			// Pie Chart Example
+			var ctx = document.getElementById("myPieChart");
+			var myPieChart = new Chart(ctx, {
+			  type: 'doughnut',
+			  data: {
+			    labels: [data.list[0].pmethod, data.list[1].pmethod, "Etc"],
+			    datasets: [{
+			      data: [data.list[0].cnt/(data.list[0].cnt+data.list[1].cnt)*10 ,data.list[1].cnt/(data.list[0].cnt+data.list[1].cnt)*10],
+			      backgroundColor: ['#4e73df', '#1cc88a'],
+			      hoverBackgroundColor: ['#2e59d9', '#17a673'],
+			      hoverBorderColor: "rgba(234, 236, 244, 1)",
+			    }],
+			  },
+			  options: {
+			    maintainAspectRatio: false,
+			    tooltips: {
+			      backgroundColor: "rgb(255,255,255)",
+			      bodyFontColor: "#858796",
+			      borderColor: '#dddfeb',
+			      borderWidth: 1,
+			      xPadding: 15,
+			      yPadding: 15,
+			      displayColors: false,
+			      caretPadding: 10,
+			    },
+			    legend: {
+			      display: false
+			    },
+			    cutoutPercentage: 80,
+			  },
+			});
+		}
+	});
+	

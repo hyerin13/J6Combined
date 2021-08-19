@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhta.mybatis.mapper.hjy.admin.PaymentMapperHjy">
+	<select id="monthlySales" resultType="int">
+		select sum(ptotal) from payment where extract(month from pdate) = extract(month from sysdate)
+	</select>
+	<select id="annualSales" resultType="int">
+		select sum(ptotal) from payment where extract(year from pdate) = extract(year from sysdate)
+	</select>
+	<select id="payType" resultType="com.jhta.project.vo.hjy.PaymentVo">
+		select pmethod,count(pmethod) cnt from payment group by pmethod
+	</select>
+	<select id="month" resultType="int">
+		select extract(month from sysdate) month from dual
+	</select>
+	<select id="year" resultType="int">
+		select extract(year from sysdate) year from dual
+	</select>
+</mapper>
