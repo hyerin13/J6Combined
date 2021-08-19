@@ -18,4 +18,16 @@
 	<select id="year" resultType="int">
 		select extract(year from sysdate) year from dual
 	</select>
+	<select id="salesChart" resultType="hashmap">
+		<![CDATA[
+			select lv,nvl(ptotal,0) ptotal from (SELECT
+			LPAD(LEVEL, 2, '0') LV
+			FROM DUAL CONNECT BY LEVEL <= 12)
+			cnt left outer join 
+			(select pdate,sum(ptotal) ptotal from (
+			select extract(month from pdate) pdate,ptotal from payment where extract(year from pdate) = extract(year from sysdate)
+			)group by pdate) payment
+			on cnt.lv=payment.pdate order by lv
+		]]>
+	</select>
 </mapper>
