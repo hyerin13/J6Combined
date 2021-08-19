@@ -1,5 +1,6 @@
 package com.jhta.project.service.hjy;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +26,8 @@ public class PaymentServiceHjy {
 	};
 	public int year() {
 		return mapper.year();
+	};
+	public List<HashMap<String, Object>> salesChart(){
+		return mapper.salesChart();
 	};
 }

@@ -1,5 +1,6 @@
 package com.jhta.mybatis.mapper.hjy.admin;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.jhta.project.vo.hjy.PaymentVo;
@@ -10,4 +11,5 @@ public interface PaymentMapperHjy {
 	public List<PaymentVo> payType();
 	public int month();
 	public int year();
+	public List<HashMap<String, Object>> salesChart();
 }
