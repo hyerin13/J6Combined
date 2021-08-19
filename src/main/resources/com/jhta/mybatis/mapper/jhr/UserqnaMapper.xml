@@ -5,24 +5,43 @@
 <mapper namespace="com.jhta.mybatis.mapper.jhr.UserqnaMapper">
 	<sql id="search">
 		<if test="field!=null and field!=''">
-			where ${field} like '%'||#{keyword}||'%'
+			where qcate=${field}
 		</if>
 	</sql>
 	<!-- 전체 글의 갯수 -->
 	<select id="count" parameterType="hashmap" resultType="int">
-		select NVL(count(*),0) cnt from userqna
-		<include refid="search"/>	
+		<choose>
+		<when test="category==null">
+			select NVL(count(*),0) cnt from userqna where mid=#{mid}
+		</when>
+		<otherwise>
+			select NVL(count(*),0) cnt from userqna where mid=#{mid} and qcate=#{category}
+		</otherwise>
+		</choose>
 	</select>
 	<select id="list" parameterType="hashmap" resultType="com.jhta.project.vo.jhr.UserqnaVo">
-		select * from
+		<choose>
+		<when test="category==null">
+			<![CDATA[select * from
 		(
      		select aa.*,rownum rnum from
     		(
 				select * from userqna 
-				<include refid="search"/>	
 				order by qid desc
-     		)aa
-	 <![CDATA[	) where rnum>=#{startRow} and rnum<=#{endRow} ]]>
+     		)aa )
+		where rnum>=#{startRowNum} and rnum<=#{endRowNum}]]>
+		</when>
+		<otherwise>
+			<![CDATA[select * from
+			(
+     		select aa.*,rownum rnum from
+    		(
+				select * from userqna where qcate=#{category}
+				order by qid desc
+     		)aa )
+		where rnum>=#{startRowNum} and rnum<=#{endRowNum}]]>
+		</otherwise>
+		</choose>
 	</select>
 	<!-- 이전글 -->
 	<select id="prev" parameterType="int" resultType="com.jhta.project.vo.jhr.UserqnaVo">

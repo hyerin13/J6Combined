@@ -189,7 +189,7 @@
     	<jsp:include page="/WEB-INF/views/user/kjy/preferences.jsp"/>
 	</div>
 	<div id="tab04">
-    	<jsp:include page="/WEB-INF/views/user/kjy/preferences.jsp"/>
+    	<jsp:include page="/WEB-INF/views/user/jhr/mypageQnalist.jsp"/>
 	</div>
 	<div id="tab05">
     	<jsp:include page="/WEB-INF/views/user/kjy/preferences.jsp"/>
