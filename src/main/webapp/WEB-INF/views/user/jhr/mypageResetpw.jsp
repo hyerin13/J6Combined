@@ -93,7 +93,7 @@
 			return false;
 		}
 		if (currpw.value!=currpw2.value) {
-			alert("현재 비밀번호가 일치하지 않습니다.");
+			alert("새로운 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
 			currpw.value="";
 			currpw2.value="";
 			currpw2.focus();
@@ -115,7 +115,7 @@
 			return false;
 		}
 		if (mpw.value!=newpw.value) {
-			alert("새로운 비밀번호와 새 비밀번호 확인이 일치하지 않습니다.");
+			alert("새로운 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
 			mpw.value="";
 			newpw.value="";
 			mpw.focus();

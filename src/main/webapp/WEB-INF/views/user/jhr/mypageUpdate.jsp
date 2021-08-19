@@ -121,7 +121,7 @@
 		type:"get",
 		dataType:"json",
 		success:function(data){
-			$("#profileimg").prop("src","${pageContext.request.contextPath }/resources/jhr/profileimg/"+data.mprofile);
+			$("#profileimg").prop("src","${pageContext.request.contextPath }/resources/images/members/"+data.mprofile);
 			$("#mname").val(data.mname);
 			$("#mid").val(data.mid);
 			$("#mbirth").val(data.mbirth);

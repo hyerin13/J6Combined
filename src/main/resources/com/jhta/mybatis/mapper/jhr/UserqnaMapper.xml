@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhta.mybatis.mapper.jhr.UserqnaMapper">
+	<sql id="search">
+		<if test="field!=null and field!=''">
+			where ${field} like '%'||#{keyword}||'%'
+		</if>
+	</sql>
+	<!-- 전체 글의 갯수 -->
+	<select id="count" parameterType="hashmap" resultType="int">
+		select NVL(count(*),0) cnt from userqna
+		<include refid="search"/>	
+	</select>
+	<select id="list" parameterType="hashmap" resultType="com.jhta.project.vo.jhr.UserqnaVo">
+		select * from
+		(
+     		select aa.*,rownum rnum from
+    		(
+				select * from userqna 
+				<include refid="search"/>	
+				order by qid desc
+     		)aa
+	 <![CDATA[	) where rnum>=#{startRow} and rnum<=#{endRow} ]]>
+	</select>
+	<!-- 이전글 -->
+	<select id="prev" parameterType="int" resultType="com.jhta.project.vo.jhr.UserqnaVo">
+		<![CDATA[
+			select * from
+			(
+			  select * from userqna where qid<#{qid} order by qid desc
+			) where rownum=1	
+		 ]]>	
+	</select>
+	<!-- 다음글 -->
+	<select id="next" parameterType="int" resultType="com.jhta.project.vo.jhr.UserqnaVo">
+		<![CDATA[
+		select * from
+		(
+		  select * from userqna where qid>#{qid} order by qid asc
+		) where rownum=1
+		]]>
+	</select>
+	
+	<select id="detail" parameterType="hashmap" resultType="com.jhta.project.vo.jhr.UserqnaVo">
+		select * from userqna where mid=#{mid} and qid=#{qid}
+	</select>
+	<select id="detail2" parameterType="string" resultType="com.jhta.project.vo.jhr.UserqnaVo">
+		select * from userqna where mid=#{mid}
+	</select>
+	<!-- 
+	<delete id="delete" parameterType="com.jhta.project.vo.jhr.UserqnaVo">
+		delete from userqna where mid=#{mid} and qid=#{qid}
+	</delete> -->
+	<delete id="delete" parameterType="com.jhta.project.vo.jhr.UserqnaVo">
+		delete from userqna where qid=#{qid}
+	</delete>
+	<update id="update" parameterType="com.jhta.project.vo.jhr.UserqnaVo">
+		update userqna set qcate=#{qcate}, qtitle=#{qtitle}, qrdate=sysdate, qcontent=#{qcontent}
+		where mid=#{mid} and qid=#{qid}
+	</update>
+	<select id="checkId" parameterType="string" resultType="com.jhta.project.vo.jhr.UserqnaVo">
+		select * from userqna where mid=#{mid}
+	</select>
+</mapper>
