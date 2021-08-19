@@ -1447,7 +1447,7 @@ function outMoveAfter(){ //버튼 클릭시 다음날로 이동
 													</script>
 											</div>
 											<div class="col-md-3">
-												<c:if test="${vo.agrade } !=null">
+												<c:if test="${vo.agrade!=null}">
 							                		<h5>${vo.agrade }성급</h5>
 												</c:if>
 												<c:choose>
