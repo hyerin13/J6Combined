@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhta.mybatis.mapper.hjy.admin.ReservationMapperHjy">
+	<sql id="time">
+		<if test="time eq null">
+			1
+		</if>
+		<if test="time eq'6month'">
+			6
+		</if>
+		<if test="time eq'3month'">
+			3
+		</if>
+		<if test="time eq'1month'">
+			1
+		</if>
+		<if test="time eq '1year'">
+			12
+		</if>
+	</sql>
+	<select id="hotelReserRate" resultType="com.jhta.project.vo.hjy.ReservationRateVo" parameterType="string">
+		select ac.aname,ROUND(test.cnt/ac.atotalroom*(TO_CHAR(LAST_DAY(SYSDATE) ,'dd')),1) per 
+		from accommodations ac 
+		right outer join
+        (select ac.aid,count(ri.riid)cnt from accommodations ac 
+        left outer join room_info ri on ac.aid = ri.aid group by ac.aid) test 
+        on ac.aid=test.aid 
+	</select>
+	
+	<select id="roomReserRate" resultType="com.jhta.project.vo.hjy.ReservationRateVo" parameterType="string">
+		select ac.aname,riroomtype,ROUND(cnt/ac.atotalroom*(TO_CHAR(LAST_DAY(SYSDATE) ,'dd')),1) per 
+		from accommodations ac right outer join 
+        (select ri.riid,ri.aid,ri.riroomtype,test.cnt from room_info ri right outer join
+        ( select ri.riid,count(rs.riid)cnt from room_info ri 
+        left outer join reservation rs on ri.riid = rs.riid group by ri.riid)test 
+        on ri.riid=test.riid)fin
+        on ac.aid = fin.aid
+	</select>
+</mapper>
