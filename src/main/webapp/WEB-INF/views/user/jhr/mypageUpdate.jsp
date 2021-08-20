@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>마이페이지_회원 정보 수정</title>
+<!-- 커밋 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/findid.css">
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.6.0.min.js"></script>

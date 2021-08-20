@@ -39,8 +39,6 @@
 		position:absolute;
 		top:150px;
 		left:20px;
-		width:500px;
-		height:25px;
 	}
 	.box{
 		position: absolute;

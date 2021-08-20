@@ -107,9 +107,9 @@
 	}
 	.tabnav li{
 		position:relative;
-		left:-40px;
+		left:0px;
 		display: inline-block;  
-		width:180px;
+		width:197px;
 		height:46px; 
 		text-align:center; 
 		border-right:1px solid #ddd;
@@ -184,12 +184,16 @@
     	</ul>
     <div class="tabcontent">
     <div id="tab01">
+    	<jsp:include page="/WEB-INF/views/user/jhr/mypageUpdate.jsp"/>
     </div>
     <div id="tab02">
     	<jsp:include page="/WEB-INF/views/user/kjy/mypage_preferences.jsp"/>
 	</div>
 	<div id="tab03">
     	<jsp:include page="/WEB-INF/views/user/kjy/mypage_reservation.jsp"/>
+	</div>
+	<div id="tab04">
+    	<jsp:include page="/WEB-INF/views/user/jhr/mypageQnalist.jsp"/>
 	</div>
 	<div id="tab05">
     	<jsp:include page="/WEB-INF/views/user/kjy/mypage_accountdelete.jsp"/>

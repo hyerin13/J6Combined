@@ -170,7 +170,7 @@
     .modal-content2 {
     	position:absolute;
         background-color: #fefefe;
-        margin: 15% auto; /* 15% from the top and centered */
+        margin: 15% auto; /* 15% from the top and centerede */
         padding: 20px;
         border: 1px solid #888;
         top:-150px;
