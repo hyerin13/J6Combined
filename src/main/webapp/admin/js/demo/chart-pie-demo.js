@@ -4,7 +4,6 @@ Chart.defaults.global.defaultFontColor = '#858796';
 
 $.ajax({
 		url:path+"hjy/admin/payType",
-		traditional :true,
 		type:"get",
 		dataType:"json",
 		success:function(data){
@@ -13,7 +12,7 @@ $.ajax({
 			var myPieChart = new Chart(ctx, {
 			  type: 'doughnut',
 			  data: {
-			    labels: [data.list[0].pmethod, data.list[1].pmethod, "Etc"],
+			    labels: [data.list[0].pmethod, data.list[1].pmethod],
 			    datasets: [{
 			      data: [data.list[0].cnt/(data.list[0].cnt+data.list[1].cnt)*10 ,data.list[1].cnt/(data.list[0].cnt+data.list[1].cnt)*10],
 			      backgroundColor: ['#4e73df', '#1cc88a'],

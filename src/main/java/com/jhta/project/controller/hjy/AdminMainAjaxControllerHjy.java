@@ -13,7 +13,7 @@ import com.jhta.project.service.hjy.PaymentServiceHjy;
 import com.jhta.project.vo.hjy.PaymentVo;
 
 @RestController
-public class AdminAjaxControllerHjy {
+public class AdminMainAjaxControllerHjy {
 	@Autowired PaymentServiceHjy paymentService;
 	@Autowired MembersServiceHjy membersService;
 	/**
