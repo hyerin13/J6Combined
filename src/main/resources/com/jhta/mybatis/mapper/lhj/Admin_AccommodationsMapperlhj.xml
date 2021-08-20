@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhta.mybatis.mapper.lhj.Admin_AccommodationsMapperlhj">
+	<select id="accommList" resultType="com.jhta.project.vo.lhjcjy.AccommodationsVolhjcjy">
+		select * from accommodations where aisdel is null
+	</select>
+	<select id="roomList" resultType="com.jhta.project.vo.lhjcjy.Room_InfoVolhjcjy">
+		select * from room_info where aid = #{aid}
+	</select>
+</mapper>
