@@ -78,10 +78,13 @@ public class Room_infoController_kjy {
 			c2.setTime(d2);
 			//시작날짜와 끝 날짜를 비교해, 시작날짜가 작거나 같은 경우 출력
 			while( c1.compareTo( c2 ) !=1 ){
+				HashMap<String, Object> daymap=new HashMap<String, Object>();
 				//비수기,성수기,준성수기 확인
 				Date day=c1.getTime();
 				//7/1~7/4
-				String peseason=peservice.list(day);
+				daymap.put("day", day);
+				daymap.put("aid", aid);
+				String peseason=peservice.list(daymap);
 				if(peseason.equals("비수기")) {
 					off++;//분류별 카운터
 				}else if(peseason.equals("준성수기")) {

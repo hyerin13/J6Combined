@@ -1,7 +1,8 @@
 package com.jhta.mybatis.mapper.kjy;
 
 import java.util.Date;
+import java.util.HashMap;
 
 public interface PeriodMapperkjy {
-	String list(Date day);
+	String list(HashMap<String, Object> map);
 }
