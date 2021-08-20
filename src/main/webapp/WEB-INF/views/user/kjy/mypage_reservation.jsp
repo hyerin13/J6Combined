@@ -566,9 +566,15 @@ function reservationlist(pageNum){
 			if(startPage>5){
 				pageHtml += "<a href='javascript:reservationlist("+ (startPage-1) + ")'>이전</a>";
 			}
+			if(pageNum==null){
+				pageHtml += "<a href='javascript:reservationlist("+ 1 + ")'><span style='color:blue'>"+ 1 + "</span></a> ";
+				startPage++;
+			}
 			for(let i=startPage;i<=endPage;i++){
 				if(i==pageNum){
 					pageHtml += "<a href='javascript:reservationlist("+ i + ")'><span style='color:blue'>"+ i + "</span></a> ";
+				}else if(pageNum==null){
+					pageHtml += "<a href='javascript:reservationlist("+ i + ")'><span style='color:gray'>"+ i + "</span></a> ";
 				}else{
 					pageHtml += "<a href='javascript:reservationlist("+ i + ")'><span style='color:gray'>"+ i + "</span></a> ";
 				}	

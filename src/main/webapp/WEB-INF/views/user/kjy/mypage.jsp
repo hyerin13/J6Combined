@@ -8,6 +8,8 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/js/jquery-ui.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/footer.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Hahmlet:wght@500;600;700&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
@@ -152,6 +154,9 @@
 </style>
 </head>
 <body>
+<div class="header">
+	<jsp:include page="/WEB-INF/views/user/jhr/header.jsp"/>
+</div>
 <div id="headbox">
 	<p class="name">${vo.mname }님</p>
 	<p class="memt">돌아오셔서 반갑습니다.</p>
@@ -200,6 +205,9 @@
 	</div>
   	</div>
   </div><!--tab-->
+</div>
+<div class="footer">
+	<jsp:include page="/WEB-INF/views/user/jhr/footer.jsp"/>
 </div>	
 </body>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>

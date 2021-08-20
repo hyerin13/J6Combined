@@ -17,7 +17,7 @@
 		<div class="join_col1">
 			<label for="">프로필 사진</label>
 		</div>
-		<img id="profileimg">
+		<img id="profileimg" onerror="this.style.display='none'">
 		<div class="join_col_input">
 			<div class="input_wrap">
 				<div class="wrap_inner">
@@ -186,7 +186,7 @@
 					success:function(data) {
 						if(data.code=='success') {
 							alert("회원정보 수정에 성공했습니다.");
-							//location.href="${pageContext.request.contextPath }/jhr/login";
+							location.reload();
 						} else {
 							alert("회원정보 수정에 실패했습니다.");
 						}

@@ -9,7 +9,7 @@
 		width:1000px;
 		border:none;
 	}
-	#page{
+	#qnapage{
 		margin-left:500px;
 		margin-top:20px;
 	}
@@ -39,7 +39,7 @@
 </div>
 <div id="qnalist">
 </div>
-<div id="page">
+<div id="qnapage">
 </div>
 <script type="text/javascript">
 	var category;
@@ -92,12 +92,19 @@
 				let endPage=data.endPageNum;
 				let pageCount=data.totalPageCount;
 				let pageHtml="";
+				
 				if(startPage>5){
 					pageHtml += "<a href='javascript:list("+ (startPage-1) + ")'>이전</a>";
+				}
+				if(pageNum==null){
+					pageHtml += "<a href='javascript:list("+ 1 + ")'><span style='color:blue'>"+ 1 + "</span></a> ";
+					startPage++;
 				}
 				for(let i=startPage;i<=endPage;i++){
 					if(i==pageNum){
 						pageHtml += "<a href='javascript:list("+ i + ")'><span style='color:blue'>"+ i + "</span></a> ";
+					}else if(pageNum==null){
+						pageHtml += "<a href='javascript:list("+ i + ")'><span style='color:gray'>"+ i + "</span></a> ";
 					}else{
 						pageHtml += "<a href='javascript:list("+ i + ")'><span style='color:gray'>"+ i + "</span></a> ";
 					}	
@@ -105,7 +112,7 @@
 				if(endPage<pageCount){
 					pageHtml += "<a href='javascript:list("+ (endPage+1) + ")'>다음</a>";
 				}
-				$("#page").html(pageHtml);
+				$("#qnapage").html(pageHtml);
 			}
 		});
 	}

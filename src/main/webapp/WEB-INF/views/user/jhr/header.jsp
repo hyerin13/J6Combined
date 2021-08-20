@@ -34,7 +34,14 @@
 			<div class="nav_account">
 				<div class="nav_account_container">
 					<div class="nav_mypage">
-						<a href="${pageContext.request.contextPath }/user/kjy/mypage">마이트립</a>
+						<c:choose>
+							<c:when test="${empty sessionScope.mid }">
+								<!-- 로그인이 안되어있을때 -->
+							</c:when>
+							<c:otherwise>
+								<a href="${pageContext.request.contextPath }/user/kjy/mypage">마이트립</a>
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<div class="nav_login">
 				 	<c:choose>

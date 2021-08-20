@@ -39,7 +39,7 @@
 	}
 	
 	.modal3 {
-        display: none; /* Hidden by defaulte */
+        display: none; /* Hidden by defaulteㄷ */
         position: fixed; /* Stay in place */
         z-index: 1; /* Sit on top */
         left: 0;
