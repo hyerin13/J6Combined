@@ -642,7 +642,7 @@ function gomapchange(facilities,minprice,maxprice,sort,axcoordi,aycoordi,distanc
 				    		          +'<br /> <img src="${pageContext.request.contextPath }/resources/images/accommodations/220i0z000000mulfw433F_Z_1080_808_R5_D.jpg" width="300" height="250" /><br />'
 				    		          +'전화번호: '+data.list[i].aphone+' | 가격: '+data.list[i].amountsum+'<br/>'
 				    		          +"<button class='btn' onclick=\""
-									  +"location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid="+data.list[i].aid
+									  +"location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid="+data.list[i].aid+"&riid="+data.list[i].riid+
 									  +"&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+data.checkin+"&endday="+data.checkout+"'\">예약하기</button>"
 									  +'</p></div>'
 									  )
@@ -652,7 +652,7 @@ function gomapchange(facilities,minprice,maxprice,sort,axcoordi,aycoordi,distanc
 				    		          +'<br /> <img src="${pageContext.request.contextPath }/resources/images/accommodations/'+data.list[i].amainimg+'"width="300" height="250"/><br />'
 				    		          +data.list[i].aphone+' | '+data.list[i].amountsum+'<br/>'
 				    		          +"<button class='btn' onclick=\""
-									  +"location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid="+data.list[i].aid
+									  +"location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid="+data.list[i].aid+"&riid="+data.list[i].riid+
 									  +"&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+data.checkin+"&endday="+data.checkout
 									  +"'\">예약하기</button>"
 									  +'</p></div>'
@@ -838,7 +838,7 @@ function list(facilities,minprice,maxprice,sort,xcoordi,ycoordi,distance,agrade,
 									html+="</h5>";
 									html+="<h4>"+data.list[i].amountsum+"원</h4>";
 									html+="<button class='btn' onclick=\"";
-									html+="location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid="+data.list[i].aid
+									html+="location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid="+data.list[i].aid+"&riid="+data.list[i].riid+
 											+"&person=${rimaxper}&roomnum=${countRoom}&startday=${rcheckin}&endday=${rcheckout}"
 									html+="'\">예약하기</button>";
 									html+="</div>";
@@ -891,7 +891,7 @@ function list(facilities,minprice,maxprice,sort,xcoordi,ycoordi,distance,agrade,
 								html+="</h5>"
 								html+="<h4>"+data.list[i].amountsum+"원</h4>";
 								html+="<button class='btn' onclick=\"";
-								html+="location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid="+data.list[i].aid;
+								html+="location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid="+data.list[i].aid+"&riid="+data.list[i].riid;
 								html+="&person=${rimaxper}&roomnum=${countRoom}&startday=${rcheckin}&endday=${rcheckout}"
 								html+="'\">예약하기</button>";
 								html+="</div>";
@@ -1476,7 +1476,7 @@ function outMoveAfter(){ //버튼 클릭시 다음날로 이동
 								                </c:choose>
 												<h4>${vo.amountsum}원</h4>
 												<button class="btn"
-													onclick="location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid=${vo.aid}&person=${rimaxper}&roomnum=${countRoom}&startday=${rcheckin}&endday=${rcheckout}'">예약하기</button>
+													onclick="location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid=${vo.aid}&riid=${vo.riid }&person=${rimaxper}&roomnum=${countRoom}&startday=${rcheckin}&endday=${rcheckout}'">예약하기</button>
 											</div>
 	
 									</div>
