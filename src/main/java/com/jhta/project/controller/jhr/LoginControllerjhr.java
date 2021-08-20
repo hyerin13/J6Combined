@@ -26,6 +26,10 @@ public class LoginControllerjhr {
 		map.put("mid",mid);
 		map.put("mpw",mpw);
 		MembersVo vo=service.isMember(map);
+		if(vo!=null && vo.getMdrop()!=null) {
+			model.addAttribute("errMsg","탈퇴한 회원은 로그인 할 수 없습니다.");
+			return "user/jhr/login";
+		}
 		if(vo!=null) { //회원인 경우 세션에 아이디 담기
 			session.setAttribute("mid", mid);
 			session.setAttribute("mpw", mpw);

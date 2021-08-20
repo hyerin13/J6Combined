@@ -7,12 +7,16 @@ import org.springframework.stereotype.Service;
 
 import com.jhta.mybatis.mapper.jhr.MembersMapper;
 import com.jhta.project.vo.jhr.MembersVo;
+import com.jhta.project.vo.kjy.FavoriteVo_kjy;
 
 @Service
 public class MembersService {
    @Autowired MembersMapper mapper;
    public int insert(MembersVo vo) {
       return mapper.insert(vo);
+   }
+   public int insert2(FavoriteVo_kjy vo) {
+      return mapper.insert2(vo);
    }
    public MembersVo isMember(HashMap<String, String> map) {
       return mapper.isMember(map);

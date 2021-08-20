@@ -3,9 +3,11 @@ package com.jhta.mybatis.mapper.jhr;
 import java.util.HashMap;
 
 import com.jhta.project.vo.jhr.MembersVo;
+import com.jhta.project.vo.kjy.FavoriteVo_kjy;
 
 public interface MembersMapper {
 	int insert(MembersVo vo);
+	int insert2(FavoriteVo_kjy vo);
 	MembersVo isMember(HashMap<String,String> map);
 	MembersVo findId(HashMap<String,String> map);
 	MembersVo checkPw(HashMap<String,String> map);

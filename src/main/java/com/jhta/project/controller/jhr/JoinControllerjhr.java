@@ -23,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.jhta.project.service.jhr.MembersService;
 import com.jhta.project.vo.jhr.MembersVo;
+import com.jhta.project.vo.kjy.FavoriteVo_kjy;
 
 @Controller
 public class JoinControllerjhr {
@@ -34,9 +35,9 @@ public class JoinControllerjhr {
 	}
 	@PostMapping("/jhr/join")
 	//프로필사진 입력 선택사항
-	public String insert(MembersVo vo, MultipartFile profile, Model model) { //MROFILE->그냥 파일 저장, PROFILE->파일명만 뽑아서 저장
+	public String insert(MembersVo vo, FavoriteVo_kjy vo2, MultipartFile profile, Model model) { //MROFILE->그냥 파일 저장, PROFILE->파일명만 뽑아서 저장
 		//업로드 할 폴더의 절대 경로 구하기
-		String path=sc.getRealPath("/resources/jhr/profileimg");
+		String path=sc.getRealPath("/resources/images/members");
 		String orgfilename=profile.getOriginalFilename(); //전송된 파일명
 		String savefilename=UUID.randomUUID()+"_"+orgfilename; //저장할 파일명(중복되지 않는 이름으로 만들기)
 		try {
@@ -53,6 +54,7 @@ public class JoinControllerjhr {
 				vo.setMprofile(savefilename);
 			}
 			service.insert(vo);
+			service.insert2(vo2);
 			return "redirect:/jhr/login";
 		} catch(Exception e) {
 			e.printStackTrace();

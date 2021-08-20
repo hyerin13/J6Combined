@@ -41,7 +41,7 @@ public class UpdateControllerjhr {
 		HashMap<String, Object> map=new HashMap<String, Object>();
 		try {
 			if(!profile.isEmpty()) { //전송된 파일이 있는 경우
-				String dir=sc.getRealPath("/resources/jhr/profileimg");
+				String dir=sc.getRealPath("/resources/images/members");
 				String orgfilename=profile.getOriginalFilename();
 				String savefilename=UUID.randomUUID()+"_" + orgfilename;
 				InputStream is=profile.getInputStream();

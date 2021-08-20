@@ -11,7 +11,7 @@
 	<!-- 전체 글의 갯수 -->
 	<select id="count" parameterType="hashmap" resultType="int">
 		<choose>
-		<when test="category==null">
+		<when test="category==null or category=='all'">
 			select NVL(count(*),0) cnt from userqna where mid=#{mid}
 		</when>
 		<otherwise>
@@ -21,7 +21,7 @@
 	</select>
 	<select id="list" parameterType="hashmap" resultType="com.jhta.project.vo.jhr.UserqnaVo">
 		<choose>
-		<when test="category==null">
+		<when test="category==null or category=='all'">
 			<![CDATA[select * from
 		(
      		select aa.*,rownum rnum from
