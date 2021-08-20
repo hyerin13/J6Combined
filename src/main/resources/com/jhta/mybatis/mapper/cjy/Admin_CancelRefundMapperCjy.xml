@@ -23,7 +23,7 @@
 	<![CDATA[	)where rnum>=#{startRow} and rnum<=#{endRow}]]>
 	</select>
 	<update id="update" parameterType="map">
-		update reservation set rcancel=#{rcancel} where rid=#{rid}
+		update payment set prefund='Y' where rid=#{rid}
 	</update>
 	<select id="select" resultType="com.jhta.project.vo.cjy.ReservationVo" parameterType="int">
 		select * from reservation where rid=#{rid}

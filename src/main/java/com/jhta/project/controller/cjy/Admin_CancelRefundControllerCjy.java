@@ -24,37 +24,27 @@ import lombok.Data;
 
 
 @RestController
-//@Data
-public class Admin_CancelRefundControllerCjy {
-	/*
-	private int rid;
-	private int rordernum;
-	private int ramount;
-	private String rcheckin;
-	private String rcheckout;
-	private String rresname;
-	private String rresphone;
-	private String rresemail;
-	private int rexbreaknum;
-	private int rexbed;
-	private int rexperson;
-	private String rcancel;
-	private String mid;
-	private int riid;
-	
-	private List map;
-	public List getData() {
-		 if(CollectionUtils.isEmpty(map)){
-	            map = new ArrayList();
-	        }
-	        return map;
-	}
-	
-}
-*/
-	@Autowired Admin_CancelRefundServiceCjy crservice;
-	//취소환불 리스트
 
+public class Admin_CancelRefundControllerCjy {
+	@Autowired Admin_CancelRefundServiceCjy crservice;
+
+	//취소승인
+	@RequestMapping(value="admin/cjy/rvcancelapproval", produces = {MediaType.APPLICATION_JSON_VALUE})
+	public  HashMap<String, Object> cancelapproval(String rid){
+		HashMap<String, Object> map = new HashMap<String,Object>();
+		HashMap<String, Object> map1 = new HashMap<String,Object>();
+		map.put("rid", rid);
+		try {
+			int data=crservice.update(map);
+			map1.put("data", data);
+			map1.put("msg", "취소승인 되었습니다");
+		}catch(Exception e) {
+			e.printStackTrace();
+			map1.put("msg", "취소승인이 실패되었습니다");
+		}
+		return map1;
+	}
+	//취소환불 리스트
 	@RequestMapping(value="admin/cjy/rvcancel", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public HashMap<String, Object> cancelrefunddata(@RequestParam(value="pageNum", defaultValue="1")int pageNum, String field, String keyword){
 		HashMap<String, Object> map = new HashMap<String,Object>();
@@ -69,7 +59,6 @@ public class Admin_CancelRefundControllerCjy {
 		map.put("startRow", startRow); //boardmapper에서 sql문에 필
 		map.put("endRow", endRow);
 		try {
-
 			//rcheckin, rcheckout이 yy/mm/dd형태로 들어가 있기 때문에 회원목록과 통일성을 주기 위해 보여지는 형식 변경
 			SimpleDateFormat beforeFormat = new SimpleDateFormat("yy/MM/dd");
 			SimpleDateFormat afterFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -90,8 +79,10 @@ public class Admin_CancelRefundControllerCjy {
 			
 			System.out.println("rcheckin:"+rcheckin);
 			System.out.println("rcheckout:"+rcheckout);
-			data.get(0).setRcheckin(rcheckin);
-			data.get(0).setRcheckout(rcheckout);
+			for(int i=0; i<data.size() ;i++) {
+				data.get(i).setRcheckin(rcheckin);
+				data.get(i).setRcheckout(rcheckout);
+			}
 			map1.put("pu", pu);
 			map1.put("field", field);
 			map1.put("keyword", keyword);
