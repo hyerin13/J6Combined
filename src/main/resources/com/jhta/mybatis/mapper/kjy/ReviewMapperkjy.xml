@@ -30,4 +30,12 @@
 		inner join room_info ri on re.riid=ri.riid
 		where ri.aid=#{aid}
 	</select>
+	<select id="reviewin" parameterType="int" resultType="hashmap">
+		select ac.aname,ri.riroomtype,ri.rimainimg from reservation 
+		re, room_info ri,accommodations ac where re.riid=ri.riid and ri.aid=ac.aid
+		and re.rid=#{rid}
+	</select>
+	<insert id="reviewinsert" parameterType="com.jhta.project.vo.kjy.ReviewVo_kjy">
+		insert into review values(seq_review.nextval,#{retitle},#{recontent},#{rephoto},sysdate,#{restar},#{mid},#{rid})
+	</insert>
 </mapper>

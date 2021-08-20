@@ -9,4 +9,7 @@
 	<update id="profiledel" parameterType="string">
 		update members set mprofile=null where mid=#{mid}
 	</update>
+	<update id="profileup" parameterType="hashmap">
+		update members set mprofile=#{mprofile} where mid=#{mid}
+	</update>
 </mapper>

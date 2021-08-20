@@ -14,10 +14,10 @@ public class FavoritesearchService_kjy {
 	public List<FavoritesearchVo_kjy> hotelsearch(String hotel) {
 		return mapper.hotelsearch(hotel);
 	}
-	public List<String> airportsearch(String portname) {
+	public List<FavoritesearchVo_kjy> airportsearch(String portname) {
 		return mapper.airportsearch(portname);
 	}
-	public List<String> airlinesearch(String airname) {
+	public List<FavoritesearchVo_kjy> airlinesearch(String airname) {
 		return mapper.airlinesearch(airname);
 	}
 }

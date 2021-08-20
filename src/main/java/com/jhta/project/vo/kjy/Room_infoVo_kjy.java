@@ -27,9 +27,10 @@ public class Room_infoVo_kjy {
 	//추가
 	private String sum; //전체금액
 	private String price; //숙박금액
-	private String perimg; //최대인원이미지
-	private String minperimg; //현재인원이미지
+	private String maxperimg; //최대인원이미지
+	private String minperimg; //최소인원이미지
+	private String perimg; //현재인원이미지
 	private String reday; //예약가능날짜
-	private int resernum;//예약가능인원
+	private int resernum;//남은방개수
 	private String reserimg;//마감임박이미지
 }

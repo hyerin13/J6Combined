@@ -36,4 +36,7 @@
 	<select id="daylist" resultType="string" parameterType="hashmap">
 		SELECT LISTAGG(ds,',') WITHIN GROUP (ORDER BY ds) as ds FROM date_t WHERE ds BETWEEN #{startday} AND #{endday}
 	</select>
+	<select id="personnel" resultType="int" parameterType="int">
+		select NVL(af.afpersonnel,0) afpersonnel from room_info ri left join additional_fee af on ri.riid=af.riid where ri.riid=#{riid}
+	</select>
 </mapper>

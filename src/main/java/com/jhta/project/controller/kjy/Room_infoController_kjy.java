@@ -50,7 +50,6 @@ public class Room_infoController_kjy {
 			hs.put("endday", endday1);
 			hs.put("person", person);
 			List<Room_infoVo_kjy> alllist=service.list(hs);
-			System.out.println(alllist);
 			//list가 비었을경우 result 페이지로 이동
 			if(alllist.isEmpty()) {
 				ModelAndView mv1=new ModelAndView("user/kjy/result");
@@ -96,9 +95,11 @@ public class Room_infoController_kjy {
 			int offprice=0;//비수기
 			int semiprice=0;//준성수기
 			int peakprice=0;//성수기
-			int resernum=0;//예약 가능한 인원
+			int resernum=0;//남은 방의 개수
 			DecimalFormat formatt=new DecimalFormat("###,###,###");//콤마찍기
-
+			int currentper=Integer.parseInt(person);//현재인원 Integer형변환
+			int currentsum=0;//인원추가금액
+			int persum=0;
 			for(Room_infoVo_kjy vo:alllist) {
 				//총금액
 				offprice=vo.getRioff();
@@ -107,23 +108,48 @@ public class Room_infoController_kjy {
 				String offpr=formatt.format(off*offprice);
 				String semipr=formatt.format(semi*semiprice);
 				String peakpr=formatt.format(peak*peakprice);
-				if(off>0 && semi>0 && peak > 0) {
-					vo.setPrice("비수기 "+off+"박, 요금: "+offpr+" + 준성수기 "+semi+"박, 요금:"+semipr+" + 성수기 "+peak+"박, 요금:"+peakpr);
+				
+				//인원추가금액
+				currentsum=service.personnel(vo.getRiid());
+				if(currentper >= vo.getRiminper()) {
+					persum=currentper-vo.getRiminper();
+				}else {
+					persum=0;
+				}
+				String current=formatt.format(currentsum*persum);
+				
+				
+				if(off>0 && semi>0 && peak > 0 && persum  > 0) {
+					vo.setPrice("비수기 "+off+"박, 요금: "+offpr+" + 준성수기 "+semi+"박, 요금: "+semipr+" + 성수기 "+peak+"박, 요금: "+peakpr+" 인원추가 "+persum+"명, 요금: "+current);
+				}else if(off>0 && semi>0 && peak > 0) {
+					vo.setPrice("비수기 "+off+"박, 요금: "+offpr+" + 준성수기 "+semi+"박, 요금: "+semipr+" + 성수기 "+peak+"박, 요금: "+peakpr);
+				}else if(off>0 && semi>0 && persum  > 0) {
+					vo.setPrice("비수기 "+off+"박, 요금: "+offpr+" + 준성수기 "+semi+"박, 요금: "+semipr+" 인원추가 "+persum+"명, 요금: "+current);
 				}else if(off>0 && semi>0) {
-					vo.setPrice("비수기 "+off+"박, 요금: "+offpr+" + 준성수기 "+semi+"박, 요금:"+semipr);
+					vo.setPrice("비수기 "+off+"박, 요금: "+offpr+" + 준성수기 "+semi+"박, 요금: "+semipr);
+				}else if(semi>0 && peak>0 && persum  > 0) {
+					vo.setPrice("준성수기 "+semi+"박, 요금: "+semipr+" + 성수기 "+peak+"박, 요금: "+peakpr+" 인원추가 "+persum+"명, 요금: "+current);
 				}else if(semi>0 && peak>0) {
-					vo.setPrice("준성수기 "+semi+"박, 요금: "+semipr+" + 성수기 "+peak+"박, 요금:"+peakpr);
+					vo.setPrice("준성수기 "+semi+"박, 요금: "+semipr+" + 성수기 "+peak+"박, 요금: "+peakpr);
+				}else if(off>0 && peak>0 && persum  > 0) {
+					vo.setPrice("비수기 "+off+"박, 요금: "+offpr+" + 성수기 "+peak+"박, 요금: "+peakpr+" 인원추가 "+persum+"명, 요금: "+current);
 				}else if(off>0 && peak>0) {
-					vo.setPrice("비수기 "+off+"박, 요금: "+offpr+" + 성수기 "+peak+"박, 요금:"+peakpr);
+					vo.setPrice("비수기 "+off+"박, 요금: "+offpr+" + 성수기 "+peak+"박, 요금: "+peakpr);
+				}else if(off>0 && semi<1 && peak<1 && persum  > 0) {
+					vo.setPrice("비수기 "+off+"박, 요금: "+offpr+" 인원추가 "+persum+"명, 요금: "+current);
 				}else if(off>0 && semi<1 && peak<1) {
 					vo.setPrice("비수기 "+off+"박, 요금: "+offpr);
+				}else if(off<1 && semi>0 && peak<1 && persum  > 0) {
+					vo.setPrice("준성수기 "+semi+"박, 요금: "+semipr+" 인원추가 "+persum+"명, 요금: "+current);
 				}else if(off<1 && semi>0 && peak<1) {
 					vo.setPrice("준성수기 "+semi+"박, 요금: "+semipr);
+				}else if(off<1 && semi<1 && peak>0 && persum  > 0) {
+					vo.setPrice("성수기 "+peak+"박, 요금: "+peakpr+" 인원추가 "+persum+"명, 요금: "+current);
 				}else if(off<1 && semi<1 && peak>0) {
 					vo.setPrice("성수기 "+peak+"박, 요금: "+peakpr);
 				}
 
-				int sum=(off*offprice)+(semiprice*semi)+(peakprice*peak);
+				int sum=(off*offprice)+(semiprice*semi)+(peakprice*peak)+(currentsum*persum);
 				String finalsum=formatt.format(sum);
 				vo.setSum(finalsum);
 
@@ -136,44 +162,59 @@ public class Room_infoController_kjy {
 				int maxper=vo.getRimaxper();
 				//최대인원
 				if(maxper==1) {
-					vo.setPerimg("resources/images/kjy/room_info/person1.png");
+					vo.setMaxperimg("resources/images/room_info/person1.png");
 				}else if(maxper==2) {
-					vo.setPerimg("resources/images/kjy/room_info/person2.png");
+					vo.setMaxperimg("resources/images/room_info/person2.png");
 				}else if(maxper==3) {
-					vo.setPerimg("resources/images/kjy/room_info/person3.png");
+					vo.setMaxperimg("resources/images/room_info/person3.png");
 				}else if(maxper==4) {
-					vo.setPerimg("resources/images/kjy/room_info/person4.png");
+					vo.setMaxperimg("resources/images/room_info/person4.png");
 				}else if(maxper==5) {
-					vo.setPerimg("resources/images/kjy/room_info/person5.png");
+					vo.setMaxperimg("resources/images/room_info/person5.png");
 				}else if(maxper==6) {
-					vo.setPerimg("resources/images/kjy/room_info/person6.png");
+					vo.setMaxperimg("resources/images/room_info/person6.png");
+				}
+				
+				//인원그림(♥, ♡)
+				int minper=vo.getRiminper();
+				//최소인원
+				if(minper==1) {
+					vo.setMinperimg("resources/images/room_info/person1.png");
+				}else if(minper==2) {
+					vo.setMinperimg("resources/images/room_info/person2.png");
+				}else if(minper==3) {
+					vo.setMinperimg("resources/images/room_info/person3.png");
+				}else if(minper==4) {
+					vo.setMinperimg("resources/images/room_info/person4.png");
+				}else if(minper==5) {
+					vo.setMinperimg("resources/images/room_info/person5.png");
+				}else if(minper==6) {
+					vo.setMinperimg("resources/images/room_info/person6.png");
 				}
 
 				//현재인원
 				if(person.equals("1")) {
-					vo.setMinperimg("resources/images/kjy/room_info/minperson1.png");
+					vo.setPerimg("resources/images/room_info/minperson1.png");
 				}else if(person.equals("2")) {
-					vo.setMinperimg("resources/images/kjy/room_info/minperson2.png");
+					vo.setPerimg("resources/images/room_info/minperson2.png");
 				}else if(person.equals("3")) {
-					vo.setMinperimg("resources/images/kjy/room_info/minperson3.png");
+					vo.setPerimg("resources/images/room_info/minperson3.png");
 				}else if(person.equals("4")) {
-					vo.setMinperimg("resources/images/kjy/room_info/minperson4.png");
+					vo.setPerimg("resources/images/room_info/minperson4.png");
 				}else if(person.equals("5")) {
-					vo.setMinperimg("resources/images/kjy/room_info/minperson5.png");
+					vo.setPerimg("resources/images/room_info/minperson5.png");
 				}else if(person.equals("6")) {
-					vo.setMinperimg("resources/images/kjy/room_info/minperson6.png");
+					vo.setPerimg("resources/images/room_info/minperson6.png");
 				}
 				
 				//마감임박
 				resernum=vo.getResernum();
 				if(resernum <= 5) {
-					vo.setReserimg("resources/images/kjy/room_info/reserimg1.png");
+					vo.setReserimg("resources/images/room_info/reserimg1.png");
 				}
 
 
 				//예약이 꽉찼을경우 페이지이동
-				System.out.println("날짜리스트days:"+days);
-				System.out.println("예약날짜:"+vo.getReday());
 				if(!days.equals(vo.getReday())) {
 					ModelAndView mv1=new ModelAndView("user/kjy/result");
 					mv1.addObject("code", "입력하신 날짜는 예약이 모두 완료되었습니다.");

@@ -1,5 +1,7 @@
 package com.jhta.project.service.kjy;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,5 +16,8 @@ public class MypageService_kjy {
 	}
 	public int profiledel(String mid) {
 		return mapper.profiledel(mid);
+	}
+	public int profileup(HashMap<String, Object> map) {
+		return mapper.profileup(map);
 	}
 }

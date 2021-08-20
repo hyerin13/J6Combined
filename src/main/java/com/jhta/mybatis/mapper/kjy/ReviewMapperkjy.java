@@ -9,4 +9,6 @@ public interface ReviewMapperkjy {
 	List<ReviewVo_kjy> list(HashMap<String, Object> map);
 	HashMap<String, Object> sumstar(int aid);
 	int count(int aid);
+	HashMap<String, Object> reviewin(int rid);
+	int reviewinsert(ReviewVo_kjy vo);
 }

@@ -31,7 +31,7 @@ public class FavoriteController_kjy {
 		ArrayList<String> arrayport=new ArrayList<String>();
 		//null이 아닐경우
 		if(airport!=null) {
-			//문자열에 ,가 포함되었으면
+			//문자열에 " "가 포함되었으면
 			if(airport.contains(" ")==true) {
 				String[] airports=airport.split(" ");
 				for(int i=0;i<airports.length;i++) {
@@ -54,7 +54,7 @@ public class FavoriteController_kjy {
 		String airline=vo.getFavairline();
 		ArrayList<String> arrayline=new ArrayList<String>();
 		if(airline!=null) {
-			//문자열에 ,가 포함되었으면
+			//문자열에 " "가 포함되었으면
 			if(airline.contains(" ")==true) {
 				String[] airlines=airline.split(" ");
 				for(int i=0;i<airlines.length;i++) {
@@ -77,7 +77,7 @@ public class FavoriteController_kjy {
 		String hotel=vo.getFavhotel();
 		ArrayList<String> arrayhotel=new ArrayList<String>();
 		if(hotel!=null) {
-			//문자열에 ,가 포함되었으면
+			//문자열에 " "가 포함되었으면
 			if(hotel.contains(" ")==true) {
 				String[] hotels=hotel.split(" ");
 				for(int i=0;i<hotels.length;i++) {

@@ -18,4 +18,7 @@ public class Room_infoService_kjy {
 	public String daylist(HashMap<String, Object> map) {
 		return mapper.daylist(map);
 	}
+	public int personnel(int riid) {
+		return mapper.personnel(riid);
+	}
 }

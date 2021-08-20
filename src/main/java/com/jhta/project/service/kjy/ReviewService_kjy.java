@@ -21,4 +21,10 @@ public class ReviewService_kjy {
 	public int count(int aid) {
 		return mapper.count(aid);
 	}
+	public HashMap<String, Object> reviewin(int rid){
+		return mapper.reviewin(rid);
+	}
+	public int reviewinsert(ReviewVo_kjy vo) {
+		return mapper.reviewinsert(vo);
+	}
 }

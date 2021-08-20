@@ -6,6 +6,6 @@ import com.jhta.project.vo.kjy.FavoritesearchVo_kjy;
 
 public interface FavoritesearchMapperkjy {
 	List<FavoritesearchVo_kjy> hotelsearch(String hotel);
-	List<String> airportsearch(String portname);
-	List<String> airlinesearch(String airname);
+	List<FavoritesearchVo_kjy> airportsearch(String portname);
+	List<FavoritesearchVo_kjy> airlinesearch(String airname);
 }
