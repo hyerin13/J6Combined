@@ -70,14 +70,10 @@ public class Admin_ManageMembersControllerCjy {
 		try {
 			List<Admin_ManageMemVo> list=memService.list(map);
 			map1.put("list", list);
-			//String[] mrdate=list.get(0).getMrdate().split(" ",0);
-			
 			String mrdate1=list.get(0).getMrdate().substring(0,10);
 			String mbirth1=list.get(0).getMbirth().substring(0,10);
 			list.get(0).setMrdate(mrdate1);
 			list.get(0).setMbirth(mbirth1);
-			//map1.put("mrdate1",mrdate1);
-			//map1.put("mbirth1",mbirth1);
 			map1.put("pu", pu);
 			map1.put("field", field);
 			map1.put("keyword", keyword);

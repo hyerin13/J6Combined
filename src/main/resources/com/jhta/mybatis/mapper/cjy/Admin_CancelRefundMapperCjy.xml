@@ -16,9 +16,9 @@
 		(
 		    select aa.*,rownum rnum from
 		    (   
-		        select * from reservation 
+		        select * from reservation where rcancel='Y'
 		        <include refid="search"/>
-		        order by rid desc
+		        order by rid asc
 		    )aa
 	<![CDATA[	)where rnum>=#{startRow} and rnum<=#{endRow}]]>
 	</select>

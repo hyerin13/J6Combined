@@ -7,18 +7,6 @@ $(document).ready(function(){
 		url:"/project/admin/cjy/searchmem",
 		dataType:"json",
 		success:function(data){
-			console.log(data)
-			console.log(data.datetest);
-			$(data).each(function(i,d){
-				let mid=d.mid;
-				let mpw=d.mpw;
-				let mname=d.mname;
-				let mphone=d.mphone;
-				let memail=d.memail;
-				let mrdate=d.mrdate;
-				let mbirth=d.mbirth;
-				let mprofile=d.mprofile;
-				let mdrop=d.mdrop;
 				let tb="<table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'>";
 				tb+="<thead>";
 				tb+="<tr>";
@@ -47,27 +35,33 @@ $(document).ready(function(){
 				tb+="</tr>";
 				tb+="</tfoot>";
 				tb+="<tbody>";
-				for(var i=0; i<data.list.length;i++){
-					tb+="<tr>";
-					tb+="<td>" + mid + "</td>";
-					tb+="<td>" + mpw + "</td>";
-					tb+="<td>" + mname + "</td>";
-					tb+="<td>" + mphone + "</td>";
-					tb+="<td>" + memail + "</td>";
-					tb+="<td>" + mrdate + "</td>";
-					tb+="<td>" + mbirth + "</td>";
-					tb+="<td>" + mprofile + "</td>";
-					tb+="<td>" + mdrop+ "</td>";
-					tb+="</tr>";
-				};
+			$(data.list).each(function(i,d){
+				let mid=d.mid;
+				let mpw=d.mpw;
+				let mname=d.mname;
+				let mphone=d.mphone;
+				let memail=d.memail;
+				let mrdate=d.mrdate;
+				let mbirth=d.mbirth;
+				let mprofile=d.mprofile;
+				let mdrop=d.mdrop;
+				tb+="<tr>";
+				tb+="<td>" + mid + "</td>";
+				tb+="<td>" + mpw + "</td>";
+				tb+="<td>" + mname + "</td>";
+				tb+="<td>" + mphone + "</td>";
+				tb+="<td>" + memail + "</td>";
+				tb+="<td>" + mrdate + "</td>";
+				tb+="<td>" + mbirth + "</td>";
+				tb+="<td>" + mprofile + "</td>";
+				tb+="<td>" + mdrop+ "</td>";
+				tb+="</tr>";
 				tb+="</tbody>";
 				tb+="</table>";
-				console.log(mrdate);
-				console.log(mbirth);
 				$('#dataTable').append(tb)
 			});
 		},
 	});
-	 // $('#dataTable').DataTable();
+	  $('#dataTable').DataTable();
 });
 
