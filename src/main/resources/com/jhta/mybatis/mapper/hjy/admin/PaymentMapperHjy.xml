@@ -33,7 +33,7 @@
 	</select>
 	<select id="reservationRate" resultType="hashmap">
 		<![CDATA[
-		select fin.riid,fin.cnt,ac.aname,ROUND(cnt/ac.atotalroom*100,1) per,rownum rnum from
+		       select ac.aname,ROUND(cnt/(ac.atotalroom*extract(day from LAST_DAY(sysdate)))*100,2) per,rownum rnum from
 		(
 			select aid, riid, substr(ds,3,4), sum(cnt) cnt from
 			(

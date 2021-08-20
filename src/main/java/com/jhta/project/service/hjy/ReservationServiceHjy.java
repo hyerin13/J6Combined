@@ -14,7 +14,6 @@ public class ReservationServiceHjy {
 		return mapper.hotelReserRate(time);
 	};
 	public List<ReservationRateVo> RoomReserRate(String time){
-		System.out.println(time);
 		return mapper.roomReserRate(time);
 	};
 }
