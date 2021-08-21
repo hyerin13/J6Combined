@@ -11,10 +11,13 @@ $(document).ready(function() {
         	{data:"aname"},
         	{data:"per"}
         ],
+        //destroy: ajax현재 table이 수정? 될 수 있게함
         destroy: true,
+        //order,ordering,serverSide: 초기정렬조건설정
         order: [[1, 'desc']],
 	    ordering: true,
 	    serverSide: false,
+	    //Bfrtip: excel로 다운로드 기능
 	    dom:'Bfrtip',
 	    buttons:[
 	    'excel'
@@ -32,6 +35,7 @@ $(document).ready(function() {
 			{data:"riroomtype"},
 			{data:"per"}
         ],
+        //ajax현재 table이 수정? 될 수 있게함
         destroy: true,
         order: [[2, 'desc']],
 	    ordering: true,
