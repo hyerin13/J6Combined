@@ -3,10 +3,35 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.mybatis.mapper.lhj.Admin_AccommodationsMapperlhj">
-	<select id="accommList" resultType="com.jhta.project.vo.lhjcjy.AccommodationsVolhjcjy">
-		select * from accommodations where aisdel is null
+	<sql id="search">
+		<if test="field != null and field != ''">
+			where ${field} like '%'||#{keyword}||'%'
+		</if>
+	</sql>
+	<!-- 전체 갯수 -->
+	<select id="count" resultType="int">
+		select NVL(count(*),0) cnt from accommodations
+		<include refid="search"/>
 	</select>
-	<select id="roomList" resultType="com.jhta.project.vo.lhjcjy.Room_InfoVolhjcjy">
-		select * from room_info where aid = #{aid}
+	<select id="accommlist" resultType="com.jhta.project.vo.lhj.AccommodationsVo">
+		select * from accommodations where aisdel is null order by aid desc
 	</select>
+	<select id="detail" parameterType="int" resultType="com.jhta.project.vo.lhj.AccommodationsVo">
+		select * from accommodations where aid=#{aid}
+	</select>
+	<select id="roomlist" parameterType="int" resultType="com.jhta.project.vo.lhj.Room_infoVo">
+		select * from room_info where aid=#{aid}
+	</select>
+	<update id="accommUpdate" parameterType="com.jhta.project.vo.lhj.AccommodationsVo">
+		update accommodations set aaddress = #{aaddress}, aphone = #{aphone}, axcoordi = #{axcoordi}, aycoordi = #{aycoordi}, atotalroom = #{atotalroom},
+		agrade = #{agrade}, amainimg = #{amainimg}, adetail = #{adetail} where aid = #{aid}
+	</update>
+	<update id="roomUpdate" parameterType="com.jhta.project.vo.lhj.Room_infoVo">
+		update room_info set riroomtype = #{riroomtype}, riroom = #{riroom}, riservice = #{riservice}, risize = #{risize}, riminper = #{riminper},
+		rimaxper = #{rimaxper}, rireak = #{rireak}, risemipeak = #{risemipeak}, rioff = #{rioff}, rimainimg = #{rimainimg}, riextraimg1 = #{riextraimg1},
+		riextraimg2 = #{riextraimg2} where aid = #{aid}
+	</update>
+	<update id="delupdate" parameterType="com.jhta.project.vo.lhj.AccommodationsVo">
+		update accommodations set aisdel = 'Y' where aid= #{aid}
+	</update>
 </mapper>

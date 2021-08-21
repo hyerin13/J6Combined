@@ -7,15 +7,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jhta.mybatis.mapper.lhj.Admin_AccommodationsMapperlhj;
-import com.jhta.mybatis.mapper.lhjcjy.GetPriceMapperlhjcjy;
-import com.jhta.project.vo.lhjcjy.AccommodationsVolhjcjy;
+import com.jhta.project.vo.lhj.AccommodationsVo;
+import com.jhta.project.vo.lhj.Room_infoVo;
 
 
 @Service
 public class AccommodationsServicelhj {
 	@Autowired private Admin_AccommodationsMapperlhj mapper;
 	
-	public List<AccommodationsVolhjcjy> accommList(){
-		return mapper.accoomList();
+	public int count(HashMap<String, Object> map) {
+		return mapper.count(map);
+	}
+	public List<AccommodationsVo> accommlist(){
+		return mapper.accommlist();
+	}
+	public List<AccommodationsVo> detail(int aid){
+		return mapper.detail(aid);
+	}
+	public List<Room_infoVo> roomlist(){
+		return mapper.roomlist();
+	}
+	public int accommUpdate(AccommodationsVo vo) {
+		return mapper.accommUpdate(vo);
+	}
+	public int roomUpdate(Room_infoVo vo) {
+		return mapper.roomUpdate(vo);
+	}
+	public int delupdate(AccommodationsVo vo) {
+		return mapper.delupdate(vo);
 	}
 }
