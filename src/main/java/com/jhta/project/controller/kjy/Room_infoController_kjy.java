@@ -32,11 +32,10 @@ public class Room_infoController_kjy {
 	@RequestMapping(value="/user/kjy/room_info", method= RequestMethod.GET)
 	public ModelAndView Room_infoForm(@RequestParam("aid")String aid, @RequestParam("person")String person,
 			@RequestParam("roomnum")String roomnum, @RequestParam("startday")String startday,  
-			@RequestParam("endday")String endday,
+			@RequestParam("endday")String endday, @RequestParam("riid")String riid,
 			HttpServletRequest request) {
 		ModelAndView mv=new ModelAndView("user/kjy/room_info");
 		try {
-			
 			//객실세부정보
 			//person(사람수),startday(시작),endday(끝), roomnum(예약할 개수)
 			int aid1=Integer.parseInt(aid);
@@ -224,7 +223,7 @@ public class Room_infoController_kjy {
 					return mv1;
 				}
 			}
-
+			mv.addObject("riid",riid);
 			mv.addObject("startday",startday1);
 			mv.addObject("endday",endday1);
 			mv.addObject("accvo",accvo);

@@ -93,7 +93,7 @@
 	border-radius: 10px;
 }
 
-.title {
+.search_title {
 	position: absolute;
 	top: 680px;
 	left: 400px;
@@ -101,10 +101,30 @@
 	font-weight: bold;
 }
 
+.room_title {
+	position: absolute;
+	top: 1050px;
+	left: 400px;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+#search_info{
+	position: absolute;
+	width: 1000px;
+	top:750px;
+	left: 400px;
+	height: 235px;
+	border: 1px solid blue;
+	border-radius: 10px;
+	box-shadow: 5px 5px 5px gray;
+}
+
 /* 전체테두리 */
 #room_info {
 	position: relative;
 	width: 1000px;
+	top:330px;
 	left: 400px;
 	height: 235px;
 	border: 1px solid blue;
@@ -146,7 +166,6 @@
 	height: 70px;
 }
 
-/* 우측 설명 */
 #romm_name {
 	position: absolute;
 	top: 20px;
@@ -254,7 +273,7 @@
 #reviewbox {
 	position: relative;
 	width: 1000px;
-	top: 100px;
+	top: 450px;
 	left: 400px;
 	height: 1250px;
 	border-top: 1px solid gray;
@@ -387,11 +406,12 @@
 			<img src="${pageContext.request.contextPath }/resources/images/accommodations/${accvo.amainimg}" class="amainimg">
 		</div>
 	</div>
-	<p class="title">객실정보</p>
+	<p class='search_title'>검색결과</p>
+	<p class='room_title'>객실정보</p>
 	<c:forEach var="vo" items="${list }" varStatus="status">
 		<input type="hidden" value="${vo.aid }" id="aid">
-		
-		<div id="room_info">
+		<c:if test="${riid eq vo.riid}">
+		<div id="search_info">
 			<div id="imgbox">
 				<img src="${pageContext.request.contextPath }/resources/images/room_info/${vo.rimainimg }" id="smallimg1">
 				<img src="${pageContext.request.contextPath }/resources/images/room_info/${vo.riextraimg1}" id="smallimg2">
@@ -421,6 +441,39 @@
 			 	</c:choose>
 			</div>
 		</div>
+		</c:if>
+		<c:if test="${riid ne vo.riid}">
+		<div id="room_info">
+			<div id="imgbox">
+				<img src="${pageContext.request.contextPath }/resources/images/room_info/${vo.rimainimg }" id="smallimg1">
+				<img src="${pageContext.request.contextPath }/resources/images/room_info/${vo.riextraimg1}" id="smallimg2">
+				<img src="${pageContext.request.contextPath }/resources/images/room_info/${vo.riextraimg2}" id="smallimg3">			
+			</div>
+			<div id="romm_name">
+				<h2 class="name">${vo.riroomtype}</h2>
+				<p class="serv">부가서비스</p>
+				<p class="subname">${vo.riservice}</p>
+				<p class="sumprice">₩&nbsp;${vo.sum}</p>
+				<p class="price"><a href="javascript:void(0);" title="${vo.price}">요금세부정보</a></p>
+			 	<img class="maxpersonimg" src="${pageContext.request.contextPath }/${vo.maxperimg}">
+			 	<p class="maxperson">최대&nbsp;${vo.rimaxper}인</p>
+			 	<img class="minpersonimg" src="${pageContext.request.contextPath }/${vo.minperimg}">
+			 	<p class="minperson">최소&nbsp;${vo.riminper}인</p>
+			 	<img class="personimg" src="${pageContext.request.contextPath }/${vo.perimg}">
+			 	<p class="person">현재&nbsp;${person}인</p>
+			 	<img src="${pageContext.request.contextPath }/${vo.reserimg}" onerror="this.style.display='none'" id="reserimg">
+			 	<!-- session에 id가 있는지 확인후 없을경우 로그인페이지로  -->
+			 	<c:choose>
+			 		<c:when test="${empty sessionScope.mid }">
+			 			<input type="button" class="btn btn-primary" class="btn" value="바로예약" onclick="loginpage()">
+			 		</c:when>
+			 		<c:otherwise>
+			 			<input type="button" class="btn btn-primary" class="btn" value="바로예약" onclick="location.href='${pageContext.request.contextPath }/phj/reservation?riid=${vo.riid}&startday=${startday}&endday=${endday}&ramount=${person }&sum=${vo.sum }'">
+			 		</c:otherwise>
+			 	</c:choose>
+			</div>
+		</div>
+		</c:if>
 	</c:forEach>
 	<div id="reviewbox">
 		<p class="reviewtitle">솔직이용후기</p>
@@ -563,9 +616,15 @@
 				if(startPage>5){
 					pageHtml += "<a href='javascript:list("+ (startPage-1) + ")'>이전</a>";
 				}
+				if(pageNum==null){
+					pageHtml += "<a href='javascript:reservationlist("+ 1 + ")'><span style='color:blue'>"+ 1 + "</span></a> ";
+					startPage++;
+				}
 				for(let i=startPage;i<=endPage;i++){
 					if(i==pageNum){
 						pageHtml += "<a href='javascript:list("+ i + ")'><span style='color:blue'>"+ i + "</span></a> ";
+					}else if(pageNum==null){
+						pageHtml += "<a href='javascript:reservationlist("+ i + ")'><span style='color:gray'>"+ i + "</span></a> ";
 					}else{
 						pageHtml += "<a href='javascript:list("+ i + ")'><span style='color:gray'>"+ i + "</span></a> ";
 					}	
