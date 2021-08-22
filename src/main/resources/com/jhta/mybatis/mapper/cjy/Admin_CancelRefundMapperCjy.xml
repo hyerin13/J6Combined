@@ -3,7 +3,7 @@
 <mapper namespace="com.jhta.mybatis.mapper.cjy.Admin_CancelRefundMapperCjy">
 
 	<select id="list"  resultType="com.jhta.project.vo.cjy.ReservationVo">
-		        select * from reservation where rcancel='Y' and rid in(select rid from payment where prefund='N' or prefund=null)
+		        select * from reservation where rcancel='Y' and rid in(select rid from payment where prefund='N' or prefund is null)
 		        order by rid asc
 	</select>
 	<update id="update" parameterType="map">
