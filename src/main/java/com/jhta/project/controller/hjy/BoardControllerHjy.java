@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.mail.Session;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.PageContext;
 
@@ -41,19 +42,19 @@ public class BoardControllerHjy {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("field", field);
 		map.put("keyword", keyword);
+		map.put("bcate", "all");
 		
 		PageUtil pu = new PageUtil(pageNum, 10, 5, boardService.count(map));
 		map.put("startRow", pu.getStartRow());
 		map.put("endRow", pu.getEndRow());
-		List<BoardVo_phj> list = boardService_phj.selectBoard("all");
+		List<BoardVo> list = boardService.list(map);
 		System.out.println(list);
 		ModelAndView mv=new ModelAndView("user/hjy/board/board_all");
 		mv.addObject("list", list);
 		mv.addObject("pu", pu);
 		mv.addObject("field", field);
 		mv.addObject("keyword", keyword);
-		mv.addObject("bcate",vo.getBcate());
-		System.out.println("vo.getbcate:" + vo.getBcate());
+		mv.addObject("bcate","all");
 		return mv;
 	}
 	@GetMapping("hjy/review")
@@ -63,17 +64,19 @@ public class BoardControllerHjy {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("field", field);
 		map.put("keyword", keyword);
+		map.put("bcate", "review");
 		
 		PageUtil pu = new PageUtil(pageNum, 10, 5, boardService.count(map));
 		map.put("startRow", pu.getStartRow());
 		map.put("endRow", pu.getEndRow());
-		List<BoardVo_phj> list = boardService_phj.selectBoard("review");
+		List<BoardVo> list = boardService.list(map);
+		System.out.println(list);
 		ModelAndView mv=new ModelAndView("user/hjy/board/board_review");
 		mv.addObject("list", list);
 		mv.addObject("pu", pu);
 		mv.addObject("field", field);
 		mv.addObject("keyword", keyword);
-		
+		mv.addObject("bcate","review");
 		return mv;
 	}
 	@GetMapping("hjy/matching")
@@ -83,17 +86,19 @@ public class BoardControllerHjy {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("field", field);
 		map.put("keyword", keyword);
+		map.put("bcate", "matching");
 		
 		PageUtil pu = new PageUtil(pageNum, 10, 5, boardService.count(map));
 		map.put("startRow", pu.getStartRow());
 		map.put("endRow", pu.getEndRow());
-		List<BoardVo_phj> list = boardService_phj.selectBoard("matching");
+		List<BoardVo> list = boardService.list(map);
+		System.out.println(list);
 		ModelAndView mv=new ModelAndView("user/hjy/board/board_matching");
 		mv.addObject("list", list);
 		mv.addObject("pu", pu);
 		mv.addObject("field", field);
 		mv.addObject("keyword", keyword);
-		
+		mv.addObject("bcate","matching");
 		return mv;
 	}
 	
@@ -117,14 +122,16 @@ public class BoardControllerHjy {
 	}
 	
 	@GetMapping("hjy/newPost")
-	public ModelAndView newPost(String id,String bcate) {
+	public ModelAndView newPost(HttpServletRequest req,String bcate) {
+		HttpSession session=req.getSession();
+		String mid=(String)session.getAttribute("mid");
 		ModelAndView mv=new ModelAndView("user/hjy/board/boardinsert");
 		mv.addObject("bcate",bcate);
 		System.out.println("카테고리:"+bcate);
-		mv.addObject("mid",id);
+		mv.addObject("mid",mid);
 		return mv;
 	}
-	
+
 	/**
 	 * 로그인 진입시 사용
 	 * @param session
@@ -135,9 +142,9 @@ public class BoardControllerHjy {
 		return "user/hjy/board/login";
 	}
 	
-	@PostMapping("hjy/loginTest")
+	@PostMapping("hjy/login")
 	public String loginTest2(String id, HttpSession session) {
-		session.setAttribute("id", id);
+		session.getAttribute("mid");
 		return "redirect:/hjy/boardMain";
 	}
 }

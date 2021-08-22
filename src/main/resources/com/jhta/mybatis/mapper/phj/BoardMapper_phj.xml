@@ -8,9 +8,6 @@
 		values(seq.board.nextval,#{bcate},#{btitle},#{bcontent},
 		#{brdate},#{mid})
 	</insert>
-	<select id="selectBoard" parameterType="String" resultType="com.jhta.project.vo.phj.BoardVo_phj">
-		select * from board where bcate=#{bcate}
-	</select>
 	<select id="selectBoardAll" resultType="com.jhta.project.vo.phj.BoardVo_phj">
 		select * from board
 	</select>

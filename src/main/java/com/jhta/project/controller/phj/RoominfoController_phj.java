@@ -30,6 +30,8 @@ public class RoominfoController_phj {
 		HashMap<String, Object> map=new HashMap<String, Object>();
 		map.put("riroomtype",vo.getRiroomtype());
 		map.put("rimaxper", vo.getRimaxper());
+		map.put("riminper", vo.getRiminper());
+		map.put("riservice", vo.getRiservice());
 		return map;
 	}
 }

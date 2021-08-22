@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.mail.Session;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -30,6 +32,7 @@ public class CommentsAjaxControllerHjy {
 		HashMap<String, Object> map = new HashMap<String,Object>();
 		try {
 			List<CommentsVo> list = commentsService.list(bid);
+			System.out.println(list);
 			map.put("list", list);
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -46,9 +49,12 @@ public class CommentsAjaxControllerHjy {
 	 * @return 성공,실패여부
 	 */
 	@RequestMapping(value="hjy/commentInsert", produces= {MediaType.APPLICATION_JSON_VALUE})
-	public HashMap<String, Object> CommentInsert(Model model, CommentsVo vo,String mid) {
+	public HashMap<String, Object> CommentInsert(HttpServletRequest req, Model model, CommentsVo vo) {
 		HashMap<String, Object> map = new HashMap<String,Object>();
 		try {
+			HttpSession session=req.getSession();
+			String mid=(String)session.getAttribute("mid");
+			System.out.println("mid:  " + mid);
 			vo.setClev(0);
 			vo.setCstep(0);
 			vo.setMid(mid);

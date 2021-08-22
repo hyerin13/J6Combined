@@ -36,35 +36,56 @@
 	<jsp:include page="../jhr/header.jsp" flush="true"/>
 </div>
 <form method="post" action="${pageContext.request.contextPath }/phj/payOk">
-<div class="paybox">
-	<input type="hidden" id=sum value="${sum }"><br>
-	<input type="hidden" name="rid" id="rid" value="${rid }"><br>
-	<input type="hidden" id="ramount" value="${ramount }"><br>
-	<input type="hidden" id="rcheckin" value="${rcheckin }"><br>
-	<input type="hidden" id="rcheckout" value="${rcheckout }"><br>
-	<input type="hidden" id="rresname" value="${rresname }"><br>
-	<input type="hidden" id="rresemail" value="${rresemail }"><br>
-	<input type="hidden" id="rresphone" value="${rresphone }"><br>
-	<input type="hidden" id="rexbreaknum" value="${rexbreaknum }"><br>
-	<input type="hidden" id="rexbed" value="${rexbed }"><br>
-	<input type="hidden" id="rexperson" value="${rexperson }"><br>
-	<input type="hidden" id="rcancel" value="${rcancel }"><br>
-	<input type="hidden" id="mid" value="${mid }"><br>
-	<input type="hidden" id="riid" value="${riid }"><br>
-	<input type="hidden" id="rordernum" value="${rordernum }"><br>
-	<input type="hidden" id="rexperson" value="${rexperson }"><br>
-	<input type="hidden" id="rexbreaknum" value="${rexbreaknum }"><br>
-	<input type="hidden" id="rexbed" value="${rexbed }"><br>
+<div class="paybox" style="width:30%;text-align: center;">
+	<br>
+	<input type="text" name="rid" id="rid" value="${rid }">
+	<input type="hidden" id="ramount" value="${ramount }">
+	<input type="hidden" id="rcheckin" value="${rcheckin }">
+	<input type="hidden" id="rcheckout" value="${rcheckout }">
+	<input type="hidden" id="rresname" value="${rresname }">
+	<input type="hidden" id="rresemail" value="${rresemail }">
+	<input type="hidden" id="rresphone" value="${rresphone }">
+	<input type="hidden" id="rexbreaknum" value="${rexbreaknum }">
+	<input type="hidden" id="rexbed" value="${rexbed }">
+	<input type="hidden" id="rexperson" value="${rexperson }">
+	<input type="hidden" id="rcancel" value="${rcancel }">
+	<input type="hidden" id="mid" value="${mid }">
+	<input type="hidden" id="riid" value="${riid }">
+	<input type="hidden" id="rordernum" value="${rordernum }">
+	<input type="hidden" id="rexperson" value="${rexperson }">
+	<input type="hidden" id="rexbreaknum" value="${rexbreaknum }">
+	<input type="hidden" id="rexbed" value="${rexbed }">
+	<input type="hidden" id="totalbreakfee" value="${totalbreakfee }">
+	<input type="hidden" id="totalbedfee" value="${totalbedfee }">
 	
-	<input type="hidden" id="personfee" value="${personfee }"><br>
-	<input type="hidden" id="breakfastfee" value="${breakfastfee }"><br>
-	<input type="hidden" id="bedfee" value="${bedfee }"><br>
-	<input type="hidden" name="prefund" id="prefund" value="${prefund }"><br>
-	<br>
-	<br>
+	<input type="hidden" id="totalpersonfee" value="${totalpersonfee }">
+	<input type="hidden" id="breakfastfee" value="${breakfastfee }">
+	<input type="hidden" name="prefund" id="prefund" value="${prefund }">
+	<h2>예약을 완성하세요!</h2>
 	<table class="table">
 		<tr>
-			<th>결제 가격 </th>
+			
+			<img src="${pageContext.request.contextPath }/resources/images/accommodations/booking_phj.png"  style="text-align: center; width:100%;height: 100%;">
+			
+		</tr>
+		<tr>
+			<th>방 가격 </th>
+			<td><input type="text" id=sum value="${sum }" style="border: none"></td>
+		</tr>
+		<tr>
+			<th>인원 추가 비용 </th>
+			<td id="totalpersonfee1"></td>
+		</tr>
+		<tr>
+			<th>조식 추가 비용 </th>
+			<td id="totalbreakfee1"></td>
+		</tr>
+		<tr>
+			<th>침대 추가 비용 </th>
+			<td id="totalbedfee1"></td>
+		</tr>
+		<tr>
+			<th>총 결제 가격 </th>
 			<td><input name="totalFee" id="totalFee"type="text" value="" style="border: none"></td>
 		</tr>
 	</table>
@@ -87,22 +108,23 @@
 </body>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$.ajax({
-			success:function(e){
-				var rexperson=parseInt($("#rexperson").val());
-				var rexbreaknum=parseInt($("#rexbreaknum").val());
-				var rexbed=parseInt($("#rexbed").val());
-				var personfee=parseInt($("#personfee").val());
-				var breakfastfee=parseInt($("#breakfastfee").val());
-				var bedfee=parseInt($("#bedfee").val());
-				var sum=parseInt($("#sum").val());
-				console.log(sum*1000);
-				var total=(sum*1000)+(rexperson*personfee)+(rexbreaknum*breakfastfee)+(rexbed*bedfee);
-				$('input[name=totalFee]').attr('value',total);
-				
-			}
-		})
+		var totalpersonfee=parseInt($("#totalpersonfee").val());
+		var totalbreakfee=parseInt($("#totalbreakfee").val());
+		var totalbedfee=parseInt($("#totalbedfee").val());
+		var sum=parseInt($("#sum").val());
+		$('#totalpersonfee1').text(numberWithCommas(totalpersonfee));
+		$('#totalbreakfee1').text(numberWithCommas(totalbreakfee));
+		$('#totalbedfee1').text(numberWithCommas(totalbedfee));
+		console.log(sum*1000);
+		var total=(sum*1000)+totalpersonfee+totalbreakfee+totalbedfee;
+		$('input[name=totalFee]').attr('value',numberWithCommas(total));
+		
 	})
+	
+	function numberWithCommas(x) {
+	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	}
+	
 	$(function(){
 		$('#kakao').click(function(){
 			$.ajax({
@@ -202,6 +224,7 @@
 				success:function(data){
 					console.log(data);
 					if(data.code=='success'){
+						insertPaymentOk("card", data.rid);
 						console.log(data.code);
 						location.href="/project/approval";
 					}else{
@@ -215,6 +238,18 @@
 		}
 		alert(msg);
 		});
-});
+	});
+	
+	function insertPaymentOk(pmethod, rid){
+		var ptotal=parseInt($("#totalFee").val().replace(/,/gi, ""));
+		var mid=$("#mid").val();
+		$.ajax({
+			url:"/project/phj/paymentInsertOk",
+			data:JSON.stringify({"pmethod":pmethod,"ptotal":ptotal,"rid":rid,"mid":mid}),
+			type:"post",
+			dataType:"json",
+			contentType:'application/json'
+		})
+	}
 </script>
 </html>

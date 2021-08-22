@@ -49,7 +49,7 @@ public class ReservationController_phj {
 	}
 	@RequestMapping(value="phj/reservationOk",method=RequestMethod.GET)
 	public ModelAndView ReservationInsert(ReservationVo vo,String sum,int rexperson,int rexbed,int rexbreaknum,
-			String breakfastfee,String bedfee,String personfee) {
+			String breakfastfee,String bedfee,String personfee,String totalbedfee,String totalbreakfee) {
 		ModelAndView mv=new ModelAndView("user/phj/pay");
 		mv.addObject("sum", sum);
 		mv.addObject("rid", vo.getRid());
@@ -71,18 +71,21 @@ public class ReservationController_phj {
 		mv.addObject("rexbed", rexbed);
 		mv.addObject("breakfastfee",breakfastfee);
 		mv.addObject("bedfee", bedfee);
-		mv.addObject("personfee", personfee);
+		mv.addObject("totalpersonfee", personfee);
+		mv.addObject("totalbedfee", totalbedfee);
+		mv.addObject("totalbreakfee", totalbreakfee);
 		mv.addObject("code","success");
 		mv.addObject("code","fail");
 		return mv;
 	}
 	
 	@RequestMapping(value="phj/insert",produces = {MediaType.APPLICATION_JSON_VALUE})
-	public @ResponseBody HashMap<String, String> insert(
+	public @ResponseBody HashMap<String, Object> insert(
 			@RequestBody ReservationVo vo) {
-		HashMap<String, String> map=new HashMap<String, String>();
+		HashMap<String, Object> map=new HashMap<String, Object>();
 		try {
 			service.insertRes(vo);
+			map.put("rid",vo.getRid());
 			map.put("code","success");
 		}catch(Exception e) {
 			e.printStackTrace();

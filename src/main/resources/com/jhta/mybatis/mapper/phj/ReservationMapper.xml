@@ -8,6 +8,10 @@
 		values(seq_reservation.nextval,#{rordernum},#{ramount},#{rcheckin},#{rcheckout},
 		#{rresname},#{rresphone},#{rresemail},#{rexbreaknum},#{rexbed},
 		#{rexperson},#{rcancel},#{mid},#{riid})
+		
+		<selectKey keyProperty="rid" resultType="int" order="AFTER">
+        	SELECT SEQ_reservation.CURRVAL FROM DUAL
+    	</selectKey>
 	</insert>
 	<select id="selectRes" parameterType="String" resultType="com.jhta.project.vo.phj.ReservationVo">
 		select * from reservation where mid=#{mid}

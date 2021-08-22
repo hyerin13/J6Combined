@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -161,7 +162,9 @@ body .no-padding {
 </style>
 </head>
 <body>
-	
+	<div class="board_header">
+		<jsp:include page="board_header.jsp" flush="true"/>
+	</div>
 	<table class="table">
 		<tr>
 			<th>글번호</th>
@@ -218,13 +221,34 @@ body .no-padding {
 			</div>
 			<!-- Widget Area -->
 		</div>
+	</div>
+	<c:choose>
+		<c:when test="${prevVo eq null }">
+			이전글 없음
+		</c:when>
+		<c:otherwise>
+			이전글 <a href="${pageContext.request.contextPath }/hjy/boardDetail?bid=${prevVo.bid }">${prevVo.btitle }</a>
+			<br>
+		</c:otherwise>
+	</c:choose>
+	<br>
+	<c:choose>
+		<c:when test="${nextVo eq null }">
+		다음글 없음
+	</c:when>
+		<c:otherwise>
+		다음글 <a
+				href="${pageContext.request.contextPath }/hjy/boardDetail?bid=${nextVo.bid }">${nextVo.btitle }</a>
+		</c:otherwise>
+	</c:choose>
+</body>
 		<script type="text/javascript">
 			$(document).ready(function() {
 				list();
 				$("#btnAdd").click(function(){
 					$.ajax({
 						url:"${pageContext.request.contextPath }/hjy/commentInsert",
-						data:{"ccontent":$("#ccontentText").val(),"bid":${vo.bid},"mid":"${id}"},
+						data:{"ccontent":$("#ccontentText").val(),"bid":${vo.bid}},
 						type:"post",
 						dataType:"json",
 						success:function(data){
@@ -356,39 +380,19 @@ body .no-padding {
 				});
 			}
 
-			function commentPlus(cid,num){
-				$.ajax({
-					url:"${pageContext.request.contextPath }/hjy/findComment",
-					data:{"cid":cid},
-					type:"post",
-					dataType:"json",
-					success:function(data){
-						let cmtHtml = "";
-						if(data.clev>0){
-							for (var j = 0; j < data.vo.clev; j++) {
-								cmtHtml += "&nbsp;&nbsp";
-							}
-							cmtHtml +="[re]";
-						}
-						cmtHtml +="<div>";
-						cmtHtml +="<strong> <img src=''> <span>"+data.vo.mid+"</span> ";
-						let crdate = dateFormat(data.vo.crdate);
-						cmtHtml +="<span style='color: gray;'>("+crdate+")</span> </strong>";
-						cmtHtml +="<div>";
-						cmtHtml +="<input type='text' value='"+data.vo.ccontent+"' id='cmtcmttext"+num+"'>";
-						cmtHtml +="</div>";
-						cmtHtml +="<div>";
-						cmtHtml +="<a href='javascript:list()'>취소</a>";
-						cmtHtml +="<span>|</span><a href='javascript:commentPlusDb("+cid+","+num+")'>확인</a>";
-						cmtHtml +="</div>";
-						cmtHtml +="</div>";
-						$("#cmtcmt"+num).append(cmtHtml);
-					}
-				});
+			function commentPlus(cid,num){	
+				var cmtHtml = "";
+				cmtHtml +="<div>";
+				cmtHtml +="<input type='text' id='cmtcmttext"+num+"'>";
+				cmtHtml +="<a href='javascript:list()'>취소</a>";
+				cmtHtml +="<span>|</span><a href='javascript:commentPlusDb("+cid+","+num+")'>확인</a>";
+				cmtHtml +="</div>";
+				$("#cmtcmt"+num).append(cmtHtml);
+			
 			}
 			
 			function dateFormat(date) {
-				var dt = new Date(date.production_date);
+				var dt = new Date(date);
 		        let month = dt.getMonth() + 1;
 		        let day = dt.getDate();
 		        let hour = dt.getHours();
@@ -404,26 +408,4 @@ body .no-padding {
 		        return dt.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
 			}
 		</script>
-	</div>
-	<c:choose>
-		<c:when test="${prevVo eq null }">
-		이전글 없음
-	</c:when>
-		<c:otherwise>
-		이전글 <a
-				href="${pageContext.request.contextPath }/hjy/boardDetail?bid=${prevVo.bid }">${prevVo.title }</a>
-			<br>
-		</c:otherwise>
-	</c:choose>
-	<br>
-	<c:choose>
-		<c:when test="${nextVo eq null }">
-		다음글 없음
-	</c:when>
-		<c:otherwise>
-		다음글 <a
-				href="${pageContext.request.contextPath }/hjy/boardDetail?bid=${nextVo.num }">${nextVo.title }</a>
-		</c:otherwise>
-	</c:choose>
-</body>
 </html>

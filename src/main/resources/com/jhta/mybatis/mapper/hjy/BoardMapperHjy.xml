@@ -5,12 +5,12 @@
 <mapper namespace="com.jhta.mybatis.mapper.hjy.BoardMapperHjy">
 	<sql id="search">
 		<if test="field!=null and field!=''">
-			where ${field} like '%'||#{keyword}||'%'
+			and ${field} like '%'||#{keyword}||'%'
 		</if>
 	</sql>
 	
 	<select id="count" resultType="int" parameterType="hashmap">
-		select NVL(count(*),0) cnt from board
+		select NVL(count(*),0) cnt from board where bcate=#{bcate}
 		<include refid="search" />
 	</select>
 	<select id="list" parameterType="hashmap"
@@ -19,7 +19,7 @@
 		(
 		select aa.*, rownum rnum from
 		(
-		select bid,bcate,btitle,brdate,mid from board
+		select bid,bcate,btitle,brdate,mid from board where bcate=#{bcate}
 		<include refid="search" />
 		order by bid desc
 		)aa

@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>자유게시판</title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 </head>
 <body>
 	<div class="board_header">
@@ -32,8 +33,24 @@
 		</tr>
 	</c:forEach>
 </table>
+<div >
+	<c:forEach var="i" begin="${pu.startPageNum }" end="${pu.endPageNum }">
+		<c:choose>
+			<c:when test="${pu.pageNum==i }"><!-- 현재페이지 -->
+				<a href="/project/hjy/all?pageNum=${i }&field=${field}&keyword=${keyword}">
+				<span style='color:blue;font-weight: bold'>[${i }]</span>
+				</a>
+			</c:when>
+			<c:otherwise>
+				<a href="/project/hjy/all?pageNum=${i }&field=${field}&keyword=${keyword}">
+				<span style='color:gray;'>[${i }]</span>
+				</a>
+			</c:otherwise>
+		</c:choose>
+	</c:forEach>
+</div>
 <div>
-	<form method="post" action="${pageContext.request.contextPath }/list">
+	<form action="${pageContext.request.contextPath }/hjy/all">
 		<select name = "field">
 			<option value="btitle" <c:if test="${field=='btitle' }">selected</c:if>>제목</option>
 			<option value="mid" <c:if test="${field=='mid' }">selected</c:if>>글쓴이</option>

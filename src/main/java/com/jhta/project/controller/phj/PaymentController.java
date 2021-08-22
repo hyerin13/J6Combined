@@ -9,19 +9,25 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.jhta.project.service.phj.PaymentService_phj;
 import com.jhta.project.vo.phj.PaymentVo_phj;
 import com.jhta.project.vo.phj.ReservationVo;
 
 @Controller
 public class PaymentController {
+	@Autowired private PaymentService_phj service;
 	@GetMapping("/pay")
 	public String reservationForm() {
 		return "user/phj/pay";
@@ -41,20 +47,18 @@ public class PaymentController {
 		return "user/phj/fail";
 	}
 	
-	@RequestMapping(value="/phj/payOk",method=RequestMethod.GET)
-	public ModelAndView ReservationInsert(PaymentVo_phj vo) {
-		ModelAndView mv=new ModelAndView("user/phj/approval");
-		mv.addObject("pid", vo.getPid());
-		mv.addObject("rid", vo.getRid());
-		mv.addObject("pmethod", vo.getPmethod());
-		mv.addObject("pdate", vo.getPdate());
-		mv.addObject("ptotal", vo.getPtotal());
-		mv.addObject("prefund", vo.getPrefund());
-		mv.addObject("rid", vo.getRid());
-		mv.addObject("mid", vo.getMid());
-		mv.addObject("code","success");
-		mv.addObject("code","fail");
-		return mv;
+	@RequestMapping(value="phj/paymentInsertOk",produces = {MediaType.APPLICATION_JSON_VALUE})
+	public @ResponseBody HashMap<String, String> insert(
+			@RequestBody PaymentVo_phj vo) {
+		HashMap<String, String> map=new HashMap<String, String>();
+		try {
+			service.insertPayOk(vo);
+			map.put("code","success");
+		}catch(Exception e) {
+			e.printStackTrace();
+			map.put("code","fail");
+		}
+		return map;
 	}
 	
 	@ResponseBody
