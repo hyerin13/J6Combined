@@ -20,7 +20,7 @@ $(document).ready(function() {
 	    //Bfrtip: excel로 다운로드 기능
 	    dom:'Bfrtip',
 	    buttons:[
-	    'excel'
+	     'copy', 'excel', 'pdf', 'print'
 	    ]
 	} );
 	//객실별 예약율
@@ -42,7 +42,7 @@ $(document).ready(function() {
 	    serverSide: false,
 	    dom:'Bfrtip',
 	    buttons:[
-	    'excel'
+	     'copy', 'excel', 'pdf', 'print'
 	    ]
 	} );
 	
@@ -67,7 +67,7 @@ $(document).ready(function() {
 		    serverSide: false,
 		    dom:'Bfrtip',
 		    buttons:[
-		    'excel'
+		     'copy', 'excel', 'pdf', 'print'
 		    ]
 		} );
 		//객실별 예약율
@@ -90,7 +90,7 @@ $(document).ready(function() {
 		    serverSide: false,
 		    dom:'Bfrtip',
 		    buttons:[
-		    'excel'
+		     'copy', 'excel', 'pdf', 'print'
 		    ]
 		} );
 	})

@@ -88,4 +88,53 @@ $.ajax({
 		}
 	});
 	
+//취소환불 신청내역
+	$('#cancelTable').dataTable({
+  		ajax:{
+  		"url":"/project/admin/cjy/rvcancel",
+  		"dataType":"json",
+  		"dataSrc":"data"
+  		 },
+         columns:[
+         	{"data": "rid"},
+         	{"data": "ramount"},
+         	{"data": "rcheckin"},
+         	{"data": "rcheckout"},
+         	{"data": "rresname"},
+         	{"data": "rcancel"},
+         	{"data": "mid"},
+         	{"data": "riid"},
+         ],
+         serverSide: false,
+         searching: false,
+         bLengthChange: false,
+         info: true,
+   });
+
+//로그아웃태그클릭시 실행
+	$("#logoutAtag").click(function(){
+		$.ajax({
+				url:path+"hjy/admin/logout",
+				type:"get",
+				dataType:"json",
+				success:function(data){
+					location.href=path+"admin/login.html";
+				}
+		});
+	})
+   
 });
+$(document).ready(function() {
+	//아이디 불러오기
+	$.ajax({
+			url:path+"hjy/admin/getid",
+			data:{aid:$("#exampleInputEmail").val(),apw:$("#exampleInputPassword").val()},
+			type:"get",
+			dataType:"json",
+			success:function(data){
+			console.log(data)
+				$("#adminid").html(data.adminid);
+			}
+	});
+})
+

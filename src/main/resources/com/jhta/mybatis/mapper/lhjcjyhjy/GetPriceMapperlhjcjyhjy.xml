@@ -52,6 +52,9 @@
 		<if test="bookmark!=null">
 			and aname like '%'||#{bookmark}||'%'
 		</if>
+		<if test="autoaname!=null">
+			and aname like '%'||#{autoaname}||'%'
+		</if>
 		<if test="restar!=null">
 			and NVL(restar,0)>=#{restar}
 		</if>

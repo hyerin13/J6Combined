@@ -63,50 +63,48 @@ public class FirstSearchAjaxControllerHjy {
 	
 	@RequestMapping(value = "hjy/firstsearchajax", method = RequestMethod.GET)
 	public HashMap<String, Object> searchGet(String searchHotel, String checkin, String checkout, String countPeople, String countRoom,
-			 String fac, String minprice, String maxprice,String sort,String restar,String agrade, HttpSession session) {
+			 String fac, String minprice, String maxprice,String sort,String restar,String agrade,String autoaname, HttpSession session) {
 			String [] facilities = fac.split(",");
-		return execute(searchHotel, checkin, checkout, countPeople, countRoom,facilities,minprice,maxprice,sort,restar,agrade,session);
+		return execute(searchHotel, checkin, checkout, countPeople, countRoom,facilities,minprice,maxprice,sort,restar,agrade,autoaname,session);
 	}
 	
 	@RequestMapping(value = "hjy/firstsearchajax", method = RequestMethod.POST)
 	public HashMap<String, Object> searchPOST(String searchHotel, String checkin, String checkout, String countPeople, String countRoom,
-			@RequestParam(value="facilities", required = false)  String[] facilities, String minprice, String maxprice,String sort,String restar,String agrade, HttpSession session) {
-		return execute(searchHotel, checkin, checkout, countPeople, countRoom,facilities,minprice,maxprice,sort,restar,agrade,session);
+			@RequestParam(value="facilities", required = false)  String[] facilities, String minprice, String maxprice,String sort,String restar,String agrade,String autoaname, HttpSession session) {
+		return execute(searchHotel, checkin, checkout, countPeople, countRoom,facilities,minprice,maxprice,sort,restar,agrade,autoaname,session);
 
 	}
 	private HashMap<String, Object> execute(String searchHotel, String checkin, String checkout, String countPeople, String countRoom,
-			String[] facilities, String minprice, String maxprice,String sort,String restar,String agrade, HttpSession session){
+			String[] facilities, String minprice, String maxprice,String sort,String restar,String agrade,String autoaname, HttpSession session){
 		logger.debug("호텔명: "+searchHotel);
 		logger.debug("체크인날짜: "+checkin);
 		logger.debug("체크아웃날짜: "+checkout);
 		logger.debug("인원수: "+countPeople);
 		logger.debug("방수: "+countRoom);
-		String bookmark = "";
-		if(facilities!=null) {
-			for (int i = 0; i < facilities.length; i++) {
-				logger.debug("체크박스: "+facilities[i]);
-				if(facilities[i].equals("즐겨찾기")) {
-					bookmark=facilities[i];
-				};
-			}
-		}
 		logger.debug("최소가격:"+minprice);
 		logger.debug("최대가격:"+maxprice);
 		logger.debug("정렬기준:"+sort);
 		logger.debug("별점기준:"+restar);
 		logger.debug("성급기준:"+agrade);
+		logger.debug("자동완성된 호텔이름:"+autoaname);
 		
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		HashMap<String, Object> hs = new HashMap<String, Object>();
 		try {
-			DateFormat df1=new SimpleDateFormat("yyyyMMdd");
+			if(facilities!=null) {
+				for (int i = 0; i < facilities.length; i++) {
+					logger.debug("체크박스: "+facilities[i]);
+					if(facilities[i].equals("즐겨찾기")) {
+						facilities[i]="";
+						//db에서 즐겨찾는호텔 가져오기
+						String hotelname = favoriteService.find((String)session.getAttribute("mid"));
+						hs.put("bookmark", hotelname);
+						logger.debug("즐겨찾기:"+hotelname);
+					};
+				}
+			}
 			String checkin1=checkin.replace("-", "");
 			String checkout1=checkout.replace("-", "");
-			if(bookmark.equals("")==false) {
-				//db에서 즐겨찾는호텔 가져오기
-				String hotelname = favoriteService.find((String)session.getAttribute("id"));
-				hs.put("bookmark", hotelname);
-			}
 			hs.put("facilities", facilities);
 			hs.put("aaddress", searchHotel);
 			hs.put("aname", searchHotel);
@@ -122,16 +120,16 @@ public class FirstSearchAjaxControllerHjy {
 			if(agrade!=null) {
 				hs.put("agrade", agrade);
 			}
+			if(autoaname!=null) {
+				hs.put("autoaname", autoaname);
+				hs.put("autoaname", autoaname);
+			}
 			
 			result.put("aaddress", searchHotel);
 			result.put("rcheckin", checkin);
 			result.put("rcheckout", checkout);
 			result.put("rimaxper", countPeople);
 			result.put("countRoom", countRoom);
-			//if(sort.equals("all")) {
-			//	List<AccommodationsVo2lhjcjy> list=sbpservice.sortbyall(hs);
-			//	result.put("list", list);
-			//	System.out.println("calledall");
 			if(sort.equals("price_low")) {
 				List<AccommodationsVo2lhjcjy> list=sbpservice.sortPrice_low(hs);
 				result.put("list", list);
@@ -150,7 +148,7 @@ public class FirstSearchAjaxControllerHjy {
 			}else {
 				List<AccommodationsVolhjcjy> list = gpservice.getprice(hs);
 				result.put("list", list);
-				System.out.println("calledelse");
+				System.out.println("calledalld");
 				System.out.println(list);
 			}
 			//입력한 날짜 중간포함 리스트 얻기

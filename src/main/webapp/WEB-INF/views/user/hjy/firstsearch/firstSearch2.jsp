@@ -83,63 +83,17 @@ $(document).ready(function() {
 				$(this).prop('checked',false);
 			}
 		}else{
-			let templist= new Array(); 
-			checklist(templist)
-			//인근반경 거리가 상관없음일때
-			if($("#locationamount").val()!="none"){
-				//지도로보기로 지도가 펼쳐져 있을때				
-			 	if($("#gomap").html()=="돌아가기"){
-					  gomapchange(templist,locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val())
-				//리스트가 나올때				
-			 	}else{
-					list(templist,locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val())
-			 	}
-			}else{
-				if($("#gomap").html()=="돌아가기"){
-					console.log(templist)
-					  gomapchange(templist)
-			 	}else{
-					list(templist)
-			 	}
-			}
+			callList()
 		}
 	})
 	//편의시설 체크박스 클릭 시 실행되는 ajax -지영o
 	$("#facilities input").click(function() {
-		let templist= new Array(); 
-		checklist(templist)
-			if($("#locationamount").val()!="none"){
-			 	if($("#gomap").html()=="돌아가기"){
-					  gomapchange(templist,locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val())
-			 	}else{
-					list(templist,locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val())
-			 	}
-			}else{
-				if($("#gomap").html()=="돌아가기"){
-					  gomapchange(templist)
-			 	}else{
-					list(templist)
-			 	}
-			}
+		callList()
 	})
 		
 	//무료시설 체크박스 클릭 시 실행되는 ajax -지영o
 	$("#forFree input").click(function() {
-		let templist= new Array(); 
-		checklist(templist)
-		if($("#locationamount").val()!="none"){
-		 	if($("#gomap").html()=="돌아가기"){
-				  gomapchange(templist,locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val())
-		 	}else{
-				list(templist,locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val())
-		 	}
-		}else{
-			if($("#gomap").html()=="돌아가기"){
-				  gomapchange(templist)
-		 	}else{
-				list(templist)
-		 	}
-		}
+		callList()
 	})
 	
 	//숙소이름 자동완성 검색 -지영o
@@ -233,102 +187,27 @@ $(document).ready(function() {
 	})
 });
 
-
-//지도로 보기 ajax받아와서 뿌려주기 -지영
-function gomapchange(facilities,axcoordi,aycoordi,distance){
-	  let gomapchange = new naver.maps.Map('gomapchange', {
-          center: new naver.maps.LatLng(ycoordi, xcoordi),
-          zoom: 13
-      })
-	var latlngs = [];
-    var contentString=[];
-    var fac = "";
-    for (var i = 0; i < facilities.length; i++) {
-		fac+=facilities[i];
-		if(i !=facilities.length-1){
-			fac+=",";
-		}
+//조건에 따른 list내역(지도로보기,리스트보기) 호출을 위한 function
+function callList(){
+	let templist= new Array(); 
+	checklist(templist)
+	//인근반경 거리가 상관없음일때
+	if($("#locationamount").val()!="none"){
+		//지도로보기로 지도가 펼쳐져 있을때				
+	 	if($("#gomap").html()=="돌아가기"){
+			  gomapchange(templist,locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val())
+		//리스트가 나올때				
+	 	}else{
+			list(templist,locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val())
+	 	}
+	}else{
+		if($("#gomap").html()=="돌아가기"){
+			  gomapchange(templist)
+	 	}else{
+			list(templist)
+	 	}
 	}
-	  $.ajax({
-			url:"${pageContext.request.contextPath }/hjy/firstsearchajax",
-			 async: false,
-			data:{"searchHotel":"${aaddress }","checkin":"${rcheckin }","checkout":"${rcheckout }","countRoom":"${countRoom }","countPeople":"${rimaxper}",
-				"fac":fac,"xcoordi":axcoordi,"ycoordi":aycoordi,"distance":distance},
-			type:"get",
-			dataType:"json",
-			success:function(data){
-				if(data.code=='success'){
-		        	for (var i = 0; i < data.list.length; i++) {
-		        		if(data.list[i].aycoordi>100){
-							let listxy = changeXY(data.list[i].axcoordi,data.list[i].aycoordi);
-							latlngs.push(new naver.maps.LatLng(listxy[1], listxy[0]));
-		        		}else{
-							latlngs.push(new naver.maps.LatLng(data.list[i].aycoordi, data.list[i].axcoordi));
-		        		}
-						if(data.list[i].amainimg==null){
-							contentString.push(
-				    		          '<div class="iw_inner"><h3>'+data.list[i].aname+'</h3><p>'+data.list[i].aaddress
-				    		          +'<br /> <img src="${pageContext.request.contextPath }/resources/images/accommodations/220i0z000000mulfw433F_Z_1080_808_R5_D.jpg" width="300" height="250" /><br />'
-				    		          +'전화번호: '+data.list[i].aphone+' | 가격: '+data.list[i].amountsum+'<br/>'
-				    		          +"<button class='btn' onclick=\""
-									  +"location.href='${pageContext.request.contextPath }/user/kjy/room_info?AID="+data.list[i].aid
-									  +"&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+data.checkin+"&endday="+data.checkout+"'\">예약하기</button>"
-									  +'</p></div>'
-									  )
-					   }else{
-						   contentString.push(
-				    		          '<div class="iw_inner"><h3>'+data.list[i].aname+'</h3><p>'+data.list[i].aaddress
-				    		          +'<br /> <img src="${pageContext.request.contextPath }/resources/images/accommodations/'+data.list[i].amainimg+'"width="300" height="250"/><br />'
-				    		          +data.list[i].aphone+' | '+data.list[i].amountsum+'<br/>'
-				    		          +"<button class='btn' onclick=\""
-									  +"location.href='${pageContext.request.contextPath }/user/kjy/room_info?AID="+data.list[i].aid
-									  +"&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+data.checkin+"&endday="+data.list[i].amainimg
-									  +"'\">예약하기</button>"
-									  +'</p></div>'
-									  )
-						   }
-    		        	}
-					}
-				}
-		  })	
-
-		  var markerList = [];
-		  for (var i=0, ii=latlngs.length; i<ii; i++) {
-	          let marker = new naver.maps.Marker({
-	              position: latlngs[i],
-	              map: gomapchange
-	          });
-	          marker.set('seq', i);
-	          
-		      markerList.push(marker);
-		      
-		      marker.addListener('click', marckerClick);
-		      
-		      marker = null;
-	  }
-
-	  function marckerClick(e){
-		  var marker = e.overlay;
-	      seq = marker.get('seq');
-	      var infowindow = new naver.maps.InfoWindow({
-		      content: contentString[seq],
-		      maxWidth: 200,
-		      backgroundColor: "#eee",
-		      borderColor: "#2db400",
-		      borderWidth: 5,
-		      anchorSize: new naver.maps.Size(30, 30),
-		      anchorSkew: true,
-		      anchorColor: "#eee",
-		      pixelOffset: new naver.maps.Point(20, -20)
-		  	});
-	      
-		  if (infowindow.getMap()) {
-	          infowindow.close();
-	      } else {
-	          infowindow.open(gomapchange, marker);
-	      }
-	  }  
- }
+}
 
 //선호호텔체인,부대시설,무료시설 체크박스 선택되어있는지 체크해주는 function -지영
 function checklist(templist){
@@ -355,7 +234,7 @@ $("#favorite input").each(function(){
 //좌표(X,Y) 위도경도로 변환함수 -지영
 function changeXY(xcoordi,ycoordi){
 let xy=[];
-if(ycoordi*1>100){
+if(xcoordi*1>100){
 	console.log('변환계 사용')
 	// point array 1
     var point1 = [xcoordi*1, ycoordi*1]
@@ -374,25 +253,108 @@ if(ycoordi*1>100){
 return xy;
 }
 
+//db에 받아온 주소를 좌표로 변환해서 xcoordi, ycoordi에 저장하기+왼쪽 거리검색의 센터를 해당 좌표로 지정 -지영
+function searchAddressToCoordinate(address) {
+	naver.maps.Service.geocode({
+	  query: address
+	}, function(status, response) {
+	  if (status === naver.maps.Service.Status.ERROR) {
+	    if (!address) {
+	      return alert('Geocode Error, Please check address');
+	    }
+	    return alert('Geocode Error, address:' + address);
+	  }
+	  if (response.v2.meta.totalCount === 0) {
+	    return alert('검색결과가 없습니다.');
+	  }
+	  var htmlAddresses = [],
+	    item = response.v2.addresses[0],
+	    point = new naver.maps.Point(item.x, item.y);
+	    xcoordi = item.x;
+	    ycoordi = item.y;
+	  if (item.roadAddress) {
+	    htmlAddresses.push('[도로명 주소] ' + item.roadAddress);
+	  }
+	  if (item.jibunAddress) {
+	    htmlAddresses.push('[지번 주소] ' + item.jibunAddress);
+	  }
+	  if (item.englishAddress) {
+	    htmlAddresses.push('[영문명 주소] ' + item.englishAddress);
+	  }
+	locationmap.setCenter(point);
+	});
+}
+
 //위도 경도를 통해 거리 구하는 함수 -지영
 function isdistancein(coords1, coords2) {
-var isdistanceinlat1 = coords1[0];
-var isdistanceinlon1 = coords1[1];
-var isdistanceinlat2 = coords2[0];
-var isdistanceinlon2 = coords2[1];
-function deg2rad(deg) {
-    return deg * (Math.PI/180)
+	var isdistanceinlat1 = coords1[0];
+	var isdistanceinlon1 = coords1[1];
+	var isdistanceinlat2 = coords2[0];
+	var isdistanceinlon2 = coords2[1];
+	function deg2rad(deg) {
+	    return deg * (Math.PI/180)
+	}
+	var r = 6371; //지구의 반지름(km)
+	var dLat = deg2rad(isdistanceinlat2-isdistanceinlat1);
+	var dLon = deg2rad(isdistanceinlon2-isdistanceinlon1);
+	var a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
+	Math.cos(deg2rad(isdistanceinlat1)) * Math.cos(deg2rad(isdistanceinlat2)) * 
+	Math.sin(dLon/2) * Math.sin(dLon/2);
+	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+	var d = r * c; // Distance in km
+	return Math.round(d*1000);
 }
-var r = 6371; //지구의 반지름(km)
-var dLat = deg2rad(isdistanceinlat2-isdistanceinlat1);
-var dLon = deg2rad(isdistanceinlon2-isdistanceinlon1);
-var a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
-Math.cos(deg2rad(isdistanceinlat1)) * Math.cos(deg2rad(isdistanceinlat2)) * 
-Math.sin(dLon/2) * Math.sin(dLon/2);
-var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-var d = r * c; // Distance in km
-return Math.round(d*1000);
+
+//찍힌 좌표와 선택한 반경에 따라 원 그려주기 -지영
+function makeCircle(locationmap,locationposition,size){
+	circle.push(
+		new naver.maps.Circle({
+	        map: locationmap,
+	        center: locationposition,
+	        radius: size,//m단위의 반지름 입력
+	        fillColor: 'crimson',
+	        fillOpacity: 0.8
+	    })
+	);
 }
+
+//리스트에 호텔 위치에 맞는 지도+핀 표시하기 -지영
+function mainMapList(index){
+	var mainmaplist = new Array();
+	mainmaplist.push(index);
+	console.log('in')
+	if($("#axcoordi"+index).val()*1>100){
+	    // point array 1
+	    var point1 = [$("#axcoordi"+index).val()*1, $("#aycoordi"+index).val()*1]
+	    var firstProjection = "+proj=tmerc +lat_0=38 +lon_0=127 +k=1 +x_0=200000 +y_0=500000 +ellps=bessel +units=m +no_defs"; // from
+	    var secondProjection = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"; // to
+	   
+	    // #1. 변환한 위도 경도 값 저장
+	    var lonAndLat1 = proj4(firstProjection, secondProjection, point1);// from 경위도
+		
+		var mainmap = new naver.maps.Map('map'+index, {
+		   center: new naver.maps.LatLng(lonAndLat1[1], lonAndLat1[0]),
+		    zoom: 15
+		});
+		
+		var testmarker = new naver.maps.Marker({
+		    position: new naver.maps.LatLng(lonAndLat1[1],lonAndLat1[0]),
+		    map: mainmap
+		});
+	}
+	else{
+		var hotelDetailMap = new naver.maps.Map('map'+index, {
+		    center: new naver.maps.LatLng($("#axcoordi"+index).val(), $("#aycoordi"+index).val()),
+		    zoom: 15
+		});
+	
+		var hotelDetailmarker = new naver.maps.Marker({
+		    position: new naver.maps.LatLng($("#axcoordi"+index).val(), $("#aycoordi"+index).val()),
+		    map: hotelDetailMap
+		});
+	}
+}
+
 //위의 검색조건,왼쪽 검색조건에 맞는 list뽑아주기 ajax
 function list(facilities,xcoordi,ycoordi,distance,sort){
 let changecnt=0;
@@ -414,7 +376,7 @@ let changecnt=0;
 					   //기준좌표
 					   	let refcoordi = [xcoordi, ycoordi];
 					   //db에서 불러온 좌표
-						let dbcoordi = [testxy[1],testxy[0]];
+						let dbcoordi = [testxy[0],testxy[1]];
 					   
 						console.log("숙소이름: "+data.list[i].aname);
 						console.log("두개사이의 거리: "+isdistancein(refcoordi, dbcoordi),"m");
@@ -506,89 +468,101 @@ let changecnt=0;
 	})
 }
 
-//db에 받아온 주소를 좌표로 변환해서 xcoordi, ycoordi에 저장하기+왼쪽 거리검색의 센터를 해당 좌표로 지정 -지영
-function searchAddressToCoordinate(address) {
-naver.maps.Service.geocode({
-  query: address
-}, function(status, response) {
-  if (status === naver.maps.Service.Status.ERROR) {
-    if (!address) {
-      return alert('Geocode Error, Please check address');
-    }
-    return alert('Geocode Error, address:' + address);
-  }
-  if (response.v2.meta.totalCount === 0) {
-    return alert('검색결과가 없습니다.');
-  }
-  var htmlAddresses = [],
-    item = response.v2.addresses[0],
-    point = new naver.maps.Point(item.x, item.y);
-    xcoordi = item.x;
-    ycoordi = item.y;
-  if (item.roadAddress) {
-    htmlAddresses.push('[도로명 주소] ' + item.roadAddress);
-  }
-  if (item.jibunAddress) {
-    htmlAddresses.push('[지번 주소] ' + item.jibunAddress);
-  }
-  if (item.englishAddress) {
-    htmlAddresses.push('[영문명 주소] ' + item.englishAddress);
-  }
-locationmap.setCenter(point);
-});
-}
-
-//찍힌 좌표와 선택한 반경에 따라 원 그려주기 -지영
-function makeCircle(locationmap,locationposition,size){
-circle.push(
-	new naver.maps.Circle({
-        map: locationmap,
-        center: locationposition,
-        radius: size,//m단위의 반지름 입력
-        fillColor: 'crimson',
-        fillOpacity: 0.8
-    })
-);
-}
-
-//리스트에 호텔 위치에 맞는 지도+핀 표시하기 -지영
-function mainMapList(index){
-	var mainmaplist = new Array();
-	mainmaplist.push(index);
-	if($("#aycoordi"+index).val()*1>100){
-	    // point array 1
-	    var point1 = [$("#axcoordi"+index).val()*1, $("#aycoordi"+index).val()*1]
-	    var firstProjection = "+proj=tmerc +lat_0=38 +lon_0=127 +k=1 +x_0=200000 +y_0=500000 +ellps=bessel +units=m +no_defs"; // from
-	    var secondProjection = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"; // to
-	   
-	    // #1. 변환한 위도 경도 값 저장
-	    var lonAndLat1 = proj4(firstProjection, secondProjection, point1);// from 경위도
-		
-		var mainmap = new naver.maps.Map('map'+index, {
-		   center: new naver.maps.LatLng(lonAndLat1[1], lonAndLat1[0]),
-		    zoom: 15
-		});
-		
-		var testmarker = new naver.maps.Marker({
-		    position: new naver.maps.LatLng(lonAndLat1[1],lonAndLat1[0]),
-		    map: mainmap
-		});
+//지도로 보기 ajax받아와서 뿌려주기 -지영
+function gomapchange(facilities,axcoordi,aycoordi,distance){
+	  let gomapchange = new naver.maps.Map('gomapchange', {
+          center: new naver.maps.LatLng(xcoordi,ycoordi),
+          zoom: 13
+      })
+	var latlngs = [];
+    var contentString=[];
+    var fac = "";
+    for (var i = 0; i < facilities.length; i++) {
+		fac+=facilities[i];
+		if(i !=facilities.length-1){
+			fac+=",";
+		}
 	}
-	else{
-		let copy3 = $("#aycoordi"+index).val();
-		$("#aycoordi"+index).val($("#axcoordi"+index).val());
-		$("#axcoordi"+index).val(copy3)
-		var hotelDetailMap = new naver.maps.Map('map'+index, {
-		    center: new naver.maps.LatLng($("#axcoordi"+index).val(), $("#aycoordi"+index).val()),
-		    zoom: 15
-		});
-	
-		var hotelDetailmarker = new naver.maps.Marker({
-		    position: new naver.maps.LatLng($("#axcoordi"+index).val(), $("#aycoordi"+index).val()),
-		    map: hotelDetailMap
-		});
-	}
-}
+	  $.ajax({
+			url:"${pageContext.request.contextPath }/hjy/firstsearchajax",
+			 async: false,
+			data:{"searchHotel":"${aaddress }","checkin":"${rcheckin }","checkout":"${rcheckout }","countRoom":"${countRoom }","countPeople":"${rimaxper}",
+				"fac":fac,"xcoordi":axcoordi,"ycoordi":aycoordi,"distance":distance},
+			type:"get",
+			dataType:"json",
+			success:function(data){
+				if(data.code=='success'){
+		        	for (var i = 0; i < data.list.length; i++) {
+		        		if(data.list[i].axcoordi>100){
+							let listxy = changeXY(data.list[i].axcoordi,data.list[i].aycoordi);
+							latlngs.push(new naver.maps.LatLng(listxy[0],listxy[1]));
+		        		}else{
+							latlngs.push(new naver.maps.LatLng(data.list[i].axcoordi,data.list[i].aycoordi));
+		        		}
+						if(data.list[i].amainimg==null){
+							contentString.push(
+				    		          '<div class="iw_inner"><h3>'+data.list[i].aname+'</h3><p>'+data.list[i].aaddress
+				    		          +'<br /> <img src="${pageContext.request.contextPath }/resources/images/accommodations/220i0z000000mulfw433F_Z_1080_808_R5_D.jpg" width="300" height="250" /><br />'
+				    		          +'전화번호: '+data.list[i].aphone+' | 가격: '+data.list[i].amountsum+'<br/>'
+				    		          +"<button class='btn' onclick=\""
+									  +"location.href='${pageContext.request.contextPath }/user/kjy/room_info?AID="+data.list[i].aid
+									  +"&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+data.checkin+"&endday="+data.checkout+"'\">예약하기</button>"
+									  +'</p></div>'
+									  )
+					   }else{
+						   contentString.push(
+				    		          '<div class="iw_inner"><h3>'+data.list[i].aname+'</h3><p>'+data.list[i].aaddress
+				    		          +'<br /> <img src="${pageContext.request.contextPath }/resources/images/accommodations/'+data.list[i].amainimg+'"width="300" height="250"/><br />'
+				    		          +data.list[i].aphone+' | '+data.list[i].amountsum+'<br/>'
+				    		          +"<button class='btn' onclick=\""
+									  +"location.href='${pageContext.request.contextPath }/user/kjy/room_info?AID="+data.list[i].aid
+									  +"&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+data.checkin+"&endday="+data.list[i].amainimg
+									  +"'\">예약하기</button>"
+									  +'</p></div>'
+									  )
+						   }
+    		        	}
+					}
+				}
+		  })	
+
+		  var markerList = [];
+		  for (var i=0, ii=latlngs.length; i<ii; i++) {
+	          let marker = new naver.maps.Marker({
+	              position: latlngs[i],
+	              map: gomapchange
+	          });
+	          marker.set('seq', i);
+	          
+		      markerList.push(marker);
+		      
+		      marker.addListener('click', marckerClick);
+		      
+		      marker = null;
+	  }
+
+	  function marckerClick(e){
+		  var marker = e.overlay;
+	      seq = marker.get('seq');
+	      var infowindow = new naver.maps.InfoWindow({
+		      content: contentString[seq],
+		      maxWidth: 200,
+		      backgroundColor: "#eee",
+		      borderColor: "#2db400",
+		      borderWidth: 5,
+		      anchorSize: new naver.maps.Size(30, 30),
+		      anchorSkew: true,
+		      anchorColor: "#eee",
+		      pixelOffset: new naver.maps.Point(20, -20)
+		  	});
+	      
+		  if (infowindow.getMap()) {
+	          infowindow.close();
+	      } else {
+	          infowindow.open(gomapchange, marker);
+	      }
+	  }  
+ }
 </script>
 	<!--banner section-->
 	<section class="title-banner py-4 bg-orange" id="title-banner">
@@ -831,7 +805,7 @@ function mainMapList(index){
 									    var ycoordi; 
 									    var circle =[];
 									  	searchAddressToCoordinate($("#searchHotel").val());
-									    var locationposition = new naver.maps.LatLng(ycoordi, xcoordi);
+									    var locationposition = new naver.maps.LatLng(xcoordi, ycoordi);
 									    var locationmap = new naver.maps.Map('locationmap', {
 									        center: locationposition,
 									        zoom: 15

@@ -186,8 +186,8 @@ button:hover {
 					type="button" value="주소 검색" onclick="go()">
 			</div>
 			<div id="map" style="width: 100%; height: 400px;">
-				<input type="hidden" name="axcoordi" id="xcoordi"> 
-				<input type="hidden" name="aycoordi" id="ycoordi">
+				<input type="hidden" name="aycoordi" id="xcoordi"> 
+				<input type="hidden" name="axcoordi" id="ycoordi">
 			</div> 
 			<div class="line-box">
 				<div class="line"></div>

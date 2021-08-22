@@ -57,10 +57,10 @@ a {
 	
 <!------ Include the above in your HEAD tag ---------->
 <script type="text/javascript">
+let aname;
 function collectInfo(){
 	let countRoom=$("#countRoom").val();
 	let countPeople=$("#countPeople").val();
-	console.log(countRoom)
 	$("#showInfo").val("객실"+countRoom+"인원"+countPeople);
 }
 $(function(){
@@ -74,7 +74,6 @@ $(function(){
 				data:{"aname":aname,"aaddress":aname},
 				dataType:"json",
 				success:function(data){
-					console.log(data)
 					response(
 						$.map(data.list,function(item){
 							return{
@@ -111,6 +110,13 @@ $(function(){
         .appendTo( ul );
  	};
  	
+ 	//숙소이름 자동완성 검색에 아무것도 안써져있을때 수행 -지영
+ 	$("#searchHotelname").focusout(function() {
+ 		if($(this).val()==""){
+ 			aname="";
+ 			callList();
+ 		}
+ 	});
  	//숙소이름 자동완성 검색 -지영
 	$("#searchHotelname").autocomplete({
 		source:function(request,response){
@@ -134,9 +140,9 @@ $(function(){
 			})
 		},
 		select:function(event,ui){
-			console.log(ui);
-			console.log(ui.item.label);
-			console.log(ui.item.value);
+			aname =ui.item.value;
+			console.log("aname",aname)
+			callList();
 		},
 		focus:function(event,ui){
 			return false; //한글 에러잡기
@@ -150,7 +156,8 @@ $(function(){
 		//disabled:true, //자동완성기능 끄기
 		//position:{my:"right top", at:"right bottom"},
 		close:function(event){
-			console.log(event);
+			//if(event.)
+			//console.log("event",event)
 		}
 	}).autocomplete( "instance" )._renderItem = function( ul, item ) {    //요 부분이 UI를 마음대로 변경하는 부분
         return $( "<li>" )    //기본 tag가 li로 되어 있음 
@@ -160,140 +167,29 @@ $(function(){
  	
  	//즐겨찾기 체크박스 클릭 시 실행되는 ajax -지영
 	$("#favorite input").click(function() {
-		let grade;
-		let star;
-		//성급 몇인지 뽑아오는부분
- 		for (var i =1; i <= 5; i++) {
- 			if($("#grade"+i).attr('style')=="background-color: #00AEF0"){
- 				grade = $("#grade"+i).attr('id')
- 				grade = grade.substring(5)
- 				break;
- 			};
-		}
- 		//리뷰별점 몇인지 뽑아오는부분
- 		for (var i =1; i <= 5; i++) {
- 			if($("#star"+i).attr('style')=="background-color: #00AEF0"){
- 				star = $("#star"+i).attr('id')
- 				star = star.substring(4)
- 				break;
- 			};
-		}
-		
-		if(!sessionStorage.getItem('id') ){
-			alert('로그인 하셔야 이용할 수 있는 서비스입니다.')
-			$(this).prop('checked',false)
-		}else{
-			let templist= new Array(); 
-			checklist(templist)
-			//인근반경 거리가 상관없음일때
-			if($("#locationamount").val()!="none"){
-				//지도로보기로 지도가 펼쳐져 있을때				
-			 	if($("#gomap").html()=="돌아가기"){
-			 		console.log("gomap성공1"+templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-					gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
-				//리스트가 나올때				
-			 	}else{
-			 		console.log("gomap성공2"+templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-					list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-			 	}
-			}else{
-				if($("#gomap").html()=="돌아가기"){
-					console.log("gomap돌아가기성공1"+templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-					gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-			 	}else{
-			 		console.log("gomap돌아가기성공2"+(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star))
-					list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-			 	}
-			}
+		if("${mid}"=="undifined" || "${mid}"==""){
+		console.log(${mid})
+        	var confirmcheck=confirm("로그인 하셔야 이용할 수 있는 서비스입니다. 로그인 하시겠습니까?")
+        	if(confirmcheck	){
+        		alert("로그인창으로 이동합니다.");
+        		location.href = "${pageContext.request.contextPath }/jhr/login";
+				$(this).prop('checked',false)
+        	}else{
+				$(this).prop('checked',false)
+        	}
+        }else{
+			callList();
 		}
 	})
 	
 	//편의시설 체크박스 클릭 시 실행되는 ajax -지영
 	$("#facilities input").click(function() {
-		let templist= new Array(); 
-		checklist(templist)
-		let grade;
-		let star;
-		//성급 몇인지 뽑아오는부분
- 		for (var i =1; i <= 5; i++) {
- 			if($("#grade"+i).attr('style')=="background-color: #00AEF0"){
- 				grade = $("#grade"+i).attr('id')
- 				grade = grade.substring(5)
- 				break;
- 			};
-		}
- 		//리뷰별점 몇인지 뽑아오는부분
- 		for (var i =1; i <= 5; i++) {
- 			if($("#star"+i).attr('style')=="background-color: #00AEF0"){
- 				star = $("#star"+i).attr('id')
- 				star = star.substring(4)
- 				break;
- 			};
-		}
-			//인근반경 선택 했을때
-			if($("#locationamount").val()!="none"){
-				//만약 지도로보기 눌렀을때
-			 	if($("#gomap").html()=="돌아가기"){
-			 		console.log("gomapok1"+templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-					gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
-				//만약 지도로보기 안눌렀을때(호텔리스트보이는상태)
-			 	}else{
-			 		console.log("gomapok2"+templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-					list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
-			 	}
-			//인근반경 선택 안했을때
-			}else{
-				if($("#gomap").html()=="돌아가기"){
-					console.log("gomapok3"+templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-					gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-
-			 	}else{
-			 		console.log("gomapok4"+templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-					list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-			 	}
-			}
+ 		callList()
 	})
 		
 	//무료시설 체크박스 클릭 시 실행되는 ajax -지영
 	$("#forFree input").click(function() {
-		let templist= new Array(); 
-		checklist(templist)
-		let grade;
-		let star;
-		//성급 몇인지 뽑아오는부분
- 		for (var i =1; i <= 5; i++) {
- 			if($("#grade"+i).attr('style')=="background-color: #00AEF0"){
- 				grade = $("#grade"+i).attr('id')
- 				grade = grade.substring(5)
- 				break;
- 			};
-		}
- 		//리뷰별점 몇인지 뽑아오는부분
- 		for (var i =1; i <= 5; i++) {
- 			if($("#star"+i).attr('style')=="background-color: #00AEF0"){
- 				star = $("#star"+i).attr('id')
- 				star = star.substring(4)
- 				break;
- 			};
-		}
-		if($("#locationamount").val()!="none"){
-		 	if($("#gomap").html()=="돌아가기"){
-		 		console.log("gomapok1"+templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
-				gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
-		 	}else{
-		 		console.log("gomapok2"+templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
-				list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
-		 	}
-		}else{
-			if($("#gomap").html()=="돌아가기"){
-				console.log("gomapok3"+templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-				gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-
-		 	}else{
-		 		console.log("gomapok4"+templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-				list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-		 	}
-		}
+ 		callList()
 	})
 	
 	//거리를 통한 검색의 select옵션이 변경되었을때 실행될 함수 -지영
@@ -324,69 +220,16 @@ $(function(){
     	let templist= new Array(); 
 		checklist(templist)
     	if($(this).val()=="none"){
-    		console.log(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-    		list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
+    		list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star,aname)
     	}else{
     	makeCircle(locationmap,locationmarker.getPosition(),$(this).val());
-    	console.log(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star);
-		list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$(this).val(),grade,star);
+		list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$(this).val(),grade,star,aname);
     	}
 		
     })
     
 	//지도로 보기 클릭시 효과 -지영
 	$("#gomap").click(function() {
-		 let grade;
-			let star;
-			//성급 몇인지 뽑아오는부분
-	 		for (var i =1; i <= 5; i++) {
-	 			if($("#grade"+i).attr('style')=="background-color: #00AEF0"){
-	 				grade = $("#grade"+i).attr('id')
-	 				grade = grade.substring(5)
-	 				break;
-	 			};
-			}
-	 		//리뷰별점 몇인지 뽑아오는부분
-	 		for (var i =1; i <= 5; i++) {
-	 			if($("#star"+i).attr('style')=="background-color: #00AEF0"){
-	 				star = $("#star"+i).attr('id')
-	 				star = star.substring(4)
-	 				break;
-	 			};
-			}
-	  if($("#gomap").html()=="지도로 보기"){
-		  $("#gomap").html("돌아가기")
-		  $("#location").attr('class','collapse')
-		  $("#list").empty();
-	 		
-		  let html = "<div id='gomapchange' style='width:100%; height:1400px;'></div>";
-		  $("#list").append(html);
-		  let templist= new Array(); 
-		  checklist(templist)
-		  console.log(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-		  gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-		}else{
-	    	  $("#gomap").html("지도로 보기")
-	    	  $("#location").attr('class','collapse show')
-			  $("#list").empty();
-	    	  let templist= new Array(); 
-			  checklist(templist)
-			  if($("#locationamount").val()!="none"){
-				  console.log("지도로보기 ok1"+templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star);
-				  list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
-			  }else{
-				  console.log("지도로보기 ok2"+templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-				  list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star);
-			  }
-	  	}
-	})
- 	
- 	//정렬쪽
- 	//전체 정렬
-	$("#sort").change(function(){
-		let sort = $(this).val();
-		let templist = new Array();
-		checklist(templist)
 		let grade;
 		let star;
 		//성급 몇인지 뽑아오는부분
@@ -405,124 +248,66 @@ $(function(){
  				break;
  			};
 		}
-		
-		if($("#locationamount").val()=="none"){
-			console.log("sort ok1"+templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-		    list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-
+	  if($("#gomap").html()=="지도로 보기"){
+		  $("#gomap").html("돌아가기")
+		  $("#location").attr('class','collapse')
+		  $("#list").empty();
+		  
+		  let html = "<div id='gomapchange' style='width:100%; height:1400px;'></div>";
+		  $("#list").append(html);
+		  let templist= new Array(); 
+		  checklist(templist)
+		  gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
 		}else{
-			console.log("sort ok2"+templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star);
- 			list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star);
-		}
+	    	  $("#gomap").html("지도로 보기")
+	    	  $("#location").attr('class','collapse show')
+			  $("#list").empty();
+	    	  let templist= new Array(); 
+			  checklist(templist)
+			  if($("#locationamount").val()!="none"){
+				  list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star,aname)
+			  }else{
+				  list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star,aname);
+			  }
+	  	}
+	})
+ 	
+ 	//전체 정렬
+	$("#sort").change(function(){
+		let sort = $(this).val();
+		let templist = new Array();
+		checklist(templist)
+ 		callList()
 	})
 	
-    	// 평점 div박스
-   		$(".star_section_field").click(function(){
-			let restar = $(this).attr("id");
-			$(this).siblings().attr('style','background-color: none');
-			for (var i =0; i <= 5-restar.substring(4); i++) {
-				$("#star"+(Number(restar.substring(4))+i)).attr('style','background-color: #00AEF0');
-			}
-			
-			let templist= new Array(); 
-			checklist(templist)
-			let grade;
-			let star;
-			//성급 몇인지 뽑아오는부분
-	 		for (var i =1; i <= 5; i++) {
-	 			if($("#grade"+i).attr('style')=="background-color: #00AEF0"){
-	 				grade = $("#grade"+i).attr('id')
-	 				grade = grade.substring(5)
-	 				break;
-	 			};
-			}
-	 		//리뷰별점 몇인지 뽑아오는부분
-	 		for (var i =1; i <= 5; i++) {
-	 			if($("#star"+i).attr('style')=="background-color: #00AEF0"){
-	 				star = $("#star"+i).attr('id')
-	 				star = star.substring(4)
-	 				break;
-	 			};
-			}
-			//인근반경 선택 했을때
-			if($("#locationamount").val()!="none"){
-				//만약 지도로보기 눌렀을때
-			 	if($("#gomap").html()=="돌아가기"){
-					  gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
-				//만약 지도로보기 안눌렀을때(호텔리스트보이는상태)
-			 	}else{
-					list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
-			 	}
-			//인근반경 선택 안했을때
-			}else{
-				if($("#gomap").html()=="돌아가기"){
-					  gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-
-			 	}else{
-			 		console.log(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-					list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-			 	}
-			}
-		});
-    	
-   		// 성급 div박스
-   		$(".grade_section_field").click(function(){
-			let agrade = $(this).attr("id");
-			$(this).siblings().attr('style','background-color: none');
-			for (var i =0; i <= 6-agrade.substring(5); i++) {
-				$("#grade"+(Number(agrade.substring(5))+i)).attr('style','background-color: #00AEF0');
-			}
-			
-			let templist= new Array(); 
-			checklist(templist)
-			let grade;
-			let star;
-			//성급 몇인지 뽑아오는부분
-	 		for (var i =1; i <= 5; i++) {
-	 			if($("#grade"+i).attr('style')=="background-color: #00AEF0"){
-	 				grade = $("#grade"+i).attr('id')
-	 				grade = grade.substring(5)
-	 				//console.log("grade몇인지"+grade);
-	 				break;
-	 			};
-			}
-	 		//리뷰별점 몇인지 뽑아오는부분
-	 		for (var i =1; i <= 5; i++) {
-	 			if($("#star"+i).attr('style')=="background-color: #00AEF0"){
-	 				star = $("#star"+i).attr('id')
-	 				star = star.substring(4)
-	 				break;
-	 			};
-			}
-			//인근반경 선택 했을때
-			if($("#locationamount").val()!="none"){
-				//만약 지도로보기 눌렀을때
-			 	if($("#gomap").html()=="돌아가기"){
-					  gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
-				//만약 지도로보기 안눌렀을때(호텔리스트보이는상태)
-			 	}else{
-			 		console.log(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
-					list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
-			 	}
-			//인근반경 선택 안했을때
-			}else{
-				if($("#gomap").html()=="돌아가기"){
-					  gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-			 	}else{
-			 		console.log(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-					list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-			 	}
-			}
-		});		
-   		
-   		//슬라이더 관련 실행
-		slider(${minmax.minsum},${minmax.maxsum})
-	    $('#count_min').change(function(){
-	    	$('#slider').slider('values',0,$(this).val());
-    	})
-    	$('#count_max').change(function(){
-	    	$('#slider').slider('values',1,$(this).val());
-    	})
+   	// 평점 div박스
+  	$(".star_section_field").click(function(){
+		let restar = $(this).attr("id");
+		$(this).siblings().attr('style','background-color: none');
+		for (var i =0; i <= 5-restar.substring(4); i++) {
+			$("#star"+(Number(restar.substring(4))+i)).attr('style','background-color: #00AEF0');
+		}
+	 	callList()
+	});
+   	
+	// 성급 div박스
+ 	$(".grade_section_field").click(function(){
+		let agrade = $(this).attr("id");
+		$(this).siblings().attr('style','background-color: none');
+		for (var i =0; i <= 6-agrade.substring(5); i++) {
+			$("#grade"+(Number(agrade.substring(5))+i)).attr('style','background-color: #00AEF0');
+		}
+		callList();
+	});		
+  		
+  	//슬라이더 관련 실행
+	slider(${minmax.minsum},${minmax.maxsum})
+    $('#count_min').change(function(){
+    	$('#slider').slider('values',0,$(this).val());
+   	})
+   	$('#count_max').change(function(){
+    	$('#slider').slider('values',1,$(this).val());
+   	})
 });
 
 //가격 range slider -지윤
@@ -547,47 +332,51 @@ function slider(minsum,maxsum){
   		
   		$("#accommList").empty();
   		
-  		let templist= new Array(); 
-		checklist(templist)
-		
-		let grade;
-		let star;
-		//성급 몇인지 뽑아오는부분
- 		for (var i =1; i <= 5; i++) {
- 			if($("#grade"+i).attr('style')=="background-color: #00AEF0;"){
- 				grade = $("#grade"+i).attr('id')
- 				grade = grade.substring(5)
- 				break;
- 			};
-		}
- 		//리뷰별점 몇인지 뽑아오는부분
- 		for (var i =1; i <= 5; i++) {
- 			if($("#star"+i).attr('style')=="background-color: #00AEF0;"){
- 				star = $("#star"+i).attr('id')
- 				star = star.substring(4)
- 				break;
- 			};
-		}
-		
-  		if($("#locationamount").val()!="none"){
-			//지도로보기로 지도가 펼쳐져 있을때				
-		 	if($("#gomap").html()=="돌아가기"){
-				  gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
-			//리스트가 나올때				
-		 	}else{
-				list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star)
-		 	}
-		}else{
-			if($("#gomap").html()=="돌아가기"){
-				gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-		 	}else{
-				list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star)
-		 	}
-		}
+  		callList();
       }
       
       
   });
+}
+
+//조건에 따른 list내역(지도로보기,리스트보기) 호출을 위한 반복function
+function callList(){
+	let grade;
+	let star;
+	let templist= new Array(); 
+	checklist(templist);
+	//성급 몇인지 뽑아오는부분
+		for (var i =1; i <= 5; i++) {
+			if($("#grade"+i).attr('style')=="background-color: #00AEF0"){
+				grade = $("#grade"+i).attr('id')
+				grade = grade.substring(5)
+				break;
+			};
+	}
+		//리뷰별점 몇인지 뽑아오는부분
+		for (var i =1; i <= 5; i++) {
+			if($("#star"+i).attr('style')=="background-color: #00AEF0"){
+				star = $("#star"+i).attr('id')
+				star = star.substring(4)
+				break;
+			};
+	}
+	//인근반경 거리가 상관없음일때
+	if($("#locationamount").val()!="none"){
+		//지도로보기로 지도가 펼쳐져 있을때				
+	 	if($("#gomap").html()=="돌아가기"){
+			gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star,aname)
+		//리스트가 나올때				
+	 	}else{
+			list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star,aname)
+	 	}
+	}else{
+		if($("#gomap").html()=="돌아가기"){
+			gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star,aname)
+	 	}else{
+			list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star,aname)
+	 	}
+	}
 }
 
 
@@ -610,7 +399,7 @@ function gomapchange(facilities,minprice,maxprice,sort,axcoordi,aycoordi,distanc
 			url:"${pageContext.request.contextPath }/hjy/firstsearchajax",
 			 async: false,
 			 data:{"searchHotel":"${aaddress }","checkin":"${rcheckin }","checkout":"${rcheckout }","countRoom":"${countRoom }","countPeople":"${rimaxper}",
-					"fac":fac,"minprice":minprice,"maxprice":maxprice,"sort":sort,"xcoordi":xcoordi,"ycoordi":ycoordi,"distance":distance,"restar":restar,"agrade":agrade},
+					"fac":fac,"minprice":minprice,"maxprice":maxprice,"sort":sort,"xcoordi":xcoordi,"ycoordi":ycoordi,"distance":distance,"restar":restar,"agrade":agrade,"autoaname":aname},
 			type:"get",
 			dataType:"json",
 			success:function(data){
@@ -630,11 +419,11 @@ function gomapchange(facilities,minprice,maxprice,sort,axcoordi,aycoordi,distanc
 						}else if(data.list[i].restar == 0){
 							star="☆☆☆☆☆";
 						}
-		        		if(data.list[i].aycoordi>100){
+		        		if(data.list[i].axcoordi>100){
 							let listxy = changeXY(data.list[i].axcoordi,data.list[i].aycoordi);
-							latlngs.push(new naver.maps.LatLng(listxy[1], listxy[0]));
+							latlngs.push(new naver.maps.LatLng(listxy[0], listxy[1]));
 		        		}else{
-							latlngs.push(new naver.maps.LatLng(data.list[i].aycoordi, data.list[i].axcoordi));
+							latlngs.push(new naver.maps.LatLng(data.list[i].axcoordi, data.list[i].aycoordi));
 		        		}
 						if(data.list[i].amainimg==null){
 							contentString.push(
@@ -703,66 +492,66 @@ function gomapchange(facilities,minprice,maxprice,sort,axcoordi,aycoordi,distanc
 
 //선호호텔체인,부대시설,무료시설 체크박스 선택되어있는지 체크해주는 function -지영
 function checklist(templist){
-$("#facilities input").each(function(){
-	if( $(this).is(":checked") == true ){
-      	var temId = $(this).attr('id');
-      	templist.push(temId);
-	}
-	});
-$("#forFree input").each(function(){
-	if( $(this).is(":checked") == true ){
-      	var temId = $(this).attr('id');
-      	templist.push(temId);
-	}
-	});
-$("#favorite input").each(function(){
-	if( $(this).is(":checked") == true ){
-      	var temId = $(this).attr('id');
-      	templist.push(temId);
-	}
-	});
+	$("#facilities input").each(function(){
+		if( $(this).is(":checked") == true ){
+	      	var temId = $(this).attr('id');
+	      	templist.push(temId);
+		}
+		});
+	$("#forFree input").each(function(){
+		if( $(this).is(":checked") == true ){
+	      	var temId = $(this).attr('id');
+	      	templist.push(temId);
+		}
+		});
+	$("#favorite input").each(function(){
+		if( $(this).is(":checked") == true ){
+	      	var temId = $(this).attr('id');
+	      	templist.push(temId);
+		}
+		});
 }
 
 //좌표(X,Y) 위도경도로 변환함수 -지영
 function changeXY(xcoordi,ycoordi){
-let xy=[];
-if(ycoordi*1>100){
-	console.log('변환계 사용')
-	// point array 1
-    var point1 = [xcoordi*1, ycoordi*1]
-    var firstProjection = "+proj=tmerc +lat_0=38 +lon_0=127 +k=1 +x_0=200000 +y_0=500000 +ellps=bessel +units=m +no_defs"; // from
-    var secondProjection = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"; // to
-   
-    // #1. 변환한 위도 경도 값 저장
-    var lonAndLat1 = proj4(firstProjection, secondProjection, point1);// from 경위도
-	xy.push(lonAndLat1[0])
-	xy.push(lonAndLat1[1])
-}else{
-	console.log('변환계 사용안함')
-	xy.push(xcoordi)
-	xy.push(ycoordi)
-}
-return xy;
+	let xy=[];
+	if(xcoordi*1>100){
+		// point array 1
+	    var point1 = [xcoordi*1, ycoordi*1]
+	    var firstProjection = "+proj=tmerc +lat_0=38 +lon_0=127 +k=1 +x_0=200000 +y_0=500000 +ellps=bessel +units=m +no_defs"; // from
+	    var secondProjection = "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs"; // to
+	   
+	    // #1. 변환한 위도 경도 값 저장
+	    var lonAndLat1 = proj4(firstProjection, secondProjection, point1);// from 경위도
+		xy.push(lonAndLat1[1])
+		xy.push(lonAndLat1[0])
+		console.log('변환계 사용')
+	}else{
+		xy.push(xcoordi)
+		xy.push(ycoordi)
+		console.log('변환계 사용안함')
+	}
+	return xy;
 }
 
 //위도 경도를 통해 거리 구하는 함수 -지영
 function isdistancein(coords1, coords2) {
-var isdistanceinlat1 = coords1[0];
-var isdistanceinlon1 = coords1[1];
-var isdistanceinlat2 = coords2[0];
-var isdistanceinlon2 = coords2[1];
-function deg2rad(deg) {
-    return deg * (Math.PI/180)
-}
-var r = 6371; //지구의 반지름(km)
-var dLat = deg2rad(isdistanceinlat2-isdistanceinlat1);
-var dLon = deg2rad(isdistanceinlon2-isdistanceinlon1);
-var a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
-Math.cos(deg2rad(isdistanceinlat1)) * Math.cos(deg2rad(isdistanceinlat2)) * 
-Math.sin(dLon/2) * Math.sin(dLon/2);
-var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-var d = r * c; // Distance in km
-return Math.round(d*1000);
+	var isdistanceinlat1 = coords1[0];
+	var isdistanceinlon1 = coords1[1];
+	var isdistanceinlat2 = coords2[0];
+	var isdistanceinlon2 = coords2[1];
+	function deg2rad(deg) {
+	    return deg * (Math.PI/180)
+	}
+	var r = 6371; //지구의 반지름(km)
+	var dLat = deg2rad(isdistanceinlat2-isdistanceinlat1);
+	var dLon = deg2rad(isdistanceinlon2-isdistanceinlon1);
+	var a = Math.sin(dLat/2) * Math.sin(dLat/2) + 
+	Math.cos(deg2rad(isdistanceinlat1)) * Math.cos(deg2rad(isdistanceinlat2)) * 
+	Math.sin(dLon/2) * Math.sin(dLon/2);
+	var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+	var d = r * c; // Distance in km
+	return Math.round(d*1000);
 }
 //위의 검색조건,왼쪽 검색조건에 맞는 list뽑아주기 ajax
 function list(facilities,minprice,maxprice,sort,xcoordi,ycoordi,distance,agrade,restar){
@@ -771,17 +560,14 @@ function list(facilities,minprice,maxprice,sort,xcoordi,ycoordi,distance,agrade,
 		url:"${pageContext.request.contextPath }/hjy/firstsearchajax",
 		traditional :true,
 		data:{"searchHotel":"${aaddress }","checkin":"${rcheckin }","checkout":"${rcheckout }","countRoom":"${countRoom }","countPeople":"${rimaxper}",
-			"facilities":facilities,"minprice":minprice,"maxprice":maxprice,"sort":sort,"xcoordi":xcoordi,"ycoordi":ycoordi,"distance":distance,"restar":restar,"agrade":agrade},
+			"facilities":facilities,"minprice":minprice,"maxprice":maxprice,"sort":sort,"xcoordi":xcoordi,"ycoordi":ycoordi,"distance":distance,"restar":restar,"agrade":agrade,"autoaname":aname},
 		type:"post",
 		dataType:"json",
 		success:function(data){
-			console.log(${rimaxper},${countRoom},${rcheckin},${rcheckout})
 			if(data.code=='success'){
 			   $("#list").empty();
-			   
 			   if(data.list.length==0){
-				   html+="<h3>조건에 맞는 호텔이 없습니다</h3>";
-				   $("#list").html(html);
+				   $("#list").html("<h3>조건에 맞는 호텔이 없습니다</h3>");
 			   }else{
 				   for (var i = 0; i < data.list.length; i++) {
 					   let html = "";
@@ -791,8 +577,7 @@ function list(facilities,minprice,maxprice,sort,xcoordi,ycoordi,distance,agrade,
 						   //기준좌표
 						   	let refcoordi = [xcoordi, ycoordi];
 						   //db에서 불러온 좌표
-							let dbcoordi = [testxy[1],testxy[0]];
-						   
+							dbcoordi = [testxy[0],testxy[1]];
 							console.log("숙소이름: "+data.list[i].aname);
 							console.log("두개사이의 거리: "+isdistancein(refcoordi, dbcoordi),"m");
 							console.log("distance: "+distance)
@@ -922,36 +707,36 @@ function list(facilities,minprice,maxprice,sort,xcoordi,ycoordi,distance,agrade,
 
 //db에 받아온 주소를 좌표로 변환해서 xcoordi, ycoordi에 저장하기+왼쪽 거리검색의 센터를 해당 좌표로 지정 -지영
 function searchAddressToCoordinate(address) {
-naver.maps.Service.geocode({
-  query: address
-}, function(status, response) {
-  if (status === naver.maps.Service.Status.ERROR) {
-    if (!address) {
-      return alert('Geocode Error, Please check address');
-    }
-    return alert('Geocode Error, address:' + address);
-  }
-  /*
-  if (response.v2.meta.totalCount === 0) {
-    return alert('검색결과가 없습니다.');
-  }
-  */
-  var htmlAddresses = [],
-    item = response.v2.addresses[0],
-    point = new naver.maps.Point(item.x, item.y);
-    xcoordi = item.x;
-    ycoordi = item.y;
-  if (item.roadAddress) {
-    htmlAddresses.push('[도로명 주소] ' + item.roadAddress);
-  }
-  if (item.jibunAddress) {
-    htmlAddresses.push('[지번 주소] ' + item.jibunAddress);
-  }
-  if (item.englishAddress) {
-    htmlAddresses.push('[영문명 주소] ' + item.englishAddress);
-  }
-locationmap.setCenter(point);
-});
+	naver.maps.Service.geocode({
+	  query: address
+	}, function(status, response) {
+	  if (status === naver.maps.Service.Status.ERROR) {
+	    if (!address) {
+	      return alert('Geocode Error, Please check address');
+	    }
+	    return alert('Geocode Error, address:' + address);
+	  }
+	  /*
+	  if (response.v2.meta.totalCount === 0) {
+	    return alert('검색결과가 없습니다.');
+	  }
+	  */
+	  var htmlAddresses = [],
+	    item = response.v2.addresses[0],
+	    point = new naver.maps.Point(item.x, item.y);
+	    xcoordi = item.x;
+	    ycoordi = item.y;
+	  if (item.roadAddress) {
+	    htmlAddresses.push('[도로명 주소] ' + item.roadAddress);
+	  }
+	  if (item.jibunAddress) {
+	    htmlAddresses.push('[지번 주소] ' + item.jibunAddress);
+	  }
+	  if (item.englishAddress) {
+	    htmlAddresses.push('[영문명 주소] ' + item.englishAddress);
+	  }
+	locationmap.setCenter(point);
+	});
 }
 
 //찍힌 좌표와 선택한 반경에 따라 원 그려주기 -지영
@@ -971,7 +756,7 @@ circle.push(
 function mainMapList(index){
 	var mainmaplist = new Array();
 	mainmaplist.push(index);
-	if($("#aycoordi"+index).val()*1>100){
+	if($("#axcoordi"+index).val()*1>100){
 	    // point array 1
 	    var point1 = [$("#axcoordi"+index).val()*1, $("#aycoordi"+index).val()*1]
 	    var firstProjection = "+proj=tmerc +lat_0=38 +lon_0=127 +k=1 +x_0=200000 +y_0=500000 +ellps=bessel +units=m +no_defs"; // from
@@ -991,9 +776,6 @@ function mainMapList(index){
 		});
 	}
 	else{
-		let copy3 = $("#aycoordi"+index).val();
-		$("#aycoordi"+index).val($("#axcoordi"+index).val());
-		$("#axcoordi"+index).val(copy3)
 		var hotelDetailMap = new naver.maps.Map('map'+index, {
 		    center: new naver.maps.LatLng($("#axcoordi"+index).val(), $("#aycoordi"+index).val()),
 		    zoom: 15
