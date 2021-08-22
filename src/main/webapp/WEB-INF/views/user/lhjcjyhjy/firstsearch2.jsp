@@ -716,11 +716,11 @@ function searchAddressToCoordinate(address) {
 	    }
 	    return alert('Geocode Error, address:' + address);
 	  }
-	  /*
+/*
 	  if (response.v2.meta.totalCount === 0) {
 	    return alert('검색결과가 없습니다.');
 	  }
-	  */
+*/
 	  var htmlAddresses = [],
 	    item = response.v2.addresses[0],
 	    point = new naver.maps.Point(item.x, item.y);
