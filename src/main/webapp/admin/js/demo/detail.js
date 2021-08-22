@@ -26,36 +26,41 @@ $(document).ready(function(){
 		url : "/project/admin/lhj/detail?aid="+paramValue,
     	type : "GET",
     	success : function(data) {
-    		let aid = data.list[0].aid;
-			let aname = data.list[0].aname;
-			let aaddress = data.list[0].aaddress;
-			let aphone =data.list[0].aphone;
-			let atotalroom =  data.list[0].atotalroom;
-			let agrade =  data.list[0].agrade;
-			let amainimg =  data.list[0].amainimg;
-			let adetail =  data.list[0].adetail;
-			let aregdate =  data.list[0].aregdate;
-			let aisdel =  data.list[0].aisdel;
+    		let aid = data.vo.aid;
+			let aname = data.vo.aname;
+			let aaddress = data.vo.aaddress;
+			let aphone = data.vo.aphone;
+			let atotalroom = data.vo.atotalroom;
+			let agrade =  data.vo.agrade;
+			let amainimg =  data.vo.amainimg;
+			let adetail =  data.vo.adetail;
+			let aregdate =  data.vo.aregdate;
+			let aisdel =  data.vo.aisdel;
 			let html = `
-				<input type='hidden' id='aid' value='${aid}'>";
-        		<input type='hidden' id='axcoordi' value='${ data.list[0].axcoordi}'>"
-       	 		<input type='hidden' id='aycoordi' value='${ data.list[0].aycoordi}'>"
-				<label>숙소명</label>"
-            	<input type="text" id="aname" value="${aname}">
+				<form method="post" action="/project/admin/lhj/accommUpdate?aid=${aid}" enctype="multipart/form-data">
+				<input type='hidden' name='aid' value='${aid}'>
+				<input type='hidden' name='acate' value='${ data.vo.acate}'>
+        		<input type='hidden' name='axcoordi' value='${ data.vo.axcoordi}'>
+       	 		<input type='hidden' name='aycoordi' value='${ data.vo.aycoordi}'>
+       	 		<input type='hidden' name='aisdel' value='${ data.vo.aisdel}'>
+				<label>숙소명</label>
+            	<input type="text" name="aname" value="${aname}"><br>
             	<label>위치</label>
-            	<input type="text" id="aaddress" value="${aaddress}">
+            	<input type="text" name="aaddress" value="${aaddress}"><br>
             	<label>전화번호</label>
-            	<input type="text" id="aphone" value="${aphone}">
+            	<input type="text" name="aphone" value="${aphone}"><br>
             	<label>방갯수</label>
-            	<input type="text" id="atotalroom" value="${atotalroom}">
+            	<input type="text" name="atotalroom" value="${atotalroom}"><br>
             	<label>성급</label>
-            	<input type="text" id="agrade" value="${agrade}">
+            	<input type="text" name="agrade" value="${agrade}"><br>
             	<label>메인사진</label>
-            	<input type="text" id="amainimg" value="${amainimg}">
+            	<input type="text" name="amainimg" value="${amainimg}"><br>
             	<label>추가사진</label>
-            	<input type="text" id="adetail" value="${adetail}">
+            	<input type="text" name="adetail" value="${adetail}"><br>
             	<label>등록일</label>
-            	<input type="text" id="aregdate" value="${aregdate}">
+            	<input type="text" name="aregdate" value="${aregdate}"><br>
+            	<input type="submit" value="수정"><br>
+            	</form>
             	`
 		$("#accommUpdate").append(html);
     	}

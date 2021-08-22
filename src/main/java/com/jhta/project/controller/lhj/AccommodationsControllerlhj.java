@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.jhta.project.service.lhj.AccommodationsServicelhj;
 import com.jhta.project.vo.lhj.AccommodationsVo;
+import com.jhta.project.vo.lhj.Room_infoVo;
 import com.jhta.util.PageUtil;
 
 
@@ -40,22 +41,53 @@ public class AccommodationsControllerlhj {
 	@RequestMapping(value = "admin/lhj/detail", produces = {MediaType.APPLICATION_JSON_VALUE}) //개별 숙소 목록 불러오기
 	public HashMap<String, Object> detail(int aid){
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		List<AccommodationsVo> list = acservice.detail(aid);
+		AccommodationsVo vo = acservice.detail(aid);
 		System.out.println("컨트롤러: " + aid);
-		map.put("list", list);
+		map.put("vo", vo);
 		return map;
 	}
 	
 	@RequestMapping(value = "admin/lhj/accommUpdate", produces = {MediaType.APPLICATION_JSON_VALUE}) //숙소 정보 변경하기
-	public String accommUpdate(AccommodationsVo vo){
+	public HashMap<String, Object> accommUpdate(AccommodationsVo vo){
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		int aid = vo.getAid();
-		acservice.detail(aid);
 		int n = acservice.accommUpdate(vo);
+		SimpleDateFormat dFormat = new SimpleDateFormat("yy/MM/dd");
+		String aregdate = dFormat.format(vo.getAregdate());
 		if(n>0) {
-			return "redirect:/admin/lhj/accommlist";
+			map.put("msg", "수정완료");
 		}else {
-			return "admin/lhj/accommUpdate";
+			map.put("msg", "수정실패");
 		}
+		return map;
+	}
+	
+	@RequestMapping(value = "admin/lhj/roomlist", produces = {MediaType.APPLICATION_JSON_VALUE}) //객실 목록 불러오기
+	public HashMap<String, Object> roomList(int aid) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		List<Room_infoVo> list = acservice.roomlist(aid);
+		map.put("list", list);
+		//System.out.println("컨트롤러: " + list);
+		return map;
+	}
+	
+	@RequestMapping(value = "admin/lhj/roomDetail", produces = {MediaType.APPLICATION_JSON_VALUE}) //개별 객실 목록 불러오기
+	public HashMap<String, Object> roomDetail(int riid){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		Room_infoVo vo = acservice.roomDetail(riid);
+		System.out.println("컨트롤러: " + riid);
+		map.put("vo", vo);
+		return map;
+	}
+	
+	@RequestMapping(value = "admin/lhj/roomUpdate", produces = {MediaType.APPLICATION_JSON_VALUE}) //숙소 정보 변경하기
+	public HashMap<String, Object> roomUpdate(Room_infoVo vo){
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		int n = acservice.roomUpdate(vo);
+		if(n>0) {
+			map.put("msg", "수정완료");
+		}else {
+			map.put("msg", "수정실패");
+		}
+		return map;
 	}
 }

@@ -21,11 +21,14 @@ public class AccommodationsServicelhj {
 	public List<AccommodationsVo> accommlist(){
 		return mapper.accommlist();
 	}
-	public List<AccommodationsVo> detail(int aid){
+	public AccommodationsVo detail(int aid){
 		return mapper.detail(aid);
 	}
-	public List<Room_infoVo> roomlist(){
-		return mapper.roomlist();
+	public List<Room_infoVo> roomlist(int aid){
+		return mapper.roomlist(aid);
+	}
+	public Room_infoVo roomDetail(int riid){
+		return mapper.roomDetail(riid);
 	}
 	public int accommUpdate(AccommodationsVo vo) {
 		return mapper.accommUpdate(vo);

@@ -8,15 +8,15 @@ $(document).ready(function(){
         	dataSrc: 'list'
         },
         columns:[
-        	{data:"aid"},
-			{data:"aname",
-				"render":function(data,type,row){
+        	{data:"aid",
+        		"render":function(data,type,row){
 					if(type==='display'){
-						data="<a href='"+path+"admin/detail.html?aname="+data+"'>"+data+"</a>"
+						data="<a href='"+path+"admin/roomlist.html?aid="+data+"'>"+data+"</a>"
 					}
 					return data;
 				}
-			},
+        	},
+			{data:"aname"},
 			{data:"aaddress"},
 			{data:"aphone"},
 			{data:"atotalroom"},
@@ -29,6 +29,14 @@ $(document).ready(function(){
 				"render":function(data,type,row){
 					if(type==='display'){
 						data="<a href='"+path+"admin/detail.html?aid="+data+"'>수정</a>"
+					}
+					return data;
+				}
+			},
+			{data:"aid",
+				"render":function(data,type,row){
+					if(type==='display'){
+						data="<a href='"+path+"admin/delUpate.html?aid="+data+"'>삭제</a>"
 					}
 					return data;
 				}
