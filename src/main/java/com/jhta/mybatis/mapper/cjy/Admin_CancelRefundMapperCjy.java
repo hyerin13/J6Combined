@@ -8,8 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.jhta.project.vo.cjy.ReservationVo;
 
 public interface Admin_CancelRefundMapperCjy {
-	public List<ReservationVo> list(HashMap<String, Object> map);
-	public int count(HashMap<String, Object> map);
+	public List<ReservationVo> list();
 	public int update(HashMap<String, Object> map);
-	public ReservationVo select(int rid);
+	public List<ReservationVo> afterapprovallist();
 }

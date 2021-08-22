@@ -4,7 +4,7 @@ $(document).ready(function(){
   		ajax:{
   		"url":"/project/admin/cjy/rvcancel",
   		"dataType":"json",
-  		"dataSrc":"data"
+  		"dataSrc":"data",
   		 },
          columns:[
          	{targets: 0,
@@ -45,26 +45,66 @@ $(document).ready(function(){
 	  	}
 	});
 	
-	$('#okbtn').click(function(){
-		var checkbox = $("input[name='check']:checked");
-		console.log(checkbox);
-		checkbox.each(function(i) {
-			var tr = checkbox.parent().parent().eq(i);
-			var td = tr.children();
-			var rid = td.eq(1).text();
-		$.ajax({
-	  		url:"/project/admin/cjy/rvcancelapproval",
-	  		dataType:"json",
-	  		data:{rid:rid},
-	  		dataSrc:"data",
-	  		success:function(d){
-	  			alert(d.msg) //여러개 처리시 메세지 1번뜨게 해야함
-	  		}
-	  		});
-	  	});
-	  	if(checkbox.length==0){
-	  		alert("선택된 체크박스가 존재하지 않습니다")
-	  	}
-  	});
-  
+     $('#okbtn').click(function(){
+         var checkbox = $("input[name='check']:checked");
+         console.log(checkbox);
+         checkbox.each(function(i) {
+             var tr = checkbox.parent().parent().eq(i); //체크박스의 부모는 td
+             var td = tr.children();
+             var rid = td.eq(1).text();
+
+             $.ajax({
+                   url:"/project/admin/cjy/rvcancelapproval",
+                   dataType:"json",
+                   data:{rid:rid},
+                   dataSrc:"data",
+                   success:function(d){
+                       alert(d.msg) //여러개 처리시 메세지 1번뜨게 해야함
+                   },       
+            });
+        });
+        if(checkbox.length==0){
+            alert("선택된 체크박스가 존재하지 않습니다")
+        }
+        
+        //취소 승인후 테이블 삭제
+        table.fnDestroy(); //구버전은 destroy()가 아니라 fnDestroy()사용해야함
+		//테이블 다시 생성
+        table =$('#dataTable').dataTable({
+               ajax:{
+                   "url":"/project/admin/cjy/rvcancelaftapporoval",
+                   "dataType":"json",
+                   "dataSrc":"data"
+                },
+                columns:[
+                    {targets: 0,
+                    data: null,
+                    className: 'text-center',
+                    searchable: false,
+                    orderable: false,
+                    render: function (data, type, full, meta) {
+                        return '<input type="checkbox" id="check_' + data.id + '" class="check" name="check" value="' + data.id + '">';
+                    },
+                    width: "5%"},
+                    {"data": "rid"},
+                    {"data": "rordernum"},
+                    {"data": "ramount"},
+                    {"data": "rcheckin"},
+                    {"data": "rcheckout"},
+                    {"data": "rresname"},
+                    {"data": "rresphone"},
+                    {"data": "rresemail"},
+                    {"data": "rexbreaknum"},
+                    {"data": "rexbed"},
+                    {"data": "rexperson"},
+                    {"data": "rcancel"},
+                    {"data": "mid"},
+                    {"data": "riid"},
+                ],
+                    dom: 'Bfrtip',
+                    buttons: [
+                   'copy', 'excel', 'pdf', 'print'
+                ]
+        });
+    });
 });
