@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.mybatis.mapper.cjy.Admin_ManageMembersMapperCjy">
-	<select id="select" resultType="com.jhta.project.vo.cjy.Admin_ManageMemVo" parameterType="string">
-		select * from members where mid=#{mid}
-	</select>
-	<sql id="search">
-		<if test="field!=null and field!=''">
-			where ${field} like '%'||#{keyword}||'%'
-		</if>
-	</sql>
-		<!-- 전체 글의 개수 -->
-	<select id="count" resultType="int"> <!-- NVL(count(*),0)의 값이 INT라서 resulttype이 int -->
-		select NVL(count(*),0) cnt from members
-		<include refid="search"/>
-	</select>
-	<select id="list" parameterType="hashmap" resultType="com.jhta.project.vo.cjy.Admin_ManageMemVo">
+	<select id="list" resultType="com.jhta.project.vo.cjy.Admin_ManageMemVo">
 		        select * from members order by mid asc
 	</select>
 	

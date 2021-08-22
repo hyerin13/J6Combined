@@ -12,11 +12,8 @@ import com.jhta.project.vo.cjy.Admin_ManageMemVo;
 @Service
 public class Admin_ManageMembersServiceCjy {
 	@Autowired Admin_ManageMembersMapperCjy mapper;
-	public int getCount(HashMap<String, Object> map) {
-		return mapper.count(map);
-	}
-	public List<Admin_ManageMemVo> list(HashMap<String, Object> map){
-		System.out.println(mapper.list(map).get(0).getMrdate());
-		return mapper.list(map);
+	public List<Admin_ManageMemVo> list(){
+		System.out.println(mapper.list().get(0).getMrdate());
+		return mapper.list();
 	}
 }

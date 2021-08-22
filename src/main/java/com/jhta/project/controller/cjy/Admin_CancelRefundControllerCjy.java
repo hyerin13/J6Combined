@@ -34,7 +34,7 @@ public class Admin_CancelRefundControllerCjy {
 		HashMap<String, Object> map = new HashMap<String,Object>();
 		try {
 			//rcheckin, rcheckout이 yy/mm/dd형태로 들어가 있기 때문에 회원목록과 통일성을 주기 위해 보여지는 형식 변경
-			SimpleDateFormat beforeFormat = new SimpleDateFormat("yy/MM/dd");
+			SimpleDateFormat beforeFormat = new SimpleDateFormat("yyyymmdd");
 			SimpleDateFormat afterFormat = new SimpleDateFormat("yyyy-MM-dd");
 			java.util.Date tempDate1=null;
 			java.util.Date tempDate2=null;
@@ -87,7 +87,7 @@ public class Admin_CancelRefundControllerCjy {
 		HashMap<String, Object> map = new HashMap<String,Object>();
 		try {
 			//rcheckin, rcheckout이 yy/mm/dd형태로 들어가 있기 때문에 회원목록과 통일성을 주기 위해 보여지는 형식 변경
-			SimpleDateFormat beforeFormat = new SimpleDateFormat("yy/MM/dd");
+			SimpleDateFormat beforeFormat = new SimpleDateFormat("yyyymmdd");
 			SimpleDateFormat afterFormat = new SimpleDateFormat("yyyy-MM-dd");
 			java.util.Date tempDate1=null;
 			java.util.Date tempDate2=null;
