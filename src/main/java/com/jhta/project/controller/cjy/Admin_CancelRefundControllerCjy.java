@@ -34,28 +34,25 @@ public class Admin_CancelRefundControllerCjy {
 		HashMap<String, Object> map = new HashMap<String,Object>();
 		try {
 			//rcheckin, rcheckout이 yy/mm/dd형태로 들어가 있기 때문에 회원목록과 통일성을 주기 위해 보여지는 형식 변경
-			SimpleDateFormat beforeFormat = new SimpleDateFormat("yyyymmdd");
+			SimpleDateFormat beforeFormat = new SimpleDateFormat("yyyyMMdd");
 			SimpleDateFormat afterFormat = new SimpleDateFormat("yyyy-MM-dd");
 			java.util.Date tempDate1=null;
 			java.util.Date tempDate2=null;
 			List<ReservationVo> data=crservice.list();
 			map.put("data", data);
 			System.out.println(data);
-			try {
-				tempDate1=beforeFormat.parse(data.get(0).getRcheckin());
-				tempDate2=beforeFormat.parse(data.get(0).getRcheckout());
-			}catch(ParseException p) {
-				p.printStackTrace();
-			}
-			
-			String rcheckin=afterFormat.format(tempDate1);
-			String rcheckout=afterFormat.format(tempDate2);
-			
-			System.out.println("rcheckin:"+rcheckin);
-			System.out.println("rcheckout:"+rcheckout);
 			for(int i=0; i<data.size() ;i++) {
+				System.out.println("dd:"+data.get(i).getRcheckin());
+				tempDate1=beforeFormat.parse(data.get(i).getRcheckin());
+				tempDate2=beforeFormat.parse(data.get(i).getRcheckout());
+				//System.out.println("tempDate1:"+tempDate1);
+				//System.out.println("tempDate2:"+tempDate2);
+				String rcheckin=afterFormat.format(tempDate1);
+				String rcheckout=afterFormat.format(tempDate2);
 				data.get(i).setRcheckin(rcheckin);
 				data.get(i).setRcheckout(rcheckout);
+				//System.out.println("rcheckin:"+rcheckin);
+				//System.out.println("rcheckout:"+rcheckout);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -87,29 +84,25 @@ public class Admin_CancelRefundControllerCjy {
 		HashMap<String, Object> map = new HashMap<String,Object>();
 		try {
 			//rcheckin, rcheckout이 yy/mm/dd형태로 들어가 있기 때문에 회원목록과 통일성을 주기 위해 보여지는 형식 변경
-			SimpleDateFormat beforeFormat = new SimpleDateFormat("yyyymmdd");
+			SimpleDateFormat beforeFormat = new SimpleDateFormat("yyyyMMdd");
 			SimpleDateFormat afterFormat = new SimpleDateFormat("yyyy-MM-dd");
 			java.util.Date tempDate1=null;
 			java.util.Date tempDate2=null;
 			List<ReservationVo> data=crservice.afterapprovallist();
 			map.put("data", data);
 			System.out.println(data);
-			try {
-				tempDate1=beforeFormat.parse(data.get(0).getRcheckin());
-				tempDate2=beforeFormat.parse(data.get(0).getRcheckout());
-			}catch(ParseException p) {
-				p.printStackTrace();
-			}
-			
-			String rcheckin=afterFormat.format(tempDate1);
-			String rcheckout=afterFormat.format(tempDate2);
-			
-			System.out.println("rcheckin:"+rcheckin);
-			System.out.println("rcheckout:"+rcheckout);
 			for(int i=0; i<data.size() ;i++) {
+				System.out.println("dd:"+data.get(i).getRcheckin());
+				tempDate1=beforeFormat.parse(data.get(i).getRcheckin());
+				tempDate2=beforeFormat.parse(data.get(i).getRcheckout());
+				String rcheckin=afterFormat.format(tempDate1);
+				String rcheckout=afterFormat.format(tempDate2);
 				data.get(i).setRcheckin(rcheckin);
 				data.get(i).setRcheckout(rcheckout);
+				System.out.println("rcheckin:"+rcheckin);
+				System.out.println("rcheckout:"+rcheckout);
 			}
+
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
