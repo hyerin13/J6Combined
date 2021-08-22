@@ -48,6 +48,7 @@ $(document).ready(function(){
      $('#okbtn').click(function(){
          var checkbox = $("input[name='check']:checked");
          console.log(checkbox);
+         var msgcnt=0;
          checkbox.each(function(i) {
              var tr = checkbox.parent().parent().eq(i); //체크박스의 부모는 td
              var td = tr.children();
@@ -59,9 +60,15 @@ $(document).ready(function(){
                    data:{rid:rid},
                    dataSrc:"data",
                    success:function(d){
-                       alert(d.msg) //여러개 처리시 메세지 1번뜨게 해야함
+                   		if(d.msg=='취소승인 되었습니다'){
+	                   		msgcnt++;
+	                   		if(msgcnt==checkbox.length){
+	                   			alert(d.msg) //여러개 처리시 메세지 1번뜨게 해야함
+	                   		}
+	                   	}
                    },       
             });
+            $('input[type=checkbox]').prop('checked', false);
         });
         if(checkbox.length==0){
             alert("선택된 체크박스가 존재하지 않습니다")
