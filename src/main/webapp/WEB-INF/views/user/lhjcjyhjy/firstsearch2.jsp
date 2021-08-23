@@ -10,7 +10,27 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css">
 <!-- 푸터 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/footer.css">
+<!-- 글꼴 -->
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+<!-- 부트스트랩 -->
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+<!-- jquery ui -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!-- css -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+<!-- x,y좌표 위도,경도로 바꾸기 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.7.5/proj4.js"></script>
+<!-- 지도추가 -->
+<script type="text/javascript"
+	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=hznya2qvqk&submodules=geocoder"></script>
+<!-- css -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/firstsearchmain.css">
 
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+	
 <style type="text/css">
 
 .bg-orange {
@@ -19,6 +39,7 @@
 }
 body {
 	background: #f4f4f4;
+	font-family:Brezel Grotesk,Helvetica Neue,Helvetica,Arial,sans-serif; 
 }
 img {
 	width: 100%;
@@ -44,26 +65,14 @@ a {
   font-family:Brezel Grotesk,Helvetica Neue,Helvetica,Arial,sans-serif; 
   font-weight: 400;
 }
-</style> 
-<!-- 부트스트랩 -->
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
-<!-- jquery ui -->
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<!-- css -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-<!-- x,y좌표 위도,경도로 바꾸기 -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.7.5/proj4.js"></script>
-<!-- 지도추가 -->
-<script type="text/javascript"
-	src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=hznya2qvqk&submodules=geocoder"></script>
-<!-- css -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/firstsearchmain.css">
 
-<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
-	
+#sort{
+    padding: 5px 5px 5px 5px;
+    color:#00AEF0;
+    border: 1px solid #00AEF0;
+    border-radius: 3px;
+ }
+</style> 
 <!------ Include the above in your HEAD tag ---------->
 <script type="text/javascript">
 let aname;
@@ -618,7 +627,7 @@ function list(facilities,minprice,maxprice,sort,xcoordi,ycoordi,distance,agrade,
 									html+="<input type='hidden' id='aycoordi"+changecnt+"' value="+data.list[i].aycoordi+">";
 									html+="</div>";
 									html+="</div>";
-									html+="<div class='col-md-3'>";
+									html+="<div class='col-md-3' style='padding-left: 70px;'>";
 									if(data.list[i].agrade !=null){
 										html+="<h5>"+data.list[i].agrade+"성급</h5>";
 									}
@@ -638,7 +647,7 @@ function list(facilities,minprice,maxprice,sort,xcoordi,ycoordi,distance,agrade,
 									}
 									html+="</h5>";
 									html+="<h4>"+data.list[i].amountsum+"원</h4>";
-									html+="<button class='btn' onclick=\"";
+									html+="<button class='btn btn-outline-primary' onclick=\"";
 									html+="location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid="+data.list[i].aid+"&riid="+data.list[i].riid+
 											+"&person=${rimaxper}&roomnum=${countRoom}&startday=${rcheckin}&endday=${rcheckout}"
 									html+="'\">예약하기</button>";
@@ -671,7 +680,7 @@ function list(facilities,minprice,maxprice,sort,xcoordi,ycoordi,distance,agrade,
 								html+="<input type='hidden' id='aycoordi"+i+"' value="+data.list[i].aycoordi+">";
 								html+="</div>";
 								html+="</div>";
-								html+="<div class='col-md-3'>";
+								html+="<div class='col-md-3'style='padding-left: 70px;'>";
 								if(data.list[i].agrade !=null){
 									html+="<h5>"+data.list[i].agrade+"성급</h5>";
 								}
@@ -691,7 +700,7 @@ function list(facilities,minprice,maxprice,sort,xcoordi,ycoordi,distance,agrade,
 								}
 								html+="</h5>"
 								html+="<h4>"+data.list[i].amountsum+"원</h4>";
-								html+="<button class='btn' onclick=\"";
+								html+="<button class='btn btn-outline-primary' onclick=\"";
 								html+="location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid="+data.list[i].aid+"&riid="+data.list[i].riid;
 								html+="&person=${rimaxper}&roomnum=${countRoom}&startday=${rcheckin}&endday=${rcheckout}"
 								html+="'\">예약하기</button>";
@@ -901,7 +910,7 @@ function outMoveAfter(){ //버튼 클릭시 다음날로 이동
 	<div style='position: absolute;left: 50%;margin-left: -765px;'>
 		<div class="search">
 				<div class="search_container">
-					<form class="search_content" method="post" action="${pageContext.request.contextPath }/lhjcjyhjy/firstsearch">
+					<form class="search_content" style='width:1150px;' method="post" action="${pageContext.request.contextPath }/lhjcjyhjy/firstsearch">
 						<div class="search_insert" >
 							<div class="search_insert_container">
 								<div class="search_insert_content" >
@@ -1013,7 +1022,7 @@ function outMoveAfter(){ //버튼 클릭시 다음날로 이동
 				</div>
 			</div>
 		</div>
-		<br><br><br><br>
+		<br><br><br><br><br>
 	<!--main content section-->
 	<section class="mb-5">
 		<div class="container">
@@ -1047,7 +1056,7 @@ function outMoveAfter(){ //버튼 클릭시 다음날로 이동
 									      <div class="card-body">
 									      		<ul class="list-unstyled">
 													<li>
-														<button id="gomap">지도로 보기</button>
+														<button id="gomap" class="btn btn-outline-primary">지도로 보기</button>
 													</li>
 												</ul>
 									      </div>
@@ -1286,7 +1295,6 @@ function outMoveAfter(){ //버튼 클릭시 다음날로 이동
 												<h3>${vo.aname }</h3>
 												<small>${vo.aaddress }</small>
 												<div id="map${status.index }" style="width: 200px; height: 200px;">
-													 지도넣기
 													<input type="hidden" id="axcoordi${status.index }" value="${vo.axcoordi }">
 													<input type="hidden" id="aycoordi${status.index }" value="${vo.aycoordi }">
 												</div>
@@ -1294,7 +1302,7 @@ function outMoveAfter(){ //버튼 클릭시 다음날로 이동
 													mainMapList(${status.index });
 													</script>
 											</div>
-											<div class="col-md-3">
+											<div class="col-md-3" style="padding-left: 70px;">
 												<c:if test="${vo.agrade!=null}">
 							                		<h5>${vo.agrade }성급</h5>
 												</c:if>
@@ -1322,7 +1330,7 @@ function outMoveAfter(){ //버튼 클릭시 다음날로 이동
 								                </c:otherwise>	
 								                </c:choose>
 												<h4>${vo.amountsum}원</h4>
-												<button class="btn"
+												<button class="btn btn-outline-primary"
 													onclick="location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid=${vo.aid}&riid=${vo.riid }&person=${rimaxper}&roomnum=${countRoom}&startday=${rcheckin}&endday=${rcheckout}'">예약하기</button>
 											</div>
 	

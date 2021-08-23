@@ -587,3 +587,14 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 	border: 0.5px solid black;
 	float: left;
 }
+
+
+.btn-outline-primary{
+	color:#00AEF0;
+    border: 1px solid #00AEF0;
+}
+.btn-outline-primary:hover{
+	color:#fff;
+	background-color:#00AEF0;
+	border-color:#00AEF0;
+}
