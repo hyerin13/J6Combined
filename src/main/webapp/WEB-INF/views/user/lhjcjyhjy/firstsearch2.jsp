@@ -403,14 +403,14 @@ function callList(){
 				break;
 			};
 	}
-	//인근반경 거리가 상관없음일때
+	//인근반경 거리가 상관없음이 아닐때
 	if($("#locationamount").val()!="none"){
 		//지도로보기로 지도가 펼쳐져 있을때				
 	 	if($("#gomap").html()=="돌아가기"){
-			gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star,aname)
+			gomapchange(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star,aname)
 		//리스트가 나올때				
 	 	}else{
-			list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),null,null,null,grade,star,aname)
+			list(templist,$("#count_min").val(),$("#count_max").val(),$("#sort").val(),locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[0]],locationmarker.getPosition()[Object.keys(locationmarker.getPosition())[2]],$("#locationamount").val(),grade,star,aname)
 	 	}
 	}else{
 		if($("#gomap").html()=="돌아가기"){
