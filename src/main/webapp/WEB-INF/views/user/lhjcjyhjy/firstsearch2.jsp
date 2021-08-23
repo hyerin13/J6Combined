@@ -476,8 +476,8 @@ function gomapchange(facilities,minprice,maxprice,sort,axcoordi,aycoordi,distanc
 		    		          +'<br> <img src="${pageContext.request.contextPath }/resources/images/accommodations/220i0z000000mulfw433F_Z_1080_808_R5_D.jpg" width="300" height="250" /><br>'
 		    		          +'전화번호: '+data.list[i].aphone+' | 가격: '+data.list[i].amountsum+'원<br/>'
 		    		          +"<br><button class='btn btn-outline-primary' onclick=\""
-							  +"location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid="+data.list[i].aid+"&riid="+data.list[i].riid+
-							  +"&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+data.checkin+"&endday="+data.checkout+"'\">예약하기</button>"
+							  +"location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid="+data.list[i].aid+"&riid="+data.list[i].riid
+							  +"&person=${rimaxper}&roomnum=${countRoom}&startday=data.checkin+endday="+data.checkout+"'\">예약하기</button>"
 							  +'</p></div>'
 							contentString.push(html)
 					   }else{
@@ -489,8 +489,8 @@ function gomapchange(facilities,minprice,maxprice,sort,axcoordi,aycoordi,distanc
 		    		          +'<br /> <img src="${pageContext.request.contextPath }/resources/images/accommodations/'+data.list[i].amainimg+'"width="300" height="250"/><br />'
 		    		          +'<br>전화번호: '+data.list[i].aphone+' <br><br> 가격: '+data.list[i].amountsum+'원<br/>'
 		    		          +"<br><button class='btn btn-outline-primary' onclick=\""
-							  +"location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid="+data.list[i].aid+"&riid="+data.list[i].riid+
-							  +"&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+data.checkin+"&endday="+data.checkout
+							  +"location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid="+data.list[i].aid+"&riid="+data.list[i].riid
+							  +"&person=${rimaxper}&roomnum=${countRoom}&startday=data.checkin&endday="+data.checkout
 							  +"'\">예약하기</button>"
 							  +'</p></div>'
 						   contentString.push(html)
