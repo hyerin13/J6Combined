@@ -26,6 +26,7 @@ import javax.servlet.ServletContext;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -68,8 +69,9 @@ public class HotelManageControllerHjy {
 	ServletContext sc;
 
 	@GetMapping("hjy/hotelForm")
-	public String hotelInsertForm(String type) {
-		return "user/hjy/hotelManage/form";
+	public String hotelInsertForm(String type,Model model) {
+		model.addAttribute("result", "yes");
+		return "user/hjy/hotelManage/mailResult";
 	}
 
 	/**
@@ -78,7 +80,7 @@ public class HotelManageControllerHjy {
 	 * @param aid
 	 */
 	@GetMapping("hjy/ok")
-	public void hotelAllow(String aid) {
+	public String hotelAllow(String aid,Model model) {
 //		찐db에 저장하기
 
 		// 숙소테이블
@@ -158,7 +160,8 @@ public class HotelManageControllerHjy {
 			int n2 = periodservice.insert(periodVo);
 		}
 		period_tempservice.delete(Integer.parseInt(aid));
-
+		model.addAttribute("result", "yes");
+		return "user/hjy/hotelManage/mailResult";
 	}
 
 	/**
@@ -167,7 +170,7 @@ public class HotelManageControllerHjy {
 	 * @param aid
 	 */
 	@GetMapping("hjy/no")
-	public void hotelRefusal(String aid) {
+	public String hotelRefusal(String aid,Model model) {
 		// 거부
 		// db삭제
 		List<Room_InfoVo> Room_info_tempVoList = roomInfo_tempservice.find(Integer.parseInt(aid));
@@ -214,6 +217,8 @@ public class HotelManageControllerHjy {
 			e.printStackTrace();
 		}
 		accommodations_tempservice.delete(Integer.parseInt(aid));
+		model.addAttribute("result", "no");
+		return "user/hjy/hotelManage/mailResult";
 	}
 
 	/**
