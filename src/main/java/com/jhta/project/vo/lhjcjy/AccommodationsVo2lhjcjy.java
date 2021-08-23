@@ -30,6 +30,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class AccommodationsVo2lhjcjy {
 	private int aid;
+	private int riid;
 	private String acate;
 	private String aname;
 	private String aaddress;

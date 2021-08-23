@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/footer.css">
 
 <style type="text/css">
+
 .bg-orange {
 	background: #00AEF0;
 	color: #fff !important;
@@ -39,7 +40,10 @@ a {
         min-width: 500px;
     }
 }
-
+.noresult {
+  font-family:Brezel Grotesk,Helvetica Neue,Helvetica,Arial,sans-serif; 
+  font-weight: 400;
+}
 </style> 
 <!-- 부트스트랩 -->
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -389,7 +393,7 @@ function callList(){
 function gomapchange(facilities,minprice,maxprice,sort,axcoordi,aycoordi,distance,agrade,restar){
 	  let gomapchange = new naver.maps.Map('gomapchange', {
           center: new naver.maps.LatLng(ycoordi, xcoordi),
-          zoom: 13
+          zoom: 14
       })
 	var latlngs = [];
     var contentString=[];
@@ -431,26 +435,32 @@ function gomapchange(facilities,minprice,maxprice,sort,axcoordi,aycoordi,distanc
 							latlngs.push(new naver.maps.LatLng(data.list[i].axcoordi, data.list[i].aycoordi));
 		        		}
 						if(data.list[i].amainimg==null){
-							contentString.push(
-				    		          '<div class="iw_inner">'+'<h5>'+star+'</h5>'+'<h3>'+data.list[i].aname+'</h3>'+'<h5>'+data.list[i].agrade+'성급</h5>'+'<p>'+data.list[i].aaddress
-				    		          +'<br /> <img src="${pageContext.request.contextPath }/resources/images/accommodations/220i0z000000mulfw433F_Z_1080_808_R5_D.jpg" width="300" height="250" /><br />'
-				    		          +'전화번호: '+data.list[i].aphone+' | 가격: '+data.list[i].amountsum+'<br/>'
-				    		          +"<button class='btn' onclick=\""
-									  +"location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid="+data.list[i].aid+"&riid="+data.list[i].riid+
-									  +"&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+data.checkin+"&endday="+data.checkout+"'\">예약하기</button>"
-									  +'</p></div>'
-									  )
+							  let html = '<div class="iw_inner" style="padding:3px;">'+'<h5>'+star+'</h5>'+'<h3>'+data.list[i].aname+'</h3>'+'<h5>';
+		    		          if(data.list[i].agrade!=null){
+			    		          html+=data.list[i].agrade+'성급</h5>'
+		    		          }
+		    		          html+='<p>'+data.list[i].aaddress
+		    		          +'<br> <img src="${pageContext.request.contextPath }/resources/images/accommodations/220i0z000000mulfw433F_Z_1080_808_R5_D.jpg" width="300" height="250" /><br>'
+		    		          +'전화번호: '+data.list[i].aphone+' | 가격: '+data.list[i].amountsum+'원<br/>'
+		    		          +"<br><button class='btn btn-outline-primary' onclick=\""
+							  +"location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid="+data.list[i].aid+"&riid="+data.list[i].riid+
+							  +"&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+data.checkin+"&endday="+data.checkout+"'\">예약하기</button>"
+							  +'</p></div>'
+							contentString.push(html)
 					   }else{
-						   contentString.push(
-								   	  '<div class="iw_inner">'+'<h5>'+star+'</h5>'+'<h3>'+data.list[i].aname+'</h3>'+'<h5>'+data.list[i].agrade+'성급</h5>'+'<p>'+data.list[i].aaddress
-				    		          +'<br /> <img src="${pageContext.request.contextPath }/resources/images/accommodations/'+data.list[i].amainimg+'"width="300" height="250"/><br />'
-				    		          +data.list[i].aphone+' | '+data.list[i].amountsum+'<br/>'
-				    		          +"<button class='btn' onclick=\""
-									  +"location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid="+data.list[i].aid+"&riid="+data.list[i].riid+
-									  +"&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+data.checkin+"&endday="+data.checkout
-									  +"'\">예약하기</button>"
-									  +'</p></div>'
-									  )
+						   let html = '<div class="iw_inner"style="padding:3px;">'+'<h5>'+star+'</h5>'+'<h3>'+data.list[i].aname+'</h3>'+'<h5>';
+						   if(data.list[i].agrade!=null){
+			    		          html+=data.list[i].agrade+'성급</h5>'
+		    		          }
+						   html+='<p>'+data.list[i].aaddress
+		    		          +'<br /> <img src="${pageContext.request.contextPath }/resources/images/accommodations/'+data.list[i].amainimg+'"width="300" height="250"/><br />'
+		    		          +'<br>전화번호: '+data.list[i].aphone+' <br><br> 가격: '+data.list[i].amountsum+'원<br/>'
+		    		          +"<br><button class='btn btn-outline-primary' onclick=\""
+							  +"location.href='${pageContext.request.contextPath }/user/kjy/room_info?aid="+data.list[i].aid+"&riid="+data.list[i].riid+
+							  +"&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+data.checkin+"&endday="+data.checkout
+							  +"'\">예약하기</button>"
+							  +'</p></div>'
+						   contentString.push(html)
 						   }
     		        	}
 					}
@@ -479,7 +489,7 @@ function gomapchange(facilities,minprice,maxprice,sort,axcoordi,aycoordi,distanc
 		      content: contentString[seq],
 		      maxWidth: 200,
 		      backgroundColor: "#eee",
-		      borderColor: "#2db400",
+		      borderColor: "#00AEF0",
 		      borderWidth: 5,
 		      anchorSize: new naver.maps.Size(30, 30),
 		      anchorSkew: true,
@@ -558,6 +568,7 @@ function isdistancein(coords1, coords2) {
 	var d = r * c; // Distance in km
 	return Math.round(d*1000);
 }
+
 //위의 검색조건,왼쪽 검색조건에 맞는 list뽑아주기 ajax
 function list(facilities,minprice,maxprice,sort,xcoordi,ycoordi,distance,agrade,restar){
 	let changecnt=0;
@@ -572,7 +583,7 @@ function list(facilities,minprice,maxprice,sort,xcoordi,ycoordi,distance,agrade,
 			if(data.code=='success'){
 			   $("#list").empty();
 			   if(data.list.length==0){
-				   $("#list").html("<h3>조건에 맞는 호텔이 없습니다</h3>");
+				   $("#list").html("<div style='text-align: center;'><img style='width:200px;height:200px;'src = 'https://content.r9cdn.net/res/images/horizon/hotels/results/brands/hotelscombined/max-magnifying-glass.png?v=2ce4b5af1d8bd19e6264dabe7ceb3c51793b5f87&cluster=5'><br><Br><h3>조건에 맞는 호텔이 없습니다</h3></div>");
 			   }else{
 				   for (var i = 0; i < data.list.length; i++) {
 					   let html = "";
