@@ -38,7 +38,6 @@
 	color: #fff !important;
 }
 body {
-	background: #f4f4f4;
 	font-family:Brezel Grotesk,Helvetica Neue,Helvetica,Arial,sans-serif; 
 }
 img {
