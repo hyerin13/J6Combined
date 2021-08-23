@@ -38,7 +38,7 @@ function portlist(){
 				$(favairport).each(function(i,d){
 					let html1="<div>"+
 					"<p class='dbtext'>&nbsp;&nbsp;"+d+
-					"<a href='javascript:portdel("+i+")' style='cursor:pointer; color:white;'>&nbsp;&times;</a>"+
+					"<a href='javascript:portdel("+i+")' style='cursor:pointer; color:white;'>&nbsp;&times;&nbsp;</a>"+
 					"</p></div>";
 					$(html1).appendTo("#portbox").css({
 						position:'relative',
@@ -86,7 +86,7 @@ function linelist(){
 				$(favarline).each(function(i,d){
 					let html2="<div>"+
 					"<p class='dbtext'>&nbsp;&nbsp;"+d+
-					"<a href='javascript:linedel("+i+")' style='cursor:pointer; color:white;'>&nbsp;&times;</a>"+
+					"<a href='javascript:linedel("+i+")' style='cursor:pointer; color:white;'>&nbsp;&times;&nbsp;</a>"+
 					"</p></div>";
 					$(html2).appendTo("#linebox").css({
 						position:'relative',
@@ -134,7 +134,7 @@ function hotellist(){
 				$(favarhotel).each(function(i,d){
 					let html3="<div class='ptbox'>"+
 					"<p class='dbtext'>&nbsp;&nbsp;"+d+
-					"<a href='javascript:hoteldel("+i+")' style='cursor:pointer; color:white;'>&nbsp;&times;</a>"+
+					"<a href='javascript:hoteldel("+i+")' style='cursor:pointer; color:white;'>&nbsp;&times;&nbsp;</a>"+
 					"</p></div>";
 					$(html3).appendTo("#hotelbox").css({
 						position:'relative',

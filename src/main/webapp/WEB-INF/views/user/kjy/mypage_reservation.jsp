@@ -12,9 +12,9 @@
    <!-- 모달 내용 -->
    <div class="modal-content">
       <span class="close">&times;</span><br>                                                               
-      <p class="pwcheck">비밀번호를 입력해주세요</p>
-      <input class="textcheck" type="password">
-      <input type="button" class="btn btn-primary" id="pwcheck" value="확인">
+      <p class="pwcheck2">비밀번호를 입력해주세요</p>
+      <input class="textcheck2" type="password">
+      <input type="button" class="btn btn-primary" id="pwcheck" value="확인" style="background-color:#00aef0 !important;">
    </div>
 </div>
 <div id="myModal2" class="modal2">
