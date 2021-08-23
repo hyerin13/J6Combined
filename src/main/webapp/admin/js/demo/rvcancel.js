@@ -33,7 +33,34 @@ $(document).ready(function(){
          ],
          	dom: 'Bfrtip',
          	buttons: [
-            'copy', 'excel', 'pdf', 'print'
+            {
+				extend: 'copy'
+				,text: 'copy'
+				,filename: '호텔별 예약률'
+				,title: '호텔별 예약률'
+				,className: 'btn btn-outline-primary'
+			},
+	     	{
+				extend: 'excel'
+				,text: 'excel'
+				,filename: '호텔별 예약률'
+				,title: '호텔별 예약률'
+				,className: 'btn btn-outline-primary'
+			},
+			{
+				extend: 'pdf'
+				,text: 'pdf'
+				,filename: '호텔별 예약률'
+				,title: '호텔별 예약률'
+				,className: 'btn btn-outline-primary'
+			},
+			{
+				extend: 'print'
+				,text: 'print'
+				,filename: '호텔별 예약률'
+				,title: '호텔별 예약률'
+				,className: 'btn btn-outline-primary'
+			},
         ]
    });
    $('input[name=selectall]').on('change', function(){
@@ -110,7 +137,34 @@ $(document).ready(function(){
                 ],
                     dom: 'Bfrtip',
                     buttons: [
-                   'copy', 'excel', 'pdf', 'print'
+                   {
+				extend: 'copy'
+				,text: 'copy'
+				,filename: '호텔별 예약률'
+				,title: '호텔별 예약률'
+				,className: 'btn btn-outline-primary'
+			},
+	     	{
+				extend: 'excel'
+				,text: 'excel'
+				,filename: '호텔별 예약률'
+				,title: '호텔별 예약률'
+				,className: 'btn btn-outline-primary'
+			},
+			{
+				extend: 'pdf'
+				,text: 'pdf'
+				,filename: '호텔별 예약률'
+				,title: '호텔별 예약률'
+				,className: 'btn btn-outline-primary'
+			},
+			{
+				extend: 'print'
+				,text: 'print'
+				,filename: '호텔별 예약률'
+				,title: '호텔별 예약률'
+				,className: 'btn btn-outline-primary'
+			},
                 ]
         });
     });

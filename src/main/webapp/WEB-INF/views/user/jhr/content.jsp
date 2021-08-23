@@ -11,6 +11,31 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
 <script type="text/javascript">
+//fag 토글
+var acc_state=0;
+function accodionAction(target) {
+	//제이쿼리
+	 $(target).next().slideToggle(500);
+/*
+    //자바스크립트
+    var panel=document.getElementsByClassName("faq_answer");
+    var accordion_button=document.getElementsByClassName("faq_question_title");
+    if(target.nextElementSibling.style.display=='block') {
+        target.nextElementSibling.style="display:none;";
+        target.classList.toggle("active");
+        
+    }
+    else{
+        for(i=0; i<panel.length; i++){
+            panel[i].style.display="none";
+            accordion_button[i].classList.remove("active");
+        }
+        target.nextElementSibling.style="display:block;";
+        target.classList.toggle("active"); 
+    } 
+    
+    */
+}
 	$(function(){	
 		$("#slide_des").draggable({
 			containment: [-1048,20,200,20],
@@ -639,7 +664,7 @@
 						
 						<div class="faq_column_container">
 							<div class="faq_column_content">
-								<div class="faq_question_title">
+								<div class="faq_question_title" onclick="accodionAction(this);">
 									<div class="faq_question_text">호텔스컴바인 후기의 특별한 점은 무엇입니까?</div>
 									<button class="faq_question_arr">
 										<svg viewBox="0 0 10 10">
@@ -654,7 +679,7 @@
 					<div class="faq_column">
 						<div class="faq_column_container">
 							<div class="faq_column_content">
-								<div class="faq_question_title">
+								<div class="faq_question_title" onclick="accodionAction(this);">
 									<div class="faq_question_text">호텔스컴바인의 회원 전용 혜택은 무엇입니까?</div>
 									<button class="faq_question_arr">
 										<svg viewBox="0 0 10 10">
@@ -668,7 +693,7 @@
 						
 						<div class="faq_column_container">
 							<div class="faq_column_content">
-								<div class="faq_question_title">
+								<div class="faq_question_title" onclick="accodionAction(this);">
 									<div class="faq_question_text">호텔스컴바인 앱(app)이 있습니까?</div>
 									<button class="faq_question_arr">
 										<svg viewBox="0 0 10 10">
