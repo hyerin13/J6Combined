@@ -1,6 +1,6 @@
 // Call the dataTables jQuery plugin
 $(document).ready(function() {
-	//호텔별 예약율
+	//호텔별 예약률
 	$('#hotelTable').DataTable( {
 	    ajax:{
         	url:path+"hjy/admin/hotelReservationRate?time="+$("#time").val(),
@@ -20,7 +20,34 @@ $(document).ready(function() {
 	    //Bfrtip: excel로 다운로드 기능
 	    dom:'Bfrtip',
 	    buttons:[
-	     'copy', 'excel', 'pdf', 'print'
+	     	{
+				extend: 'copy'
+				,text: 'copy'
+				,filename: '호텔별 예약률'
+				,title: '호텔별 예약률'
+				,className: 'btn btn-outline-primary'
+			},
+	     	{
+				extend: 'excel'
+				,text: 'excel'
+				,filename: '호텔별 예약률'
+				,title: '호텔별 예약률'
+				,className: 'btn btn-outline-primary'
+			},
+			{
+				extend: 'pdf'
+				,text: 'pdf'
+				,filename: '호텔별 예약률'
+				,title: '호텔별 예약률'
+				,className: 'btn btn-outline-primary'
+			},
+			{
+				extend: 'print'
+				,text: 'print'
+				,filename: '호텔별 예약률'
+				,title: '호텔별 예약률'
+				,className: 'btn btn-outline-primary'
+			},
 	    ]
 	} );
 	//객실별 예약율
@@ -42,7 +69,34 @@ $(document).ready(function() {
 	    serverSide: false,
 	    dom:'Bfrtip',
 	    buttons:[
-	     'copy', 'excel', 'pdf', 'print'
+	     	{
+				extend: 'copy'
+				,text: 'copy'
+				,filename: '객실별 예약률'
+				,title: '객실별 예약률'
+				,className: 'btn btn-outline-primary'	
+			},
+	     	{
+				extend: 'excel'
+				,text: 'excel'
+				,filename: '객실별 예약률'
+				,title: '객실별 예약률'
+				,className: 'btn btn-outline-primary'
+			},
+			{
+				extend: 'pdf'
+				,text: 'pdf'
+				,filename: '객실별 예약률'
+				,title: '객실별 예약률'
+				,className: 'btn btn-outline-primary'
+			},
+			{
+				extend: 'print'
+				,text: 'print'
+				,filename: '객실별 예약률'
+				,title: '객실별 예약률'
+				,className: 'btn btn-outline-primary'
+			},
 	    ]
 	} );
 	
@@ -67,8 +121,35 @@ $(document).ready(function() {
 		    serverSide: false,
 		    dom:'Bfrtip',
 		    buttons:[
-		     'copy', 'excel', 'pdf', 'print'
-		    ]
+	     	{
+				extend: 'copy'
+				,text: 'copy'
+				,filename: '호텔별 예약률'
+				,title: '호텔별 예약률'
+				,className: 'btn btn-outline-primary'
+			},
+	     	{
+				extend: 'excel'
+				,text: 'excel'
+				,filename: '호텔별 예약률'
+				,title: '호텔별 예약률'
+				,className: 'btn btn-outline-primary'
+			},
+			{
+				extend: 'pdf'
+				,text: 'pdf'
+				,filename: '호텔별 예약률'
+				,title: '호텔별 예약률'
+				,className: 'btn btn-outline-primary'
+			},
+			{
+				extend: 'print'
+				,text: 'print'
+				,filename: '호텔별 예약률'
+				,title: '호텔별 예약률'
+				,className: 'btn btn-outline-primary'
+			},
+	    ]
 		} );
 		//객실별 예약율
 		//$('#roomTable').parent().children().remove();
@@ -90,8 +171,35 @@ $(document).ready(function() {
 		    serverSide: false,
 		    dom:'Bfrtip',
 		    buttons:[
-		     'copy', 'excel', 'pdf', 'print'
-		    ]
+	     	{
+				extend: 'copy'
+				,text: 'copy'
+				,filename: '객실별 예약률'
+				,title: '객실별 예약률'
+				,className: 'btn btn-outline-primary'
+			},
+	     	{
+				extend: 'excel'
+				,text: 'excel'
+				,filename: '객실별 예약률'
+				,title: '객실별 예약률'
+				,className: 'btn btn-outline-primary'
+			},
+			{
+				extend: 'pdf'
+				,text: 'pdf'
+				,filename: '객실별 예약률'
+				,title: '객실별 예약률'
+				,className: 'btn btn-outline-primary'
+			},
+			{
+				extend: 'print'
+				,text: 'print'
+				,filename: '객실별 예약률'
+				,title: '객실별 예약률'
+				,className: 'btn btn-outline-primary'
+			},
+	    ]
 		} );
 	})
 	
