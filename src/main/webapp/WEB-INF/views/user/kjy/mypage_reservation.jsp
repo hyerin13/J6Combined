@@ -1,408 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<style>
-	#cutitle{
-		position: relative;
-		margin-top:30px;
-		font-size:30px;
-		font-weight:bold;
-		margin-bottom:30px;
-	}
-	.box1{
-		position: relative;
-		width: 1000px;
-		height: 160px;
-		border:1px solid gray;
-		border-radius: 10px;
-		margin-bottom:20px;
-	}
-	.imgbox{
-		position: absolute;
-		top:20px;
-		left:20px;
-		width:150px;
-		height:120px;
-		border-radius: 10px;
-	}
-	.roomtype{
-		position: absolute;
-		top:20px;
-		left:220px;
-		font-size:20px;
-		font-weight:bold;
-	}
-	.checkinout{
-		position: absolute;
-		top:60px;
-		left:220px;
-		font-size:15px;
-	}
-	.resname{
-		position: absolute;
-		top:90px;
-		left:220px;
-		font-size:15px;
-	}
-	.resphone{
-		position:absolute;
-		top:120px;
-		left:220px;
-		font-size: 15px;
-	}
-	.pmethod{
-		position: absolute;
-		top:60px;
-		left:550px;
-		font-size:15px;
-	}
-	.pdate{
-		position: absolute;
-		top:90px;
-		left:550px;
-		font-size:15px;
-	}
-	.ptotal{
-		position: absolute;
-		top:120px;
-		left:550px;
-		font-size:15px;
-	}
-	.cancelbtn1{
-		position: absolute;
-		top:80px;
-		right:40px;
-		font-size:15px;
-		font-weight:bold;
-		color: blue;
-		cursor:pointer;
-	}
-	.cancelbtn2{
-		position: absolute;
-		top:80px;
-		right:40px;
-		font-size:15px;
-		font-weight:bold;
-		color: red;
-	}
-	
-	#patitle{
-		position: relative;
-		margin-top:30px;
-		font-size:30px;
-		font-weight:bold;
-		margin-bottom:30px;	
-	}
-	.box2{
-		position: relative;
-		width: 1000px;
-		height: 160px;
-		border:1px solid gray;
-		border-radius: 10px;
-		margin-bottom:20px;
-		background: #DCDCDC;
-	}
-	.expirebtn{
-		position: absolute;
-		top:80px;
-		right:40px;
-		font-size:15px;
-		font-weight:bold;
-		color: black;
-	}
-	
-	.reviewbtn{
-		position: absolute;
-		top:80px;
-		right:40px;
-		font-size:15px;
-		font-weight:bold;
-		color: #59DA50;
-		cursor:pointer;
-	}
-	
-	#page{
-		position: relative;
-		margin-bottom:40px;
-		left: 450px;
-		width: 100px;
-		height: 50px;
-		font-size: 25px;
-	}
-	
-	
-	.modal {
-        display: none; /* Hidden by default */
-        position: fixed; /* Stay in place */
-        z-index: 1; /* Sit on top */
-        left: 0;
-        top: 0;
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    }
-    /* Modal Content/Box */
-    .modal-content {
-        background-color: #fefefe;
-        margin: 15% auto; /* 15% from the top and centered */
-        padding: 20px;
-        border: 1px solid #888;
-        width: 300px;
-        height: 200px;
-                              
-    }
-    
-    .modal2 {
-        display: none; /* Hidden by default */
-        position: fixed; /* Stay in place */
-        z-index: 1; /* Sit on top */
-        left: 0;
-        top: 0;
-        width: 100%; /* Full width */
-        height: 100%; /* Full height */
-        overflow: auto; /* Enable scroll if needed */
-        background-color: rgb(0,0,0); /* Fallback color */
-        background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-    }
-    /* Modal Content/Box */
-    .modal-content2 {
-    	position:absolute;
-        background-color: #fefefe;
-        margin: 15% auto; /* 15% from the top and centerede */
-        padding: 20px;
-        border: 1px solid #888;
-        top:-150px;
-        left:700px;
-        width: 510px;
-        height: 700px;
-       	overflow:auto; 
-       	overflow-x:hidden;
-    }
-    
-    /* The Close Button */
-    .close {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
-    .close:hover,
-    .close:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-    }
-    .close2 {
-    	position:absolute;
-    	right:20px;
-        color: #fefefe;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-    }
-    .close2:hover,
-    .close2:focus {
-        color: black;
-        text-decoration: none;
-        cursor: pointer;
-    }
-    
-    .pwcheck{
-    	position: absolute;
-    	top:50px;
-    	left:40px;
-    	font-size:18px;
-    	font-weight: bold;
-    }
-    .textcheck{
-    	position: absolute;
-    	top:90px;
-    	left:40px;
-    	font-size:18px;
-    	text-align:center;
-    }
-    #pwcheck{
-    	position: absolute;
-    	top:140px;
-    	left:40px;
-    	width:200px;
-    	height:40px;
-    }
-    .review_head{
-    	position: fixed;
-    	top:138px;
-    	left:700px;
-    	width:494px;
-    	height:50px;
-    	background:#418BCA;
-    	z-index: 2;
-    }
-    .reviewhead{
-    	position:absolute;
-    	top:5px;
-    	left:200px;
-    	font-size: 25px;
-    	color: white;
-    }  
-    .review_roomphoto{
-    	position:absolute;
-    	top:50px;
-    	left:-1px;
-    	width:500px;
-    	height:100px;
-    	border-bottom:1px solid gray;
-    }
-    .room_img{
-    	position:absolute;
-    	top:10px;
-    	left:30px;
-    	width:80px;
-    	height:80px;
-    	border:1px solid gray;
-    	border-radius: 5px;
-    }
-    .room_aname{
-    	position: absolute;
-    	top:10px;
-    	left:130px;
-    	font-size:25px;
-    }
-    .room_type{
-    	position: absolute;
-    	top:60px;
-    	left:130px;
-    	font-size:15px;
-    }
-    .review_content{
-    	position:absolute;
-    	top:150px;
-    	left: -1px;
-    	width: 500px;
-    	height:180px;
-    	border-bottom:1px solid gray;
-    }
-    .content_title{
-    	position:absolute;
-    	top:40px;
-    	left:145px;
-    	font-size:20px;
-    }
-    .content_star{
-    	position:absolute;
-    	top:50px;
-    	left:80px;
-    	font-size:50px;
-    }
-    .content_star a{
-	 	color: gray; 
-	} 
-	.content_star a.on{
-	 	color: blue;
-	}
-	.content_starhtml{
-		position:absolute;
-		top:120px;
-		left:185px;
-		font-size:15px;
-	}
-	.review_content2{
-    	position:absolute;
-    	top:330px;
-    	left: -1px;
-    	width: 500px;
-    	height:300px;
-    	border-bottom:1px solid gray;
-    }
-    .content2_titlehtml1{
-    	position:absolute;
-    	top:20px;
-    	left:140px;
-    	font-size:20px;
-    }
-    .content2_titlehtml2{
-    	position:absolute;
-    	top:45px;
-    	left:140px;
-    	font-size:20px;
-    }
-    .content2_title{
-    	position: absolute;
-    	top:80px;
-    	left:28px;
-    	width:443px;
-    	font-size:15px;
-    }
-    .content2_content{
-    	position:absolute;
-    	top:110px;
-    	left:28px;
-    	height:150px;
-    	overflow:auto;
-    	resize: none;
-    	/*resize=늘리기없애기*/
-    }
-    .content2_count{
-		position:absolute;
-		top:265px;
-		right:28px;
-		font-size:15px;   	
-    }
-    .content_file{
-    	position:absolute;
-    	top:630px;
-    	left:-1px;
-    	height:300px;
-    	width:500px;
-    }
-    .filebox{
-    	position: absolute;
-    	top:40px;
-    	left:30px;
-    	width:440px;
-    	height:50px; 
- 		border: 1px solid gray;
- 		border-style: dashed;
- 		cursor:pointer;
-    }
-    #review_file{
-    	position: absolute;
- 		width: 1px;
- 		height: 1px;
- 		padding: 0;
-  		margin: -1px;
-  		overflow: hidden;
- 		clip:rect(0,0,0,0);
-  		border: 0;
-    }
-    .review_file_label{
-    	position: absolute;
-    	top:10px;
-    	left:100px;
-    	font-size:20px;
-    	cursor:pointer;
-    }
-    #file_imgbox{
-    	position:absolute;
-    	top:120px;
-    	left:30px;
-    	height:100px;
-    	width:100px;
-    }
-    #file_img{
-    	width:100px;
-    	height:100px;
-    }
-    #review_btn{
-    	position: fixed;
-    	top:788px;
-    	left:700px;
-    	width:494px;
-    	height:50px;
-    	z-index: 2;
-    }
-</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mypage_reservation.css">
+
 <div id="part1"></div>
 <div id="part2"></div>
 <div id="page"></div>
@@ -421,13 +21,15 @@
     <!-- 모달 내용 -->
     <div class="modal-content2">
     	<div class="review_head">
-		 	<span class="close2">&times;</span>
-      		<span class="reviewhead">리뷰쓰기</span>    
+      		<span class="reviewhead">리뷰쓰기</span>   
+		 	<span class="close2">&times;</span> 
     	</div>
     	<div class='review_roomphoto'>
     		<img class="room_img">
-    		<span class="room_aname"></span>
-    		<span class="room_type"></span>
+    		<div class="room_text">
+	    		<span class="room_aname"></span>
+	    		<span class="room_type"></span>
+    		</div>
     	</div>
     	<div class="review_content">
     		<span class="content_title">상품은 만족하셨나요?</span>
@@ -437,7 +39,7 @@
 				<a href="javascript:void(0);" value="3">★</a> 
 				<a href="javascript:void(0);" value="4">★</a> 
 				<a href="javascript:void(0);" value="5">★</a> 
-			<p>
+			</p>
 			<span class="content_starhtml"></span>
     	</div>
     	<div class="review_content2">
@@ -449,10 +51,10 @@
     	</div>
     	<div class="content_file">
     		<div class="filebox">
-    		<form id="fileForm2" method="post" enctype="multipart/form-data" style="display: none;">
-    			<input type="file" id="review_file" name="review_photo">
-    		</form>
-    			<label for="review_file" class="review_file_label">클릭하여 사진 첨부하기</label>
+	    		<form id="fileForm2" method="post" enctype="multipart/form-data" style="display: none;">
+	    			<input type="file" id="review_file" name="review_photo">
+	    		</form>
+	    		<label for="review_file" class="review_file_label">클릭하여 사진 첨부하기</label>
     		</div>
     		<div id="file_imgbox">
     			<img id="file_img"  onerror="imgAreaError()">
@@ -478,81 +80,81 @@ function reservationlist(pageNum){
 			let pastlist=data.pastlist;
 			let currentlist=data.currentlist;
 			if(currentlist!=null){
-				var title1="<p id='cutitle'>최근 내역</p>";
+				var title1="<p id='cutitle'>최근 내역</p><br>";
 				$("#part1").append(title1);
 				$(currentlist).each(function(i,d){
 					if(d.rcancel=='N'){
 						let html="<div class='box1'>"+
 						"<img src='${pageContext.request.contextPath }/resources/images/room_info/"+d.rimainimg+"' class='imgbox'>"+
-						"<p class='roomtype'>"+d.riroomtype+"</p>"+
-						"<p class='checkinout'>예약날짜 : "+d.rcheckin+" ~ "+d.rcheckout+"</p>"+
+						"<div class='box1_in'><p class='roomtype'>"+d.riroomtype+"</p>"+
+						"<div class='box1_container'><div class='box1_1'><p class='checkinout'>예약날짜 : "+d.rcheckin+" ~ "+d.rcheckout+"</p>"+
 						"<p class='resname'>이름 : "+d.rresname+"</p>"+
-						"<p class='resphone'>전화번호 : "+d.rresphone+"</p>"+
-						"<p class='pmethod'>결제수단 : "+d.pmethod+"</p>"+
+						"<p class='resphone'>전화번호 : "+d.rresphone+"</p></div>"+
+						"<div class='box1_2'><p class='pmethod'>결제수단 : "+d.pmethod+"</p>"+
 						"<p class='pdate'>결제날짜 : "+d.pdate+"</p>"+
-						"<p class='ptotal'>결제금액 : "+d.ptotal+"원</p>"+
-						"<p class='cancelbtn1' onclick='cancelclick("+d.pid+")'>주문취소</p>"+
+						"<p class='ptotal'>결제금액 : "+d.ptotal+"원</p></div>"+
+						"<p class='cancelbtn1' onclick='cancelclick("+d.pid+")'>주문취소</p></div></div>"+
 						"</div>";
 						$("#part1").append(html);
 					}else{
 						let html1="<div class='box1'>"+
 						"<img src='${pageContext.request.contextPath }/resources/images/room_info/"+d.rimainimg+"' class='imgbox'>"+
-						"<p class='roomtype'>"+d.riroomtype+"</p>"+
-						"<p class='checkinout'>예약날짜 : "+d.rcheckin+" ~ "+d.rcheckout+"</p>"+
+						"<div class='box1_in'><p class='roomtype'>"+d.riroomtype+"</p>"+
+						"<div class='box1_container'><div class='box1_1'><p class='checkinout'>예약날짜 : "+d.rcheckin+" ~ "+d.rcheckout+"</p>"+
 						"<p class='resname'>이름 : "+d.rresname+"</p>"+
-						"<p class='resphone'>전화번호 : "+d.rresphone+"</p>"+
-						"<p class='pmethod'>결제수단 : "+d.pmethod+"</p>"+
+						"<p class='resphone'>전화번호 : "+d.rresphone+"</p></div>"+
+						"<div class='box1_2'><p class='pmethod'>결제수단 : "+d.pmethod+"</p>"+
 						"<p class='pdate'>결제날짜 : "+d.pdate+"</p>"+
-						"<p class='ptotal'>결제금액 : "+d.ptotal+"원</p>"+
-						"<p class='cancelbtn2'>취소완료</p>"+
+						"<p class='ptotal'>결제금액 : "+d.ptotal+"원</p></div>"+
+						"<p class='cancelbtn2'>취소완료</p></div></div>"+
 						"</div>";
 						$("#part1").append(html1);
 					}
 				});
 			}
 			if(pastlist!=null){
-				var title2="<p id='patitle'>과거 내역</p>";
+				var title2="<br><p id='patitle'>과거 내역</p><br>";
 				$("#part2").append(title2);
 				$(pastlist).each(function(i,d){
 					if(d.rcancel=='N'){
 						if(d.reid=='0'){
 							let html2="<div class='box2'>"+
 							"<img src='${pageContext.request.contextPath }/resources/images/room_info/"+d.rimainimg+"' class='imgbox'>"+
-							"<p class='roomtype'>"+d.riroomtype+"</p>"+
-							"<p class='checkinout'>예약날짜 : "+d.rcheckin+" ~ "+d.rcheckout+"</p>"+
+							"<div class='box1_in'><p class='roomtype'>"+d.riroomtype+"</p>"+
+							"<div class='box1_container'><div class='box1_1'><p class='checkinout'>예약날짜 : "+d.rcheckin+" ~ "+d.rcheckout+"</p>"+
 							"<p class='resname'>이름 : "+d.rresname+"</p>"+
-							"<p class='resphone'>전화번호 : "+d.rresphone+"</p>"+
-							"<p class='pmethod'>결제수단 : "+d.pmethod+"</p>"+
+							"<p class='resphone'>전화번호 : "+d.rresphone+"</p></div>"+
+							"<div class='box1_2'><p class='pmethod'>결제수단 : "+d.pmethod+"</p>"+
 							"<p class='pdate'>결제날짜 : "+d.pdate+"</p>"+
-							"<p class='ptotal'>결제금액 : "+d.ptotal+"원</p>"+
-							"<p class='reviewbtn' onclick='reviewclick("+d.rid+")'>리뷰쓰기</p>"+
+							"<p class='ptotal'>결제금액 : "+d.ptotal+"원</p></div>"+
+							"<p class='reviewbtn' onclick='reviewclick("+d.rid+")'>리뷰쓰기</p></div></div>"+
 							"</div>";
 							$("#part2").append(html2);
 						}else{
 							let html2="<div class='box2'>"+
 							"<img src='${pageContext.request.contextPath }/resources/images/room_info/"+d.rimainimg+"' class='imgbox'>"+
-							"<p class='roomtype'>"+d.riroomtype+"</p>"+
-							"<p class='checkinout'>예약날짜 : "+d.rcheckin+" ~ "+d.rcheckout+"</p>"+
+							"<div class='box1_in'><p class='roomtype'>"+d.riroomtype+"</p>"+
+							"<div class='box1_container'><div class='box1_1'><p class='checkinout'>예약날짜 : "+d.rcheckin+" ~ "+d.rcheckout+"</p>"+
 							"<p class='resname'>이름 : "+d.rresname+"</p>"+
-							"<p class='resphone'>전화번호 : "+d.rresphone+"</p>"+
-							"<p class='pmethod'>결제수단 : "+d.pmethod+"</p>"+
+							"<p class='resphone'>전화번호 : "+d.rresphone+"</p></div>"+
+							"<div class='box1_2'><p class='pmethod'>결제수단 : "+d.pmethod+"</p>"+
 							"<p class='pdate'>결제날짜 : "+d.pdate+"</p>"+
-							"<p class='ptotal'>결제금액 : "+d.ptotal+"원</p>"+
-							"<p class='expirebtn'>기간만료</p>"+
+							"<p class='ptotal'>결제금액 : "+d.ptotal+"원</p></div>"+
+							"<p class='expirebtn'>기간만료</p></div></div>"+
 							"</div>";
 							$("#part2").append(html2);
 						}
 					}else{
 						let html2="<div class='box2'>"+
 						"<img src='${pageContext.request.contextPath }/resources/images/room_info/"+d.rimainimg+"' class='imgbox'>"+
-						"<p class='roomtype'>"+d.riroomtype+"</p>"+
-						"<p class='checkinout'>예약날짜 : "+d.rcheckin+" ~ "+d.rcheckout+"</p>"+
+						"<div class='box1_in'><p class='roomtype'>"+d.riroomtype+"</p>"+
+						"<div class='box1_container'><div class='box1_1'><p class='checkinout'>예약날짜 : "+d.rcheckin+" ~ "+d.rcheckout+"</p>"+
 						"<p class='resname'>이름 : "+d.rresname+"</p>"+
-						"<p class='resphone'>전화번호 : "+d.rresphone+"</p>"+
-						"<p class='pmethod'>결제수단 : "+d.pmethod+"</p>"+
+						"<p class='resphone'>전화번호 : "+d.rresphone+"</p></div>"+
+						"<div class='box1_2'><p class='pmethod'>결제수단 : "+d.pmethod+"</p>"+
 						"<p class='pdate'>결제날짜 : "+d.pdate+"</p>"+
-						"<p class='ptotal'>결제금액 : "+d.ptotal+"원</p>"+
-						"<p class='cancelbtn2'>취소완료</p>"+
+						"<p class='ptotal'>결제금액 : "+d.ptotal+"원</p></div>"+
+						"<p class='cancelbtn2'>취소완료</p></div></div>"+
 						"</div>";
 						$("#part2").append(html2);
 					}

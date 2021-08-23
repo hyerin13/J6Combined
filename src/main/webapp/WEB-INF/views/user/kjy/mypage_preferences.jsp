@@ -1,69 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mypage_preferences.css">
 <!-- 커밋 -->
-<style>
-	.title{
-		position: absolute;
-		top:20px;
-		font-size:30px;
-		font-weight:bold;
-	}
-	#airport{
-		position:absolute;
-		top:100px;
-		width:1000px;
-		height:200px;
-		border:1px solid gray;
-		border-radius: 10px;
-	}
-	.text1{
-		position: absolute;
-		top:20px;
-		left: 20px;
-		font-size:20px;
-		font-weight: bold;
-	}
-	.text2{
-		position: absolute;
-		top:60px;
-		left: 20px;
-		font-size:15px;
-	}
-	.select{
-		position: absolute;
-		top:100px;
-		left:20px;
-		font-size: 15px;
-	}
-	.largebox{
-		position:absolute;
-		top:150px;
-		left:20px;
-	}
-	.box{
-		position: absolute;
-		width:112px;
-		height:25px;
-	}
-	#airline{
-		position:absolute;
-		top:350px;
-		width:1000px;
-		height:200px;
-		border:1px solid gray;
-		border-radius: 10px;
-	}
-	#hotelchain{
-		position:absolute;
-		top:600px;
-		width:1000px;
-		height:200px;
-		border:1px solid gray;
-		border-radius: 10px;
-	}
-</style>
 <p class="title">개인 설정</p>
+<br>
 <div id="airport">
 	<p class="text1">공항 선택</p>
 	<p class="text2">나의 출발 공항 및 자주 방문하는 공항을 저장해두고 편하게 검색하세요.</p>

@@ -9,161 +9,25 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/js/jquery-ui.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mypage.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/footer.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Hahmlet:wght@500;600;700&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
-<style>
-	* {
-		font-family: 'Stylish', sans-serif;
-	}
-	#headbox{
-		position: absolute;
-		top:100px;
-		left: 400px;
-		height: 400px;
-		width: 1000px;
-		border-top: 1px solid gray;
-		border-bottom: 1px solid gray;
-	}
-	.name{
-		position: absolute;
-		top:50px;
-		left: 0px;
-		font-size: 25px;
-		font-weight: normal;
-	}
-	.memt{
-		position: absolute;
-		top:100px;
-		left: 0px;
-		font-size: 50px;
-		font-weight: normal;
-	}
-	.profile{
-		position: absolute;
-		top:50px;
-		right: 0px;
-		width: 200px;
-		height: 200px;
-		border-radius: 100px;
-		background: #489CFF;
-	}
-	.initial{
-		position:absolute;
-		font-size:100px;
-		color: white;
-		top:0px;
-		left:70px;
-	}
-	#proimg{
-		position: absolute;
-		top:0px;
-		right: 0px;
-		width: 200px;
-		height: 200px;
-		border-radius: 100px;
-	}
-	.profiledel{
-		position: absolute;
-		top:0px;
-		right:0px;
-		font-size:20px;
-		cursor:pointer;
-	}
-	#profileup{
-		position: absolute;
-		top:160px;
-		right:-10px;
-		width:50px;
-		height: 40px;
-		cursor: pointer;
-		border-radius: 100px;
-	}
-	
-	#contentbox{
-		position:absolute;
-		left:400px;
-		top:450px;
-		width:1000px;
-		margin:0; 
-		padding:0;
-	}
-	/*tab css*/
-	div,ul,li {
-		list-style:none;
-	}
-	.tab{
-		position:absolute;
-		left:0px;
-		float:left; 
-		width:600px; 
-		height:290px;
-	}
-	.tabnav{
-		position:relative;
-		left:0px;
-		font-size:0; 
-		width:1000px; 
-		border:1px solid #ddd;
-	}
-	.tabnav li{
-		position:relative;
-		left:0px;
-		display: inline-block;  
-		width:197px;
-		height:46px; 
-		text-align:center; 
-		border-right:1px solid #ddd;
-	}
-	.tabnav li a:before{
-		content:""; 
-		position:absolute; 
-		left:0; 
-		top:0px; 
-		width:100%; 
-		height:3px; 
-	}
-	.tabnav li a.active:before{
-		background:blue;
-	}
-	.tabnav li a.active{
-		border-bottom:1px solid #fff;
-	}
-	.tabnav li a{ 
-		position:relative; 
-		display:block; 
-		background: #f8f8f8; 
-		color: #000; 
-		padding:0 30px; 
-		line-height:46px; 
-		text-decoration:none; 
-		font-size:16px;
-	}
-	.tabnav li a:hover,.tabnav li a.active{
-		background:#fff; color:blue; 
-	}
-	.tabcontent{
-		position:relative;
-		top:0px;
-		width:1000px;
-		height:600px; 
-		 
-		
-	}
-</style>
 </head>
 <body>
 <div class="header">
 	<jsp:include page="/WEB-INF/views/user/jhr/header.jsp"/>
 </div>
 <div id="headbox">
-	<p class="name">${vo.mname }님</p>
-	<p class="memt">돌아오셔서 반갑습니다.</p>
+	<div class="headbox_name">
+		<p class="name">${vo.mname }님</p>
+		<p class="memt">돌아오셔서 반갑습니다.</p>
+	</div>
 	<div class="profile">
 		<c:choose>
 			<c:when test="${!empty vo.mprofile}">
-				<img src="${pageContext.request.contextPath }/resources/images/members/${vo.mprofile}" id="proimg">
+				<img src="${pageContext.request.contextPath }/resources/images/members/${vo.mprofile}" id="proimg" onerror="this.style.display='none'">
 				<!-- C:\jhta\final\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\final_hotel1\resources\images\kjy\mypage -->
 				<p class="profiledel">&times;</p>
 				<img src="${pageContext.request.contextPath }/resources/images/members/profileup.jpg" id="profileup">				
@@ -181,34 +45,35 @@
 <div id="contentbox">
 	<div class="tab">
     	<ul class="tabnav">
-      		<li><a href="#tab01">계정관리</a></li>
-      		<li><a href="#tab02">환경설정</a></li>
-      		<li><a href="#tab03">예약내역</a></li>
-      		<li><a href="#tab04">문의내역</a></li>
-      		<li><a href="#tab05">회원탈퇴</a></li>
+      		<li class="tabnav_li"><a href="#tab01">계정관리</a></li>
+      		<li class="tabnav_li"><a href="#tab02">환경설정</a></li>
+      		<li class="tabnav_li"><a href="#tab03">예약내역</a></li>
+      		<li class="tabnav_li"><a href="#tab04">문의내역</a></li>
+      		<li class="tabnav_li"><a href="#tab05">회원탈퇴</a></li>
     	</ul>
-    <div class="tabcontent">
-    <div id="tab01">
-    	<jsp:include page="/WEB-INF/views/user/jhr/mypageUpdate.jsp"/>
-    </div>
-    <div id="tab02">
-    	<jsp:include page="/WEB-INF/views/user/kjy/mypage_preferences.jsp"/>
+	    <div class="tabcontent">
+		    <div id="tab01">
+		    	<jsp:include page="/WEB-INF/views/user/jhr/mypageUpdate.jsp"/>
+		    </div>
+		    <div id="tab02">
+		    	<jsp:include page="/WEB-INF/views/user/kjy/mypage_preferences.jsp"/>
+			</div>
+			<div id="tab03">
+		    	<jsp:include page="/WEB-INF/views/user/kjy/mypage_reservation.jsp"/>
+			</div>
+			<div id="tab04">
+		    	<jsp:include page="/WEB-INF/views/user/jhr/mypageQnalist.jsp"/>
+			</div>
+			<div id="tab05">
+		    	<jsp:include page="/WEB-INF/views/user/kjy/mypage_accountdelete.jsp"/>
+			</div>
+	  	</div>
 	</div>
-	<div id="tab03">
-    	<jsp:include page="/WEB-INF/views/user/kjy/mypage_reservation.jsp"/>
-	</div>
-	<div id="tab04">
-    	<jsp:include page="/WEB-INF/views/user/jhr/mypageQnalist.jsp"/>
-	</div>
-	<div id="tab05">
-    	<jsp:include page="/WEB-INF/views/user/kjy/mypage_accountdelete.jsp"/>
-	</div>
-  	</div>
-  </div><!--tab-->
 </div>
+
 <div class="footer">
 	<jsp:include page="/WEB-INF/views/user/jhr/footer.jsp"/>
-</div>	
+</div>
 </body>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

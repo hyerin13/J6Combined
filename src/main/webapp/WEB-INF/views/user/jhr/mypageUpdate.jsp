@@ -13,11 +13,11 @@
 <body>
 <form method="post" action="${pageContext.request.contextPath }/jhr/mypageUpdate" class="update_form" id="update_form" onsubmit="return check()" enctype="multipart/form-data">
 	<h3>회원정보 수정</h3><br>
-	<div class="join1">
+	<div class="join1" style="margin-bottom:10px !important;">
 		<div class="join_col1">
 			<label for="">프로필 사진</label>
 		</div>
-		<img id="profileimg" onerror="this.style.display='none'">
+		<img id="profileimg" onerror="this.style.display='none'" style="max-width:400px; max-height:300px; box-sizing:border-box; margin-bottom:10px;">
 		<div class="join_col_input">
 			<div class="input_wrap">
 				<div class="wrap_inner">
@@ -28,7 +28,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="join1">
+	<div class="join1" style="margin-bottom:10px !important;">
 		<div class="join_col1">
 			<label for="">이름</label>
 		</div>
@@ -42,7 +42,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="join1">
+	<div class="join1" style="margin-bottom:10px !important;">
 		<div class="join_col1">
 			<label for="">아이디</label>
 		</div>
@@ -56,7 +56,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="join1">
+	<div class="join1" style="margin-bottom:10px !important;">
 		<div class="join_col1">
 			<label for="">생년월일</label>
 		</div>
@@ -70,7 +70,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="join1">
+	<div class="join1" style="margin-bottom:10px !important;">
 		<div class="join_col1">
 			<label for="">휴대폰 <span class="point_color">*</span></label>
 		</div>
@@ -84,7 +84,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="join1">
+	<div class="join1" style="margin-bottom:10px !important;">
 		<div class="join_col1">
 			<label for="">이메일 <span class="point_color">*</span></label>
 		</div>
@@ -98,7 +98,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="join1">
+	<div class="join1" style="margin-bottom:10px !important;">
 		<div class="join_col1">
 			<label for="">비밀번호 변경 <span class="point_color">*</span></label>
 		</div>
