@@ -898,12 +898,13 @@ function outMoveAfter(){ //버튼 클릭시 다음날로 이동
 	</div>
 </div>
 	<!--filter section-->
-	<div class="search">
+	<div style='position: absolute;left: 50%;margin-left: -765px;'>
+		<div class="search">
 				<div class="search_container">
 					<form class="search_content" method="post" action="${pageContext.request.contextPath }/lhjcjyhjy/firstsearch">
-						<div class="search_insert">
+						<div class="search_insert" >
 							<div class="search_insert_container">
-								<div class="search_insert_content">
+								<div class="search_insert_content" >
 									<div class="search_insert_city">
 										<div class="search_city_display">
 											<svg viewBox="0 0 20 21">
@@ -1012,7 +1013,7 @@ function outMoveAfter(){ //버튼 클릭시 다음날로 이동
 				</div>
 			</div>
 		</div>
-	</div>
+		<br><br><br><br>
 	<!--main content section-->
 	<section class="mb-5">
 		<div class="container">
