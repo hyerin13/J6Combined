@@ -69,9 +69,8 @@ public class HotelManageControllerHjy {
 	ServletContext sc;
 
 	@GetMapping("hjy/hotelForm")
-	public String hotelInsertForm(String type,Model model) {
-		model.addAttribute("result", "yes");
-		return "user/hjy/hotelManage/mailResult";
+	public String hotelInsertForm(String type) {
+		return "user/hjy/hotelManage/form";
 	}
 
 	/**
