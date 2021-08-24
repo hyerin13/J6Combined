@@ -37,7 +37,7 @@ $(document).ready(function(){
 			let aregdate =  data.vo.aregdate;
 			let aisdel =  data.vo.aisdel;
 			let html = `
-				<form method="post" action="/project/admin/lhj/accommUpdate?aid=${aid}" enctype="multipart/form-data">
+				<form method="post" action="/project/admin/lhj/accommUpdate.html?aid=${aid}" enctype="multipart/form-data">
 				<input type='hidden' name='aid' value='${aid}'>
 				<input type='hidden' name='acate' value='${ data.vo.acate}'>
         		<input type='hidden' name='axcoordi' value='${ data.vo.axcoordi}'>
@@ -53,10 +53,10 @@ $(document).ready(function(){
             	<input type="text" name="atotalroom" value="${atotalroom}"><br>
             	<label>성급</label>
             	<input type="text" name="agrade" value="${agrade}"><br>
+            	<label>추가정보</label>
+            	<input type="text" name="adetail" value="${adetail}"><br>
             	<label>메인사진</label>
             	<input type="file" name="file" value="${amainimg}"><br>
-            	<label>추가사진</label>
-            	<input type="file" name="file" value="${adetail}"><br>
             	<label>등록일</label>
             	<input type="text" name="aregdate" value="${aregdate}"><br>
             	<input type="submit" value="수정"><br>
