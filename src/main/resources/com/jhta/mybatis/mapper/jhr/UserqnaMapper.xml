@@ -26,7 +26,7 @@
 		(
      		select aa.*,rownum rnum from
     		(
-				select * from userqna 
+				select * from userqna where mid=#{mid}
 				order by qid desc
      		)aa )
 		where rnum>=#{startRowNum} and rnum<=#{endRowNum}]]>
@@ -36,7 +36,7 @@
 			(
      		select aa.*,rownum rnum from
     		(
-				select * from userqna where qcate=#{category}
+				select * from userqna where qcate=#{category} and mid=#{mid}
 				order by qid desc
      		)aa )
 		where rnum>=#{startRowNum} and rnum<=#{endRowNum}]]>

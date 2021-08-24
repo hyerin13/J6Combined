@@ -3,30 +3,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/findid.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mypageQnalist.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.6.0.min.js"></script>
-<style>
-	#qnalist{
-		width:1000px;
-		border:none;
-	}
-	#qnapage{
-		margin-left:500px;
-		margin-top:20px;
-	}
-	#category{
-		margin:20px 0;
-	}
-	th {
-		text-align:center !important;
-		padding:5px !important;
-	}
-	td {
-		padding:5px !important;
-	}
-	.cate {
-		text-align:center !important;
-	}
-</style>
+
 <h3>나의 문의 내역</h3>
 <div id="category">
 	<select id="field">
@@ -58,31 +37,31 @@
 			success:function(data){
 				var list=data.list;
 				var html1="<table width='1000' border='1' id='test'>"+
-				"<tr><th>문의글 아이디</th><th>카테고리</th><th>제목</th><th>내용</th>"+
-				"<th>작성일</th><th>처리여부</th><th>삭제</th><th>수정</th></tr></table>";
+				"<tr><th class='widlen'>글 번호</th><th class='widcate'>카테고리</th><th class='widlen3'>제목</th><th class='widlen3'>내용</th>"+
+				"<th class='widdate'>작성일</th><th class='widlen2'>처리여부</th><th class='widlen'>삭제</th><th class='widlen2'>수정</th></tr></table>";
 				$("#qnalist").append(html1);
 				$(list).each(function(i,d){
 					if(d.qlev=='N'){
 						var html2="<tr>"+
-						"<td id='qid' class='cate'>"+d.qid+"</td>"+
-						"<td id='qcate'>"+d.qcate+"</td>"+
-						"<td id='qtitle'>"+d.qtitle+"</td>"+
-						"<td id='qcontent'>"+d.qcontent+"</td>"+
-						"<td id='qrdate' class='cate'>"+d.qrdate+"</td>"+
-						"<td id='qlev' class='cate'>"+d.qlev+"</td>"+
-						"<td class='cate'><a href='/project/jhr/myqnaDelete?mid="+d.mid+"&qid="+d.qid+"'>삭제</a></td>"+
-						"<td class='cate'><a href='/project/jhr/myqnaUpdate?mid="+d.mid+"&qid="+d.qid+"'>수정</a></td>"+
+						"<td id='qid' class='cate widlen'>"+d.qid+"</td>"+
+						"<td id='qcate' class='widcate cate'>"+d.qcate+"</td>"+
+						"<td id='qtitle'><p class='widcon'>"+d.qtitle+"</p></td>"+
+						"<td id='qcontent'><p class='widcon'>"+d.qcontent+"</p></td>"+
+						"<td id='qrdate' class='cate widdate'>"+d.qrdate+"</td>"+
+						"<td id='qlev' class='cate widlen2'>"+d.qlev+"</td>"+
+						"<td class='cate widlen'><a href='/project/jhr/myqnaDelete?mid="+d.mid+"&qid="+d.qid+"'>삭제</a></td>"+
+						"<td class='cate widlen2'><a href='/project/jhr/myqnaUpdate?mid="+d.mid+"&qid="+d.qid+"'>수정</a></td>"+
 						"</tr>";
 					}else{
 						var html2="<tr>"+
-						"<td id='qid' class='cate'>"+d.qid+"</td>"+
-						"<td id='qcate'>"+d.qcate+"</td>"+
-						"<td id='qtitle'>"+d.qtitle+"</td>"+
-						"<td id='qcontent'>"+d.qcontent+"</td>"+
-						"<td id='qrdate' class='cate'>"+d.qrdate+"</td>"+
-						"<td id='qlev' class='cate'>"+d.qlev+"</td>"+
-						"<td class='cate'><a href='/project/jhr/myqnaDelete?mid="+d.mid+"&qid="+d.qid+"'>삭제</a></td>"+
-						"<td class='cate'>수정불가</td>"+
+						"<td id='qid' class='cate widlen'>"+d.qid+"</td>"+
+						"<td id='qcate' class='widcate cate'>"+d.qcate+"</td>"+
+						"<td id='qtitle'><p class='widcon'>"+d.qtitle+"</p></td>"+
+						"<td id='qcontent'><p class='widcon'>"+d.qcontent+"</p></td>"+
+						"<td id='qrdate' class='cate widdate'>"+d.qrdate+"</td>"+
+						"<td id='qlev' class='cate widlen2'>"+d.qlev+"</td>"+
+						"<td class='cate widlen'><a href='/project/jhr/myqnaDelete?mid="+d.mid+"&qid="+d.qid+"'>삭제</a></td>"+
+						"<td class='cate widlen2'>수정불가</td>"+
 						"</tr>";
 					}
 					$("#test").append(html2);
