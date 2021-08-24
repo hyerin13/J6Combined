@@ -24,11 +24,11 @@ var paramValue = request.getParameter('aid');
 $(document).ready(function(){
   	$.ajax ({
 		url : "/project/admin/lhj/accommUpdate?aid" + paramValue,
-    	type : "get",
+    	type : "POST",
     	dataSrc: "data",
     	success : function(data) {
-    		let html = "<div>" + data.msg + "</div>";
-    		$("#result").append(html);
+    		console.log(data.msg);
+    		$("#result").append(data.msg);
     	}
 	});
 });
