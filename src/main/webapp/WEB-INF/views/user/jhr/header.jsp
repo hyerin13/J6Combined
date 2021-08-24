@@ -33,6 +33,9 @@
 			</ul>
 			<div class="nav_account">
 				<div class="nav_account_container">
+					<div class="nav_acco">
+						<a href="#">숙소등록</a>
+					</div>
 					<div class="nav_mypage">
 						<c:choose>
 							<c:when test="${empty sessionScope.mid }">
