@@ -374,6 +374,7 @@ body {
 	border-radius:2px !important;
 }
 .date_text {
+	width:184.5px !important;
 	height:100% !important;
 	display:flex !important;
 	flex:1 1 50% !important;
