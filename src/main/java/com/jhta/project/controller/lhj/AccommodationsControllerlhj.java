@@ -57,18 +57,17 @@ public class AccommodationsControllerlhj {
 	@RequestMapping(value = "admin/lhj/accommUpdate", produces = {MediaType.APPLICATION_JSON_VALUE}) //숙소 정보 변경하기
 	public HashMap<String, Object> accommUpdate(AccommodationsVo vo, MultipartHttpServletRequest mfRequest){
 		HashMap<String, Object> map = new HashMap<String, Object>();
-		MultipartFile main = mfRequest.getFile("amainimg");
-		MultipartFile detail = mfRequest.getFile("adetail");
+		List<MultipartFile> fileList = mfRequest.getFiles("file");
 		// 새로 등록된 사진이 있을 시
-		if(!main.isEmpty() || !detail.isEmpty()) {
-			String path = sc.getRealPath("/resources/hjy/hotelmain_temp");
-			String orgfilename = main.getOriginalFilename();// 전송된 메인 사진 파일명
-			String orgfilename1 = detail.getOriginalFilename();// 전송된 추가 사진 파일명
+		if(!fileList.isEmpty()) {
+			String path = sc.getRealPath("/resources/images/accommodations");
+			String orgfilename = fileList.get(0).getOriginalFilename();// 전송된 메인 사진 파일명
+			String orgfilename1 = fileList.get(1).getOriginalFilename();// 전송된 추가 사진 파일명
 			String savefilename = UUID.randomUUID() + "_" + orgfilename;// 저장할 파일명
 			String savefilename1 = UUID.randomUUID() + "_" + orgfilename1;// 저장할 파일명
 			try {
-				InputStream is = main.getInputStream();
-				InputStream is1 = detail.getInputStream();
+				InputStream is = fileList.get(0).getInputStream();
+				InputStream is1 = fileList.get(1).getInputStream();
 				FileOutputStream fos = new FileOutputStream(path + "//" + savefilename);
 				FileOutputStream fos1 = new FileOutputStream(path + "//" + savefilename1);
 				FileCopyUtils.copy(is, fos);
