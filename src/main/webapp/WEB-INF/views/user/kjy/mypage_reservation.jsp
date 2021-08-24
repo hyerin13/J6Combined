@@ -83,7 +83,7 @@ function reservationlist(pageNum){
 				var title1="<p id='cutitle'>최근 내역</p><br>";
 				$("#part1").append(title1);
 				$(currentlist).each(function(i,d){
-					if(d.rcancel=='N'){
+					if(d.rcancel==null){
 						let html="<div class='box1'>"+
 						"<img src='${pageContext.request.contextPath }/resources/images/room_info/"+d.rimainimg+"' class='imgbox'>"+
 						"<div class='box1_in'><p class='roomtype'>"+d.riroomtype+"</p>"+
@@ -93,9 +93,22 @@ function reservationlist(pageNum){
 						"<div class='box1_2'><p class='pmethod'>결제수단 : "+d.pmethod+"</p>"+
 						"<p class='pdate'>결제날짜 : "+d.pdate+"</p>"+
 						"<p class='ptotal'>결제금액 : "+d.ptotal+"원</p></div>"+
-						"<p class='cancelbtn1' onclick='cancelclick("+d.pid+")'>주문취소</p></div></div>"+
+						"<p class='cancelbtn1' onclick='cancelclick("+d.pid+")'>환불요청</p></div></div>"+
 						"</div>";
 						$("#part1").append(html);
+					}else if(d.prefund=='Y'){
+						let html1="<div class='box1'>"+
+						"<img src='${pageContext.request.contextPath }/resources/images/room_info/"+d.rimainimg+"' class='imgbox'>"+
+						"<div class='box1_in'><p class='roomtype'>"+d.riroomtype+"</p>"+
+						"<div class='box1_container'><div class='box1_1'><p class='checkinout'>예약날짜 : "+d.rcheckin+" ~ "+d.rcheckout+"</p>"+
+						"<p class='resname'>이름 : "+d.rresname+"</p>"+
+						"<p class='resphone'>전화번호 : "+d.rresphone+"</p></div>"+
+						"<div class='box1_2'><p class='pmethod'>결제수단 : "+d.pmethod+"</p>"+
+						"<p class='pdate'>결제날짜 : "+d.pdate+"</p>"+
+						"<p class='ptotal'>결제금액 : "+d.ptotal+"원</p></div>"+
+						"<p class='cancelbtn2'>환불완료</p></div></div>"+
+						"</div>";
+						$("#part1").append(html1);
 					}else{
 						let html1="<div class='box1'>"+
 						"<img src='${pageContext.request.contextPath }/resources/images/room_info/"+d.rimainimg+"' class='imgbox'>"+
@@ -106,7 +119,7 @@ function reservationlist(pageNum){
 						"<div class='box1_2'><p class='pmethod'>결제수단 : "+d.pmethod+"</p>"+
 						"<p class='pdate'>결제날짜 : "+d.pdate+"</p>"+
 						"<p class='ptotal'>결제금액 : "+d.ptotal+"원</p></div>"+
-						"<p class='cancelbtn2'>취소완료</p></div></div>"+
+						"<p class='cancelbtn2'>환불진행중</p></div></div>"+
 						"</div>";
 						$("#part1").append(html1);
 					}
@@ -116,7 +129,7 @@ function reservationlist(pageNum){
 				var title2="<br><p id='patitle'>과거 내역</p><br>";
 				$("#part2").append(title2);
 				$(pastlist).each(function(i,d){
-					if(d.rcancel=='N'){
+					if(d.rcancel==null){
 						if(d.reid=='0'){
 							let html2="<div class='box2'>"+
 							"<img src='${pageContext.request.contextPath }/resources/images/room_info/"+d.rimainimg+"' class='imgbox'>"+
@@ -144,6 +157,19 @@ function reservationlist(pageNum){
 							"</div>";
 							$("#part2").append(html2);
 						}
+					}else if(d.prefund=='Y'){
+						let html2="<div class='box2'>"+
+						"<img src='${pageContext.request.contextPath }/resources/images/room_info/"+d.rimainimg+"' class='imgbox'>"+
+						"<div class='box1_in'><p class='roomtype'>"+d.riroomtype+"</p>"+
+						"<div class='box1_container'><div class='box1_1'><p class='checkinout'>예약날짜 : "+d.rcheckin+" ~ "+d.rcheckout+"</p>"+
+						"<p class='resname'>이름 : "+d.rresname+"</p>"+
+						"<p class='resphone'>전화번호 : "+d.rresphone+"</p></div>"+
+						"<div class='box1_2'><p class='pmethod'>결제수단 : "+d.pmethod+"</p>"+
+						"<p class='pdate'>결제날짜 : "+d.pdate+"</p>"+
+						"<p class='ptotal'>결제금액 : "+d.ptotal+"원</p></div>"+
+						"<p class='cancelbtn2'>환불완료</p></div></div>"+
+						"</div>";
+						$("#part2").append(html2);
 					}else{
 						let html2="<div class='box2'>"+
 						"<img src='${pageContext.request.contextPath }/resources/images/room_info/"+d.rimainimg+"' class='imgbox'>"+
@@ -154,7 +180,7 @@ function reservationlist(pageNum){
 						"<div class='box1_2'><p class='pmethod'>결제수단 : "+d.pmethod+"</p>"+
 						"<p class='pdate'>결제날짜 : "+d.pdate+"</p>"+
 						"<p class='ptotal'>결제금액 : "+d.ptotal+"원</p></div>"+
-						"<p class='cancelbtn2'>취소완료</p></div></div>"+
+						"<p class='cancelbtn2'>환불진행중</p></div></div>"+
 						"</div>";
 						$("#part2").append(html2);
 					}
@@ -228,7 +254,7 @@ function cancelclick(pid){
 	//페이지 스크롤이동 막기
 	$('html').css('overflow','hidden');
 	$("#pwcheck").click(function(){
-		var mpw=$(".textcheck").val();
+		var mpw=$(".textcheck2").val();
 		$.ajax({
 			type:'post',
 			url:'${pageContext.request.contextPath }/user/kjy/reservationpwdcheck',
@@ -243,8 +269,9 @@ function cancelclick(pid){
 						dataType: 'json',
 						success:function(d){
 							if(d.code=='success'){
-								alert("취소요청이 완료되었습니다.");
+								alert("환불완료까지 5~10일정도 소요됩니다.");
 								$("#myModal").css('display','none');//모달창 닫기
+								$('html').css('overflow','visible');
 								$("#part1").empty();//새로고침
 								$("#part2").empty();
 								reservationlist();
@@ -255,7 +282,7 @@ function cancelclick(pid){
 					});
 				}else{
 					alert("비밀번호가 틀렸습니다.");
-					$(".textcheck").val('');//텍스트비우기
+					$(".textcheck2").val('');//텍스트비우기
 				}
 			}
 		});

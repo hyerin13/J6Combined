@@ -99,8 +99,8 @@ public class ReservationController_kjy {
 		PayMentVo_kjy vo=service.payment(pid1);
 		int rid=vo.getRid();
 		int n=service.rcancel(rid);//예약페이지 업데이트
-		int n1=service.refund(pid1);//결제페이지 업데이트
-		if(n>0 && n1>0) {
+		//int n1=service.refund(pid1);//결제페이지 업데이트
+		if(n>0) {
 			map.put("code", "success");
 		}else {
 			map.put("code", "fail");

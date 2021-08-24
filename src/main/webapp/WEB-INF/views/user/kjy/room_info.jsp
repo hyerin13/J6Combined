@@ -22,9 +22,8 @@
 	width: 1000px;
 	left: 400px;
 	height: 600px;
-	top: 50px;
+	top: 0px;
 	margin-bottom: 200px;
-	border-top: 1px solid gray;
 	border-bottom: 1px solid gray;
 }
 
@@ -95,7 +94,7 @@
 
 .search_title {
 	position: absolute;
-	top: 680px;
+	top: 700px;
 	left: 400px;
 	font-size: 25px;
 	font-weight: bold;
@@ -103,7 +102,7 @@
 
 .room_title {
 	position: absolute;
-	top: 1050px;
+	top: 1030px;
 	left: 400px;
 	font-size: 25px;
 	font-weight: bold;
@@ -124,7 +123,7 @@
 #room_info {
 	position: relative;
 	width: 1000px;
-	top:330px;
+	top:220px;
 	left: 400px;
 	height: 235px;
 	border: 1px solid blue;
@@ -273,7 +272,7 @@
 #reviewbox {
 	position: relative;
 	width: 1000px;
-	top: 450px;
+	top: 300px;
 	left: 400px;
 	height: 1250px;
 	border-top: 1px solid gray;
@@ -282,26 +281,27 @@
 
 .reviewtitle {
 	position: absolute;
-	top: 50px;
-	left: 0px;
+	top:30px;
 	font-size: 25px;
 	font-weight: bold;
 }
 
+#starbox{
+	position:relative;
+	height:150px;
+}
+
 .sumstart {
 	position: absolute;
-	top: 100px;
-	left: 0px;
+	top: 80px;
 	font-size: 15px;
 	font-weight: bold;
 }
 
 #totalreview {
-	position: absolute;
-	top: 200px;
-	left: 0px;
-	width: 1000px;
-	height: 970px;
+	position: relative;
+	
+	
 }
 #review {
 	position: relative;
@@ -378,16 +378,17 @@
 }
 
 #page {
-	position: absolute;
-	top: 1200px;
+	position: relative;
 	left: 450px;
 	width: 100px;
 	height: 50px;
 	font-size: 25px;
-	border: 1px gray;
 }
+
 </style>
-<body>
+<div class="header">
+	<jsp:include page="/WEB-INF/views/user/jhr/header.jsp"/>
+</div>
 <!-- 이미지 크게 일단 하나 -->
 <div id="content">
 	<div id="largeimgbox">
@@ -406,6 +407,7 @@
 			<img src="${pageContext.request.contextPath }/resources/images/accommodations/${accvo.amainimg}" class="amainimg">
 		</div>
 	</div>
+	
 	<p class='search_title'>검색결과</p>
 	<p class='room_title'>객실정보</p>
 	<c:forEach var="vo" items="${list }" varStatus="status">
@@ -476,12 +478,16 @@
 		</c:if>
 	</c:forEach>
 	<div id="reviewbox">
-		<p class="reviewtitle">솔직이용후기</p>
+		<div id="starbox">
+			<p class="reviewtitle">솔직이용후기</p>
+		</div>
 		<div id="totalreview"></div>
 		<div id="page"></div>
 	</div>
 </div>
-</body>
+<div class="footer">
+	<jsp:include page="/WEB-INF/views/user/jhr/footer.jsp"/>
+</div>
 <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIFdez0Bx1XuNNQ0eIa12BjxqJ0gFO6eA&callback=initMap&region=kr"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="${pageContext.request.contextPath }/resources/js/jquery-ui.js"></script>
@@ -572,7 +578,7 @@
 				sstar="★★★★★";
 			}
 			let html="<p class='sumstart'>"+cnt+"개의 리뷰 전체평점: "+sstar+"</p>";
-			$("#reviewbox").append(html);
+			$("#starbox").append(html);
 		}
 	});
 	//리뷰페이지
