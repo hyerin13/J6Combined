@@ -36,6 +36,9 @@
 					<div class="nav_acco">
 						<a href="${pageContext.request.contextPath }/hjy/hotelForm">숙소등록</a>
 					</div>
+					<div class="nav_acco">
+						<a href="${pageContext.request.contextPath }/user/kjy/chat_main">팝업채팅이미지</a><br>
+					</div>
 					<div class="nav_mypage">
 						<c:choose>
 							<c:when test="${empty sessionScope.mid }">
