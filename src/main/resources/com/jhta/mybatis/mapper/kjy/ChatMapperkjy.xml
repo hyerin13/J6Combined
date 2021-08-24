@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhta.mybatis.mapper.kjy.ChatMapperkjy">
+	<select id="member" parameterType="string" resultType="com.jhta.project.vo.kjy.Chat_membersVo_kjy">
+		select * from chat_members where cmid=#{cmid}
+	</select>
+	<select id="buddy" parameterType="string" resultType="com.jhta.project.vo.kjy.Chat_membersVo_kjy">
+		select * from chat_buddy cb left join chat_members cm on cb.cbbuid=cm.cmid where cb.cmid=#{cmid}
+	</select>
+	<select id="roomjoin" parameterType="hashmap" resultType="com.jhta.project.vo.kjy.Chat_roomjoinVo_kjy">
+		select * from chat_members cm, chat_roomjoin cr where cm.cmid=cr.cmid and cr.crid in
+		(select crid from chat_roomjoin where cmid=#{cmid} and crid=#{crid})and cm.cmid not in #{cmid} order by crid
+	</select>
+	<select id="count" parameterType="string" resultType="hashmap">
+		select count(*) cnt, crid from chat_members cm, chat_roomjoin cr where cm.cmid=cr.cmid and cr.crid in
+		(select crid from chat_roomjoin where cmid=#{cmid})group by crid order by crid
+	</select>
+</mapper>

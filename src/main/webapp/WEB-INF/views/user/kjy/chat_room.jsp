@@ -1,15 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
-<html>
-<head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/js/jquery-ui.css">
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Hahmlet:wght@500;600;700&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <style>
 		*{
 			margin:0;
@@ -45,9 +44,9 @@
 			display: none;
 		}
 	</style>
-</head>
 <body>
-	<div id="container" class="container">
+<h1>채팅방</h1>
+<div id="container" class="container">
 		<h1>채팅</h1>
 		<input type="hidden" id="sessionId" value="">
 		
@@ -74,8 +73,6 @@
 		</div>
 	</div>
 </body>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="${pageContext.request.contextPath }/resources/js/jquery-ui.js"></script>
 <script type="text/javascript">
 var ws;
 
@@ -83,7 +80,6 @@ function wsOpen(){
 	ws = new WebSocket("ws://" + location.host + "/final/chating");
 	wsEvt();
 }
-	
 function wsEvt() {
 	ws.onopen = function(data){
 		//소켓이 열리면 초기화 세팅하기
@@ -118,7 +114,6 @@ function wsEvt() {
 		}
 	});
 }
-
 function chatName(){
 	var userName = $("#userName").val();
 	if(userName == null || userName.trim() == ""){
@@ -142,4 +137,3 @@ function send() {
 	$('#chatting').val("");
 }
 </script>
-</html>
