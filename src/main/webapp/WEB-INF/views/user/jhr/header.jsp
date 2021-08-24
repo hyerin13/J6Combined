@@ -34,7 +34,7 @@
 			<div class="nav_account">
 				<div class="nav_account_container">
 					<div class="nav_acco">
-						<a href="#">숙소등록</a>
+						<a href="${pageContext.request.contextPath }/hjy/hotelForm">숙소등록</a>
 					</div>
 					<div class="nav_mypage">
 						<c:choose>
