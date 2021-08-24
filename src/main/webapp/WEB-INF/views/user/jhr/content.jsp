@@ -174,17 +174,19 @@ function accodionAction(target) {
             .append( "<div>" + item.value +"</div>" )    //여기에다가 원하는 모양의 HTML을 만들면 UI가 원하는 모양으로 변함.
             .appendTo( ul );
      	};
-     	//체크인 날짜이동
-     	function inMoveBefore(){ //버튼 클릭시 하루 전날로 이동
+     	//체크인
+     	//버튼 클릭시 전날로 이동
+     	$(".date_btn_before").on('click', function(){
      		let date = new Date($("#checkin").val());
-     		//console.log(date);
+     		console.log(date);
      		let year = date.getFullYear();
      		let month = (date.getMonth()+1) > 9 ? (date.getMonth()+1) : '0' + (date.getMonth()+1);
      		let day = (date.getDate()-1) > 9 ? (date.getDate()-1) : '0' + (date.getDate()-1);
      		//console.log(year + month + day);
      		$("#checkin").val(year + "-" + month + "-" + day);	
-     	}
-     	function inMoveAfter(){ //버튼 클릭시 다음날로 이동
+     	});
+     	//버튼 클릭시 다음날로 이동
+     	$(".date_btn_after").on('click', function(){ 
      		let date = new Date($("#checkin").val());
      		//console.log(date);
      		let iyear = date.getFullYear();
@@ -192,27 +194,28 @@ function accodionAction(target) {
      		let idate = (date.getDate()+1) > 9 ? (date.getDate()+1) : '0' + (date.getDate()+1);
      		//console.log(ye + mo + da);
      		$("#checkin").val(iyear + "-" + imonth + "-" + idate);	
-     	}
-     	//체크아웃 날짜이동
-     	function outMoveBefore(){ //버튼 클릭시 하루 전날로 이동
+     	});
+     	//체크아웃
+     	//버튼 클릭시 전날로 이동
+     	$(".date_btn_before_a").on('click', function(){
      		let date = new Date($("#checkout").val());
-     		//console.log(date);
+     		console.log(date);
      		let year = date.getFullYear();
      		let month = (date.getMonth()+1) > 9 ? (date.getMonth()+1) : '0' + (date.getMonth()+1);
      		let day = (date.getDate()-1) > 9 ? (date.getDate()-1) : '0' + (date.getDate()-1);
      		//console.log(year + month + day);
      		$("#checkout").val(year + "-" + month + "-" + day);	
-     	}
-
-     	function outMoveAfter(){ //버튼 클릭시 다음날로 이동
+     	});
+     	//버튼 클릭시 다음날로 이동
+     	$(".date_btn_after_a").on('click', function(){ 
      		let date = new Date($("#checkout").val());
      		//console.log(date);
-     		let oyear = date.getFullYear();
-     		let omonth = (date.getMonth()+1) > 9 ? (date.getMonth()+1) : '0' + (date.getMonth()+1);
-     		let odate = (date.getDate()+1) > 9 ? (date.getDate()+1) : '0' + (date.getDate()+1);
-     		//console.log(oyear + omonth + odate);
-     		$("#checkout").val(oyear + "-" + omonth + "-" + odate);
-     	}
+     		let iyear = date.getFullYear();
+     		let imonth = (date.getMonth()+1) > 9 ? (date.getMonth()+1) : '0' + (date.getMonth()+1);
+     		let idate = (date.getDate()+1) > 9 ? (date.getDate()+1) : '0' + (date.getDate()+1);
+     		//console.log(ye + mo + da);
+     		$("#checkout").val(iyear + "-" + imonth + "-" + idate);	
+     	});
     });
 </script>
 
@@ -274,12 +277,12 @@ function accodionAction(target) {
 														<input type="date" id="checkin" name="checkin" value="${rcheckin }">
 													</div>
 												</div>
-												<button class="date_btn_before" type="button" onclick= "inMoveBefore()">
+												<button class="date_btn_before" type="button">
 													<svg viewBox="0 0 8 5">
 														<path d="M7 1.053L4.027 4 1 1" stroke="currentColor" fill="none" style="user-select: auto;"></path>
 													</svg>
 												</button>
-												<button class="date_btn_after" type="button" onclick= "inMoveAfter()">
+												<button class="date_btn_after" type="button">
 													<svg viewBox="0 0 8 5">
 														<path d="M7 1.053L4.027 4 1 1" stroke="currentColor" fill="none" style="user-select: auto;"></path>
 													</svg>
@@ -295,12 +298,12 @@ function accodionAction(target) {
 														<input type="date" id="checkout" name="checkout" value="${rcheckout }">
 													</div>
 												</div>
-												<button class="date_btn_before" type="button" onclick= "outMoveBefore()">
+												<button class="date_btn_before_a" type="button">
 													<svg viewBox="0 0 8 5">
 														<path d="M7 1.053L4.027 4 1 1" stroke="currentColor" fill="none" style="user-select: auto;"></path>
 													</svg>
 												</button>
-												<button class="date_btn_after" type="button" onclick= "outMoveAfter()">
+												<button class="date_btn_after_a" type="button">
 													<svg viewBox="0 0 8 5">
 														<path d="M7 1.053L4.027 4 1 1" stroke="currentColor" fill="none" style="user-select: auto;"></path>
 													</svg>

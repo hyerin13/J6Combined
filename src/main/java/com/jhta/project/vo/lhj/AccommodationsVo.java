@@ -40,6 +40,6 @@ public class AccommodationsVo {
 	private String agrade;
 	private String adetail;
 	private String amainimg;
-	private Date aregdate;
+	private String aregdate;
 	private String aisdel;
 }

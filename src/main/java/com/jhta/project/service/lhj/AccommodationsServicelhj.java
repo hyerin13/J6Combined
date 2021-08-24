@@ -36,7 +36,7 @@ public class AccommodationsServicelhj {
 	public int roomUpdate(Room_infoVo vo) {
 		return mapper.roomUpdate(vo);
 	}
-	public int delupdate(AccommodationsVo vo) {
-		return mapper.delupdate(vo);
+	public int delupdate(HashMap<String, Object> map) {
+		return mapper.delupdate(map);
 	}
 }

@@ -19,16 +19,16 @@ var Request = function() {
 }  
 var request = new Request();  
 
-var paramValue = request.getParameter('aid'); 
+var paramValue = request.getParameter('riid'); 
 	
 $(document).ready(function(){
   	$.ajax ({
-		url : "/project/admin/lhj/accommUpdate?aid" + paramValue,
-    	type : "get",
+		url : "/project/admin/lhj/roomUpdate",
+		data: {riid: paramValue},
+    	type : "POST",
     	dataSrc: "data",
     	success : function(data) {
-    		let html = "<div>" + data.msg + "</div>";
-    		$("#result").append(html);
+    		$("#result").append(data.msg);
     	}
 	});
 });

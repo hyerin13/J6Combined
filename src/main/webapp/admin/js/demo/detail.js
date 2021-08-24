@@ -54,9 +54,9 @@ $(document).ready(function(){
             	<label>성급</label>
             	<input type="text" name="agrade" value="${agrade}"><br>
             	<label>메인사진</label>
-            	<input type="text" name="amainimg" value="${amainimg}"><br>
+            	<input type="file" name="amainimg" value="${amainimg}"><br>
             	<label>추가사진</label>
-            	<input type="text" name="adetail" value="${adetail}"><br>
+            	<input type="file" name="adetail" value="${adetail}"><br>
             	<label>등록일</label>
             	<input type="text" name="aregdate" value="${aregdate}"><br>
             	<input type="submit" value="수정"><br>

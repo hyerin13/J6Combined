@@ -14,5 +14,5 @@ public interface Admin_AccommodationsMapperlhj {
 	public Room_infoVo roomDetail(int riid);
 	public int accommUpdate(AccommodationsVo vo);
 	public int roomUpdate(Room_infoVo vo);
-	public int delupdate(AccommodationsVo vo);
+	public int delupdate(HashMap<String, Object> map);
 }

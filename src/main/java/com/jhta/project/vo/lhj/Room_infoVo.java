@@ -38,7 +38,7 @@ public class Room_infoVo {
 	private String risize;
 	private int riminper;
 	private int rimaxper;
-	private int rireak;
+	private int ripeak;
 	private int risemipeak;
 	private int rioff;
 	private String rimainimg;
