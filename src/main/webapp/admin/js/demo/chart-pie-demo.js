@@ -7,6 +7,11 @@ $.ajax({
 		type:"get",
 		dataType:"json",
 		success:function(data){
+			for(i=0;i<=1;i++){
+				if(data.list[i].pmethod=="undefined"){
+					data.list[i].pmethod=0;
+				}
+			}
 			// Pie Chart Example
 			var ctx = document.getElementById("myPieChart");
 			var myPieChart = new Chart(ctx, {
@@ -14,7 +19,7 @@ $.ajax({
 			  data: {
 			    labels: [data.list[0].pmethod, data.list[1].pmethod],
 			    datasets: [{
-			      data: [data.list[0].cnt/(data.list[0].cnt+data.list[1].cnt)*10 ,data.list[1].cnt/(data.list[0].cnt+data.list[1].cnt)*10],
+			      data: [data.list[0].cnt/(data.list[0].cnt+data.list[1].cnt)*100 ,data.list[1].cnt/(data.list[0].cnt+data.list[1].cnt)*100],
 			      backgroundColor: ['#4e73df', '#1cc88a'],
 			      hoverBackgroundColor: ['#2e59d9', '#17a673'],
 			      hoverBorderColor: "rgba(234, 236, 244, 1)",

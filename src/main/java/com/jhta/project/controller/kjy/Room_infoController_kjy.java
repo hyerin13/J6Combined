@@ -51,6 +51,7 @@ public class Room_infoController_kjy {
 			List<Room_infoVo_kjy> alllist=service.list(hs);
 			//list가 비었을경우 result 페이지로 이동
 			if(alllist.isEmpty()) {
+				System.out.println("test");
 				ModelAndView mv1=new ModelAndView("user/kjy/result");
 				mv1.addObject("code", "입력하신 날짜는 예약이 모두 완료되었습니다.");
 				return mv1;

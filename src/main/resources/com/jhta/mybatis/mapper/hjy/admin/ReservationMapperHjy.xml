@@ -9,7 +9,7 @@
 	  )))*100),3),'FM9990.999')||'%' per ,fin.cnt,ac.atotalroom
       from(
       select ac.aid,ac.aname,cnt from (select ac.aid,count(rs.riid)cnt from accommodations ac ,reservation rs,room_info ri
-      where ac.aid = ri.aid and ri.riid=rs.riid and rs.rcheckin>=TRUNC(add_months(sysdate, 
+      where ac.aid = ri.aid and ri.riid=rs.riid and rs.rcancel is null and rs.rcheckin>=TRUNC(add_months(sysdate, 
       -#{time}
       ), 'MM') group by ac.aid ) test 
       left outer join accommodations ac on test.aid=ac.aid
@@ -22,7 +22,7 @@
       )))*100),3),'FM9990.999')||'%' per
        from(
       select ri.riid,cnt,ri.riroomtype,ri.riroom,aid from (select ri.riid,count(rs.riid)cnt from accommodations ac ,reservation rs,room_info ri
-      where ac.aid = ri.aid and ri.riid=rs.riid and rs.rcheckin>=TRUNC(add_months(sysdate, 
+      where ac.aid = ri.aid and ri.riid=rs.riid and rs.rcancel is null and rs.rcheckin>=TRUNC(add_months(sysdate, 
       -#{time}
       ), 'MM') group by ri.riid ) test 
       left outer join room_info ri on test.riid=ri.riid

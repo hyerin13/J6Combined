@@ -340,7 +340,7 @@ public class HotelManageControllerHjy {
 		}
 
 		sendMail(accommodationsVo, additional_feeVoList, periodVoList, roomInfoVoList);
-		return "user/hjy/hotelManage/result";
+		return "user/hjy/hotelManage/formResult";
 	}
 
 	/**

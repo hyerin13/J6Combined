@@ -213,7 +213,6 @@
                 if (dt.button('delete:name')) {
                     dt.button('delete:name').action(function (e, dt, node, config) {
                         that._openDeleteModal();
-
                         $('#altEditor-delete-form-' + that.random_id)
                         .off('submit')
                         .on('submit', function (e) {
@@ -629,6 +628,7 @@
                             data += "<label for='" + columnDefs[j].name + "'>" + columnDefs[j].title + ":</label></div>";
                             data += "<div class='col-sm-8 col-md-8 col-lg-8'>";
                         }
+                        
                         // Adding readonly-fields
                         if (columnDefs[j].type.indexOf("readonly") >= 0) {
                             // type=readonly is deprecated, kept for backward compatibility
@@ -703,8 +703,8 @@
 								+ "' step='" + this._quoteattr(columnDefs[j].step)
 								+ "' min='" + this._quoteattr(columnDefs[j].min)
 								+ "' max='" + this._quoteattr(columnDefs[j].max)
-								+ "' value='" + this._quoteattr(columnDefs[j].value)
-                                + "' placeholder='" + this._quoteattr(columnDefs[j].placeholder ? columnDefs[j].placeholder : columnDefs[j].title)
+								+ "' value='" + $("#testqid").val()
+								+ "' placeholder='" + this._quoteattr(columnDefs[j].placeholder ? columnDefs[j].placeholder : columnDefs[j].title)
                                 + "' data-special='" + this._quoteattr(columnDefs[j].special)
                                 + "' data-errorMsg='" + this._quoteattr(columnDefs[j].msg)
                                 + "' data-uniqueMsg='" + this._quoteattr(columnDefs[j].uniqueMsg)
@@ -726,6 +726,11 @@
                             data += "</div>";
                     }
                 }
+                 data += "<input class='form-control'  id='ansqna' name='userqna' value='"
+					+ "' placeholder='답글을 입력하세요' data-special='" 
+	                + "' "
+	                + " style='overflow:hidden;"
+	                + "' class='form-control  form-control-sm' value=''><br>";
                 // data += "</form>";
 
                 var selector = this.modal_selector;

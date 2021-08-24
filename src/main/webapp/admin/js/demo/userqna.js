@@ -141,14 +141,13 @@ var url_ws_mock_get = './mock_svc_load.json';
          });
       
 
-		    
 		   $('#dataTable tbody').on( 'click','tr', function () {
 		   var td=$(this).children().children().children();
 		    console.log($(this).children("tbody").children().children().eq(0));
 		    console.log(table);
 		      this_row = table.rows(this).data();
-		     
 		       //console.log($(this).);
+		       $("#testqid").val(this_row[0].qid);
 		       console.log(this_row[0].qid);
 		      $('#rlt').html( "모든 데이터: "+table.row( this ).data()+"<br>문의글번호:"+this_row[0][0]+"<br>카테고리:"+this_row[0][1]+"<br>비밀번호:"+this_row[0][2]+"<br>제목:"+this_row[0][3]+"<br>내용:"+this_row[0][4]+"<br>첨부파일:"+this_row[0][5]+"<br>등록일:"+this_row[0][6]+"<br>처리여부:"+this_row[0][7]+"<br>그룹번호:"+this_row[0][8]+"<br>글번호:"+this_row[0][9]+"<br>아이디:"+this_row[0][10] );
 		   } );

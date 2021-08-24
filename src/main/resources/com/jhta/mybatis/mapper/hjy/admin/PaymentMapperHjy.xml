@@ -33,24 +33,16 @@
 	</select>
 	<select id="reservationRate" resultType="hashmap">
 		<![CDATA[
-		       select ac.aname,ROUND(cnt/(ac.atotalroom*extract(day from LAST_DAY(sysdate)))*100,2) per,rownum rnum from
-		(
-			select aid, riid, substr(ds,3,4), sum(cnt) cnt from
-			(
-			    select ds,riid,count(*) cnt,aid from
-			        (
-			        select ri.riid,dt.ds,ri.aid from reservation re, room_info ri,date_t dt,payment pm 
-			        where pm.rid = re.rid 
-			        and re.riid=ri.riid 
-			        and dt.ds between re.rcheckin 
-			        and re.rcheckout 
-			        and pm.prefund is null 
-			        group by dt.ds,ri.riid,ri.aid
-			        )cnt 
-			        group by ds,riid,aid order by riid asc
-			)
-			where substr(ds,3,4) = substr(to_char(sysdate,'yyyymmdd'),3,4) group by substr(ds,3,4),cnt,riid,aid
-		)fin, accommodations ac where ac.aid = fin.aid and rownum<=5 order by rnum asc
+		      select fin.aname,round((fin.cnt/(ac.atotalroom*(LAST_DAY(sysdate)-ADD_MONTHS(TRUNC(sysdate,'MM'), 
+	  -0
+	  )))*100),3) per ,fin.cnt,ac.atotalroom
+      from(
+      select ac.aid,ac.aname,cnt from (select ac.aid,count(rs.riid)cnt from accommodations ac ,reservation rs,room_info ri
+      where ac.aid = ri.aid and ri.riid=rs.riid  and rs.rcancel is null and rs.rcheckin>=TRUNC(add_months(sysdate, 
+      -0
+      ), 'MM') group by ac.aid ) test 
+      left outer join accommodations ac on test.aid=ac.aid
+      )fin, accommodations ac where fin.aid=ac.aid order by per desc
 		]]>
 	</select>
 </mapper>

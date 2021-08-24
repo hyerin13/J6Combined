@@ -79,7 +79,7 @@ $.ajax({
 						<h4 class="small font-weight-bold">${data.list[i].ANAME}<span
 		                        class="float-right">${data.list[i].PER}%</span></h4>
 		                <div class="progress mb-4">
-		                    <div class="${color[i]}" role="progressbar" style="width: ${data.list[i].PER*10}%"
+		                    <div class="${color[i]}" role="progressbar" style="width: ${data.list[i].PER*100}%"
 		                        aria-valuenow="${data.list[i].PER}" aria-valuemin="0" aria-valuemax="100"></div>
 		                </div>
 					`
