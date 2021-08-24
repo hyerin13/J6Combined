@@ -27,9 +27,9 @@
 	</select>
 	<update id="accommUpdate" parameterType="com.jhta.project.vo.lhj.AccommodationsVo">
 		update accommodations set aname = #{aname}, aaddress = #{aaddress}, aphone = #{aphone}, atotalroom = #{atotalroom},
-		agrade = #{agrade}, 
-		<if test="amainimg != null or adetail != null">
-			amainimg = #{amainimg}, adetail = #{adetail} 
+		agrade = #{agrade}
+		<if test="amainimg != null or amainimg==''">
+			,amainimg = #{amainimg}, adetail = #{adetail} 
 		</if>
 		where aid = #{aid}
 	</update>

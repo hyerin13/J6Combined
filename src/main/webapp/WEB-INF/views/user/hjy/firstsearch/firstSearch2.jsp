@@ -506,7 +506,8 @@ function gomapchange(facilities,axcoordi,aycoordi,distance){
 				    		          +'전화번호: '+data.list[i].aphone+' | 가격: '+data.list[i].amountsum+'<br/>'
 				    		          +"<button class='btn' onclick=\""
 									  +"location.href='${pageContext.request.contextPath }/user/kjy/room_info?AID="+data.list[i].aid
-									  +"&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+data.checkin+"&endday="+data.checkout+"'\">예약하기</button>"
+									  +"&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+${rcheckin}+"&endday="+${rcheckout}
+									  +"'\">예약하기</button>"
 									  +'</p></div>'
 									  )
 					   }else{
@@ -516,7 +517,7 @@ function gomapchange(facilities,axcoordi,aycoordi,distance){
 				    		          +data.list[i].aphone+' | '+data.list[i].amountsum+'<br/>'
 				    		          +"<button class='btn' onclick=\""
 									  +"location.href='${pageContext.request.contextPath }/user/kjy/room_info?AID="+data.list[i].aid
-									  +"&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+data.checkin+"&endday="+data.list[i].amainimg
+									  +"&person="+${rimaxper}+"&roomnum="+${countRoom}+"&startday="+${rcheckin}+"&endday="+${rcheckout}
 									  +"'\">예약하기</button>"
 									  +'</p></div>'
 									  )

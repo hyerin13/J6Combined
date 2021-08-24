@@ -1,12 +1,13 @@
 // Set new default font family and font color to mimic Bootstrap's default styling
 
 $(document).ready(function(){
-	$('#dataTable').DataTable({
+	var table= $('#dataTable').DataTable({
 	    ajax:{
 	    	url :"/project/admin/lhj/accommlist",
     		type : "GET",
         	dataSrc: 'list'
         },
+        destroy: true,
         columns:[
         	{data:"aid",
         		"render":function(data,type,row){
@@ -36,7 +37,7 @@ $(document).ready(function(){
 			{data:"aid",
 				"render":function(data,type,row){
 					if(type==='display'){
-						data="<a href='" + path + "admin/delUpate?aid=" + data + "'>삭제</a>"
+						data="<a href='javascript:deleteconfirm("+data+");'>삭제</a>"
 					}
 					return data;
 				}
@@ -75,7 +76,6 @@ $(document).ready(function(){
     	],
     });
 	
-    	
     function getImg(list, type, full, meta) {
 	     if(list!=null){
 	            return "<img src='" + path + "/resources/images/accommodations/" + list + "' width='150' height='150'>";
@@ -104,7 +104,7 @@ $(document).ready(function(){
 	var request = new Request();  
 	
 	var paramValue = request.getParameter('aid');
-	
+	/*
 	$.ajax ({
 		url : "/project/admin/lhj/delUpdate?aid" + paramValue,
     	type : "get",
@@ -112,5 +112,25 @@ $(document).ready(function(){
     		alert(data.msg);
     	}
 	});
-	
+	*/
 });
+
+function deleteconfirm(aid){
+	let checkdel = confirm("삭제하시겠습니까?");
+	if(checkdel == true){
+		$.ajax({
+    		type : "GET",
+    		url : "/project/admin/lhj/delUpdate?aid="+aid,
+	    	success:function(data){
+	    		if(data.msg=='숙소 삭제가 완료되었습니다.'){
+	    		console.log('hd');
+		    		location.reload(true);
+	    		}else{
+	    			alert('숙소 삭제에 실패했습니다.')
+	    		}
+			}
+		})
+	}
+}
+
+

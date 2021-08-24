@@ -1,5 +1,6 @@
 package com.jhta.project.controller.lhj;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -54,11 +56,12 @@ public class AccommodationsControllerlhj {
 		return map;
 	}
 	
-	@RequestMapping(value = "admin/lhj/accommUpdate", produces = {MediaType.APPLICATION_JSON_VALUE}) //숙소 정보 변경하기
+	@RequestMapping(value = "admin/lhj/accommUpdate", method = {RequestMethod.POST})  //숙소 정보 변경하기
 	public HashMap<String, Object> accommUpdate(AccommodationsVo vo, MultipartHttpServletRequest mfRequest){
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<MultipartFile> fileList = mfRequest.getFiles("file");
-		 if (fileList.size() == 1 && fileList.get(0).getOriginalFilename().equals("")) {
+		 if(fileList.get(0).getOriginalFilename()==null || fileList.get(0).getOriginalFilename()=="") {
+			 System.out.println(vo);
 			int n = acservice.accommUpdate(vo);
 			if(n > 0) {
 				map.put("msg", "숙소 정보 변경이 완료되었습니다.");
@@ -66,32 +69,32 @@ public class AccommodationsControllerlhj {
 				map.put("msg", "숙소 정보 변경에 실패했습니다.");
 			}
 	     } else {
-            for (int i = 0; i < fileList.size(); i++) {
-            	String path = sc.getRealPath("/resources/images/accommodations");
-    			String orgfilename = fileList.get(i).getOriginalFilename();// 전송된 메인 사진 파일명
-    			String savefilename = UUID.randomUUID() + "_" + orgfilename;// 저장할 파일명
-    			try {
-    				InputStream is = fileList.get(0).getInputStream();
-    				FileOutputStream fos = new FileOutputStream(path + "//" + savefilename);
-    				FileCopyUtils.copy(is, fos);
-    				is.close();
-    				fos.close();
-    				// 1. 기존 파일 삭제
-    				AccommodationsVo avo = acservice.detail(vo.getAid());
-    				List<MultipartFile> fileList1 = mfRequest.getFiles(path + "\\" + vo.getAmainimg());
-    				fileList1.remove(i);
-    				// 2. 업로드된 파일정보 DB에 저장하기
-    				vo.setAmainimg(savefilename);
-    				int n = acservice.accommUpdate(vo);
-    				if(n > 0) {
-    					map.put("msg", "숙소 정보 변경이 완료되었습니다.");
-    				}else {
-    					map.put("msg", "숙소 정보 변경에 실패했습니다.");
-    				}
-    			} catch (Exception ex) {
-    				ex.printStackTrace();
-    			}
-            }
+	    	String path = sc.getRealPath("/resources/images/accommodations");
+			String orgfilename = fileList.get(0).getOriginalFilename();// 전송된 메인 사진 파일명
+			String savefilename = UUID.randomUUID() + "_" + orgfilename;// 저장할 파일명
+			try {
+				InputStream is = fileList.get(0).getInputStream();
+				FileOutputStream fos = new FileOutputStream(path + "//" + savefilename);
+				FileCopyUtils.copy(is, fos);
+				is.close();
+				fos.close();
+				// 1. 기존 파일 삭제
+				AccommodationsVo avo = acservice.detail(vo.getAid());
+				File file = new File(path + "//" + avo.getAmainimg());
+				if (file.exists()) {
+					file.delete();
+				}
+				// 2. 업로드된 파일정보 DB에 저장하기
+				vo.setAmainimg(savefilename);
+				int n = acservice.accommUpdate(vo);
+				if(n > 0) {
+					map.put("msg", "숙소 정보 변경이 완료되었습니다.");
+				}else {
+					map.put("msg", "숙소 정보 변경에 실패했습니다.");
+				}
+			} catch (Exception ex) {
+				ex.printStackTrace();
+			}
 	     }        
 		return map;
 	}
