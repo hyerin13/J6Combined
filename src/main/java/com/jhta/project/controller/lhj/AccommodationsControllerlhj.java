@@ -49,7 +49,7 @@ public class AccommodationsControllerlhj {
 	public HashMap<String, Object> detail(int aid){
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		AccommodationsVo vo = acservice.detail(aid);
-		System.out.println("컨트롤러: " + aid);
+		//System.out.println("컨트롤러: " + aid);
 		String aregdate1 = vo.getAregdate().substring(0,10);
 		vo.setAregdate(aregdate1);
 		map.put("vo", vo);
@@ -60,8 +60,9 @@ public class AccommodationsControllerlhj {
 	public HashMap<String, Object> accommUpdate(AccommodationsVo vo, MultipartHttpServletRequest mfRequest){
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<MultipartFile> fileList = mfRequest.getFiles("file");
-		 if(fileList.get(0).getOriginalFilename()==null || fileList.get(0).getOriginalFilename()=="") {
-			 System.out.println(vo);
+		//파일이 수정되지 않았을 때
+		if(fileList.get(0).getOriginalFilename()==null || fileList.get(0).getOriginalFilename()=="") {
+			//System.out.println(vo);
 			int n = acservice.accommUpdate(vo);
 			if(n > 0) {
 				map.put("msg", "숙소 정보 변경이 완료되었습니다.");
@@ -117,35 +118,41 @@ public class AccommodationsControllerlhj {
 		return map;
 	}
 	
-	@RequestMapping(value = "admin/lhj/roomUpdate", produces = {MediaType.APPLICATION_JSON_VALUE}) //숙소 정보 변경하기
+	@RequestMapping(value = "admin/lhj/roomUpdate", method = {RequestMethod.POST}) //숙소 정보 변경하기
 	public HashMap<String, Object> roomUpdate(Room_infoVo vo, MultipartHttpServletRequest mfRequest){
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<MultipartFile> fileList = mfRequest.getFiles("file");
-		 if (fileList.size() == 1 && fileList.get(0).getOriginalFilename().equals("")) {
-			int n = acservice.roomUpdate(vo);
-			if(n > 0) {
-				map.put("msg", "객실 정보 변경이 완료되었습니다.");
-			}else {
-				map.put("msg", "객실 정보 변경에 실패했습니다.");
-			}
-	     } else {
-            for (int i = 0; i < fileList.size(); i++) {
-            	String path = sc.getRealPath("/resources/images/room_info");
-    			String orgfilename = fileList.get(i).getOriginalFilename();// 전송된 메인 사진 파일명
-    			String savefilename = UUID.randomUUID() + "_" + orgfilename;// 저장할 파일명
+		for (int i = 0; i < fileList.size(); i++) {
+			//모든 파일이 수정되지 않았을 때
+			if(fileList.get(i).getOriginalFilename() == null || fileList.get(i).getOriginalFilename() == "") {
+				int n = acservice.roomUpdate(vo);
+				System.out.println("객실정보:" + vo);
+				if(n > 0) {
+					map.put("msg", "객실 정보 변경이 완료되었습니다.");
+				}else {
+					map.put("msg", "객실 정보 변경에 실패했습니다.");
+				}
+			} else { //파일 수정시
+            	String rpath = sc.getRealPath("/resources/images/room_info");
+            	// 1-1. 메인이미지 일 때
+    			String rorgfilename = fileList.get(0).getOriginalFilename();// 전송된 사진 파일명
+    			System.out.println("/////////////////////메인사진:" + rorgfilename);
+    			String rsavefilename = UUID.randomUUID() + "_" + rorgfilename;// 저장할 파일명
     			try {
-    				InputStream is = fileList.get(i).getInputStream();
-    				FileOutputStream fos = new FileOutputStream(path + "//" + savefilename);
+    				InputStream is = fileList.get(0).getInputStream();
+    				FileOutputStream fos = new FileOutputStream(rpath + "//" + rsavefilename);
     				FileCopyUtils.copy(is, fos);
     				is.close();
     				fos.close();
     				// 1. 기존 파일 삭제
-    				Room_infoVo rvo = acservice.roomDetail(vo.getRiid());
-    				List<MultipartFile> fileList1 = mfRequest.getFiles(path + "\\" + vo.getRimainimg());
-    				fileList1.remove(i);
-    				// 2. 업로드된 파일정보 DB에 저장하기
-    				vo.setRimainimg(savefilename);
-    				int n = acservice.roomUpdate(vo);
+					Room_infoVo rvo = acservice.roomDetail(vo.getRiid());
+					File file = new File(rpath + "//" + rvo.getRimainimg());
+					if (file.exists()) {
+						file.delete();
+					}
+					// 2. 업로드된 파일정보 DB에 저장하기
+					vo.setRimainimg(rsavefilename);
+					int n = acservice.roomUpdate(vo);
     				if(n > 0) {
     					map.put("msg", "숙소 정보 변경이 완료되었습니다.");
     				}else {
@@ -154,6 +161,58 @@ public class AccommodationsControllerlhj {
     			} catch (Exception ex) {
     				ex.printStackTrace();
     			}
+				// 1-2. 첫번째 추가 이미지 일 때
+    			String rorgfilename1 = fileList.get(1).getOriginalFilename();// 전송된 사진 파일명
+    			String rsavefilename1 = UUID.randomUUID() + "_" + rorgfilename1;// 저장할 파일명
+    			try {
+    				InputStream is = fileList.get(1).getInputStream();
+    				FileOutputStream fos = new FileOutputStream(rpath + "//" + rsavefilename1);
+    				FileCopyUtils.copy(is, fos);
+    				is.close();
+    				fos.close();
+    				
+					Room_infoVo rvo = acservice.roomDetail(vo.getRiid());
+					File file = new File(rpath + "//" + rvo.getRiextraimg1());
+					if (file.exists()) {
+						file.delete();
+					}
+					// 2. 업로드된 파일정보 DB에 저장하기
+					vo.setRiextraimg1(rsavefilename1);
+					int n = acservice.roomUpdate(vo);
+						if(n > 0) {
+							map.put("msg", "숙소 정보 변경이 완료되었습니다.");
+						}else {
+							map.put("msg", "숙소 정보 변경에 실패했습니다.");
+						}
+        			} catch (Exception ex) {
+        				ex.printStackTrace();
+        			}
+    			// 1-3. 마지막 추가 이미지 일 때
+    			String rorgfilename2 = fileList.get(2).getOriginalFilename();// 전송된 사진 파일명
+    			String rsavefilename2 = UUID.randomUUID() + "_" + rorgfilename2;// 저장할 파일명
+    			try {
+    				InputStream is = fileList.get(2).getInputStream();
+    				FileOutputStream fos = new FileOutputStream(rpath + "//" + rsavefilename2);
+    				FileCopyUtils.copy(is, fos);
+    				is.close();
+    				fos.close();
+    				
+					Room_infoVo rvo = acservice.roomDetail(vo.getRiid());
+					File file = new File(rpath + "//" + rvo.getRiextraimg1());
+					if (file.exists()) {
+						file.delete();
+					}
+					// 2. 업로드된 파일정보 DB에 저장하기
+					vo.setRiextraimg1(rsavefilename2);
+					int n = acservice.roomUpdate(vo);
+						if(n > 0) {
+							map.put("msg", "숙소 정보 변경이 완료되었습니다.");
+						}else {
+							map.put("msg", "숙소 정보 변경에 실패했습니다.");
+						}
+    			} catch (Exception ex) {
+    				ex.printStackTrace();
+    			}	
             }
 	     }        
 		return map;

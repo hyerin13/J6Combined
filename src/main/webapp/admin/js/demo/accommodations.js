@@ -77,8 +77,8 @@ $(document).ready(function(){
     });
 	
     function getImg(list, type, full, meta) {
-	     if(list!=null){
-	            return "<img src='" + path + "/resources/images/accommodations/" + list + "' width='150' height='150'>";
+	     if(list != null){
+	        return "<img src='" + path + "/resources/images/accommodations/" + list + "' width='150' height='150'>";
 	     }else{
 	     	return "";
 	     }
@@ -104,15 +104,6 @@ $(document).ready(function(){
 	var request = new Request();  
 	
 	var paramValue = request.getParameter('aid');
-	/*
-	$.ajax ({
-		url : "/project/admin/lhj/delUpdate?aid" + paramValue,
-    	type : "get",
-    	success : function(data) {
-    		alert(data.msg);
-    	}
-	});
-	*/
 });
 
 function deleteconfirm(aid){
@@ -122,8 +113,8 @@ function deleteconfirm(aid){
     		type : "GET",
     		url : "/project/admin/lhj/delUpdate?aid="+aid,
 	    	success:function(data){
-	    		if(data.msg=='숙소 삭제가 완료되었습니다.'){
-	    		console.log('hd');
+	    		if(data.msg == '숙소 삭제가 완료되었습니다.'){
+	    			console.log('hd');
 		    		location.reload(true);
 	    		}else{
 	    			alert('숙소 삭제에 실패했습니다.')
