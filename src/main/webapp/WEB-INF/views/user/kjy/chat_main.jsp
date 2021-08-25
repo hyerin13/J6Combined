@@ -7,11 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Hahmlet:wght@500;600;700&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
-
-<!-- 알림버튼관련 -->
-<link href="${pageContext.request.contextPath }/admin/css/sb-admin-2.min.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath }/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
@@ -31,6 +26,9 @@
 		width:320px;
 		height:100px;
 		border: 1px solid gray;
+		padding:10px;
+		display:flex;
+		flex-direction:row;
 	}
 	.memtitle{
 		position:relative;
@@ -38,22 +36,29 @@
 		font-size:20px;
 	}
 	.memimg{
+	/*
 		position: absolute;
 		top:10px;
 		left:10px;
+		*/
 		width:80px;
 		height:80px;
+		margin-right:10px;
 	}
 	.cmname{
+	/*
 		position: absolute;
 		top:20px;
 		left:120px;
+		*/
 		font-size:20px; 
 	}
 	.cmscname{
+	/*
 		position: absolute;
 		top:60px;
 		left:120px;
+		*/
 		font-size:15px;
 	}
 	
@@ -70,6 +75,15 @@
 		height:100px;
 		border: 1px solid gray;
 		margin-bottom:20px;
+		display:flex;
+		flex-direction:row;
+		padding:10px;
+	}
+	
+	.buddy_text {
+		width:186px;
+		display:block;
+		margin-right:10px;
 	}
 	
 	.cr_cmname{
@@ -82,13 +96,36 @@
   		text-overflow: ellipsis;
   		white-space: nowrap; 
 	}
-	
+
 	.cnt{
 		position: absolute;
 		top:20px;
 		left:270px;
 		font-size:12px;
 		color:gray;
+	}
+	.buddy_more {
+		width:12px;
+		height:12px;
+		position:relative;
+		
+	}
+	#moreContent{
+		display:block;
+	    position:absolute;
+	    background-color:#E8E8E8;
+	    align:right;
+	    z-index:10;
+	}
+	.moreDetail{
+    	display:none;
+	}
+	.moreDetail a {
+		line-height:22px;
+	}
+	#more{
+	    position:relative;
+	    margin-left:auto;
 	}
 </style>
 <div id="tabs">
@@ -97,75 +134,30 @@
     <li><a href="#tabs-2">채팅목록</a></li>
     <li><a href="#tabs-3">Aenean lacinia</a></li>
   </ul>
-<div id="tabs-1">
+  <div id="tabs-1">
   	<p class="memtitle">마이프로필</p>
    	<div class="member">
    		<img src="${pageContext.request.contextPath }/resources/images/members/${vo.cmprofile}" class="memimg">
-   		<p class="cmname">${vo.cmname }</p>
-   		<p class="cmscname">${vo.cmscname }</p>
+   		<div class="buddy_text">
+	   		<p class="cmname">${vo.cmname }</p>
+	   		<p class="cmscname">${vo.cmscname }</p>
+   		</div>
    		<input type="hidden" id="cmid" value="${vo.cmid }">
    	</div>
-   	<ul class="navbar-nav ml-auto">
-        <!-- Nav Item - Alerts -->
-        <li class="nav-item dropdown no-arrow mx-1">
-            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-bell fa-fw"></i>
-                <!-- Counter - Alerts -->
-                <span class="badge badge-danger badge-counter" id="reqcnt" style="background:#00AEF0"></span>
-            </a>
-            <!-- Dropdown - Alerts -->
-            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                aria-labelledby="alertsDropdown" style="position: absolute;top:40px;left:10px; width:250px; z-index: 1;">
-                <h6 class="dropdown-header">
-                    친구요청
-                </h6>
-                <div id="reqlist">
-                <!-- 
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="mr-3">
-                        <div class="icon-circle bg-primary">
-                            <i class="fas fa-file-alt text-white"></i>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="small text-gray-500">December 12, 2019</div>
-                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                    </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="mr-3">
-                        <div class="icon-circle bg-success">
-                            <i class="fas fa-donate text-white"></i>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="small text-gray-500">December 7, 2019</div>
-                        $290.29 has been deposited into your account!
-                    </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                    <div class="mr-3">
-                        <div class="icon-circle bg-warning">
-                            <i class="fas fa-exclamation-triangle text-white"></i>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="small text-gray-500">December 2, 2019</div>
-                        Spending Alert: We've noticed unusually high spending for your account.
-                    </div>
-                </a>
-                 -->
-                </div>
-            </div>
-        </li>
-   </ul>
+   	
    	<p class="buddytitle">친구목록</p>
    	<c:forEach var="vo" items="${list }">
 		<div class="buddy">
    			<img src="${pageContext.request.contextPath }/resources/images/members/${vo.cmprofile}" class="memimg">
-   			<p class="cmname">${vo.cmname }</p>
-   			<p class="cmscname">${vo.cmscname }</p>
+   			<div class="buddy_text">
+	   			<p class="cmname">${vo.cmname }</p>
+	   			<p class="cmscname">${vo.cmscname }</p>
+   			</div>
+   			<img src="${pageContext.request.contextPath }/resources/images/chat/threedotsicon.svg" class="buddy_more" id="more">
+   			<span id="moreContent">
+    			<span class="moreDetail" id="delbuddy"><a href="#">&nbsp;친구 삭제&nbsp;</a></span><br>
+    			<span class="moreDetail" id="newchat"><a href="#">&nbsp;채팅방 생성&nbsp;</a></span>
+    		</span>
    		</div>	   	
    	</c:forEach>
   </div>
@@ -175,69 +167,6 @@
   </div>
 </div>
 <script>
-//지영
-$(function(){
-	$.ajax({
-		type:'get',
-		url:"${pageContext.request.contextPath }/hjy/chatAddList",
-		dataType:"json",
-		success:function(data){
-			$("#reqcnt").html(data.list.length+"+");
-			let html="";
-			if(data.list.length==0){
-				$(".dropdown-header").html("친구요청내역이 없습니다.")
-			}else{
-				$(data.list).each(function(i,data){
-					let caaddid =data.caaddid
-					let profile =data.cmprofile
-					html+=
-						`<a class="dropdown-item d-flex align-items-center" href="javascript:reqfriend("\${caaddid}","acc")">
-		                    <div class="mr-3">
-		                        <div class="icon-circle bg-primary">
-		                        	<img src="${pageContext.request.contextPath }/resources/images/members/\${profile}" style="width:100%;">
-		                        </div>
-		                    </div>
-		                    <div>
-		                        <div class="small text-gray-500">\${caaddid}</div>
-		                        <span class="font-weight-bold">
-		                        <input type='button' value='수락' onclick = 'reqfriend("\${caaddid}","acc")' id='\${caaddid}'>
-		                        <input type='button' value='거부' onclick = 'reqfriend("\${caaddid}","del")' id='\${caaddid}'>
-		                        </span>
-		                    </div>
-		               	</a>`
-				})
-			}
-			$("#reqlist").append(html);
-		}
-	})
-})
-function reqfriend(id,select){
-		$.ajax({
-			url:"${pageContext.request.contextPath }/hjy/accdelreq",
-			type:'get',
-			data:{"reqId":id,"myId":"${mid}","select":select},
-			dataType:"json",
-			success:function(data){
-				if(data.sel=='acc'){
-					if(data.result=='success'){
-						alert('이동이 완료되었습니다.')
-						location.reload(true)
-					}else{
-						alert(data.result)
-					};
-				}else{
-					if(data.result=='success'){
-						alert('거절이 완료되었습니다.')
-						location.reload(true)
-					}else{
-						alert(data.result)
-					};
-				}						
-			}
-		})
-}
-
-
 	$( "#tabs" ).tabs();
 	var cmid=$("#cmid").val();
 	function chat_room(){
@@ -371,6 +300,17 @@ function reqfriend(id,select){
 			}
 		});
 	}
+	
+	//더보기버튼
+	$(".buddy_more").on("click", function(){
+	    $("#moreContent").css("top",25).css("right",10);
+	    if( $(".moreDetail").is(":visible")){
+	         $(".moreDetail").hide();
+	    }else{
+	         $(".moreDetail").show();
+	    }
+	})
+	
 	function chat_room2(crid){
 		$.ajax({
 			type:'get',
