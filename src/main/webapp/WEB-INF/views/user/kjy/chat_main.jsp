@@ -116,6 +116,8 @@
 	    background-color:#E8E8E8;
 	    align:right;
 	    z-index:10;
+	    top:25px;
+	    right:10px;
 	}
 	.moreDetail{
     	display:none;
@@ -153,7 +155,7 @@
 	   			<p class="cmname">${vo.cmname }</p>
 	   			<p class="cmscname">${vo.cmscname }</p>
    			</div>
-   			<img src="${pageContext.request.contextPath }/resources/images/chat/threedotsicon.svg" class="buddy_more" id="more">
+   			<img src="${pageContext.request.contextPath }/resources/images/chat/threedotsicon.svg" class="buddy_more" id="more" onclick="btnmore()">
    			<span id="moreContent">
     			<span class="moreDetail" id="delbuddy"><a href="#">&nbsp;친구 삭제&nbsp;</a></span><br>
     			<span class="moreDetail" id="newchat"><a href="#">&nbsp;채팅방 생성&nbsp;</a></span>
@@ -302,14 +304,17 @@
 	}
 	
 	//더보기버튼
-	$(".buddy_more").on("click", function(){
-	    $("#moreContent").css("top",25).css("right",10);
-	    if( $(".moreDetail").is(":visible")){
-	         $(".moreDetail").hide();
-	    }else{
-	         $(".moreDetail").show();
-	    }
-	})
+	function btnmore() {
+		$(".buddy_more").on("click", function(){
+		    //$("#moreContent").css("top",25).css("right",10);
+			$("#moreContent").css("top",25);
+		    if( $(".moreDetail").is(":visible")){
+		         $(".moreDetail").hide();
+		    }else{
+		         $(".moreDetail").show();
+		    }
+		})
+	}
 	
 	function chat_room2(crid){
 		$.ajax({
