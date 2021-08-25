@@ -40,37 +40,38 @@ $(document).ready(function(){
 			let riextraimg1 =  data.vo.riextraimg1;
 			let riextraimg2 =  data.vo.riextraimg2;
 			let html = `
-				<form method="post" id="multiform" enctype="multipart/form-data">
-					<input type='hidden' name='aid' value='${data.vo.aid}'>
-					<input type='hidden' name='riid' value='${riid}'>
-					<label>객실종류</label>
-		        	<input type="text" name="riroomtype" value="${riroomtype}"><br>
-		        	<label>총객실수</label>
-		        	<input type="text" name="riroom" value="${riroom}"><br>
-		        	<label>부가서비스</label>
-		        	<input type="text" name="riservice" value="${riservice}"><br>
-		        	<label>객실크기</label>
-		        	<input type="text" name="risize" value="${risize}"><br>
-		        	<label>기준인원</label>
-		        	<input type="text" name="riminper" value="${riminper}"><br>
-		        	<label>최대인원</label>
-		        	<input type="text" name="rimaxper" value="${rimaxper}"><br>
-		        	<label>성수기요금</label>
-		        	<input type="text" name="ripeak" value="${ripeak}"><br>
-		        	<label>준성수기요금</label>
-		        	<input type="text" name="risemipeak" value="${risemipeak}"><br>
-		        	<label>비성수기요금</label>
-		        	<input type="text" name="rioff" value="${rioff}"><br>
-		        	<label>메인사진</label>
-		        	<input type="file" name="file" value="${rimainimg}"><br>
-		        	<label>추가사진1</label>
-		        	<input type="file" name="file" value="${riextraimg1}"><br>
-		        	<label>추가사진2</label>
-		        	<input type="file" name="file" value="${riextraimg2}"><br>
+					<form method="post" id="multiform" enctype="multipart/form-data">
+						<input type='hidden' name='aid' value='${data.vo.aid}'>
+						<input type='hidden' name='riid' value='${riid}'>
+						<label>객실종류</label>
+			        	<input type="text" name="riroomtype" value="${riroomtype}"><br>
+			        	<label>총객실수</label>
+			        	<input type="text" name="riroom" value="${riroom}"><br>
+			        	<label>부가서비스</label>
+			        	<input type="text" name="riservice" value="${riservice}"><br>
+			        	<label>객실크기</label>
+			        	<input type="text" name="risize" value="${risize}"><br>
+			        	<label>기준인원</label>
+			        	<input type="text" name="riminper" value="${riminper}"><br>
+			        	<label>최대인원</label>
+			        	<input type="text" name="rimaxper" value="${rimaxper}"><br>
+			        	<label>성수기요금</label>
+			        	<input type="text" name="ripeak" value="${ripeak}"><br>
+			        	<label>준성수기요금</label>
+			        	<input type="text" name="risemipeak" value="${risemipeak}"><br>
+			        	<label>비성수기요금</label>
+			        	<input type="text" name="rioff" value="${rioff}"><br>
+			        	<label>메인사진</label>
+			        	<input type="file" name="file" value="${rimainimg}"><br>
+			        	<label>추가사진1</label>
+			        	<input type="file" name="file" value="${riextraimg1}"><br>
+			        	<label>추가사진2</label>
+			        	<input type="file" name="file" value="${riextraimg2}"><br>
+		        	</form>
 		        	<div>
 						<input type="button" value="수정" onclick="updatesubmit(); return false;">
 					</div>
-            	</form>
+            	
             	`
 		$("#roomUpdate").append(html);
     	}
@@ -82,6 +83,7 @@ function updatesubmit(){
 	var form =  $("#roomUpdate form");
  	var formData = new FormData(form[0]);  
  	console.log(form)
+ 	console.log(form[0])
     $.ajax({
         type: "post",
         enctype: 'multipart/form-data', 

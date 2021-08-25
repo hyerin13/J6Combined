@@ -11,8 +11,6 @@ import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,7 +21,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.jhta.project.service.lhj.AccommodationsServicelhj;
 import com.jhta.project.vo.lhj.AccommodationsVo;
 import com.jhta.project.vo.lhj.Room_infoVo;
-import com.jhta.util.PageUtil;
 
 
 
@@ -115,6 +112,7 @@ public class AccommodationsControllerlhj {
 		Room_infoVo vo = acservice.roomDetail(riid);
 		//System.out.println("컨트롤러: " + riid);
 		map.put("vo", vo);
+		System.out.println(vo.getAid());
 		return map;
 	}
 	
@@ -122,7 +120,9 @@ public class AccommodationsControllerlhj {
 	public HashMap<String, Object> roomUpdate(Room_infoVo vo, MultipartHttpServletRequest mfRequest){
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<MultipartFile> fileList = mfRequest.getFiles("file");
-		System.out.println("///////////1번/////////////" + fileList.get(0).getOriginalFilename());	
+		//System.out.println("///////////1번/////////////" + fileList.get(0).getOriginalFilename());
+		//System.out.println("///////////2번/////////////" + fileList.get(1).getOriginalFilename());
+		//System.out.println("///////////3번/////////////" + fileList.get(2).getOriginalFilename());
 		//모든 파일이 수정되지 않았을 때
 		if(fileList.get(0).getOriginalFilename()==null || fileList.get(0).getOriginalFilename()=="") {
 			if(fileList.get(1).getOriginalFilename()==null || fileList.get(1).getOriginalFilename()=="") {
@@ -166,10 +166,12 @@ public class AccommodationsControllerlhj {
     			} catch (Exception ex) {
     				ex.printStackTrace();
     			}
-        	}	
+        	}
+
         	if(fileList.get(1).getOriginalFilename() != null || fileList.get(1).getOriginalFilename() != "") {
         		// 1-2. 첫번째 추가 이미지일 때
     			String rorgfilename1 = fileList.get(1).getOriginalFilename();// 전송된 사진 파일명
+    			System.out.println("/////////////////////추가사진1:" + rorgfilename1);
     			String rsavefilename1 = UUID.randomUUID() + "_" + rorgfilename1;// 저장할 파일명
     			try {
     				InputStream is = fileList.get(1).getInputStream();
@@ -187,17 +189,19 @@ public class AccommodationsControllerlhj {
 					vo.setRiextraimg1(rsavefilename1);
 					int n = acservice.roomUpdate(vo);
 					if(n > 0) {
-						map.put("msg", "숙소 정보 변경이 완료되었습니다.");
+						map.put("msg", "객실 정보 변경이 완료되었습니다.");
 					}else {
-						map.put("msg", "숙소 정보 변경에 실패했습니다.");
+						map.put("msg", "객실 정보 변경에 실패했습니다.");
 					}
     			} catch (Exception ex) {
     				ex.printStackTrace();
     			}
         	}
+        	
         	if(fileList.get(2).getOriginalFilename() != null || fileList.get(2).getOriginalFilename() != "") {
         		// 1-3. 마지막 추가 이미지 일 때
     			String rorgfilename2 = fileList.get(2).getOriginalFilename();// 전송된 사진 파일명
+    			System.out.println("/////////////////////추가사진2:" + rorgfilename2);
     			String rsavefilename2 = UUID.randomUUID() + "_" + rorgfilename2;// 저장할 파일명
     			try {
     				InputStream is = fileList.get(2).getInputStream();
@@ -212,12 +216,12 @@ public class AccommodationsControllerlhj {
 						file.delete();
 					}
 					// 2. 업로드된 파일정보 DB에 저장하기
-					vo.setRiextraimg1(rsavefilename2);
+					vo.setRiextraimg2(rsavefilename2);
 					int n = acservice.roomUpdate(vo);
 					if(n > 0) {
-						map.put("msg", "숙소 정보 변경이 완료되었습니다.");
+						map.put("msg", "객실 정보 변경이 완료되었습니다.");
 					}else {
-						map.put("msg", "숙소 정보 변경에 실패했습니다.");
+						map.put("msg", "객실 정보 변경에 실패했습니다.");
 					}
     			} catch (Exception ex) {
     				ex.printStackTrace();
