@@ -5,9 +5,15 @@
 		        select * from userqna order by qlev asc,qref desc,qstep asc
 	</select>
 	<insert id="insert" parameterType="com.jhta.project.vo.cjy.UserqnaVo">
-		insert into userqna values(#{qid},#{qcate},#{qpw},#{qtitle},#{qcontent},#{qfile},#{qrdate},#{qlev},#{qref},#{qstep},#{mid})
+		insert into userqna values(seq_userqna.nextval,#{qcate},#{qpw},#{qtitle},#{qcontent},#{qfile},sysdate,#{qlev},#{qref},#{qstep},#{mid})
 	</insert>
 	<update id="update" parameterType="com.jhta.project.vo.cjy.UserqnaVo">
 		update userqna set qcate=#{qcate}, qpw=#{qpw}, qtitle=#{qtitle},qcontent=#{qcontent},qfile=#{qfile},qrdate=#{qrdate},qlev=#{qlev},qref=#{qref},qstep=#{qstep},mid=#{mid} where qid=#{qid}
+	</update>
+	<delete id="delete" parameterType="int">
+		delete from userqna where qid=#{qid}
+	</delete>
+	<update id="updatetoy" parameterType="String">
+		update userqna set qlev='Y' where qid=#{qid}
 	</update>
 </mapper>

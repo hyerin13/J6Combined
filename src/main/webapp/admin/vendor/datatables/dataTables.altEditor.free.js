@@ -703,7 +703,7 @@
 								+ "' step='" + this._quoteattr(columnDefs[j].step)
 								+ "' min='" + this._quoteattr(columnDefs[j].min)
 								+ "' max='" + this._quoteattr(columnDefs[j].max)
-								+ "' value='" + $("#testqid").val()
+								+ "' value='" + this._quoteattr(columnDefs[j].value)
 								+ "' placeholder='" + this._quoteattr(columnDefs[j].placeholder ? columnDefs[j].placeholder : columnDefs[j].title)
                                 + "' data-special='" + this._quoteattr(columnDefs[j].special)
                                 + "' data-errorMsg='" + this._quoteattr(columnDefs[j].msg)
@@ -736,8 +736,8 @@
                 var selector = this.modal_selector;
                 var fill = function () {
                     var btns = '<button type="button" data-content="remove" class="btn btn-default button secondary" data-dismiss="modal" data-close>'+closeCaption+'</button>' +
-                        '<button type="submit" form="' + formName + '" data-content="remove" class="btn btn-primary button" id="'+buttonClass+'">'+buttonCaption+'</button>';
-                    $(selector).find('.modal-title').html(title);
+                        '<button type="submit" form="' + formName + '" data-content="remove" class="btn btn-primary button" id="'+buttonClass+'">'+'Add'+'</button>';
+                    $(selector).find('.modal-title').html('Add record');
                     $(selector).find('.modal-body').html(data);
                     $(selector).find('.modal-footer').html(btns);
                     var modalContent = $(selector).find('.modal-content');
@@ -786,6 +786,50 @@
                         }
                     }
                 }
+            },
+            _openAddModal: function () {
+
+                var dt = this.s.dt;
+                var adata = dt.rows({
+                    selected: true
+                });
+
+                var columnDefs = this.completeColumnDefs();
+                var data = this.createDialog(columnDefs, this.language.edit.title, this.language.edit.button,
+                    this.language.modalClose, 'addRowBtn', 'altEditor-add-form');
+
+                var selector = this.modal_selector;
+
+                for (var j in columnDefs) {
+                    if (columnDefs[j].name != null) {
+                        var arrIndex = columnDefs[j].name.toString().split(".");
+                        var selectedValue = adata.data()[0];
+                        for (var index = 0; index < arrIndex.length; index++) {
+                            if (selectedValue) selectedValue = selectedValue[arrIndex[index]];
+                        }
+                        var jquerySelector = "#" + columnDefs[j].name.toString().replace(/\./g, "\\.");
+                        $(selector).find(jquerySelector).val(selectedValue!=null?selectedValue.toString().trim():null);    //Values in dropdowns were getting extra spaces, need to trim if not null // this._quoteattr or not? see #121
+                        $(selector).find(jquerySelector).trigger("change"); // required by select2
+                         //added checkbox
+                        if (columnDefs[j].type.indexOf("checkbox") >= 0) {
+                            if (this._quoteattr(selectedValue) === "true" || this._quoteattr(selectedValue) == "1") { //MS SQL Databases use bits for booleans. 1 is equivlent to true, 0 is false
+                                $(selector).find(jquerySelector).prop("checked", this._quoteattr(selectedValue)); // required by checkbox
+                            }
+                        }
+                        //added date
+                        if (columnDefs[j].type.indexOf("date") >= 0) {
+                            if (columnDefs[j].dateFormat !== "") {
+                                var mDate = moment(this._quoteattr(selectedValue));
+                                if (mDate && mDate.isValid()) {
+                                    $(selector).find(jquerySelector).val(mDate.format(columnDefs[j].dateFormat));
+                                }
+                            }
+                        }
+                    }
+                }
+
+                $(selector + ' input[0]').trigger('focus');
+                $(selector).trigger("alteditor:some_dialog_opened").trigger("alteditor:edit_dialog_opened");
             },
 
             /**

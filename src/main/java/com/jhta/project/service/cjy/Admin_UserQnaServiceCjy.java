@@ -21,4 +21,10 @@ public class Admin_UserQnaServiceCjy {
 	public int update(UserqnaVo vo) {
 		return mapper.update(vo);
 	}
+	public int delete(int qid) {
+		return mapper.delete(qid);
+	}
+	public int updatetoy(String qid) {
+		return mapper.updatetoy(qid);
+	}
 }
