@@ -37,9 +37,9 @@ $(document).ready(function(){
 			{data:"ripeak"},
 			{data:"risemipeak"},
 			{data:"rioff"},
-			{data:"rimainimg"},
-			{data:"riextraimg1"},
-			{data:"riextraimg2"},
+			{data:"rimainimg", render : getImg},
+			{data:"riextraimg1", render : getImg},
+			{data:"riextraimg2", render : getImg},
 			{data:"riid",
 				"render":function(data,type,row){
 					if(type==='display'){
@@ -48,6 +48,46 @@ $(document).ready(function(){
 					return data;
 				}
 			}
-        ]
-	} );
+		],
+        dom: 'Bfrtip',
+     	buttons: [
+      	  {
+			extend: 'copy'
+			,text: 'copy'
+			,filename: '객실 목록'
+			,title: '객실 목록'
+			,className: 'btn btn-outline-primary'
+			},
+     		{
+			extend: 'excel'
+			,text: 'excel'
+			,filename: '객실 목록'
+			,title: '객실 목록'
+			,className: 'btn btn-outline-primary'
+			},
+			{
+			extend: 'pdf'
+			,text: 'pdf'
+			,filename: '객실 목록률'
+			,title: '객실 목록'
+			,className: 'btn btn-outline-primary'
+			},
+			{
+			extend: 'print'
+			,text: 'print'
+			,filename: '객실 목록'
+			,title: '객실 목록'
+			,className: 'btn btn-outline-primary'
+			},
+    	],
+	});
 });
+
+function getImg(list, type, full, meta) {
+	if(list != null){
+		return "<img src='" + path + "/resources/images/room_info/" + list + "' width='150' height='150'>";
+	}else{
+		return "";
+	}
+}
+	

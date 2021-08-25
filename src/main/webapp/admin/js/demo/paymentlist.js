@@ -19,6 +19,37 @@ $(document).ready(function(){
          	dom: 'Bfrtip',
          	buttons: [
             'copy', 'excel', 'pdf', 'print'
-        ]
+        ],
+        dom: 'Bfrtip',
+     	buttons: [
+      	  {
+			extend: 'copy'
+			,text: 'copy'
+			,filename: '결제 목록'
+			,title: '결제 목록'
+			,className: 'btn btn-outline-primary'
+			},
+     		{
+			extend: 'excel'
+			,text: 'excel'
+			,filename: '결제 목록'
+			,title: '결제 목록'
+			,className: 'btn btn-outline-primary'
+			},
+			{
+			extend: 'pdf'
+			,text: 'pdf'
+			,filename: '결제 목록'
+			,title: '결제 목록'
+			,className: 'btn btn-outline-primary'
+			},
+			{
+			extend: 'print'
+			,text: 'print'
+			,filename: '결제 목록'
+			,title: '결제 목록'
+			,className: 'btn btn-outline-primary'
+			},
+    	],
 	});
 });

@@ -40,7 +40,7 @@ $(document).ready(function(){
 			let riextraimg1 =  data.vo.riextraimg1;
 			let riextraimg2 =  data.vo.riextraimg2;
 			let html = `
-				<form method="post" action="/project/admin/lhj/roomUpdate?riid=${riid}" enctype="multipart/form-data">
+				<form method="post" id="multiform" enctype="multipart/form-data">
 					<input type='hidden' name='aid' value='${data.vo.aid}'>
 					<input type='hidden' name='riid' value='${riid}'>
 					<label>객실종류</label>
@@ -62,15 +62,38 @@ $(document).ready(function(){
 		        	<label>비성수기요금</label>
 		        	<input type="text" name="rioff" value="${rioff}"><br>
 		        	<label>메인사진</label>
-		        	<input type="file" name="rimainimg" value="${rimainimg}"><br>
+		        	<input type="file" name="file" value="${rimainimg}"><br>
 		        	<label>추가사진1</label>
-		        	<input type="file" name="riextraimg1" value="${riextraimg1}"><br>
+		        	<input type="file" name="file" value="${riextraimg1}"><br>
 		        	<label>추가사진2</label>
-		        	<input type="file" name="riextraimg2" value="${riextraimg2}"><br>
-		        	<input type="submit" value="수정"><br>
+		        	<input type="file" name="file" value="${riextraimg2}"><br>
+		        	<div>
+				     <input type="button" value="수정" onclick="updatesubmit(); return false;">
+				</div>
             	</form>
             	`
 		$("#roomUpdate").append(html);
     	}
 	});
 });
+
+function updatesubmit(){
+	event.preventDefault();  
+	var form =  $("#roomUpdate form");
+ 	var formData = new FormData(form[0]);  
+ 	console.log(form)
+    $.ajax({
+        type: "post",
+        enctype: 'multipart/form-data', 
+        url: "/project/admin/lhj/roomUpdate",
+        data: formData,
+	    dataType:'json',
+	    processData: false,
+        contentType: false,
+		cache:false,
+        success: function (data) {
+            alert(data.msg);
+        	window.location.href='roomlist.html'
+        }
+    });
+}
