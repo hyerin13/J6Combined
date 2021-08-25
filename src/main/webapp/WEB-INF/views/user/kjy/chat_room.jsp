@@ -12,14 +12,14 @@
 
 #header {
 	position: relative;
-	height: 100px;
+	height: 50px;
 	background:#C2DBEA;
 	border-bottom:1px solid gray; 
 }
 
 #footer{
 	position:relative;
-	height:100px;
+	height:50px;
 	background:white; 
 	border-top:1px solid gray; 
 }
@@ -33,114 +33,48 @@
 }
 .myprofile {
 	position:absolute;
-	top:10px;
-	left:10px;
-	width:80px;
-	height:80px;
-	border-radius: 20px;
+	top:5px;
+	left:5px;
+	width:40px;
+	height:40px;
+	border-radius: 10px;
 }
 .myname{
 	position:absolute;
-	left:110px;
-	top:20px;
-	font-size:20px;
+	left:60px;
+	top:15px;
+	font-size:15px;
 	font-weight:bold;
 }
-.memsgdiv {
-	position: relative;
-	height: 50px;
-}
-
-.memsgbox {
-	position: relative;
-	top: 10px;
-	float: right;
-	right: 20px;
-	width: 200px;
-	background: white;
-	border-radius: 5px;
-	margin-left: 30px;
-}
-
-.memsg {
-	position: relative;
-	margin: 10px;
-	word-break: break-all;
-	font-size: 15px;
-}
-
-.metime {
-	position: relative;
-	float: right;
-	top: 10px;
-}
-
-.youmsgdiv {
-	position: relative;
-	height: 100px;
-}
-
-.youprofile {
-	position: relative;
-	float: left;
-	left:10px;
-	width: 80px;
-	height: 80px;
-	border-radius: 20px;
-}
-
-.youname {
-	position: relative;
-	top: 10px;
-	left: 20px;
-	font-size: 15px;
-	font-weight: bold;
-}
-
-.youmsgbox {
-	position: relative;
-	top: 10px;
-	float: left;
-	left: 20px;
-	width: 200px;
-	background: white;
-	border-radius: 5px;
-	margin-right: 30px;
-}
-
-.youmsg {
-	position: relative;
-	margin: 10px;
-	word-break: break-all;
-	font-size: 15px;
-}
-
-.youtime {
-	position: relative;
-	top: 10px;
-}
-
-
 #sendBtn{
 	position: absolute;
 	top:5px;
 	right:5px;
 	width:100px;
-	height:100px;
+	height:50px;
 }
 #chatting{
 	position:absolute;
 	top:5px;
 	left:5px;
-	width:585px;
-	height:100px;
+	width:285px;
+	height:50px;
 	overflow:auto;
     resize: none;
+}
+.exit{
+	position:absolute;
+	top:18px;
+	right:10px;
+	font-weight:bold;
+	font-size:8px;
+	color:black;
 }
 </style>
 <div id="header">
 	<img src="${pageContext.request.contextPath }/resources/images/members/${cmprofile }" class="myprofile">
 	<p class="myname">${cmname }</p>
+	<a href="${pageContext.request.contextPath }/user/kjy/chat_main" class="exit">나가기</a>
 	<!-- 파라미터 값들 -->
 	<input type="hidden" id="cmid" value=${cmid }>
 	<input type="hidden" id="crid" value=${crid }>
@@ -148,12 +82,12 @@
 	<input type="hidden" id="cmname" value=${cmname }>
 </div>
 <div id="content">
-<div id="chating" class="chating">
+<div id="contentarea" class="contentarea">
 </div>
 </div>
 <div id="footer">
-	<div id="yourMsg">
-		<textarea rows="5" cols="20" id="chatting"></textarea>
+	<div id="Msg">
+		<textarea rows="" cols="" id="chatting"></textarea>
 		<button class="btn btn-primary" onclick="send()" id="sendBtn">보내기</button>
 	</div>
 </div>
@@ -187,17 +121,73 @@ function wsOpen(){
 					"</div>"+
 					"<p class='metime'>"+msgshottime+"</p>"+
 					"</div>";
-					$("#chating").append(html);
+					$("#contentarea").append(html);
+					$(".memsgdiv").css({
+						position: "relative",
+						width:"380px",
+					});
+					$(".memsgbox").css({
+						position: "relative",
+						width:"200px",
+						left:"170px",
+						wordBreak: "break-all"
+					});
+					$(".memsg").css({
+						background:"white",
+						fontSize:"15px",
+						borderRadius: "5px"
+					});
+					$(".metime").css({
+						position: "relative",
+						display: "inline-block",
+						left:"300px",
+						fontSize:"10px"
+					});
 				}else{
 					let html="<div class='youmsgdiv'>"+
 					"<img src='${pageContext.request.contextPath }/resources/images/members/"+cmprofile+"' class='youprofile'>"+
 					"<p class='youname'>"+cmname+"</p>"+
 					"<div class='youmsgbox'>"+
 					"<p class='youmsg'>"+msgmessage+"</p>"+
-					"</div>"+
 					"<p class='youtime'>"+msgshottime+"</p>"+
+					"</div>"+
 					"</div>";
-					$("#chating").append(html);
+					$("#contentarea").append(html);
+					$(".youmsgdiv").css({
+						position: "relative",
+						width:"380px",
+					});
+					$(".youprofile").css({
+						position: "relative",
+						left:"10px",
+						width:"50px",
+						height:"50px",
+						borderRadius: "15px"				
+					});
+					$(".youname").css({
+						position: "absolute",
+						top:"5px",
+						left:"70px",
+						fontSize:"12px",
+						fontweight: "bold"
+					});
+					$(".youmsgbox").css({
+						position: "relative",
+						width:"200px",
+						top:"-20px",
+						left:"70px",
+						wordBreak: "break-all"
+					});
+					$(".youmsg").css({
+						display: "inline-block",
+						background:"white",
+						fontSize:"15px",
+						borderRadius: "5px",
+					});
+					$(".youtime").css({
+						position: "relative",
+						fontSize:"10px"
+					});
 				}
 			});
 			//스크롤 하단 고정
@@ -209,9 +199,7 @@ function wsOpen(){
 function wsEvt() {
 	ws.onopen = function(data){
 		//소켓이 열리면 초기화 세팅하기
-		console.log("data:");
 	}
-	
 	ws.onmessage = function(data) {
 		//메시지를 받으면 동작
 		var msg = data.data;
@@ -226,21 +214,76 @@ function wsEvt() {
 				"</div>"+
 				"<p class='metime'>"+msgshottime+"</p>"+
 				"</div>";
-				$("#chating").append(html);	
+				$("#contentarea").append(html);	
+				
+				$(".memsgdiv").css({
+					position: "relative",
+					width:"380px",
+				});
+				$(".memsgbox").css({
+					position: "relative",
+					width:"200px",
+					left:"170px",
+					wordBreak: "break-all"
+				});
+				$(".memsg").css({
+					background:"white",
+					fontsize:"15px",
+					borderRadius: "5px"
+				});
+				$(".metime").css({
+					position: "relative",
+					display: "inline-block",
+					left:"300px",
+					fontSize:"10px"
+				});
 			}else{
 				let html="<div class='youmsgdiv'>"+
 				"<img src='${pageContext.request.contextPath }/resources/images/members/"+d.cmprofile+"' class='youprofile'>"+
 				"<p class='youname'>"+d.cmname+"</p>"+
 				"<div class='youmsgbox'>"+
 				"<p class='youmsg'>"+d.msgmessage+"</p>"+
-				"</div>"+
 				"<p class='youtime'>"+msgshottime+"</p>"+
+				"</div>"+
 				"</div>";
-				$("#chating").append(html);
+				$("#contentarea").append(html);
+				$(".youmsgdiv").css({
+					position: "relative",
+					width:"380px",
+				});
+				$(".youprofile").css({
+					position: "relative",
+					left:"10px",
+					width:"50px",
+					height:"50px",
+					borderRadius: "15px"				
+				});
+				$(".youname").css({
+					position: "absolute",
+					top:"5px",
+					left:"70px",
+					fontSize:"12px",
+					fontweight: "bold"
+				});
+				$(".youmsgbox").css({
+					position: "relative",
+					width:"200px",
+					top:"-20px",
+					left:"70px",
+					wordBreak: "break-all"
+				});
+				$(".youmsg").css({
+					display: "inline-block",
+					background:"white",
+					fontSize:"15px",
+					borderRadius: "5px",
+				});
+				$(".youtime").css({
+					position: "relative",
+					fontSize:"10px"
+				});
 			}
 		}
-		//부모창 리로드
-		opener.parent.location.reload();
 		//스크롤 하단 고정
 		$('#content').scrollTop($('#content')[0].scrollHeight);
 	}

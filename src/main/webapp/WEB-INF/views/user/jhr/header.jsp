@@ -73,6 +73,6 @@
 </div>
 <script type="text/javascript">
 function openchat(){
-    var popup = window.open('${pageContext.request.contextPath }/user/kjy/chat_main', '채팅팝업', 'width=700px,height=800px,scrollbars=no,location=no');
+    var popup = window.open('${pageContext.request.contextPath }/user/kjy/chat_main', '채팅팝업', 'width=400px,height=700px,scrollbars=no,location=no');
 }
 </script>

@@ -16,16 +16,15 @@
 	}
 	#tabs{
 	 	width:400px;
-	 	height:500px;
+	 	height:690px;
 	 	overflow:scroll;
 	 	overflow-x:hidden;
 	}
 	.member{
 		position:relative;
-		left:10px;
-		width:320px;
-		height:100px;
-		border: 1px solid gray;
+		width:340px;
+		height:80px;
+		border-bottom: 1px solid gray;
 		padding:10px;
 		display:flex;
 		flex-direction:row;
@@ -41,9 +40,10 @@
 		top:10px;
 		left:10px;
 		*/
-		width:80px;
-		height:80px;
+		width:50px;
+		height:50px;
 		margin-right:10px;
+		border-radius: 10px;
 	}
 	.cmname{
 	/*
@@ -51,7 +51,8 @@
 		top:20px;
 		left:120px;
 		*/
-		font-size:20px; 
+		font-size:15px; 
+		font-weight:bold;
 	}
 	.cmscname{
 	/*
@@ -59,7 +60,7 @@
 		top:60px;
 		left:120px;
 		*/
-		font-size:15px;
+		font-size:12px;
 	}
 	
 	.buddytitle{
@@ -70,11 +71,8 @@
 	}
 	.buddy{
 		position:relative;
-		left:10px;
-		width:320px;
-		height:100px;
-		border: 1px solid gray;
-		margin-bottom:20px;
+		width:340px;
+		height:80px;
 		display:flex;
 		flex-direction:row;
 		padding:10px;
@@ -100,7 +98,7 @@
 	.cnt{
 		position: absolute;
 		top:20px;
-		left:270px;
+		left:220px;
 		font-size:12px;
 		color:gray;
 	}
@@ -136,15 +134,15 @@
 		position:absolute;
 		top:20px;
 		right:10px;
-		font-size:10px;
+		font-size:12px;
 		color:gray;
 	}
 	.cr_msgmessage{
 		position:absolute;
-		top:50px;
+		top:40px;
 		left:100px;
-		width:200px;
-		height:35px;
+		width:220px;
+		height:30px;
 		font-size:12px;
 		word-break: break-all;
 		display: inline-block;
@@ -173,7 +171,7 @@
    	
    	<p class="buddytitle">친구목록</p>
    	<c:forEach var="vo" items="${list }" varStatus="status">
-		<div class="buddy" onclick='room_open("${vo.cbbuid}")'>
+		<div class="buddy">
    			<img src="${pageContext.request.contextPath }/resources/images/members/${vo.cmprofile}" class="memimg">
    			<div class="buddy_text">
 	   			<p class="cmname">${vo.cmname }</p>
@@ -182,7 +180,7 @@
    			<img src="${pageContext.request.contextPath }/resources/images/chat/threedotsicon.svg" class="buddy_more" id="more" onclick="btnmore(${status.index})">
    			<span id="moreContent" class="moreContent_${status.index}">
     			<span class="moreDetail_${status.index}" id="delbuddy"><a href="#">&nbsp;친구 삭제&nbsp;</a></span><br>
-    			<span class="moreDetail_${status.index}" id="newchat"><a href="#">&nbsp;채팅방 생성&nbsp;</a></span>
+    			<span class="moreDetail_${status.index}" id="newchat" onclick='room_open("${vo.cbbuid}")'><a href="#">&nbsp;채팅방 생성&nbsp;</a></span>
     		</span>
    		</div>	   	
    	</c:forEach>
@@ -205,7 +203,7 @@
 				$(data.countlist).each(function(i,d){
 					var crid=d.CRID;
 					var cnt=d.CNT;
-					var html="<div class='chat_room"+crid+"' ondblClick='chating("+crid+")'>"+
+					var html="<div class='chat_room"+crid+"' ondblClick='chating("+crid+")' id='chat_room'>"+
 					"<div class='roomimgbox"+crid+"'>"+
 					"</div>"+
 					"<div class='roombox"+crid+"'>"+
@@ -227,8 +225,8 @@
 						$(".roomimgbox"+crid).append(imghtml);
 						$(".profile_"+crid+"_0").css({
 							position:"absolute",
-							width:"80px",
-							height:"80px",
+							width:"60px",
+							height:"60px",
 							borderRadius: "10px",
 						});
 					}else if(cnt == 3){
@@ -237,10 +235,10 @@
 						$(".roomimgbox"+crid).append(imghtml);
 						$(".profile_"+crid+"_0").css({
 							position:"absolute",
-							top:"30px",
-							left: "30px",
-							width:"50px",
-							height:"50px",
+							top:"20px",
+							left: "20px",
+							width:"40px",
+							height:"40px",
 							borderRadius: "10px",
 							zIndex: "2"
 						});
@@ -248,8 +246,8 @@
 							position:"absolute",
 							top:"0px",
 							left: "0px",
-							width:"50px",
-							height:"50px",
+							width:"40px",
+							height:"40px",
 							borderRadius: "10px",
 							zIndex: "1"
 						});
@@ -263,32 +261,32 @@
 							position:"absolute",
 							top:"0px",
 							left: "0px",
-							width:"40px",
-							height:"40px",
+							width:"30px",
+							height:"30px",
 							borderRadius: "10px",
 						});
 						$(".profile_"+crid+"_1").css({
 							position:"absolute",
 							top:"0px",
-							left: "40px",
-							width:"40px",
-							height:"40px",
+							left: "30px",
+							width:"30px",
+							height:"30px",
 							borderRadius: "10px",
 						});
 						$(".profile_"+crid+"_2").css({
 							position:"absolute",
-							top:"40px",
+							top:"30px",
 							left: "0px",
-							width:"40px",
-							height:"40px",
+							width:"30px",
+							height:"30px",
 							borderRadius: "10px",
 						});
 						$(".profile_"+crid+"_3").css({
 							position:"absolute",
-							top:"40px",
-							left: "40px",
-							width:"40px",
-							height:"40px",
+							top:"30px",
+							left: "30px",
+							width:"30px",
+							height:"30px",
 							borderRadius: "10px",
 						});
 					}
@@ -297,26 +295,22 @@
 					//css주기
 					$(".chat_room"+crid).css({
 						position:"relative",
-						left:"10px",
-						width:"320px",
-						height:"100px",
-						border:"1px solid gray",
-						marginBottom: "10px",
-						cursor:"pointer"
+						width:"340px",
+						height:"80px"
 					});
 					$(".roomimgbox"+crid).css({
 						position:"absolute",
 						left:"10px",
 						top:"10px",
-						width:"80px",
-						height:"80px",
+						width:"60px",
+						height:"60px",
 						overflow:"hidden"
 					});
 					$(".roombox"+crid).css({
 						position:"absolute",
 						left:"100px",
 						top:"20px",
-						width: "170px",
+						width: "120px",
 						height:"20px",
 						overflow:"hidden"
 					});
@@ -383,13 +377,38 @@
 	//기존 방 열기
 	function chating(crid){
 		var url='${pageContext.request.contextPath }/user/kjy/chating_room?crid='+crid+'&cmid='+cmid+'&cmprofile='+cmprofile+'&cmname='+cmname;
-		window.open(url, '채팅룸', 'width=700px,height=800px,scrollbars=no,location=no');
+		location.href=url;
+		//window.open(url, '채팅룸', 'width=400px,height=700px,scrollbars=no,location=no');
 	}
 	//친구아이디로 확인하여 방이 있는지 여부 체크 후 채팅창 열기
 	function room_open(cbbuid){
 		var url='${pageContext.request.contextPath }/user/kjy/chating_check?cbbuid='+cbbuid+'&cmid='+cmid+'&cmprofile='+cmprofile+'&cmname='+cmname;
-		window.open(url, '채팅룸', 'width=700px,height=800px,scrollbars=no,location=no');
-		location.reload();
+		location.href=url;
+		//window.open(url, '채팅룸', 'width=400px,height=700px,scrollbars=no,location=no');
+		//location.reload();
 	}
+	
+	//마우스 이벤트
+	$(document).on("mouseenter",".buddy",function(){
+		$(this).css({
+			background: "#EAEAEA"
+		});
+	});
+	$(document).on("mouseleave",".buddy",function(){
+		$(this).css({
+			background: "none"
+		});
+	});
+	$(document).on("mouseenter","#chat_room",function(){
+		$(this).css({
+			background: "#EAEAEA"
+		});
+	});
+	$(document).on("mouseleave","#chat_room",function(){
+		$(this).css({
+			background: "none"
+		});
+	});
+
 	chat_room();
 </script>
