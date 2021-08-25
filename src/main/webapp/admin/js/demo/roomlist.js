@@ -68,7 +68,7 @@ $(document).ready(function(){
 			{
 			extend: 'pdf'
 			,text: 'pdf'
-			,filename: '객실 목록률'
+			,filename: '객실 목록'
 			,title: '객실 목록'
 			,className: 'btn btn-outline-primary'
 			},

@@ -62,7 +62,7 @@ $(document).ready(function(){
 			{
 			extend: 'pdf'
 			,text: 'pdf'
-			,filename: '숙소 목록률'
+			,filename: '숙소 목록'
 			,title: '숙소 목록'
 			,className: 'btn btn-outline-primary'
 			},

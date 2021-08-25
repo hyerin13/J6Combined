@@ -47,9 +47,9 @@ $(document).ready(function(){
 		        	<input type="text" name="riroomtype" value="${riroomtype}"><br>
 		        	<label>총객실수</label>
 		        	<input type="text" name="riroom" value="${riroom}"><br>
-		        	<label>부가서서비스</label>
+		        	<label>부가서비스</label>
 		        	<input type="text" name="riservice" value="${riservice}"><br>
-		        	<label>방갯수</label>
+		        	<label>객실크기</label>
 		        	<input type="text" name="risize" value="${risize}"><br>
 		        	<label>기준인원</label>
 		        	<input type="text" name="riminper" value="${riminper}"><br>
@@ -68,8 +68,8 @@ $(document).ready(function(){
 		        	<label>추가사진2</label>
 		        	<input type="file" name="file" value="${riextraimg2}"><br>
 		        	<div>
-				     <input type="button" value="수정" onclick="updatesubmit(); return false;">
-				</div>
+						<input type="button" value="수정" onclick="updatesubmit(); return false;">
+					</div>
             	</form>
             	`
 		$("#roomUpdate").append(html);
