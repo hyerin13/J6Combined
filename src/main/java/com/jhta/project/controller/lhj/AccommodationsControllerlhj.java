@@ -120,114 +120,70 @@ public class AccommodationsControllerlhj {
 	public HashMap<String, Object> roomUpdate(Room_infoVo vo, MultipartHttpServletRequest mfRequest){
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<MultipartFile> fileList = mfRequest.getFiles("file");
-		//System.out.println("///////////1번/////////////" + fileList.get(0).getOriginalFilename());
-		//System.out.println("///////////2번/////////////" + fileList.get(1).getOriginalFilename());
-		//System.out.println("///////////3번/////////////" + fileList.get(2).getOriginalFilename());
-		//모든 파일이 수정되지 않았을 때
-		if(fileList.get(0).getOriginalFilename()==null || fileList.get(0).getOriginalFilename()=="") {
-			if(fileList.get(1).getOriginalFilename()==null || fileList.get(1).getOriginalFilename()=="") {
-				if(fileList.get(2).getOriginalFilename()==null || fileList.get(2).getOriginalFilename()=="") {
-					int n = acservice.roomUpdate(vo);
-					System.out.println("객실정보:" + vo);
-					if(n > 0) {
-						map.put("msg", "객실 정보 변경이 완료되었습니다.");
-					}else {
-						map.put("msg", "객실 정보 변경에 실패했습니다.");
-					}
-				}
-			}	
-		} else { //파일 수정시
-        	String rpath = sc.getRealPath("/resources/images/room_info");
-        	if(fileList.get(0).getOriginalFilename() != null || fileList.get(0).getOriginalFilename() != "") {
-        		// 1-1. 메인이미지 일 때
-    			String rorgfilename = fileList.get(0).getOriginalFilename();// 전송된 사진 파일명
-    			System.out.println("/////////////////////메인사진:" + rorgfilename);
-    			String rsavefilename = UUID.randomUUID() + "_" + rorgfilename;// 저장할 파일명
-    			try {
-    				InputStream is = fileList.get(0).getInputStream();
-    				FileOutputStream fos = new FileOutputStream(rpath + "//" + rsavefilename);
-    				FileCopyUtils.copy(is, fos);
-    				is.close();
-    				fos.close();
-    				// 1. 기존 파일 삭제
-					Room_infoVo rvo = acservice.roomDetail(vo.getRiid());
-					File file = new File(rpath + "//" + rvo.getRimainimg());
+		System.out.println("메인이미지: "+fileList.get(0).getOriginalFilename());
+		System.out.println("추가이미지1: "+fileList.get(1).getOriginalFilename());
+		System.out.println("추가이미지2: "+fileList.get(2).getOriginalFilename());
+		String rpath = sc.getRealPath("/resources/images/room_info");
+		Room_infoVo rvo = acservice.roomDetail(vo.getRiid());
+		for (int i = 0; i < fileList.size(); i++) {
+			//i번째 파일을 수정했을때
+			if(fileList.get(i).getOriginalFilename() != "") {
+			System.out.println(i+"번째 진입");
+			System.out.println(fileList.get(i).getOriginalFilename());
+			String rorgfilename = fileList.get(i).getOriginalFilename();// 전송된 사진 파일명
+			String rsavefilename = UUID.randomUUID() + "_" + rorgfilename;// 저장할 파일명
+			try {
+				InputStream is = fileList.get(i).getInputStream();
+				FileOutputStream fos = new FileOutputStream(rpath + "//" + rsavefilename);
+				FileCopyUtils.copy(is, fos);
+				is.close();
+				fos.close();
+				// 1. 기존 파일 삭제
+				File file = null;
+				if(i==0) {
+					file = new File(rpath + "//" + rvo.getRimainimg());
 					if (file.exists()) {
 						file.delete();
 					}
-					// 2. 업로드된 파일정보 DB에 저장하기
+				// 2. 파일정보 vo에 저장하기
 					vo.setRimainimg(rsavefilename);
-					int n = acservice.roomUpdate(vo);
-    				if(n > 0) {
-    					map.put("msg", "숙소 정보 변경이 완료되었습니다.");
-    				}else {
-    					map.put("msg", "숙소 정보 변경에 실패했습니다.");
-    				}
-    			} catch (Exception ex) {
-    				ex.printStackTrace();
-    			}
-        	}
-
-        	if(fileList.get(1).getOriginalFilename() != null || fileList.get(1).getOriginalFilename() != "") {
-        		// 1-2. 첫번째 추가 이미지일 때
-    			String rorgfilename1 = fileList.get(1).getOriginalFilename();// 전송된 사진 파일명
-    			System.out.println("/////////////////////추가사진1:" + rorgfilename1);
-    			String rsavefilename1 = UUID.randomUUID() + "_" + rorgfilename1;// 저장할 파일명
-    			try {
-    				InputStream is = fileList.get(1).getInputStream();
-    				FileOutputStream fos = new FileOutputStream(rpath + "//" + rsavefilename1);
-    				FileCopyUtils.copy(is, fos);
-    				is.close();
-    				fos.close();
-    				
-					Room_infoVo rvo = acservice.roomDetail(vo.getRiid());
-					File file = new File(rpath + "//" + rvo.getRiextraimg1());
+				}else if(i==1) {
+					file = new File(rpath + "//" + rvo.getRiextraimg1());
 					if (file.exists()) {
 						file.delete();
 					}
-					// 2. 업로드된 파일정보 DB에 저장하기
-					vo.setRiextraimg1(rsavefilename1);
-					int n = acservice.roomUpdate(vo);
-					if(n > 0) {
-						map.put("msg", "객실 정보 변경이 완료되었습니다.");
-					}else {
-						map.put("msg", "객실 정보 변경에 실패했습니다.");
-					}
-    			} catch (Exception ex) {
-    				ex.printStackTrace();
-    			}
-        	}
-        	
-        	if(fileList.get(2).getOriginalFilename() != null || fileList.get(2).getOriginalFilename() != "") {
-        		// 1-3. 마지막 추가 이미지 일 때
-    			String rorgfilename2 = fileList.get(2).getOriginalFilename();// 전송된 사진 파일명
-    			System.out.println("/////////////////////추가사진2:" + rorgfilename2);
-    			String rsavefilename2 = UUID.randomUUID() + "_" + rorgfilename2;// 저장할 파일명
-    			try {
-    				InputStream is = fileList.get(2).getInputStream();
-    				FileOutputStream fos = new FileOutputStream(rpath + "//" + rsavefilename2);
-    				FileCopyUtils.copy(is, fos);
-    				is.close();
-    				fos.close();
-    				
-					Room_infoVo rvo = acservice.roomDetail(vo.getRiid());
-					File file = new File(rpath + "//" + rvo.getRiextraimg1());
+					// 2. 파일정보 vo에 저장하기
+					vo.setRiextraimg1(rsavefilename);
+				}else if(i==2) {
+					file = new File(rpath + "//" + rvo.getRiextraimg2());
 					if (file.exists()) {
 						file.delete();
 					}
-					// 2. 업로드된 파일정보 DB에 저장하기
-					vo.setRiextraimg2(rsavefilename2);
-					int n = acservice.roomUpdate(vo);
-					if(n > 0) {
-						map.put("msg", "객실 정보 변경이 완료되었습니다.");
-					}else {
-						map.put("msg", "객실 정보 변경에 실패했습니다.");
-					}
-    			} catch (Exception ex) {
-    				ex.printStackTrace();
-    			}
-        	}
-	     }        
+					// 2. 파일정보 vo에 저장하기
+					vo.setRiextraimg2(rsavefilename);
+				}
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}else{
+				System.out.println("진입");
+				if(i==0) {
+					vo.setRimainimg(rvo.getRimainimg());
+				}else if(i==1) {
+					vo.setRiextraimg1(rvo.getRiextraimg1());
+				}else if(i==2) {
+					vo.setRiextraimg2(rvo.getRiextraimg2());
+				}
+			}
+		}	
+		//DB에 업데이트하기
+		int n = acservice.roomUpdate(vo);
+		System.out.println(vo);
+		if(n > 0) {
+			map.put("msg", "숙소 정보 변경이 완료되었습니다.");
+		}else {
+			map.put("msg", "숙소 정보 변경에 실패했습니다.");
+		}
 		return map;
 	}
 	
