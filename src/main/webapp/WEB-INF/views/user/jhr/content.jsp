@@ -3,6 +3,12 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <title>content.jsp</title>
+<style>
+.slide_des ul li:first-child {left:0;}
+.slide_des ul li:nth-child(12) {left:-100%;}
+.slide_hotel ul li:first-child {left:0;}
+.slide_hotel ul li:nth-child(10) {left:-100%;}
+</style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/content.css">
 
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
@@ -37,28 +43,7 @@ function accodionAction(target) {
     */
 }
 	$(function(){	
-		$("#slide_des").draggable({
-			containment: [-1048,20,200,20],
-			axis: "x"
-		});
-		
-		$("#nextDes").click(function(e){
-			e.preventDefault();
-			var left=parseInt($("#slide_des").css("left"));
-			if(left<=-1248) return;
-			left-=208;
-			left=Math.ceil(left/208.0)*208;
-			$("#slide_des").animate({left:left},500);
-		});
-		$("#prevDes").click(function(e){
-			e.preventDefault();
-			var left=parseInt($("#slide_des").css("left"));
-			if(left>=0) return;
-			left+=208;	
-			left=Math.floor(left/208.0)*208;
-			$("#slide_des").animate({left:left},500);
-		});
-		
+		/*
 		$("#slide_hotel").draggable({
 			containment: [-1048,20,200,20],
 			axis: "x"
@@ -80,6 +65,37 @@ function accodionAction(target) {
 			left=Math.floor(left/259.0)*259;
 			$("#slide_hotel").animate({left:left},500);
 		});
+		*/
+		
+		//인기 여행지 슬라이드
+		$(".slider_des li:last").prependTo(".slider_des");
+		$("#prevDes").click(function() {
+			$(".slider_des").animate({left:208}, function() {
+				$(".slider_des li:last").prependTo(".slider_des")
+				$(".slider_des").css({left:0})
+			});
+		});
+		$("#nextDes").click(function() {
+			$(".slider_des").animate({left:-208}, function() {
+				$(".slider_des li:first").appendTo(".slider_des")
+				$(".slider_des").css({left:0})
+			});
+		});
+		//지금 인기 있는 호텔 슬라이드
+		$(".slider_hotel li:last").prependTo(".slider_hotel");
+		$("#prevHotel").click(function() {
+			$(".slider_hotel").animate({left:259}, function() {
+				$(".slider_hotel li:last").prependTo(".slider_hotel")
+				$(".slider_hotel").css({left:0})
+			});
+		});
+		$("#nextHotel").click(function() {
+			$(".slider_hotel").animate({left:-259}, function() {
+				$(".slider_hotel li:first").appendTo(".slider_hotel")
+				$(".slider_hotel").css({left:0})
+			});
+		});
+		
 		var acc_state=0;
 	    function accodionAction(target) {
 	        var panel=document.getElementsByClassName("faq_answer");
@@ -386,7 +402,7 @@ function accodionAction(target) {
 							</div>
 							<div class="popular_des_container" id="slidebox_des">
 								<div id="slide_des">
-									<ul>
+									<ul class="slider_des">
 										<li>
 											<a href="#">
 												<img src="${pageContext.request.contextPath}/resources/images/main/794e703d-city-35982-1620c5d9650.jpg">
@@ -521,7 +537,7 @@ function accodionAction(target) {
 							</div>
 							<div class="popular_hotel_ul_container" id="slidebox_hotel">
 								<div id="slide_hotel">
-									<ul>
+									<ul class="slider_hotel">
 										<li>
 											<div class="popular_hotel_li_container">
 												<a href="#">
