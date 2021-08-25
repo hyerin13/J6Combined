@@ -9,12 +9,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Chat_membersVo_kjy {
-	private String cbbuid;
+public class Chat_messageVo_kjy {
+	private int msgid;
+	private String msgmessage;
+	private Date msgtime;
 	private String cmid;
+	private int crid;
+	//추가사항
+	private String msgshottime;//ex.오후 1:02
 	private String cmname;
-	private Date cmbirth;
 	private String cmprofile;
-	private String cmscname;
-	private String cmdrop;
 }

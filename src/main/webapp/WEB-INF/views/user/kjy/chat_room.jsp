@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/js/jquery-ui.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,79 +9,207 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <style>
-		*{
-			margin:0;
-			padding:0;
-		}
-		.container{
-			width: 500px;
-			margin: 0 auto;
-			padding: 25px
-		}
-		.container h1{
-			text-align: left;
-			padding: 5px 5px 5px 15px;
-			color: #FFBB00;
-			border-left: 3px solid #FFBB00;
-			margin-bottom: 20px;
-		}
-		.chating{
-			background-color: #000;
-			width: 500px;
-			height: 500px;
-			overflow: auto;
-		}
-		.chating p{
-			color: #fff;
-			text-align: left;
-		}
-		input{
-			width: 330px;
-			height: 25px;
-		}
-		#yourMsg{
-			display: none;
-		}
-	</style>
-<body>
-<h1>채팅방</h1>
-<div id="container" class="container">
-		<h1>채팅</h1>
-		<input type="hidden" id="sessionId" value="">
-		
-		<div id="chating" class="chating">
-		</div>
-		
-		<div id="yourName">
-			<table class="inputTable">
-				<tr>
-					<th>사용자명</th>
-					<th><input type="text" name="userName" id="userName"></th>
-					<th><button onclick="chatName()" id="startBtn">이름 등록</button></th>
-				</tr>
-			</table>
-		</div>
-		<div id="yourMsg">
-			<table class="inputTable">
-				<tr>
-					<th>메시지</th>
-					<th><input id="chatting" placeholder="보내실 메시지를 입력하세요."></th>
-					<th><button onclick="send()" id="sendBtn">보내기</button></th>
-				</tr>
-			</table>
-		</div>
-	</div>
-</body>
-<script type="text/javascript">
-var ws;
 
+#header {
+	position: relative;
+	height: 100px;
+	background:#C2DBEA;
+	border-bottom:1px solid gray; 
+}
+
+#footer{
+	position:relative;
+	height:100px;
+	background:white; 
+	border-top:1px solid gray; 
+}
+
+#content{
+	position:relative;
+	background: #D6F0FF;
+	height:590px;
+	overflow-y:scroll;
+	overflow-x:hidden;
+}
+.myprofile {
+	position:absolute;
+	top:10px;
+	left:10px;
+	width:80px;
+	height:80px;
+	border-radius: 20px;
+}
+.myname{
+	position:absolute;
+	left:110px;
+	top:20px;
+	font-size:20px;
+	font-weight:bold;
+}
+.memsgdiv {
+	position: relative;
+	height: 50px;
+}
+
+.memsgbox {
+	position: relative;
+	top: 10px;
+	float: right;
+	right: 20px;
+	width: 200px;
+	background: white;
+	border-radius: 5px;
+	margin-left: 30px;
+}
+
+.memsg {
+	position: relative;
+	margin: 10px;
+	word-break: break-all;
+	font-size: 15px;
+}
+
+.metime {
+	position: relative;
+	float: right;
+	top: 10px;
+}
+
+.youmsgdiv {
+	position: relative;
+	height: 100px;
+}
+
+.youprofile {
+	position: relative;
+	float: left;
+	left:10px;
+	width: 80px;
+	height: 80px;
+	border-radius: 20px;
+}
+
+.youname {
+	position: relative;
+	top: 10px;
+	left: 20px;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.youmsgbox {
+	position: relative;
+	top: 10px;
+	float: left;
+	left: 20px;
+	width: 200px;
+	background: white;
+	border-radius: 5px;
+	margin-right: 30px;
+}
+
+.youmsg {
+	position: relative;
+	margin: 10px;
+	word-break: break-all;
+	font-size: 15px;
+}
+
+.youtime {
+	position: relative;
+	top: 10px;
+}
+
+
+#sendBtn{
+	position: absolute;
+	top:5px;
+	right:5px;
+	width:100px;
+	height:100px;
+}
+#chatting{
+	position:absolute;
+	top:5px;
+	left:5px;
+	width:585px;
+	height:100px;
+	overflow:auto;
+    resize: none;
+}
+</style>
+<div id="header">
+	<img src="${pageContext.request.contextPath }/resources/images/members/${cmprofile }" class="myprofile">
+	<p class="myname">${cmname }</p>
+	<!-- 파라미터 값들 -->
+	<input type="hidden" id="cmid" value=${cmid }>
+	<input type="hidden" id="crid" value=${crid }>
+	<input type="hidden" id="cmprofile" value=${cmprofile }>
+	<input type="hidden" id="cmname" value=${cmname }>
+</div>
+<div id="content">
+<div id="chating" class="chating">
+</div>
+</div>
+<div id="footer">
+	<div id="yourMsg">
+		<textarea rows="5" cols="20" id="chatting"></textarea>
+		<button class="btn btn-primary" onclick="send()" id="sendBtn">보내기</button>
+	</div>
+</div>
+<script type="text/javascript">
+
+var crid=$("#crid").val();
+var cmid=$("#cmid").val();
+var cmprofile=$("#cmprofile").val();
+var cmname=$("#cmname").val();
+//소켓 연결
+var ws;
 function wsOpen(){
 	ws = new WebSocket("ws://" + location.host + "/final/chating");
-	wsEvt();
+	//소켓 연결후 ajax로 채팅 리스트 불러오기
+	$.ajax({
+		type:'get',
+		data:{'crid':crid},
+		url:'${pageContext.request.contextPath }/user/kjy/messagelist',
+		dataType:'json',
+		success:function(data){
+			$(data.list).each(function(i,d){
+				let msgmessage=d.msgmessage;
+				let cmid=d.cmid;
+				let msgshottime=d.msgshottime;
+				let cmname=d.cmname;
+				let cmprofile=d.cmprofile;
+				if(cmid==$("#cmid").val()){
+					let html="<div class='memsgdiv'>"+
+					"<div class='memsgbox'>"+
+					"<p class='memsg'>"+msgmessage+"</p>"+
+					"</div>"+
+					"<p class='metime'>"+msgshottime+"</p>"+
+					"</div>";
+					$("#chating").append(html);
+				}else{
+					let html="<div class='youmsgdiv'>"+
+					"<img src='${pageContext.request.contextPath }/resources/images/members/"+cmprofile+"' class='youprofile'>"+
+					"<p class='youname'>"+cmname+"</p>"+
+					"<div class='youmsgbox'>"+
+					"<p class='youmsg'>"+msgmessage+"</p>"+
+					"</div>"+
+					"<p class='youtime'>"+msgshottime+"</p>"+
+					"</div>";
+					$("#chating").append(html);
+				}
+			});
+			//스크롤 하단 고정
+			$('#content').scrollTop($('#content')[0].scrollHeight);
+		}
+	});
 }
+
 function wsEvt() {
 	ws.onopen = function(data){
 		//소켓이 열리면 초기화 세팅하기
+		console.log("data:");
 	}
 	
 	ws.onmessage = function(data) {
@@ -90,50 +217,48 @@ function wsEvt() {
 		var msg = data.data;
 		if(msg != null && msg.trim() != ''){
 			var d = JSON.parse(msg);
-			if(d.type == "getId"){
-				var si = d.sessionId != null ? d.sessionId : "";
-				if(si != ''){
-					$("#sessionId").val(si); 
-				}
-			}else if(d.type == "message"){
-				if(d.sessionId == $("#sessionId").val()){
-					$("#chating").append("<p class='me'>나 :" + d.msg + "</p>");	
-				}else{
-					$("#chating").append("<p class='others'>" + d.userName + " :" + d.msg + "</p>");
-				}
-					
+			let today = new Date();   
+			let msgshottime=today.toLocaleTimeString();
+			if(d.cmid == $("#cmid").val()){
+				let html="<div class='memsgdiv'>"+
+				"<div class='memsgbox'>"+
+				"<p class='memsg'>"+d.msgmessage+"</p>"+
+				"</div>"+
+				"<p class='metime'>"+msgshottime+"</p>"+
+				"</div>";
+				$("#chating").append(html);	
 			}else{
-				console.warn("unknown type!")
+				let html="<div class='youmsgdiv'>"+
+				"<img src='${pageContext.request.contextPath }/resources/images/members/"+d.cmprofile+"' class='youprofile'>"+
+				"<p class='youname'>"+d.cmname+"</p>"+
+				"<div class='youmsgbox'>"+
+				"<p class='youmsg'>"+d.msgmessage+"</p>"+
+				"</div>"+
+				"<p class='youtime'>"+msgshottime+"</p>"+
+				"</div>";
+				$("#chating").append(html);
 			}
 		}
+		//부모창 리로드
+		opener.parent.location.reload();
+		//스크롤 하단 고정
+		$('#content').scrollTop($('#content')[0].scrollHeight);
 	}
+}
 
-	document.addEventListener("keypress", function(e){
-		if(e.keyCode == 13){ //enter press
-			send();
-		}
-	});
-}
-function chatName(){
-	var userName = $("#userName").val();
-	if(userName == null || userName.trim() == ""){
-		alert("사용자 이름을 입력해주세요.");
-		$("#userName").focus();
-	}else{
-		wsOpen();
-		$("#yourName").hide();
-		$("#yourMsg").show();
-	}
-}
 
 function send() {
 	var option ={
 		type: "message",
-		sessionId : $("#sessionId").val(),
-		userName : $("#userName").val(),
-		msg : $("#chatting").val()
+		cmid : $("#cmid").val(),
+		crid : $("#crid").val(),
+		cmname : $("#cmname").val(),
+		cmprofile : $("#cmprofile").val(),
+		msgmessage : $("#chatting").val()
 	}
 	ws.send(JSON.stringify(option))
 	$('#chatting').val("");
+	wsEvt();
 }
+wsOpen();
 </script>

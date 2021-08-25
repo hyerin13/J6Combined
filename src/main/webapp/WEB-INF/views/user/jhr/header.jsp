@@ -42,7 +42,7 @@
 								<!-- 로그인이 안되어있을때 -->
 							</c:when>
 							<c:otherwise>
-								<a href="${pageContext.request.contextPath }/user/kjy/chat_main">팝업채팅이미지</a><br>
+								<a href="#none" target="_blank" onclick="openchat()">채팅</a><br>
 							</c:otherwise>
 						</c:choose>
 					</div>
@@ -71,3 +71,8 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+function openchat(){
+    var popup = window.open('${pageContext.request.contextPath }/user/kjy/chat_main', '채팅팝업', 'width=700px,height=800px,scrollbars=no,location=no');
+}
+</script>

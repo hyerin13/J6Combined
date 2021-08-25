@@ -272,11 +272,10 @@
 #reviewbox {
 	position: relative;
 	width: 1000px;
-	top: 300px;
+	margin-top:300px;
+	margin-bottom:20px;
 	left: 400px;
-	height: 1250px;
 	border-top: 1px solid gray;
-	border-bottom: 1px solid gray;
 }
 
 .reviewtitle {

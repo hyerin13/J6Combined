@@ -119,7 +119,10 @@
 	    top:25px;
 	    right:10px;
 	}
-	.moreDetail{
+	#delbuddy{
+    	display:none;
+	}
+	#newchat{
     	display:none;
 	}
 	.moreDetail a {
@@ -129,12 +132,30 @@
 	    position:relative;
 	    margin-left:auto;
 	}
+	.cr_msgshottime{
+		position:absolute;
+		top:20px;
+		right:10px;
+		font-size:10px;
+		color:gray;
+	}
+	.cr_msgmessage{
+		position:absolute;
+		top:50px;
+		left:100px;
+		width:200px;
+		height:35px;
+		font-size:12px;
+		word-break: break-all;
+		display: inline-block;
+		overflow: hidden; 
+		text-overflow: ellipsis;
+	}
 </style>
 <div id="tabs">
   <ul>
     <li><a href="#tabs-1">친구목록</a></li>
     <li><a href="#tabs-2">채팅목록</a></li>
-    <li><a href="#tabs-3">Aenean lacinia</a></li>
   </ul>
   <div id="tabs-1">
   	<p class="memtitle">마이프로필</p>
@@ -144,33 +165,36 @@
 	   		<p class="cmname">${vo.cmname }</p>
 	   		<p class="cmscname">${vo.cmscname }</p>
    		</div>
+   		<!-- 파라미터 넘기기 -->
    		<input type="hidden" id="cmid" value="${vo.cmid }">
+   		<input type="hidden" id="cmprofile" value="${vo.cmprofile }">
+   		<input type="hidden" id="cmname" value="${vo.cmname }">
    	</div>
    	
    	<p class="buddytitle">친구목록</p>
-   	<c:forEach var="vo" items="${list }">
-		<div class="buddy">
+   	<c:forEach var="vo" items="${list }" varStatus="status">
+		<div class="buddy" onclick='room_open("${vo.cbbuid}")'>
    			<img src="${pageContext.request.contextPath }/resources/images/members/${vo.cmprofile}" class="memimg">
    			<div class="buddy_text">
 	   			<p class="cmname">${vo.cmname }</p>
 	   			<p class="cmscname">${vo.cmscname }</p>
    			</div>
-   			<img src="${pageContext.request.contextPath }/resources/images/chat/threedotsicon.svg" class="buddy_more" id="more" onclick="btnmore()">
-   			<span id="moreContent">
-    			<span class="moreDetail" id="delbuddy"><a href="#">&nbsp;친구 삭제&nbsp;</a></span><br>
-    			<span class="moreDetail" id="newchat"><a href="#">&nbsp;채팅방 생성&nbsp;</a></span>
+   			<img src="${pageContext.request.contextPath }/resources/images/chat/threedotsicon.svg" class="buddy_more" id="more" onclick="btnmore(${status.index})">
+   			<span id="moreContent" class="moreContent_${status.index}">
+    			<span class="moreDetail_${status.index}" id="delbuddy"><a href="#">&nbsp;친구 삭제&nbsp;</a></span><br>
+    			<span class="moreDetail_${status.index}" id="newchat"><a href="#">&nbsp;채팅방 생성&nbsp;</a></span>
     		</span>
    		</div>	   	
    	</c:forEach>
   </div>
   <div id="tabs-2">
   </div>
-  <div id="tabs-3">
-  </div>
 </div>
 <script>
 	$( "#tabs" ).tabs();
 	var cmid=$("#cmid").val();
+	var cmprofile=$("#cmprofile").val();
+	var cmname=$("#cmname").val();
 	function chat_room(){
 		$.ajax({
 			type:'get',
@@ -302,18 +326,19 @@
 			}
 		});
 	}
+
+	
 	
 	//더보기버튼
-	function btnmore() {
-		$(".buddy_more").on("click", function(){
-		    //$("#moreContent").css("top",25).css("right",10);
-			$("#moreContent").css("top",25);
-		    if( $(".moreDetail").is(":visible")){
-		         $(".moreDetail").hide();
-		    }else{
-		         $(".moreDetail").show();
-		    }
-		})
+	function btnmore(data) {
+		console.log(data);
+		//$("#moreContent").css("top",25).css("right",10);
+		$(".moreContent_"+data).css("top",25);
+		   if( $(".moreDetail_"+data).is(":visible")){
+		        $(".moreDetail_"+data).hide();
+		   }else{
+		        $(".moreDetail_"+data).show();
+		   }
 	}
 	
 	function chat_room2(crid){
@@ -335,6 +360,13 @@
 					//이미지 속성넣기
 					$(".profile_"+crid+"_"+i).attr("src","${pageContext.request.contextPath }/resources/images/members/"+d.cmprofile);
 				});
+				//최근 대화내역 출력
+				$(data.list2).each(function(i,d){
+					let msgshottime="<p class='cr_msgshottime'>"+d.msgshottime+"</p>";
+					let msgmessage="<p class='cr_msgmessage'>"+d.msgmessage+"</p>";
+					$(".chat_room"+crid).append(msgshottime);
+					$(".chat_room"+crid).append(msgmessage);
+				});
 			}
 		});
 		$("img").error(function(){
@@ -344,9 +376,20 @@
 	//드래그 방지
 	$(document).on("selectstart", function(event){return false;});
 	
+	//대체 이미지 지정(이미지 null일떄)
+	$("img").error(function(){
+		$(this).attr("src","${pageContext.request.contextPath }/resources/images/chat/noimage2.jpg");
+	});
+	//기존 방 열기
 	function chating(crid){
-		window.open('${pageContext.request.contextPath }/user/kjy/chating?crid='+crid, '채팅룸', 'width=700px,height=800px,scrollbars=yes,location=no');
+		var url='${pageContext.request.contextPath }/user/kjy/chating_room?crid='+crid+'&cmid='+cmid+'&cmprofile='+cmprofile+'&cmname='+cmname;
+		window.open(url, '채팅룸', 'width=700px,height=800px,scrollbars=no,location=no');
 	}
-	
+	//친구아이디로 확인하여 방이 있는지 여부 체크 후 채팅창 열기
+	function room_open(cbbuid){
+		var url='${pageContext.request.contextPath }/user/kjy/chating_check?cbbuid='+cbbuid+'&cmid='+cmid+'&cmprofile='+cmprofile+'&cmname='+cmname;
+		window.open(url, '채팅룸', 'width=700px,height=800px,scrollbars=no,location=no');
+		location.reload();
+	}
 	chat_room();
 </script>
