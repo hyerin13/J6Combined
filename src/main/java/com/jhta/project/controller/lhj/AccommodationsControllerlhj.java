@@ -113,7 +113,7 @@ public class AccommodationsControllerlhj {
 	public HashMap<String, Object> roomDetail(int riid){
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		Room_infoVo vo = acservice.roomDetail(riid);
-		System.out.println("컨트롤러: " + riid);
+		//System.out.println("컨트롤러: " + riid);
 		map.put("vo", vo);
 		return map;
 	}
@@ -122,17 +122,20 @@ public class AccommodationsControllerlhj {
 	public HashMap<String, Object> roomUpdate(Room_infoVo vo, MultipartHttpServletRequest mfRequest){
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<MultipartFile> fileList = mfRequest.getFiles("file");
+		System.out.println("///////////1번/////////////" + fileList.get(0).getOriginalFilename());	
 		//모든 파일이 수정되지 않았을 때
-		if(fileList.get(0).getOriginalFilename()==null || fileList.get(0).getOriginalFilename()=="" &&
-				fileList.get(1).getOriginalFilename()==null || fileList.get(1).getOriginalFilename()=="" &&
-					fileList.get(2).getOriginalFilename()==null || fileList.get(2).getOriginalFilename()=="") {
-			int n = acservice.roomUpdate(vo);
-			System.out.println("객실정보:" + vo);
-			if(n > 0) {
-				map.put("msg", "객실 정보 변경이 완료되었습니다.");
-			}else {
-				map.put("msg", "객실 정보 변경에 실패했습니다.");
-			}
+		if(fileList.get(0).getOriginalFilename()==null || fileList.get(0).getOriginalFilename()=="") {
+			if(fileList.get(1).getOriginalFilename()==null || fileList.get(1).getOriginalFilename()=="") {
+				if(fileList.get(2).getOriginalFilename()==null || fileList.get(2).getOriginalFilename()=="") {
+					int n = acservice.roomUpdate(vo);
+					System.out.println("객실정보:" + vo);
+					if(n > 0) {
+						map.put("msg", "객실 정보 변경이 완료되었습니다.");
+					}else {
+						map.put("msg", "객실 정보 변경에 실패했습니다.");
+					}
+				}
+			}	
 		} else { //파일 수정시
         	String rpath = sc.getRealPath("/resources/images/room_info");
         	if(fileList.get(0).getOriginalFilename() != null || fileList.get(0).getOriginalFilename() != "") {
@@ -163,9 +166,9 @@ public class AccommodationsControllerlhj {
     			} catch (Exception ex) {
     				ex.printStackTrace();
     			}
-        	}
+        	}	
         	if(fileList.get(1).getOriginalFilename() != null || fileList.get(1).getOriginalFilename() != "") {
-        		// 1-2. 첫번째 추가 이미지 일 때
+        		// 1-2. 첫번째 추가 이미지일 때
     			String rorgfilename1 = fileList.get(1).getOriginalFilename();// 전송된 사진 파일명
     			String rsavefilename1 = UUID.randomUUID() + "_" + rorgfilename1;// 저장할 파일명
     			try {

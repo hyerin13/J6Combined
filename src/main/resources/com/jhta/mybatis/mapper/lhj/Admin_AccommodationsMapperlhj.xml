@@ -36,9 +36,15 @@
 	<update id="roomUpdate" parameterType="com.jhta.project.vo.lhj.Room_infoVo">
 		update room_info set riroomtype = #{riroomtype}, riroom = #{riroom}, riservice = #{riservice}, risize = #{risize}, riminper = #{riminper},
 		rimaxper = #{rimaxper}, ripeak = #{ripeak}, risemipeak = #{risemipeak}, rioff = #{rioff}
-		<if test="rimainimg != null or riextraimg1 != null or riextraimg2 != null">
-			,rimainimg = #{rimainimg}, riextraimg1 = #{riextraimg1}, riextraimg2 = #{riextraimg2}
-		</if>  
+		<if test="rimainimg != null">
+			,rimainimg = #{rimainimg}
+		</if>
+		<if test="riextraimg1 != null">
+			,riextraimg1 = #{riextraimg1}
+		</if>
+		<if test="riextraimg2 != null">
+			,riextraimg2 = #{riextraimg2}
+		</if>
 		where riid = #{riid}
 	</update>
 	<update id="delupdate" parameterType="hashmap">

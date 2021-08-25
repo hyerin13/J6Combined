@@ -93,7 +93,7 @@ function updatesubmit(){
 		cache:false,
         success: function (data) {
             alert(data.msg);
-        	window.location.href='roomlist.html'
+        	window.location.href='accommlist.html'
         }
     });
 }
