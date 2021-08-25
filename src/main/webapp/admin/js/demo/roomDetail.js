@@ -83,7 +83,6 @@ function updatesubmit(){
 	var form =  $("#roomUpdate form");
  	var formData = new FormData(form[0]);  
  	console.log(form)
- 	console.log(form[0])
     $.ajax({
         type: "post",
         enctype: 'multipart/form-data', 
@@ -95,7 +94,9 @@ function updatesubmit(){
 		cache:false,
         success: function (data) {
             alert(data.msg);
-        	window.location.href='accommlist.html'
+            console.log(formData.get('aid'));
+            window.location.href='roomlist.html?aid=' + formData.get('aid')
+        	
         }
     });
 }
