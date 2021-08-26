@@ -32,6 +32,9 @@
 .licss a:hover {
 	color:white;
 }
+.liactive {
+	background-color:gray;
+}
 /*
 .licss a:hover:not(.active) {
     background-color: #111;
@@ -41,6 +44,3 @@
     margin:0px;
 }
 */
-.liactive {
-	background-color:gray;
-}
