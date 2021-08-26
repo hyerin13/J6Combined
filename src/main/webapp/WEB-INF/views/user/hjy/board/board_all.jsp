@@ -19,9 +19,9 @@
 	<div class="board_header">
 		<ul class="ulcss">
 	      <li class="licss"><a href="/project/phj/home">MyPage</a></li>
-	      <li class="licss"><a href="/project/hjy/all" class="liactive">자유게시판</a></li>
-	      <li class="licss"><a href="/project/hjy/review">공유게시판</a></li>
-	      <li class="licss"><a href="/project/hjy/matching">매칭게시판</a></li>
+	      <li class="licss"><a href="/project/hjy/board/all" class="liactive">자유게시판</a></li>
+	      <li class="licss"><a href="/project/hjy/board/review">리뷰게시판</a></li>
+	      <li class="licss"><a href="/project/hjy/board/matching">매칭게시판</a></li>
 	    </ul>
 	</div>
 	<input type="hidden" name="bcate" id="bcate" value="${bcate }">	
@@ -37,7 +37,7 @@
 				<tr class="table_content">
 					<fmt:formatDate value="${vo.brdate }" pattern="YY-MM-dd" var="brdate"/>
 					<td class="tdalign">${brdate }</td>
-					<td><a href="/project/hjy/detail?bid=${vo.bid }">${vo.btitle }</a></td>
+					<td><a href="/project/hjy/board/detail?bid=${vo.bid }">${vo.btitle }</a></td>
 					<td class="tdalign">${vo.mid }</td>
 				</tr>
 			</c:forEach>
@@ -48,12 +48,12 @@
 				<c:forEach var="i" begin="${pu.startPageNum }" end="${pu.endPageNum }">
 					<c:choose>
 						<c:when test="${pu.pageNum==i }"><!-- 현재페이지 -->
-							<a href="/project/hjy/all?pageNum=${i }&field=${field}&keyword=${keyword}">
+							<a href="/project/hjy/board/all?pageNum=${i }&field=${field}&keyword=${keyword}">
 							<span style='color:blue;font-weight: bold'>[${i }]</span>
 							</a>
 						</c:when>
 						<c:otherwise>
-							<a href="/project/hjy/all?pageNum=${i }&field=${field}&keyword=${keyword}">
+							<a href="/project/hjy/board/all?pageNum=${i }&field=${field}&keyword=${keyword}">
 							<span style='color:gray;'>[${i }]</span>
 							</a>
 						</c:otherwise>
@@ -62,7 +62,7 @@
 			</div>
 		</div>
 		<div>
-			<form action="${pageContext.request.contextPath }/hjy/all" class="searchbox">
+			<form action="${pageContext.request.contextPath }/hjy/board/all" class="searchbox">
 				<select name = "field" class="box_margin">
 					<option value="btitle" <c:if test="${field=='btitle' }">selected</c:if>>제목</option>
 					<option value="mid" <c:if test="${field=='mid' }">selected</c:if>>글쓴이</option>
@@ -81,7 +81,7 @@
 function clickForm(){
 	console.log("글쓰기");
 	var bcate=$("#bcate").val();
-	location.href='${pageContext.request.contextPath }/hjy/newPost?bcate='+bcate;
+	location.href='${pageContext.request.contextPath }/hjy/board/newPost?bcate='+bcate;
 }
 </script>
 </html>

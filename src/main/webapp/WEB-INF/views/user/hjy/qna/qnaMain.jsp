@@ -49,16 +49,22 @@ background-color:gray;
 </style>
 </head>
 <body>
+<script type="text/javascript">
+$(function(){
+		$("#"+"${qcate}").parent().children().attr('class','')
+		$("#"+"${qcate}").attr('class','liactive')
+})
+</script>
 <div class="header">
    <jsp:include page="/WEB-INF/views/user/jhr/header.jsp" flush="true"/>
 </div>
 <div class="board_header">
    <ul class="ulcss">
-      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna" class="liactive">전체</a></li>
-      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=상품">상품</a></li>
-      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=교환/환불">교환/환불</a></li>
-      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=사이트이용">사이트 이용</a></li>
-      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=기타">기타</a></li>
+      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna" id="all">전체</a></li>
+      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=상품" id="product">상품</a></li>
+      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=교환/환불"id="refund">교환/환불</a></li>
+      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=사이트이용"id="site">사이트 이용</a></li>
+      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=기타"id="enc">기타</a></li>
     </ul>
 </div>
 <input type="hidden" id="qnaCate" value="${qcate}">
@@ -83,7 +89,7 @@ background-color:gray;
                </c:otherwise>
             </c:choose>
             <td class="tdalign">${vo.qid }</td>
-            <td><a href="${pageContext.request.contextPath }/hjy/qna/qnaDetail?qid=${vo.qid }">${vo.qtitle }</a></td>
+            <td><a href="${pageContext.request.contextPath }/hjy/qna/qnaDetail?qid=${vo.qid }&qcate=${qcate}">${vo.qtitle }</a></td>
             <fmt:formatDate value="${vo.qrdate }" pattern="YY-MM-dd" var="qrdate"/>
             <td class="tdalign">${qrdate }</td>
             <td class="tdalign">${vo.mid }</td>

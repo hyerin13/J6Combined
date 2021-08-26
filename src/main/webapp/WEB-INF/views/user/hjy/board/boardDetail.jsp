@@ -126,7 +126,7 @@ body {
 				이전글 없음
 			</c:when>
 			<c:otherwise>
-				이전글 <a href="${pageContext.request.contextPath }/hjy/detail?bid=${prevVo.bid }">${prevVo.btitle }</a>
+				이전글 <a href="${pageContext.request.contextPath }/hjy/board/detail?bid=${prevVo.bid }">${prevVo.btitle }</a>
 				<br>
 			</c:otherwise>
 		</c:choose>
@@ -137,7 +137,7 @@ body {
 		</c:when>
 			<c:otherwise>
 			다음글 <a
-					href="${pageContext.request.contextPath }/hjy/detail?bid=${nextVo.bid }">${nextVo.btitle }</a>
+					href="${pageContext.request.contextPath }/hjy/board/detail?bid=${nextVo.bid }">${nextVo.btitle }</a>
 			</c:otherwise>
 		</c:choose>
 		</div>

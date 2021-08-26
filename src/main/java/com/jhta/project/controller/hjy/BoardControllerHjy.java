@@ -34,7 +34,7 @@ public class BoardControllerHjy {
 	@Autowired
 	CommentsServiceHjy commentsService;
 
-	@GetMapping("hjy/all")
+	@GetMapping("hjy/board/all")
 	public ModelAndView boardAll(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
 			String field, String keyword,BoardVo_phj vo) {
 		
@@ -56,7 +56,7 @@ public class BoardControllerHjy {
 		mv.addObject("bcate","all");
 		return mv;
 	}
-	@GetMapping("hjy/review")
+	@GetMapping("hjy/board/review")
 	public ModelAndView boardReview(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
 			String field, String keyword,BoardVo_phj vo) {
 		
@@ -78,7 +78,7 @@ public class BoardControllerHjy {
 		mv.addObject("bcate","review");
 		return mv;
 	}
-	@GetMapping("hjy/matching")
+	@GetMapping("hjy/board/matching")
 	public ModelAndView boardMatching(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
 			String field, String keyword,BoardVo_phj vo) {
 		
@@ -101,7 +101,7 @@ public class BoardControllerHjy {
 		return mv;
 	}
 	
-	@GetMapping("hjy/detail")
+	@GetMapping("hjy/board/detail")
 	public String boardDeatailForm(int bid, Model model) {
 		BoardVo vo = boardService.detail(bid);
 		List<CommentsVo> commList = commentsService.list(bid);
@@ -119,7 +119,7 @@ public class BoardControllerHjy {
 		return "user/hjy/board/boardDetail";
 	}
 	
-	@GetMapping("hjy/newPost")
+	@GetMapping("hjy/board/newPost")
 	public ModelAndView newPost(HttpServletRequest req,String bcate) {
 		HttpSession session=req.getSession();
 		String mid=(String)session.getAttribute("mid");

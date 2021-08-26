@@ -18,10 +18,10 @@
 	</div>
 	<div class="board_header">
 		<ul class="ulcss">
-	      <li class="licss"><a class="active" href="/project/phj/home">MyPage</a></li>
-	      <li class="licss"><a href="/project/hjy/all">자유게시판</a></li>
-	      <li class="licss"><a href="/project/hjy/review">공유게시판</a></li>
-	      <li class="licss"><a href="/project/hjy/matching" class="liactive">매칭게시판</a></li>
+	      <li class="licss"><a href="/project/phj/home">MyPage</a></li>
+	      <li class="licss"><a href="/project/hjy/board/all">자유게시판</a></li>
+	      <li class="licss"><a href="/project/hjy/board/review">리뷰게시판</a></li>
+	      <li class="licss"><a href="/project/hjy/board/matching" class="liactive">매칭게시판</a></li>
 	    </ul>
 	</div>
 	<input type="hidden" name="bcate" id="bcate" value="${bcate }">
@@ -37,7 +37,7 @@
 				<tr class="table_content">
 					<fmt:formatDate value="${vo.brdate }" pattern="YY-MM-dd" var="brdate"/>
 					<td class="tdalign">${brdate }</td>
-					<td><a href="/project/hjy/detail?bid=${vo.bid }">${vo.btitle }</a></td>
+					<td><a href="/project/hjy/board/detail?bid=${vo.bid }">${vo.btitle }</a></td>
 					<td class="tdalign">${vo.mid }</td>
 				</tr>
 			</c:forEach>
@@ -65,7 +65,7 @@
 function clickForm(){
 	console.log("글쓰기");
 	var bcate=$("#bcate").val();
-	location.href='${pageContext.request.contextPath }/hjy/newPost?bcate='+bcate;
+	location.href='${pageContext.request.contextPath }/hjy/board/newPost?bcate='+bcate;
 }
 </script>
 </html>

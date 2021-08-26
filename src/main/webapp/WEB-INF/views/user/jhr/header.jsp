@@ -4,7 +4,7 @@
 
 <title>header.jsp</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css">
-
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <div class="header">
 	<div class="header_container">
 		<div class="logo">
@@ -26,7 +26,7 @@
 		<div class="nav">
 			<ul class="nav_menu">
 				<li><a class="nav_hotel" href="${pageContext.request.contextPath}/"><span>호텔</span></a></li>
-				<li><a class="nav_board" href="${pageContext.request.contextPath }/hjy/all"><span>게시판</span></a></li>
+				<li><a class="nav_board" href="${pageContext.request.contextPath }/hjy/board/all"><span>게시판</span></a></li>
 				<li><a class="nav_qna" href="${pageContext.request.contextPath }/hjy/qna"><span>QnA</span></a></li>
 			</ul>
 			<div class="nav_account">
@@ -74,7 +74,23 @@
 	    var popup = window.open('${pageContext.request.contextPath }/user/kjy/chat_main', '채팅팝업', 'width=400px,height=700px,scrollbars=no,location=no');
 	}
 	
-	$(document).ready(function() {
-		$('.nav').find('a[href="' + document.location.pathname + '"]').parents('li').addClass('active');
+	$(function(){
+		let path = document.location.pathname;
+		console.log(path)
+		var array = new Array();
+		array= path.split("/");
+		let addpath;
+		for (var i = 0; i < array.length; i++) {
+			if(array[i]=='board'){
+				addpath="/hjy/board/all";
+				break;
+			}else if(array[i]=='qna'){
+				addpath="/hjy/qna";
+				break;
+			}else{
+				addpath="/";
+			}
+		}
+			$('.nav').find('a[href="/project'+addpath+'"]').parents('li').addClass('active');
 	});
 </script>

@@ -35,12 +35,18 @@ public class QnaControllerHjy {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("field", field);
 		map.put("keyword", keyword);
+		map.put("qcate", qcate);
 		if(qcate==null) {
 			qcate="all";
-		}else {
-			model.addAttribute("qcate", qcate);
+		}else if(qcate.equals("상품")){
+			qcate="product";
+		}else if(qcate.equals("교환/환불")){
+			qcate="refund";
+		}else if(qcate.equals("사이트이용")){
+			qcate="site";
+		}else if(qcate.equals("기타")){
+			qcate="enc";
 		}
-		map.put("qcate", qcate);
 		PageUtil pu = new PageUtil(pageNum, 10, 5, userqnaService.qnacount(map));
 		map.put("startRow", pu.getStartRow());
 		map.put("endRow", pu.getEndRow());
@@ -56,13 +62,25 @@ public class QnaControllerHjy {
 		return "user/hjy/qna/qnaMain";
 	}
 	@GetMapping("hjy/qna/qnaDetail")
-	public String qnaForm(int qid,Model model) {
+	public String qnaForm(int qid,String qcate,Model model) {
+		if(qcate==null) {
+			qcate="all";
+		}else if(qcate.equals("상품")){
+			qcate="product";
+		}else if(qcate.equals("교환/환불")){
+			qcate="refund";
+		}else if(qcate.equals("사이트이용")){
+			qcate="site";
+		}else if(qcate.equals("기타")){
+			qcate="enc";
+		}
 		UserqnaVo vo = userqnaService.qnaDetail(qid);
 		UserqnaVo nextVo = userqnaService.next(qid);
 		UserqnaVo prevVo = userqnaService.prev(qid);
 		String ans = userqnaService.qnaAns(vo.getQref());
 		model.addAttribute("vo", vo);
 		model.addAttribute("ans", ans);
+		model.addAttribute("qcate", qcate);
 		model.addAttribute("nextVo", nextVo);
 		model.addAttribute("prevVo", prevVo);
 		return "user/hjy/qna/qnaDetail";
