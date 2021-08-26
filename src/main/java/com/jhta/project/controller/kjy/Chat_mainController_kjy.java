@@ -78,15 +78,35 @@ public class Chat_mainController_kjy {
 	public ModelAndView chating_check(String cmid, String cbbuid, String cmprofile, String cmname) {
 		HashMap<String, Object> map=new HashMap<String, Object>();
 		ModelAndView mv=new ModelAndView("user/kjy/chat_room");
+		int cnt=0;
+		int crid=0;
+		boolean check=false; //방여부 체크
 		//cmid=본인아이디, cbbuid=친구아이디
-		map.put("cmid", cmid);
-		map.put("cbbuid", cbbuid);
-		//n이 0이면 방이 없음, 방생성 진행해야함
-		int n=service.roomcheck(map);
-		if(n==0) {
+		HashMap<String, Object> checkmap=new HashMap<String, Object>();
+		checkmap.put("cmid", cmid);
+		checkmap.put("cbbuid", cbbuid);
+		List<Chat_roomjoinVo_kjy> roomcheck=service.roomcheck(checkmap);
+		if(roomcheck.isEmpty()) {
+			//검색결과 아무것도 없을경우
+			check=true;
+		}
+		if(check==false) {
+			check=true;
+			//검색결과는 있으나 2명이상 방일경우(신규생성가능)
+			for(Chat_roomjoinVo_kjy vo:roomcheck) {
+				cnt=service.roomcheck_cnt(vo.getCrid());
+				if(cnt==2) {
+					check=false;
+					break;
+				}
+			}
+		}
+
+		if(check==true) {
+			//새로 방 생성
 			int n1=service.chat_room_insert();
 			//방금 생성한 시퀀스 번호 확인(방번호)
-			int crid=service.room_seq();
+			crid=service.room_seq();
 			HashMap<String, Object> roomjoin=new HashMap<String, Object>();
 			roomjoin.put("cmid",cmid);
 			roomjoin.put("crid",crid);
@@ -103,13 +123,13 @@ public class Chat_mainController_kjy {
 			mv.addObject("cmname",cmname);//본인 이름 전송
 			mv.addObject("cbbuid", cbbuid);//친구아이디 전송
 			mv.addObject("crid",crid);//방번호 전송
-		//기존에 방이 있을경우
-		}else {
+		}else if(check==false) {
+			//기존에 있던 방 열기
 			mv.addObject("cmid",cmid);//본인아이디 전송
 			mv.addObject("cmprofile", cmprofile);//본인 프로필 전송
 			mv.addObject("cmname",cmname);//본인 이름 전송
 			mv.addObject("cbbuid", cbbuid);//친구아이디 전송
-			mv.addObject("crid",n);//방번호 전송
+			mv.addObject("crid",crid);//방번호 전송
 		}
 		return mv;
 	}

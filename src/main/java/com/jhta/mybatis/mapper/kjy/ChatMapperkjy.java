@@ -14,7 +14,8 @@ public interface ChatMapperkjy {
 	List<Chat_roomjoinVo_kjy> roomjoin(HashMap<String, Object> map);
 	List<Chat_messageVo_kjy> chat_message_recently(String crid);
 	HashMap<String, Object> count(HashMap<String, Object> map);
-	int roomcheck(HashMap<String, Object> map);
+	List<Chat_roomjoinVo_kjy> roomcheck(HashMap<String, Object> map);
+	int roomcheck_cnt(int crid);
 	int chat_room_insert();
 	int room_seq();
 	int chat_roomjoin_insert(HashMap<String, Object> map);

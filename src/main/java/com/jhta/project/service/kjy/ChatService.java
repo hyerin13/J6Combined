@@ -30,8 +30,11 @@ public class ChatService {
 	public HashMap<String, Object> count(HashMap<String, Object> map){
 		return mapper.count(map);
 	}
-	public int roomcheck(HashMap<String, Object> map) {
+	public List<Chat_roomjoinVo_kjy> roomcheck(HashMap<String, Object> map) {
 		return mapper.roomcheck(map);
+	}
+	public int roomcheck_cnt(int crid) {
+		return mapper.roomcheck_cnt(crid);
 	}
 	public int chat_room_insert() {
 		return mapper.chat_room_insert();

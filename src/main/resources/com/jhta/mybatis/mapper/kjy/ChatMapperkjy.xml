@@ -27,8 +27,12 @@
 		select msgid,crid from chat_message where cmid=#{cmid})aa) where rnum=1 order by msgid desc
 	</select>
 	<!-- 방이 있는지 체크 -->
-	<select id="roomcheck" parameterType="hashmap" resultType="int">
-		select nvl(max(crid),0) crid from chat_roomjoin where crid in(select crid from chat_roomjoin where cmid=#{cmid}) and cmid=#{cbbuid}
+	<select id="roomcheck" parameterType="hashmap" resultType="com.jhta.project.vo.kjy.Chat_roomjoinVo_kjy">
+		select * from chat_roomjoin where crid in(select crid from chat_roomjoin where cmid=#{cmid}) and cmid=#{cbbuid}
+	</select>
+	<!-- 방이 있는대 인원이 3명이상일경우 체크 -->
+	<select id="roomcheck_cnt" parameterType="int" resultType="int">
+		select count(*) cnt from chat_roomjoin where crid=#{crid} group by crid
 	</select>
 	<!-- 방이 없을경우 방생성 -->
 	<!-- 방금 생성한 시퀀스 번호 가져오기(방번호) -->
