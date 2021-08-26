@@ -3,9 +3,17 @@
 
 <title>게시판</title>
 <style type="text/css">
+.board_header {
+	width:100%;
+	display:block;
+	box-sizing:border-box;
+	background-color:#333;
+}
 .ulcss {
+	width:1040px !important;
+	min-width:1040px !important;
     list-style-type: none;
-    margin: 0;
+	margin:0 auto !important;
     padding: 0;
     background-color: #333;
 }
