@@ -24,32 +24,8 @@
 	
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/footer.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boardDetail.css">
 
-<style type="text/css">
-.cmtHead ul li {
-	list-style-type: none;
-	float: left;
-	margin-left: 5px;
-}
-
-a {
-	color:black;
-}
-
-body {
-	background: #fafafa;
-}
-
-.row{
-	border: 1px solid #DCDCDC; 
-	border-radius:20px;
-	margin-bottom:20px;
-	padding-left: 10px;
-}
-.container{
-	margin-top: 50px;
-}
-</style>
 </head>
 <body>
 	<div class="header">
@@ -86,19 +62,19 @@ body {
 	
 		<br>
 		<div class="card">
-			<div class="cmtHead"style="margin-top: 20px; margin-left: 40px;">
+			<div class="cmtHead">
 				<h4>
 					댓글<strong id="comment">(${cnt})</strong>
 				</h4>
 			</div>
 			<hr>
 			<c:if test="${cnt ==0}">
-				<div style="margin: 50px 50px 50px 50px; text-align: center;">
+				<div class="no_re">
 					댓글이 없습니다.
 				</div>
 			</c:if>
 			<c:if test="${cnt !=0}">
-				<div id="cmt" style="margin-left: 50px;margin-right:50px;"></div>
+				<div id="cmt"></div>
 			</c:if>
 		</div>
 		<br>
@@ -119,27 +95,27 @@ body {
 				</div>
 			</div>
 			
-		<div>
-		<br>
-		<c:choose>
-			<c:when test="${prevVo eq null }">
-				이전글 없음
-			</c:when>
-			<c:otherwise>
-				이전글 <a href="${pageContext.request.contextPath }/hjy/board/detail?bid=${prevVo.bid }">${prevVo.btitle }</a>
-				<br>
-			</c:otherwise>
-		</c:choose>
-		<br>
-		<c:choose>
-			<c:when test="${nextVo eq null }">
-			다음글 없음
-		</c:when>
-			<c:otherwise>
-			다음글 <a
-					href="${pageContext.request.contextPath }/hjy/board/detail?bid=${nextVo.bid }">${nextVo.btitle }</a>
-			</c:otherwise>
-		</c:choose>
+		<div class="more_content">
+			<div class="more_prev">
+				<c:choose>
+					<c:when test="${prevVo eq null }">
+						<p>이전글 없음</p>
+					</c:when>
+					<c:otherwise>
+						이전글 <a href="${pageContext.request.contextPath }/hjy/board/detail?bid=${prevVo.bid }">${prevVo.btitle }</a>
+					</c:otherwise>
+				</c:choose>
+			</div>
+			<div class="more_next">
+				<c:choose>
+					<c:when test="${nextVo eq null }">
+						<p>다음글 없음</p>
+					</c:when>
+					<c:otherwise>
+						다음글 <a href="${pageContext.request.contextPath }/hjy/board/detail?bid=${nextVo.bid }">${nextVo.btitle }</a>
+					</c:otherwise>
+				</c:choose>
+			</div>
 		</div>
 		<br>
 	</div>
@@ -182,9 +158,9 @@ body {
 							html +="<li class='row' id='cmt"+i+"'>";
 						if(data.list[i].clev>0){
 							for (var j = 0; j < data.list[i].clev; j++) {
-								html += "&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp";
+								html += "&nbsp;&nbsp&nbsp;&nbsp";
 							}
-							html +="<img src='https://img.echosting.cafe24.com/design/skin/admin/ko_KR/ico_re.gif' style='object-fit: none; margin-bottom:55px;'>";
+							html +="<img src='https://img.echosting.cafe24.com/design/skin/admin/ko_KR/ico_re.gif' style='object-fit: none; margin:0 10px 55px 0;'>";
 						}
 						let mid = data.list[i].mid;
 						let crdate = dateFormat(data.list[i].crdate);
@@ -193,14 +169,14 @@ body {
 							html +="<div>";
 							html+=
 								`
-								<ul class="navbar-nav ml-auto">
+								<ul class="navbar-nav ml-auto re_container">
 					        	<!-- Nav Item - Alerts -->
-					        	<li class="nav-item dropdown no-arrow mx-1">`
+					        	<li class="nav-item dropdown no-arrow mx-1 re_box">`
 					        	//아이디가 본인꺼일때 실행
 							if(mid=="${mid}"){
 								html+=
 									`
-										<div style='margin-top:5px;'>
+										<div>
 					            		\${mid}
 							            <p style='color: gray;'>(\${crdate})</p>
 							            </div>
@@ -210,7 +186,7 @@ body {
 							}else{
 								//아이디가 본인이 아닐때 실행
 					        	html+=`
-				            		<a class="nav-link dropdown-toggle" href="#" role="button"
+				            		<a class="nav-link dropdown-toggle user" href="#" role="button"
 					                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\${mid}
 						            </a>
 						            <p style='color: gray;'>(\${crdate})</p>
@@ -248,14 +224,14 @@ body {
 							html +="<div>";
 							html +="<span>"+data.list[i].ccontent+"</span>";
 							html +="</div>";
-							html +="<div id='cmtcmt"+i+"' style='margin-bottom:10px;'>";
+							html +="<div id='cmtcmt"+i+"'>";
 							html +="</div>";
 							html +="</div>";
-							html +="<div style='position:absolute; left:85%; margin-top:60px;'>"
+							html +="<div class='re'>"
 							html +="<a href='javascript:commentPlus("+data.list[i].cid+","+i+")'>답글</a>";
 							if(data.list[i].mid=='${mid}'){
-								html +="<span>|</span><a href='javascript:updateForm("+data.list[i].cid+","+i+")'>수정</a>";
-								html +="<span>|</span><a href='javascript:deleteForm("+data.list[i].cid+")'>삭제</a>";
+								html +="<span>&nbsp;|&nbsp;</span><a href='javascript:updateForm("+data.list[i].cid+","+i+")'>수정</a>";
+								html +="<span>&nbsp;|&nbsp;</span><a href='javascript:deleteForm("+data.list[i].cid+")'>삭제</a>";
 							}
 							html +="</div>";
 						}else{//삭제된 댓글일때 실행
@@ -265,7 +241,7 @@ body {
 								<ul class="navbar-nav ml-auto">
 					        	<!-- Nav Item - Alerts -->
 					        	<li class="nav-item dropdown no-arrow mx-1">
-					        		<div style='margin-top:5px;'>
+					        		<div>
 							        	\${mid}
 							            <p style='color: gray;'>(\${crdate})</p>
 						        		삭제된 댓글입니다.
