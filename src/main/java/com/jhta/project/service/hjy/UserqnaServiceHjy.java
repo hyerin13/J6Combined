@@ -33,4 +33,7 @@ public class UserqnaServiceHjy {
 	public int qnawrite(UserqnaVo vo) {
 		return mapper.qnawrite(vo);
 	};
+	public int getQref() {
+		return mapper.getQref();
+	};
 }

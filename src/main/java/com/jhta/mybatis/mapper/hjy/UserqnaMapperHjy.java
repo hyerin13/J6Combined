@@ -13,4 +13,5 @@ public interface UserqnaMapperHjy {
 	public UserqnaVo next(int qid);
 	public String qnaAns(int qid);
 	public int qnawrite(UserqnaVo vo);
+	public int getQref();
 }
