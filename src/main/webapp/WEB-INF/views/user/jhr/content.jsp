@@ -21,7 +21,7 @@
 var acc_state=0;
 function accodionAction(target) {
 	//제이쿼리
-	 $(target).next().slideToggle(500);
+	 $(target).next().slideToggle(300);
 /*
     //자바스크립트
     var panel=document.getElementsByClassName("faq_answer");
@@ -43,30 +43,6 @@ function accodionAction(target) {
     */
 }
 	$(function(){	
-		/*
-		$("#slide_hotel").draggable({
-			containment: [-1048,20,200,20],
-			axis: "x"
-		});
-		
-		$("#nextHotel").click(function(e){
-			e.preventDefault();
-			var left=parseInt($("#slide_hotel").css("left"));
-			if(left<=-1248) return;
-			left-=259;
-			left=Math.ceil(left/259.0)*259;
-			$("#slide_hotel").animate({left:left},500);
-		});
-		$("#prevHotel").click(function(e){
-			e.preventDefault();
-			var left=parseInt($("#slide_hotel").css("left"));
-			if(left>=0) return;
-			left+=259;	
-			left=Math.floor(left/259.0)*259;
-			$("#slide_hotel").animate({left:left},500);
-		});
-		*/
-		
 		//인기 여행지 슬라이드
 		$(".slider_des li:last").prependTo(".slider_des");
 		$("#prevDes").click(function() {
