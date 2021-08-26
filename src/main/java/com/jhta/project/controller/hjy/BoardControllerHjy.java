@@ -14,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -102,11 +101,6 @@ public class BoardControllerHjy {
 		return mv;
 	}
 	
-	
-	@GetMapping("hjy/boardMain")
-	public String boardmain() {
-		return "user/hjy/board/boardMain";
-	}
 	@GetMapping("hjy/detail")
 	public String boardDeatailForm(int bid, Model model) {
 		BoardVo vo = boardService.detail(bid);
