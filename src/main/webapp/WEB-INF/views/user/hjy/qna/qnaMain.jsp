@@ -52,10 +52,10 @@ a{
 <div class="board_header">
 	<ul class="ulcss">
       <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna" class="active">전체</a></li>
-      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate='상품'">상품</a></li>
-      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate='교환/환불'">교환/환불</a></li>
-      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate='사이트이용'">사이트 이용</a></li>
-      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate='기타'">기타</a></li>
+      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=상품">상품</a></li>
+      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=교환/환불">교환/환불</a></li>
+      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=사이트이용">사이트 이용</a></li>
+      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=기타">기타</a></li>
     </ul>
 </div>
 <input type="hidden" id="qnaCate" value="${qcate}">
@@ -71,7 +71,7 @@ a{
 		<c:forEach var="vo" items="${list }">
 			<tr class="table_content">
 				<td class="tdalign">${vo.qid }</td>
-				<td><a href="/project/hjy/qna/qnaDetail?qid=${vo.qid }">${vo.qtitle }</a></td>
+				<td><a href="${pageContext.request.contextPath }/hjy/qna/qnaDetail?qid=${vo.qid }">${vo.qtitle }</a></td>
 				<fmt:formatDate value="${vo.qrdate }" pattern="YY-MM-dd" var="qrdate"/>
 				<td class="tdalign">${qrdate }</td>
 				<td class="tdalign">${vo.mid }</td>
@@ -84,12 +84,12 @@ a{
 			<c:forEach var="i" begin="${pu.startPageNum }" end="${pu.endPageNum }">
 				<c:choose>
 					<c:when test="${pu.pageNum==i }"><!-- 현재페이지 -->
-						<a href="/project/hjy/qna?pageNum=${i }&field=${field}&keyword=${keyword}">
+						<a href="${pageContext.request.contextPath }/hjy/qna?pageNum=${i }&field=${field}&keyword=${keyword}">
 						<span style='color:#00AEF0;font-weight: bold'>[${i }]</span>
 						</a>
 					</c:when>
 					<c:otherwise>
-						<a href="/project/hjy/qna?pageNum=${i }&field=${field}&keyword=${keyword}">
+						<a href="${pageContext.request.contextPath }/hjy/qna?pageNum=${i }&field=${field}&keyword=${keyword}">
 						<span style='color:gray;'>[${i }]</span>
 						</a>
 					</c:otherwise>
@@ -115,7 +115,7 @@ a{
 </body>
 <script type="text/javascript">
 function writeQna(){
-	location.href='${pageContext.request.contextPath }/hjy/newQna?qcate='+=$("#qcate").val();
+	location.href='${pageContext.request.contextPath }/hjy/newQna?qcate='+$("#qcate").val();
 }
 </script>
 </html>

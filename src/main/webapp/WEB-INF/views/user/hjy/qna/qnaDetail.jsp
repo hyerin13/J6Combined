@@ -23,7 +23,7 @@
 		<jsp:include page="/WEB-INF/views/user/jhr/header.jsp" flush="true"/>
 	</div>
 	<div class="board_header">
-		<jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/user/hjy/qna/board_header.jsp" flush="true"/>
+		<jsp:include page="/WEB-INF/views/user/hjy/board/board_header.jsp" flush="true"/>
 	</div>
 	<div class="container">
 		<div class="card">
