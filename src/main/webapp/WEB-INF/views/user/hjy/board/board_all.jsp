@@ -8,12 +8,21 @@
 <meta charset="UTF-8">
 <title>자유게시판</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board_all.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board_header.css">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 </head>
 <body>
+	<div class="header">
+		<jsp:include page="../../jhr/header.jsp" flush="true"/>
+	</div>
 	<div class="board_header">
-		<jsp:include page="board_header.jsp" flush="true"/>
+		<ul class="ulcss">
+	      <li class="licss"><a href="/project/phj/home">MyPage</a></li>
+	      <li class="licss"><a href="/project/hjy/all" class="liactive">자유게시판</a></li>
+	      <li class="licss"><a href="/project/hjy/review">공유게시판</a></li>
+	      <li class="licss"><a href="/project/hjy/matching">매칭게시판</a></li>
+	    </ul>
 	</div>
 	<input type="hidden" name="bcate" id="bcate" value="${bcate }">	
 	
@@ -63,6 +72,9 @@
 				<input type="submit" value="검색" class="btn btn-default submitbtn">
 			</form>
 		</div>
+	</div>
+	<div class="footer">
+		<jsp:include page="../../jhr/footer.jsp" flush="true"/>
 	</div>
 </body>
 <script type="text/javascript">

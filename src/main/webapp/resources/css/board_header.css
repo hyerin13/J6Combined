@@ -1,8 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+@charset "UTF-8";
 
-<title>게시판</title>
-<style type="text/css">
 .board_header {
 	width:100%;
 	display:block;
@@ -41,12 +38,6 @@
     margin:0px;
 }
 */
-</style>
-<div class="board_header">
-	<ul class="ulcss">
-      <li class="licss"><a class="active" href="/project/phj/home">MyPage</a></li>
-      <li class="licss"><a href="/project/hjy/all">자유게시판</a></li>
-      <li class="licss"><a href="/project/hjy/review">공유게시판</a></li>
-      <li class="licss"><a href="/project/hjy/matching">매칭게시판</a></li>
-    </ul>
-</div>
+.liactive {
+	background-color:gray;
+}
