@@ -21,4 +21,5 @@ public interface ChatMapperkjy {
 	int chat_message_insert(Chat_messageVo_kjy vo);
 	List<Chat_messageVo_kjy> chat_message_list(int crid);
 	List<HashMap<String, Object>> chat_rank(String cmid);
+	int delete(HashMap<String, Object> map);
 }

@@ -51,4 +51,7 @@ public class ChatService {
 	public List<HashMap<String, Object>> chat_rank(String cmid){
 		return mapper.chat_rank(cmid);
 	}
+	public int delete(HashMap<String, Object> map) {
+		return mapper.delete(map);
+	}
 }

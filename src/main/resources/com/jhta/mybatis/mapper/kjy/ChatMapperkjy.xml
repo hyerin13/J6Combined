@@ -50,4 +50,7 @@
 	<select id="chat_message_list" parameterType="int" resultType="com.jhta.project.vo.kjy.Chat_messageVo_kjy">
 		select msgid, msgmessage,to_char(msgtime,'PM FMHH:MI:SS') msgshottime, cs.cmid, crid, cm.cmprofile,cm.cmname from chat_message cs inner join chat_members cm on cs.cmid=cm.cmid where crid=#{crid} order by msgid
 	</select>
+	<delete id="delete" parameterType="hashmap">
+		delete from chat_buddy where cbbuid=#{cbbuid} and cmid=#{cmid}
+	</delete>
 </mapper>
