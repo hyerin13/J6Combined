@@ -28,7 +28,7 @@
 	
 	<select id="detail" resultType="com.jhta.project.vo.phj.BoardVo_phj"
 		parameterType="int">
-		select bid,bcate,btitle,bcontent,brdate,bfile1,bfile2,bfile3 from board where bid = #{bid}
+		select bid,bcate,btitle,bcontent,brdate,bfile1,bfile2,bfile3,mid from board where bid = #{bid}
 	</select>
 	
 	<select id="prev" parameterType="int" resultType="com.jhta.project.vo.hjy.BoardVo">
