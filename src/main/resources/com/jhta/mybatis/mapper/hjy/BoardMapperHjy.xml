@@ -26,9 +26,9 @@
 		<![CDATA[) where rnum>=#{startRow} and rnum<=#{endRow}]]>
 	</select>
 	
-	<select id="detail" resultType="com.jhta.project.vo.hjy.BoardVo"
+	<select id="detail" resultType="com.jhta.project.vo.phj.BoardVo_phj"
 		parameterType="int">
-		select * from board where bid = #{bid}
+		select bid,bcate,btitle,bcontent,brdate,bfile1,bfile2,bfile3 from board where bid = #{bid}
 	</select>
 	
 	<select id="prev" parameterType="int" resultType="com.jhta.project.vo.hjy.BoardVo">

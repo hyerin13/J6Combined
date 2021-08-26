@@ -1,9 +1,14 @@
 package com.jhta.project.controller.hjy;
 
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import javax.mail.Session;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.PageContext;
@@ -12,16 +17,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jhta.project.service.hjy.BoardServiceHjy;
 import com.jhta.project.service.hjy.CommentsServiceHjy;
 import com.jhta.project.service.phj.BoardService_phj;
+import com.jhta.project.vo.hjy.AccommodationsVo;
+import com.jhta.project.vo.hjy.Additional_feeVo;
 import com.jhta.project.vo.hjy.BoardVo;
 import com.jhta.project.vo.hjy.CommentsVo;
+import com.jhta.project.vo.hjy.PeriodVo;
+import com.jhta.project.vo.hjy.Room_InfoVo;
 import com.jhta.project.vo.phj.BoardVo_phj;
 import com.jhta.util.PageUtil;
 
@@ -33,7 +47,8 @@ public class BoardControllerHjy {
 	BoardService_phj boardService_phj;
 	@Autowired
 	CommentsServiceHjy commentsService;
-
+	@Autowired
+	ServletContext sc;
 	@GetMapping("hjy/board/all")
 	public ModelAndView boardAll(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
 			String field, String keyword,BoardVo_phj vo) {
@@ -91,7 +106,6 @@ public class BoardControllerHjy {
 		map.put("startRow", pu.getStartRow());
 		map.put("endRow", pu.getEndRow());
 		List<BoardVo> list = boardService.list(map);
-		System.out.println(list);
 		ModelAndView mv=new ModelAndView("user/hjy/board/board_matching");
 		mv.addObject("list", list);
 		mv.addObject("pu", pu);
@@ -103,7 +117,7 @@ public class BoardControllerHjy {
 	
 	@GetMapping("hjy/board/detail")
 	public String boardDeatailForm(int bid, Model model) {
-		BoardVo vo = boardService.detail(bid);
+		BoardVo_phj vo = boardService.detail(bid);
 		List<CommentsVo> commList = commentsService.list(bid);
 		BoardVo nextVo = boardService.nextDetail(bid);
 		BoardVo prevVo =boardService.prevDetail(bid);
@@ -112,6 +126,7 @@ public class BoardControllerHjy {
 			cnt=0;
 		}
 		model.addAttribute("vo", vo);
+		System.out.println(vo);
 		model.addAttribute("commList", commList);
 		model.addAttribute("cnt", cnt);
 		model.addAttribute("nextVo", nextVo);
@@ -129,31 +144,43 @@ public class BoardControllerHjy {
 		mv.addObject("mid",mid);
 		return mv;
 	}
-	@PostMapping("phj/boardinsert")
-	public String insertBoard(BoardVo_phj vo,String bcate) {
-		boardService_phj.insertBoard(vo);
-		if(bcate.equals("all")) {
-			return "redirect:/hjy/all";
-		}else if(bcate.equals("review")) {
-			return "redirect:/hjy/review";
-		}else if(bcate.equals("matching")) {
-		return "redirect:/hjy/matching";
+	@RequestMapping(value="phj/board/boardinsert",method = RequestMethod.POST)
+	public String insertBoard(BoardVo_phj vo,String bcate, MultipartHttpServletRequest mtfRequest) {
+		List<MultipartFile> fileList = mtfRequest.getFiles("file");
+		String path = sc.getRealPath("/resources/images/board");
+		for(MultipartFile file : fileList) {
+			if(file.getOriginalFilename()!="") {
+				String orgfilename = file.getOriginalFilename();// 전송된 파일명
+				String savefilename = UUID.randomUUID() + "_" + orgfilename;// 저장할 파일명(중복되지 않는 이름으로 만들기)
+				try {
+					// 1. 파일 업로드하기
+					InputStream is = file.getInputStream();
+					FileOutputStream fos = new FileOutputStream(path + "//" + savefilename);
+					FileCopyUtils.copy(is, fos);
+					is.close();
+					fos.close();
+					// 2. 업로드된 파일정보 DB에 저장하기
+					if(vo.getBfile1()==null) {
+						vo.setBfile1(savefilename);
+					}else if(vo.getBfile2()==null){
+						vo.setBfile2(savefilename);
+					}else if(vo.getBfile3()==null){
+						vo.setBfile3(savefilename);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		}
-		return null;
-	}
-	/**
-	 * 로그인 진입시 사용
-	 * @param session
-	 * @return
-	 */
-	@GetMapping("hjy/logintest")
-	public String loginTest(HttpSession session) {
-		return "user/hjy/board/login";
-	}
-	
-	@PostMapping("hjy/login")
-	public String loginTest2(String id, HttpSession session) {
-		session.getAttribute("mid");
-		return "redirect:/hjy/boardMain";
+		boardService_phj.insertBoard(vo);
+		String result = "";
+		if(bcate.equals("all")) {
+			result= "redirect:/hjy/board/all";
+		}else if(bcate.equals("review")) {
+			result= "redirect:/hjy/board/review";
+		}else if(bcate.equals("matching")) {
+			result= "redirect:/hjy/board/matching";
+		}
+		return result;
 	}
 }

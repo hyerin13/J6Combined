@@ -57,9 +57,17 @@
 					<th>내용</th>
 					<td>${vo.bcontent }</td>
 				</tr>
+				<tr>
+					<th>첨부파일</th>
+					<td>
+					<p id="img"></p>
+					<img src="${pageContext.request.contextPath }/resources/images/board/${vo.bfile1 }" onerror="this.style.display='none'" style='width:50%; margin-top:5px;'>
+					<img src="${pageContext.request.contextPath }/resources/images/board/${vo.bfile2 }" onerror="this.style.display='none'" style='width:50%; margin-top:5px;'>
+					<img src="${pageContext.request.contextPath }/resources/images/board/${vo.bfile3 }" onerror="this.style.display='none'" style='width:50%; margin-top:5px;'>
+					</td>
+				</tr>
 			</table>
 		</div>
-	
 		<br>
 		<div class="card">
 			<div class="cmtHead">
