@@ -9,4 +9,7 @@ public interface UserqnaMapperHjy {
 	public List<UserqnaVo> qnalist(HashMap<String, Object> map);
 	public int qnacount(HashMap<String, Object> map);
 	public UserqnaVo qnaDetail(int qid);
+	public UserqnaVo prev(int qid);
+	public UserqnaVo next(int qid);
+	public String qnaAns(int qid);
 }

@@ -46,7 +46,13 @@ public class QnaControllerHjy {
 	@GetMapping("hjy/qna/qnaDetail")
 	public String qnaForm(int qid,Model model) {
 		UserqnaVo vo = userqnaService.qnaDetail(qid);
+		UserqnaVo nextVo = userqnaService.next(qid);
+		UserqnaVo prevVo = userqnaService.prev(qid);
+		String ans = userqnaService.qnaAns(vo.getQref());
 		model.addAttribute("vo", vo);
+		model.addAttribute("ans", ans);
+		model.addAttribute("nextVo", nextVo);
+		model.addAttribute("prevVo", prevVo);
 		return "user/hjy/qna/qnaDetail";
 	}
 	

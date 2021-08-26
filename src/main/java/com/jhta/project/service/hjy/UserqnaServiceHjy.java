@@ -21,4 +21,14 @@ public class UserqnaServiceHjy {
 	public UserqnaVo qnaDetail(int qid){
 		return mapper.qnaDetail(qid);
 	};
+	public UserqnaVo prev(int qid) {
+		return mapper.prev(qid);
+	};
+	public UserqnaVo next(int qid) {
+		return mapper.next(qid);
+	};
+	public String qnaAns(int qid) {
+		return mapper.qnaAns(qid);
+	};
+
 }

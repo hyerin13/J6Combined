@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,14 +17,28 @@
 	
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/footer.css">
-
+<!-- boardheader-->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board_header.css">
+<!-- 글꼴 -->
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+a {
+	color:black;
+}
+</style>
 </head>
 <body>
 	<div class="header">
 		<jsp:include page="/WEB-INF/views/user/jhr/header.jsp" flush="true"/>
 	</div>
 	<div class="board_header">
-		<jsp:include page="/WEB-INF/views/user/hjy/board/board_header.jsp" flush="true"/>
+		<ul class="ulcss">
+	      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna" class="active">전체</a></li>
+	      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=상품">상품</a></li>
+	      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=교환/환불">교환/환불</a></li>
+	      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=사이트이용">사이트 이용</a></li>
+	      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=기타">기타</a></li>
+	    </ul>
 	</div>
 	<div class="container">
 		<div class="card">
@@ -54,38 +69,28 @@
 		<div class="card">
 			<div class="cmtHead"style="margin-top: 20px; margin-left: 40px;">
 				<h4>
-					댓글<strong id="comment">(${cnt})</strong>
+					답변
 				</h4>
 			</div>
 			<hr>
+			<c:if test="${ans eq null}">
+				<div style="margin: 50px 50px 50px 50px; text-align: center;">
+					댓글이 없습니다.
+				</div>
+			</c:if>
+			<c:if test="${ans != null}">
+				<div style="margin: 50px 50px 50px 50px;">
+				${ans }
+				</div>
+			</c:if>
 		</div>
 		<br>
-			<div class="card mb-2">
-				<div class="card-header bg-light">
-				        <i class="fa fa-comment fa"></i> 
-				</div>
-				<div class="card-body">
-					<ul class="list-group list-group-flush">
-					    <li class="list-group-item">
-						<div class="form-inline mb-2">
-							${mid }
-						</div>
-						<textarea class="form-control" id="ccontentText"  placeholder="댓글을 남겨보세요." rows="3"></textarea>
-						<br><button type="button" class="btn btn-outline-primary" id="btnAdd">등록</button> 
-					    </li>
-					</ul>
-				</div>
-			</div>
-			
-		<div>
-		<br>
-		<!-- 
 		<c:choose>
 			<c:when test="${prevVo eq null }">
 				이전글 없음
 			</c:when>
 			<c:otherwise>
-				이전글 <a href="${pageContext.request.contextPath }/hjy/detail?bid=${prevVo.bid }">${prevVo.btitle }</a>
+				이전글 <a href="${pageContext.request.contextPath }/hjy/qna/qnaDetail?qid=${prevVo.qid }">${prevVo.qtitle }</a>
 				<br>
 			</c:otherwise>
 		</c:choose>
@@ -95,14 +100,11 @@
 			다음글 없음
 		</c:when>
 			<c:otherwise>
-			다음글 <a
-					href="${pageContext.request.contextPath }/hjy/detail?bid=${nextVo.bid }">${nextVo.btitle }</a>
+			다음글 <a href="${pageContext.request.contextPath }/hjy/qna/qnaDetail?qid=${nextVo.qid }">${nextVo.qtitle }</a>
 			</c:otherwise>
 		</c:choose>
-		 -->
-		</div>
-		<br>
 	</div>
+		<br>
 	<div class="footer">
 		<jsp:include page="/WEB-INF/views/user/jhr/footer.jsp" flush="true"/>
 	</div>

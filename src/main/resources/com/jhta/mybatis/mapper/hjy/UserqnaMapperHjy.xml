@@ -46,4 +46,25 @@
 	<select id="qnaDetail" parameterType="int" resultType="com.jhta.project.vo.hjy.UserqnaVo">
 		select * from userqna where qid = #{qid}
 	</select>
+	<select id="qnaAns" parameterType="int" resultType="string">
+		select qcontent from userqna where qstep = 1 and qref=#{qref}
+	</select>
+	
+	<select id="prev" parameterType="int" resultType="com.jhta.project.vo.hjy.UserqnaVo">
+		<![CDATA[
+		select * from
+		(
+		    select * from userqna where qid<${qid} and qstep=0 order by qid desc
+		)where rownum=1
+		]]>
+	</select>
+	<select id="next" parameterType="int" resultType="com.jhta.project.vo.hjy.UserqnaVo">
+		<![CDATA[
+		select * from
+		(
+		    select * from userqna where qid>${qid} and qstep=0 order by qid asc
+		)where rownum=1
+		]]>
+	</select>
+	
 </mapper>
