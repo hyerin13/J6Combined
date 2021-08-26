@@ -8,4 +8,5 @@ public interface BoardMapper_phj {
 	int insertBoard(BoardVo_phj vo);
 	List<BoardVo_phj> selectBoard(String bcate);
 	List<BoardVo_phj> selectBoardAll();
+	BoardVo_phj selectBoardMine(String mid);
 }

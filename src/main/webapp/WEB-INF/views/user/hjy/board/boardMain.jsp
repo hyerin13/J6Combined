@@ -10,6 +10,6 @@
 	<div class="board_header">
 		<jsp:include page="board_header.jsp" flush="true"/>
 	</div>
-Home~
+home!
 </body>
 </html>

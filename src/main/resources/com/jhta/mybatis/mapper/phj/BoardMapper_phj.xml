@@ -5,10 +5,13 @@
 <mapper namespace="com.jhta.mybatis.mapper.phj.BoardMapper_phj">
 	<insert id="insertBoard" parameterType="com.jhta.project.vo.phj.BoardVo_phj">
 		insert into board
-		values(seq.board.nextval,#{bcate},#{btitle},#{bcontent},
-		#{brdate},#{mid})
+		values(seq_board.nextval,#{bcate},#{btitle},#{bcontent},
+		sysdate,#{mid})
 	</insert>
 	<select id="selectBoardAll" resultType="com.jhta.project.vo.phj.BoardVo_phj">
 		select * from board
+	</select>
+	<select id="selectBoardMine" parameterType="String" resultType="com.jhta.project.vo.phj.BoardVo_phj">
+		select * from board where mid=#{mid}
 	</select>
 </mapper>

@@ -20,4 +20,7 @@ public class BoardService_phj {
 	public List<BoardVo_phj> selectBoard(String bcate) {
 		return mapper.selectBoard(bcate);
 	}
+	public BoardVo_phj selectBoardMine(String mid) {
+		return mapper.selectBoardMine(mid);
+	}
 }

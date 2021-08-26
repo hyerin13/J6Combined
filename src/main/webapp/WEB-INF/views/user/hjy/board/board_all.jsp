@@ -8,28 +8,27 @@
 <meta charset="UTF-8">
 <title>자유게시판</title>
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 </head>
 <body>
 	<div class="board_header">
 		<jsp:include page="board_header.jsp" flush="true"/>
 	</div>
-<input type="text" name="bcate" id="bcate" value="${bcate }">	
-	<input type="button" onclick="clickForm()">
+<input type="hidden" name="bcate" id="bcate" value="${bcate }">	
+	<input type="button" onclick="clickForm()" value="글쓰기" class="btn btn-default">
 
-<table width="600" border="1">
+<table class="table" style="width: 70%; margin:20px;">
 	<tr>
-		<th>글번호</th>
-		<th>작성자</th>
-		<th>글제목</th>
 		<th>작성일</th>
+		<th>글제목</th>
+		<th>작성자</th>
 	</tr>
 <c:forEach var="vo" items="${list }">
 		<tr>
-			<td>${vo.bid }</td>
-			<td>${vo.mid }</td>
-			<td><a href="/project/hjy/detail?bid=${vo.bid }">${vo.btitle }</a></td>
 			<fmt:formatDate value="${vo.brdate }" pattern="YY/MM/dd" var="brdate"/>
 			<td>${brdate }</td>
+			<td><a href="/project/hjy/detail?bid=${vo.bid }">${vo.btitle }</a></td>
+			<td>${vo.mid }</td>
 		</tr>
 	</c:forEach>
 </table>
@@ -56,15 +55,16 @@
 			<option value="mid" <c:if test="${field=='mid' }">selected</c:if>>글쓴이</option>
 			<option value="bcontent" <c:if test="${field=='bcontent' }">selected</c:if>>내용</option>
 		</select>
-		<input type="text" name ="keyword" value="${keyword }">
-		<input type="submit" value="검색">
+		<input type="text" name ="keyword" value="${keyword }" class="form-control">
+		<input type="submit" value="검색" class="btn btn-default">
 	</form>
 </div>
 </body>
 <script type="text/javascript">
 function clickForm(){
+	console.log("글쓰기");
 	var bcate=$("#bcate").val();
-	location.href='${pageContext.request.contextPath }/hjy/newPost';
+	location.href='${pageContext.request.contextPath }/hjy/newPost?bcate='+bcate;
 }
 </script>
 </html>
