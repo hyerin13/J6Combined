@@ -58,14 +58,6 @@
 				</h4>
 			</div>
 			<hr>
-			<c:if test="${cnt ==0}">
-				<div style="margin: 50px 50px 50px 50px; text-align: center;">
-					댓글이 없습니다.
-				</div>
-			</c:if>
-			<c:if test="${cnt !=0}">
-				<div id="cmt" style="margin-left: 50px;margin-right:50px;"></div>
-			</c:if>
 		</div>
 		<br>
 			<div class="card mb-2">
@@ -87,6 +79,7 @@
 			
 		<div>
 		<br>
+		<!-- 
 		<c:choose>
 			<c:when test="${prevVo eq null }">
 				이전글 없음
@@ -106,6 +99,7 @@
 					href="${pageContext.request.contextPath }/hjy/detail?bid=${nextVo.bid }">${nextVo.btitle }</a>
 			</c:otherwise>
 		</c:choose>
+		 -->
 		</div>
 		<br>
 	</div>

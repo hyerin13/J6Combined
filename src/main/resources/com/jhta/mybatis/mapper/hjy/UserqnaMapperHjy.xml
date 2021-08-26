@@ -24,7 +24,7 @@
 			</when>
 			<otherwise>
 				select * from (select aa.*,rownum rnum from 
-				(select qid,qcate,qtitle,qrdate,mid,qlev from userqna where qstep=0 where qcate=#{qcate})aa 
+				(select qid,qcate,qtitle,qrdate,mid,qlev from userqna where qstep=0 and qcate=#{qcate})aa 
 				<include refid="search" />
 				order by rnum desc)
 				<![CDATA[ where rnum>=#{startRow} and rnum<=#{endRow}]]>
@@ -42,5 +42,8 @@
 				<include refid="searchcnt" />
 			</otherwise>
 		</choose>
+	</select>
+	<select id="qnaDetail" parameterType="int" resultType="com.jhta.project.vo.hjy.UserqnaVo">
+		select * from userqna where qid = #{qid}
 	</select>
 </mapper>

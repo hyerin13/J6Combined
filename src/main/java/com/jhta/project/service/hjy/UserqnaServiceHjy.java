@@ -18,4 +18,7 @@ public class UserqnaServiceHjy {
 	public int qnacount(HashMap<String, Object> map) {
 		return mapper.qnacount(map);
 	};
+	public UserqnaVo qnaDetail(int qid){
+		return mapper.qnaDetail(qid);
+	};
 }

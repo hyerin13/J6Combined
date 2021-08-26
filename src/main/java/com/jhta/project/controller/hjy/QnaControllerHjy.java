@@ -43,5 +43,12 @@ public class QnaControllerHjy {
 		model.addAttribute("keyword", keyword);
 		return "user/hjy/qna/qnaMain";
 	}
+	@GetMapping("hjy/qna/qnaDetail")
+	public String qnaForm(int qid,Model model) {
+		UserqnaVo vo = userqnaService.qnaDetail(qid);
+		model.addAttribute("vo", vo);
+		return "user/hjy/qna/qnaDetail";
+	}
+	
 	
 }

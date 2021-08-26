@@ -71,7 +71,7 @@ a{
 		<c:forEach var="vo" items="${list }">
 			<tr class="table_content">
 				<td class="tdalign">${vo.qid }</td>
-				<td><a href="/project/hjy/qnaDetail?qid=${vo.qid }">${vo.qtitle }</a></td>
+				<td><a href="/project/hjy/qna/qnaDetail?qid=${vo.qid }">${vo.qtitle }</a></td>
 				<fmt:formatDate value="${vo.qrdate }" pattern="YY-MM-dd" var="qrdate"/>
 				<td class="tdalign">${qrdate }</td>
 				<td class="tdalign">${vo.mid }</td>
