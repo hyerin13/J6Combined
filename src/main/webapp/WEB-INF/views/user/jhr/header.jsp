@@ -26,10 +26,7 @@
 		<div class="nav">
 			<ul class="nav_menu">
 				<li><a class="nav_hotel"><span>호텔</span></a></li>
-				<li><a><span>항공권</span></a></li>
-				<li><a><span>렌터카</span></a></li>
-				<li><a><span>액티비티</span></a></li>
-				<li><a><span>이벤트</span></a></li>
+				<li><a href="${pageContext.request.contextPath }/project/hjy/boardMain"><span>게시판</span></a></li>
 			</ul>
 			<div class="nav_account">
 				<div class="nav_account_container">
