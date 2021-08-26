@@ -469,7 +469,7 @@
 			 			<input type="button" class="btn btn-primary" class="btn" value="바로예약" onclick="loginpage()">
 			 		</c:when>
 			 		<c:otherwise>
-			 			<input type="button" class="btn btn-primary" class="btn" value="바로예약" onclick="location.href='${pageContext.request.contextPath }/phj/reservation?riid=${vo.riid}&startday=${startday}&endday=${endday}&ramount=${person }&sum=${vo.sum }'">
+			 			<input type="button" class="btn btn-primary" class="btn" value="바로예약" onclick="location.href='${pageContext.request.contextPath }/phj/reservation?aid=${vo.aid}&riid=${vo.riid}&startday=${startday}&endday=${endday}&ramount=${person }&sum=${vo.sum }'">
 			 		</c:otherwise>
 			 	</c:choose>
 			</div>
