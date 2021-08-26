@@ -37,34 +37,127 @@ $(document).ready(function(){
 			let aregdate =  data.vo.aregdate;
 			let aisdel =  data.vo.aisdel;
 			let html = `
-				<form method="post" id="multiform" enctype="multipart/form-data">
-				<input type='hidden' name='aid' value='${aid}'>
-				<input type='hidden' name='acate' value='${ data.vo.acate}'>
-        		<input type='hidden' name='axcoordi' value='${ data.vo.axcoordi}'>
-       	 		<input type='hidden' name='aycoordi' value='${ data.vo.aycoordi}'>
-       	 		<input type='hidden' name='aisdel' value='${ data.vo.aisdel}'>
-				<label>숙소명</label>
-            	<input type="text" name="aname" value="${aname}"><br>
-            	<label>위치</label>
-            	<input type="text" name="aaddress" value="${aaddress}"><br>
-            	<label>전화번호</label>
-            	<input type="text" name="aphone" value="${aphone}"><br>
-            	<label>방갯수</label>
-            	<input type="text" name="atotalroom" value="${atotalroom}"><br>
-            	<label>성급</label>
-            	<input type="text" name="agrade" value="${agrade}"><br>
-            	<label>추가설명</label>
-            	<input type="text" name="adetail" value="${adetail}"><br>
-            	<label>메인사진</label>
-            	<input type="file" name="file" value="${amainimg}"><br>	
-            	<label>등록일</label>
-            	<input type="text" name="aregdate" value="${aregdate}"><br>
-            	</form>
-            	<div>
-				     <input type="button" value="수정" onclick="updatesubmit(); return false;">
+				<div class="contents">
+					<div class="contents_container">
+						<h2 class="title">숙소 수정</h2>
+						<form method="post" id="multiform" enctype="multipart/form-data" class="join_form">
+							<input type='hidden' name='aid' value='${aid}'>
+							<input type='hidden' name='acate' value='${ data.vo.acate}'>
+			        		<input type='hidden' name='axcoordi' value='${ data.vo.axcoordi}'>
+			       	 		<input type='hidden' name='aycoordi' value='${ data.vo.aycoordi}'>
+			       	 		<input type='hidden' name='aisdel' value='${ data.vo.aisdel}'>
+							<h3>
+								슥소정보입력
+								<span class="point_color"><small>*은 필수입력 항목입니다.</small></span>
+							</h3>
+							<div class="join1">
+								<div class="join_col1">
+									<label for=""><span class="point_color">*</span>숙소명</label>
+								</div>
+								<div class="join_col_input">
+									<div class="input_wrap">
+										<div class="wrap_inner">
+											<div class="ui_input">
+												<input type="text" name="aname" value="${aname}" class="input_space">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="join1">
+								<div class="join_col1">
+									<label for="">위치</label>
+								</div>
+								<div class="join_col_input">
+									<div class="input_wrap">
+										<div class="wrap_inner">
+											<div class="ui_input">
+												<input type="text" name="aaddress" value="${aaddress}" class="input_space">
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="join1">
+								<div class="join_col1">
+									<label for="">전화번호</label>
+								</div>
+								<div class="join_col_input">
+									<div class="input_wrap">
+										<div class="ui_input">
+											<input type="text" name="aphone" value="${aphone}" class="input_space">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="join1">
+								<div class="join_col1">
+									<label for="">방갯수</label>
+								</div>
+								<div class="join_col_input">
+									<div class="input_wrap">
+										<div class="ui_input">
+											<input type="text" name="atotalroom" value="${atotalroom}" class="input_space">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="join1">
+								<div class="join_col1">
+									<label for="">성급</label>
+								</div>
+								<div class="join_col_input">
+									<div class="input_wrap">
+										<div class="ui_input">
+											<input type="text" name="agrade" value="${agrade}" class="input_space">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="join1">
+								<div class="join_col1">
+									<label for="">추가설명</label>
+								</div>
+								<div class="join_col_input">
+									<div class="input_wrap">
+										<div class="ui_input">
+											<input type="text" name="adetail" value="${adetail}" class="input_space">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="join1">
+								<div class="join_col1">
+									<label for="">메인사진</label>
+								</div>
+								<div class="join_col_input">
+									<div class="input_wrap">
+										<div class="ui_input">
+											<input type="file" name="file" value="${amainimg}" class="input_space">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="join1">
+								<div class="join_col1">
+									<label for="">등록일</label>
+								</div>
+								<div class="join_col_input">
+									<div class="input_wrap">
+										<div class="ui_input">
+											<input type="text" name="aregdate" value="${aregdate}" class="input_space">
+										</div>
+									</div>
+								</div>
+							</div>	
+						</form>
+					</div>
 				</div>
-            	`
-		$("#accommUpdate").append(html);
+				<div class="submit_container">
+					<input type="button" value="수정" onclick="updatesubmit(); return false;">
+				</div>
+				`	
+			$("#accommUpdate").append(html);
     	}
 	});
 });
