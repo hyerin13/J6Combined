@@ -66,5 +66,7 @@
 		)where rownum=1
 		]]>
 	</select>
-	
+	<insert id="qnawrite" parameterType="com.jhta.project.vo.hjy.UserqnaVo">
+		insert into userqna values(seq_userqna.nextval,#{qcate},#{qpw},#{qtitle},#{qcontent},#{qfile},sysdate,null,#{qref},0,#{mid})
+	</insert>
 </mapper>

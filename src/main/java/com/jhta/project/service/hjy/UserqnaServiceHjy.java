@@ -30,5 +30,7 @@ public class UserqnaServiceHjy {
 	public String qnaAns(int qid) {
 		return mapper.qnaAns(qid);
 	};
-
+	public int qnawrite(UserqnaVo vo) {
+		return mapper.qnawrite(vo);
+	};
 }
