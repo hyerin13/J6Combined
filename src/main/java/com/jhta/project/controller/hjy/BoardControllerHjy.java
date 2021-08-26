@@ -34,13 +34,7 @@ public class BoardControllerHjy {
 	BoardService_phj boardService_phj;
 	@Autowired
 	CommentsServiceHjy commentsService;
-	
-	@GetMapping("phj/home")
-	public ModelAndView boardHome() {
-		ModelAndView mv=new ModelAndView("user/hjy/board/boardMain");
-		return mv;
-	}
-	
+
 	@GetMapping("hjy/all")
 	public ModelAndView boardAll(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
 			String field, String keyword,BoardVo_phj vo) {
@@ -108,7 +102,11 @@ public class BoardControllerHjy {
 		return mv;
 	}
 	
-
+	
+	@GetMapping("hjy/boardMain")
+	public String boardmain() {
+		return "user/hjy/board/boardMain";
+	}
 	@GetMapping("hjy/detail")
 	public String boardDeatailForm(int bid, Model model) {
 		BoardVo vo = boardService.detail(bid);
@@ -119,7 +117,7 @@ public class BoardControllerHjy {
 		
 		model.addAttribute("vo", vo);
 		model.addAttribute("commList", commList);
-		model.addAttribute("commCnt", cnt);
+		model.addAttribute("cnt", cnt);
 		model.addAttribute("nextVo", nextVo);
 		model.addAttribute("prevVo", prevVo);
 		return "user/hjy/board/boardDetail";
@@ -136,19 +134,6 @@ public class BoardControllerHjy {
 		return mv;
 	}
 
-	@PostMapping("phj/boardinsert")
-	public String insertBoard(BoardVo_phj vo,String bcate) {
-		boardService_phj.insertBoard(vo);
-		if(bcate.equals("all")) {
-			return "redirect:/hjy/all";
-		}else if(bcate.equals("review")) {
-			return "redirect:/hjy/review";
-		}else if(bcate.equals("matching")) {
-		return "redirect:/hjy/matching";
-		}
-		return null;
-	}
-	
 	/**
 	 * 로그인 진입시 사용
 	 * @param session

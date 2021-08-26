@@ -31,8 +31,9 @@ public class CommentsAjaxControllerHjy {
 	public HashMap<String, Object> commentList(int bid) {
 		HashMap<String, Object> map = new HashMap<String,Object>();
 		try {
+			int cnt = commentsService.commcnt(bid);
 			List<CommentsVo> list = commentsService.list(bid);
-			System.out.println(list);
+			map.put("commCnt", cnt);
 			map.put("list", list);
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -115,13 +116,14 @@ public class CommentsAjaxControllerHjy {
 	 * @return 성공,실패여부
 	 */
 	@RequestMapping(value="hjy/updateCommentPlus", produces= {MediaType.APPLICATION_JSON_VALUE})
-	public HashMap<String, Object> updateCommentPlus(int cid,String ccontent) {
+	public HashMap<String, Object> updateCommentPlus(int cid,String ccontent,HttpSession session) {
 		HashMap<String, Object> map = new HashMap<String,Object>();
 		try {
 			CommentsVo vo = commentsService.find(cid);
 			vo.setClev(vo.getClev()+1);
 			vo.setCstep(vo.getCstep()+1);
 			vo.setCcontent(ccontent);
+			vo.setMid((String)session.getAttribute("mid"));
 			commentsService.insertPlus(vo);
 			map.put("cstep", vo.getCstep());
 			map.put("cid", commentsService.seq());
@@ -145,7 +147,7 @@ public class CommentsAjaxControllerHjy {
 		HashMap<String, Object> map = new HashMap<String,Object>();
 		try {
 			CommentsVo vo = commentsService.find(cid);
-			commentsService.deleteComment(vo.getCref());
+			commentsService.deleteComment(cid);
 			map.put("code", "success");
 
 		}catch(Exception e) {
