@@ -16,9 +16,15 @@
 	<select id="chat_message_recently" parameterType="string" resultType="com.jhta.project.vo.kjy.Chat_messageVo_kjy">
 		select rownum,msgid,msgmessage,to_char(msgtime,'YYYY-MM-DD') msgshottime,cmid,crid from chat_message where crid=#{crid} and rownum=1 order by msgid desc
 	</select>
-	<select id="count" parameterType="string" resultType="hashmap">
+	<select id="count" parameterType="hashmap" resultType="hashmap">
 		select count(*) cnt, crid from chat_members cm, chat_roomjoin cr where cm.cmid=cr.cmid and cr.crid in
-		(select crid from chat_roomjoin where cmid=#{cmid})group by crid order by crid
+		(select crid from chat_roomjoin where cmid=#{cmid} and crid=#{CRID})group by crid order by crid
+	</select>
+	<!-- 최신 대화한 방 정렬 -->
+	<select id="chat_rank" resultType="hashmap" parameterType="string">
+		select crid from
+		(select aa.*,rank() over(PARTITION BY crid ORDER BY msgid desc) rnum from(
+		select msgid,crid from chat_message where cmid=#{cmid})aa) where rnum=1 order by msgid desc
 	</select>
 	<!-- 방이 있는지 체크 -->
 	<select id="roomcheck" parameterType="hashmap" resultType="int">

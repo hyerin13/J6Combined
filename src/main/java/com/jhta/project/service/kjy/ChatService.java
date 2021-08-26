@@ -27,8 +27,8 @@ public class ChatService {
 	public List<Chat_messageVo_kjy> chat_message_recently(String crid){
 		return mapper.chat_message_recently(crid);
 	}
-	public List<HashMap<String, Object>> count(String cmid){
-		return mapper.count(cmid);
+	public HashMap<String, Object> count(HashMap<String, Object> map){
+		return mapper.count(map);
 	}
 	public int roomcheck(HashMap<String, Object> map) {
 		return mapper.roomcheck(map);
@@ -47,5 +47,8 @@ public class ChatService {
 	}
 	public List<Chat_messageVo_kjy> chat_message_list(int crid){
 		return mapper.chat_message_list(crid);
+	}
+	public List<HashMap<String, Object>> chat_rank(String cmid){
+		return mapper.chat_rank(cmid);
 	}
 }

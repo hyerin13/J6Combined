@@ -1,6 +1,7 @@
 package com.jhta.project.controller.kjy;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -49,7 +50,15 @@ public class Chat_mainController_kjy {
 	@RequestMapping(value="/user/kjy/chat_room1", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody HashMap<String, Object> chat_room1(String cmid){
 		HashMap<String, Object> map=new HashMap<String, Object>();
-		List<HashMap<String, Object>> countlist=service.count(cmid);
+		HashMap<String, Object> countmap=new HashMap<String, Object>();
+		List<HashMap<String, Object>> countlist=new ArrayList<HashMap<String,Object>>();
+		List<HashMap<String, Object>> chat_rank=service.chat_rank(cmid);
+		for (int i=0; i<chat_rank.size(); i++) {
+			HashMap<String, Object> str = chat_rank.get(i);
+			str.put("cmid", cmid);
+			countmap=service.count(str);
+			countlist.add(countmap);
+		}
 		map.put("countlist", countlist);
 		return map;
 	}
