@@ -40,6 +40,15 @@ body {
 	background: #fafafa;
 }
 
+.row{
+	border: 1px solid #DCDCDC; 
+	border-radius:20px;
+	margin-bottom:20px;
+	padding-left: 10px;
+}
+.container{
+	margin-top: 50px;
+}
 </style>
 </head>
 <body>
@@ -50,34 +59,34 @@ body {
 		<jsp:include page="board_header.jsp" flush="true"/>
 	</div>
 	<div class="container">
-		<table class="table">
-			<tr>
-				<th>글번호</th>
-				<td>${vo.bid }</td>
-			</tr>
-			<tr>
-				<th>제목</th>
-				<td>${vo.btitle }</td>
-			</tr>
-			<tr>
-				<th>아이디</th>
-				<td>${vo.mid }</td>
-			</tr>
-			<tr>
-				<th>작성일</th>
-				<td>${vo.brdate }</td>
-			</tr>
-			<tr>
-				<th>내용</th>
-				<td>${vo.bcontent }</td>
-			</tr>
-		</table>
+		<div class="card">
+			<table class="table">
+				<tr>
+					<th>글번호</th>
+					<td>${vo.bid }</td>
+				</tr>
+				<tr>
+					<th>제목</th>
+					<td><strong>${vo.btitle }</strong></td>
+				</tr>
+				<tr>
+					<th>아이디</th>
+					<td>${vo.mid }</td>
+				</tr>
+				<tr>
+					<th>작성일</th>
+					<td>${vo.brdate }</td>
+				</tr>
+				<tr>
+					<th>내용</th>
+					<td>${vo.bcontent }</td>
+				</tr>
+			</table>
+		</div>
 	
 		<br>
-	
-		<div class="card" style="width: 1110px;">
-		<div style='margin-left: 30px; margin-top: 30px;'>
-			<div class="cmtHead">
+		<div class="card">
+			<div class="cmtHead"style="margin-top: 20px; margin-left: 40px;">
 				<h4>
 					댓글<strong id="comment">(${commCnt})</strong>
 				</h4>
@@ -87,17 +96,29 @@ body {
 					<li><a href="latest" onclick="">최신순</a></li>
 				</ul>
 			</div>
-			<br>
 			<hr>
-			<div id="cmt" style='margin-left: 30px;'></div>
-			<hr>
-			<div>
-				<textarea placeholder="댓글을 입력하세요." id="ccontentText" cols="50" rows="3"></textarea>
-				<input type="button" value="등록" id="btnAdd" class="btn btn-outline-primary" style="margin-left: 30px; margin-bottom: 45px;">
+			<div id="cmt" style="margin-left: 50px;margin-right:50px;"></div>
+		</div>
+		<br>
+			<div class="card mb-2">
+				<div class="card-header bg-light">
+				        <i class="fa fa-comment fa"></i> 
+				</div>
+				<div class="card-body">
+					<ul class="list-group list-group-flush">
+					    <li class="list-group-item">
+						<div class="form-inline mb-2">
+							${mid }
+						</div>
+						<textarea class="form-control" id="ccontentText"  placeholder="댓글을 남겨보세요." rows="3"></textarea>
+						<br><button type="button" class="btn btn-outline-primary" id="btnAdd">등록</button> 
+					    </li>
+					</ul>
+				</div>
 			</div>
-		</div>
-		</div>
-		<div style='margin: 20px 0px 20px 0px;'>
+			
+		<div>
+		<br>
 		<c:choose>
 			<c:when test="${prevVo eq null }">
 				이전글 없음
@@ -117,8 +138,8 @@ body {
 					href="${pageContext.request.contextPath }/hjy/boardDetail?bid=${nextVo.bid }">${nextVo.btitle }</a>
 			</c:otherwise>
 		</c:choose>
-		
 		</div>
+		<br>
 	</div>
 	<div class="footer">
 		<jsp:include page="/WEB-INF/views/user/jhr/footer.jsp" flush="true"/>
@@ -151,47 +172,107 @@ body {
 					type:"get",
 					dataType:"json",
 					success:function(data){
+						$("#comment").html("("+data.commCnt+")");
 						$("#cmt").empty();
+						let myid="${mid }";
 						let html ="<ul>";
 						for (var i = 0; i < data.list.length; i++) {
 							html +="<li class='row' id='cmt"+i+"'>";
-							html +="<div>";
-							if(data.list[i].clev>0){
-								for (var j = 0; j < data.list[i].clev; j++) {
-									html += "&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp";
-								}
-								html +="<img src='https://img.echosting.cafe24.com/design/skin/admin/ko_KR/ico_re.gif' style='object-fit: none;'>";
+						if(data.list[i].clev>0){
+							for (var j = 0; j < data.list[i].clev; j++) {
+								html += "&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp";
 							}
-							let mid = data.list[i].mid;
-							let crdate = dateFormat(data.list[i].crdate);
-						html+=
-						`
-						<ul class="navbar-nav ml-auto">
-				        	<!-- Nav Item - Alerts -->
-				        	<li class="nav-item dropdown no-arrow mx-1">
-			            		<a class="nav-link dropdown-toggle" href="#" onclick='dropdown("\${mid}","\${i}");' role="button"
-				                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\${mid}
-					            </a>
-					            <p style='color: gray;'>(\${crdate})</p>
-				                <div id="reqlist\${i}" class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-				                    aria-labelledby="alertsDropdown">
-				                </div>
-				        	</li>
-				        </ul>
-						`	
+							html +="<img src='https://img.echosting.cafe24.com/design/skin/admin/ko_KR/ico_re.gif' style='object-fit: none; margin-bottom:55px;'>";
+						}
+						let mid = data.list[i].mid;
+						let crdate = dateFormat(data.list[i].crdate);
+						//삭제된 댓글이 아닐때 실행될곳
+						if(data.list[i].cisdel==null){
+							html +="<div>";
+							html+=
+								`
+								<ul class="navbar-nav ml-auto">
+					        	<!-- Nav Item - Alerts -->
+					        	<li class="nav-item dropdown no-arrow mx-1">`
+					        	//아이디가 본인꺼일때 실행
+							if(mid=="${mid}"){
+								html+=
+									`
+										<div style='margin-top:5px;'>
+					            		\${mid}
+							            <p style='color: gray;'>(\${crdate})</p>
+							            </div>
+							        	</li>
+							        </ul>
+									`	
+							}else{
+								//아이디가 본인이 아닐때 실행
+					        	html+=`
+				            		<a class="nav-link dropdown-toggle" href="#" role="button"
+					                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\${mid}
+						            </a>
+						            <p style='color: gray;'>(\${crdate})</p>
+					                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+					                    aria-labelledby="alertsDropdown">
+						                <div id="reqlist\${i}">
+											<!-- Dropdown - Alerts -->
+							                <a class="dropdown-item d-flex align-items-center" href="#">
+							                    <%--
+							                    <div class="mr-3">
+							                        <div class="icon-circle bg-primary">
+							                        	<img src="">
+							                        </div>
+							                    </div>
+							                     --%>
+							                    <div>
+							                        <span class="font-weight-bold">
+							                        	<div class="small text-gray-500" onclick='friendreq("\${mid}");'>친구요청</div>
+							                        </span>
+							                    </div>
+							               	</a>
+											<%--
+							                    <div>
+							                        <span class="font-weight-bold">
+														<a href='javascript:friendreq("\${mid}");'>프로필보기</a></li>
+							                        </span>
+							                    </div>
+							                    --%>
+						                </div>
+					                </div>
+					        	</li>
+					        </ul>
+							`	
+								}
 							html +="<div>";
 							html +="<span>"+data.list[i].ccontent+"</span>";
 							html +="</div>";
-							html +="<div>";
+							html +="<div id='cmtcmt"+i+"' style='margin-bottom:10px;'>";
+							html +="</div>";
+							html +="</div>";
+							html +="<div style='position:absolute; left:85%; margin-top:60px;'>"
 							html +="<a href='javascript:commentPlus("+data.list[i].cid+","+i+")'>답글</a>";
 							if(data.list[i].mid=='${mid}'){
 								html +="<span>|</span><a href='javascript:updateForm("+data.list[i].cid+","+i+")'>수정</a>";
 								html +="<span>|</span><a href='javascript:deleteForm("+data.list[i].cid+")'>삭제</a>";
 							}
 							html +="</div>";
-							html +="<div id='cmtcmt"+i+"'>";
-							html +="</div>";
-							html +="</div>";
+						}else{//삭제된 댓글일때 실행
+							html+=
+								`
+								<div>
+								<ul class="navbar-nav ml-auto">
+					        	<!-- Nav Item - Alerts -->
+					        	<li class="nav-item dropdown no-arrow mx-1">
+					        		<div style='margin-top:5px;'>
+							        	\${mid}
+							            <p style='color: gray;'>(\${crdate})</p>
+						        		삭제된 댓글입니다.
+					        		</div>
+					        	</li>
+						        </ul>
+						        </div><br>
+							`
+						}
 							html +="</li>";
 						}
 						html +="</ul>";
@@ -200,41 +281,6 @@ body {
 				})
 			}
 			
-			//아이디누르면 친구신청 띄우기
-			function dropdown(mid,index){
-				if(mid=="${mid }"){
-					alert('본인입니다')
-				}else{
-					$("#reqlist"+index).empty();
-					let myid="${mid }";
-					let html=
-						`
-						<!-- Dropdown - Alerts -->
-		                <a class="dropdown-item d-flex align-items-center" href="#">
-		                    <%--
-		                    <div class="mr-3">
-		                        <div class="icon-circle bg-primary">
-		                        	<img src="">
-		                        </div>
-		                    </div>
-		                     --%>
-		                    <div>
-		                        <span class="font-weight-bold">
-		                        	<div class="small text-gray-500" onclick='friendreq("\${mid}");'>친구요청</div>
-		                        </span>
-		                    </div>
-		               	</a>
-						`;
-						<%--
-		                    <div>
-		                        <span class="font-weight-bold">
-									<a href='javascript:friendreq("\${mid}");'>프로필보기</a></li>
-		                        </span>
-		                    </div>
-		                    --%>
-					$("#reqlist"+index).append(html)
-				}
-			}
 			function friendreq(id){
 				let checkdel = confirm(id+"님에게 친구요청을 보내시겠습니까?");
 				if(checkdel == true){
@@ -273,23 +319,19 @@ body {
 						dataType:"json",
 						success:function(data){
 							let updateHtml = "";
-							if(data.clev>0){
+							if(data.vo.clev>0){
 								for (var j = 0; j < data.vo.clev; j++) {
-									updateHtml += "&nbsp;&nbsp";
+									updateHtml += "&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp";
 								}
-								updateHtml +="[re]";
+								updateHtml +="<img src='https://img.echosting.cafe24.com/design/skin/admin/ko_KR/ico_re.gif' style='object-fit: none; margin-bottom:65px;'>";
 							}
 							updateHtml +="<div>";
-							updateHtml +="<img src=''> <span>"+data.vo.mid+"</span><br> ";
+							updateHtml +="<img src=''><span>"+data.vo.mid+"</span>";
 							let crdate = dateFormat(data.vo.crdate);
-							updateHtml +="<span style='color: gray;'>("+crdate+")</span>";
-							updateHtml +="<div>";
-							updateHtml +="<input type='text' value='"+data.vo.ccontent+"' id='ccontent"+num+"'>";
-							updateHtml +="</div>";
-							updateHtml +="<div >";
+							updateHtml +="<br><span style='color: gray;'>("+crdate+")</span><br>";
+							updateHtml +="<br><input type='text' value='"+data.vo.ccontent+"' id='ccontent"+num+"'><br>";
 							updateHtml +="<a href='javascript:list()'>취소</a>";
 							updateHtml +="<span>|</span><a href='javascript:updatedb("+cid+","+num+")'>확인</a>";
-							updateHtml +="</div>";
 							updateHtml +="</div>";
 							$("#cmt"+num).html(updateHtml);
 						}
@@ -330,7 +372,9 @@ body {
 			function commentPlus(cid,num){	
 				var cmtHtml = "";
 				cmtHtml +="<div>";
-				cmtHtml +="<input type='text' placeholder='댓글을 입력하세요.' id='cmtcmttext"+num+"'>";
+				cmtHtml +="&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp";
+				cmtHtml +="<img src='https://img.echosting.cafe24.com/design/skin/admin/ko_KR/ico_re.gif' style='object-fit: none; margin-right: 5px;'>";
+				cmtHtml +="${mid}: <input type='text' placeholder='댓글을 입력하세요.' id='cmtcmttext"+num+"' style='margin-right: 5px;'>";
 				cmtHtml +="<a href='javascript:list()'>취소</a>";
 				cmtHtml +="<span>|</span><a href='javascript:commentPlusDb("+cid+","+num+")'>확인</a>";
 				cmtHtml +="</div>";

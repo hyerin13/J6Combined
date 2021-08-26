@@ -16,6 +16,7 @@ public class CommentsVo {
 	private int cref;
 	private int cstep;
 	private int clev;
+	private String cisdel; 
 	private int bid;
 	private String mid;
 }

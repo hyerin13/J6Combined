@@ -8,7 +8,7 @@
 		(select * from comments where bid = #{bid} order by cref asc,cstep asc) c
   	</select>
   	<select id="commcnt" resultType="int" parameterType="int">
-	  	select count(bid) cnt, bid from comments where bid=#{bid} group by bid
+	  	select count(bid) cnt from comments where bid=#{bid} and cisdel is null group by bid 
   	</select>
   	<select id="find" resultType="com.jhta.project.vo.hjy.CommentsVo" parameterType="int">
   		select * from comments where cid = #{cid}
@@ -16,21 +16,21 @@
   	<!-- 댓글개수 세는 쿼리 -->
   	<insert id="insert" parameterType="com.jhta.project.vo.hjy.CommentsVo">
   		insert into comments values
-  		(seq_comments.nextval,#{ccontent},sysdate,seq_comments.currval,#{cstep},#{clev},#{bid},#{mid})
+  		(seq_comments.nextval,#{ccontent},sysdate,seq_comments.currval,#{cstep},#{clev},null,#{bid},#{mid})
   	</insert>
   	<insert id="insertPlus" parameterType="com.jhta.project.vo.hjy.CommentsVo">
   		insert into comments values
-  		(seq_comments.nextval,#{ccontent},sysdate,#{cref},#{cstep},#{clev},#{bid},#{mid})
+  		(seq_comments.nextval,#{ccontent},sysdate,#{cref},#{cstep},#{clev},null,#{bid},#{mid})
   	</insert>
   	<update id="update" parameterType="hashmap">
   		update comments set cstep = cstep+1 where cstep>=${cstep} and cid not in (#{cid})
   	</update>
   	<update id="upcateCcontent" parameterType="hashmap">
-  		update comments set ccontent=#{ccontent} where cid=#{cid} 
+  		update comments set ccontent=#{ccontent}, crdate=sysdate where cid=#{cid} 
   	</update>
-  	<delete id="deleteComment" parameterType="int">
-  		delete comments where cref=#{cref} and clev>#{clev}
-  	</delete>
+  	<update id="deleteComment" parameterType="int">
+  		update comments set cisdel='Y' where cid=#{cid}
+  	</update>
   	<select id="seq" resultType="int">
   		select seq_comments.currval from dual 
   	</select>
