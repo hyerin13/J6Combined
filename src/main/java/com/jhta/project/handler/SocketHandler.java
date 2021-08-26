@@ -16,21 +16,24 @@ import com.jhta.mybatis.mapper.kjy.ChatMapperkjy;
 import com.jhta.project.vo.kjy.Chat_messageVo_kjy;
 
 @Component
-public class SocketHandler extends TextWebSocketHandler {
-	@Autowired private ChatMapperkjy service; 
-	
-	HashMap<String, WebSocketSession> sessionMap = new HashMap<>(); //웹소켓 세션을 담아둘 맵
+public class SocketHandler extends TextWebSocketHandler{
+	@Autowired private ChatMapperkjy service;
+	HashMap<String, WebSocketSession> sessionMap = new HashMap<>();
 	
 	@Override
 	public void handleTextMessage(WebSocketSession session, TextMessage message) {
-		//메시지 발송
 		String msg = message.getPayload();
 		JSONObject obj = JsonToObjectParser(msg);
 		String cmid=(String) obj.get("cmid");
 		int crid=Integer.valueOf((String) obj.get("crid"));
 		String msgmessage=(String) obj.get("msgmessage");
-		Chat_messageVo_kjy vo=new Chat_messageVo_kjy(0, msgmessage, null, cmid, crid,null,null,null);
-		int n=service.chat_message_insert(vo);
+		String msgsysmsg=(String) obj.get("msgsysmsg");
+		int n=0;
+		//채팅방 나갈때 메세지 보내기, 그외에는 null값
+		if(msgmessage!=null && msgsysmsg==null) {
+			Chat_messageVo_kjy vo=new Chat_messageVo_kjy(0, msgmessage, null, null , cmid, crid, null, null, null);
+			n=service.chat_message_insert(vo);
+		}
 		if(n==0) {
 			System.out.println("채팅메세지 입력실패");
 		}
@@ -43,7 +46,6 @@ public class SocketHandler extends TextWebSocketHandler {
 			}
 		}
 	}
-	
 	@SuppressWarnings("unchecked")
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -54,8 +56,8 @@ public class SocketHandler extends TextWebSocketHandler {
 		obj.put("type", "getId");
 		obj.put("sessionId", session.getId());
 		session.sendMessage(new TextMessage(obj.toJSONString()));
+		System.out.println("소켓연결!");
 	}
-	
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		//소켓 종료
@@ -73,4 +75,5 @@ public class SocketHandler extends TextWebSocketHandler {
 		}
 		return obj;
 	}
+	
 }

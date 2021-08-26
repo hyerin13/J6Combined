@@ -1,6 +1,5 @@
 package com.jhta.project.config;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -14,13 +13,11 @@ import com.jhta.project.handler.SocketHandler;
 @Configuration
 @EnableWebSocket
 @ComponentScan("com.jhta.project.handler")
-public class WebSocketConfig implements WebSocketConfigurer{
+public class WebSocketConfig implements WebSocketConfigurer {
+	@Autowired SocketHandler socketHandler;
 
-	@Autowired
-	SocketHandler socketHandler;
-	
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-		registry.addHandler(socketHandler, "/chating");
+		registry.addHandler(socketHandler,"/chating");
 	}
 }

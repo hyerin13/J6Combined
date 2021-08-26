@@ -13,6 +13,7 @@ public class Chat_messageVo_kjy {
 	private int msgid;
 	private String msgmessage;
 	private Date msgtime;
+	private String msgsysmsg;
 	private String cmid;
 	private int crid;
 	//추가사항

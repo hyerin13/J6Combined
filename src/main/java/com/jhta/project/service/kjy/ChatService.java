@@ -45,6 +45,9 @@ public class ChatService {
 	public int chat_roomjoin_insert(HashMap<String, Object> map) {
 		return mapper.chat_roomjoin_insert(map);
 	}
+	public int chat_message_system(Chat_messageVo_kjy vo) {
+		return mapper.chat_message_system(vo);
+	}
 	public int chat_message_insert(Chat_messageVo_kjy vo) {
 		return mapper.chat_message_insert(vo);
 	}
@@ -56,5 +59,11 @@ public class ChatService {
 	}
 	public int delete(HashMap<String, Object> map) {
 		return mapper.delete(map);
+	}
+	public int chat_exit(HashMap<String, Object> map) {
+		return mapper.chat_exit(map);
+	}
+	public int chat_exit_join(HashMap<String, Object> map) {
+		return mapper.chat_exit_join(map);
 	}
 }
