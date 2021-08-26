@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,7 +30,7 @@ import com.jhta.util.PageUtil;
 public class QnaControllerHjy {
 	@Autowired ServletContext sc;
 	@Autowired UserqnaServiceHjy userqnaService;
-	@GetMapping("hjy/qna")
+	@RequestMapping("hjy/qna")
 	public String qnaForm(@RequestParam(value = "pageNum", defaultValue = "1")int pageNum,
 			String field, String keyword,UserqnaVo vo,String qcate,Model model) {
 		HashMap<String, Object> map = new HashMap<String, Object>();

@@ -75,6 +75,9 @@ $(function(){
 					<tr>
 						<td colspan="3"><strong>내용: ${vo.qcontent }</strong></td>
 					</tr>
+					<tr>
+						<td colspan="3"><img style="width:50%;" src = "${pageContext.request.contextPath }/resources/images/userqna/${vo.qfile }"></td>
+					</tr>
 				</tbody>
 			</table>
 		<br>

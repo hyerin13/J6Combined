@@ -17,14 +17,14 @@
 		<choose>
 			<when test="qcate==null or qcate=='all'">
 				select * from (select aa.*,rownum rnum from 
-				(select qid,qcate,qtitle,qrdate,mid,qlev from userqna where qstep=0)aa 
+				(select qid,qcate,qtitle,qrdate,mid,qlev,qcontent from userqna where qstep=0)aa 
 				<include refid="search" />
 				order by rnum desc)
 				<![CDATA[ where rnum>=#{startRow} and rnum<=#{endRow}]]>
 			</when>
 			<otherwise>
 				select * from (select aa.*,rownum rnum from 
-				(select qid,qcate,qtitle,qrdate,mid,qlev from userqna where qstep=0 and qcate=#{qcate})aa 
+				(select qid,qcate,qtitle,qrdate,mid,qlev,qcontent from userqna where qstep=0 and qcate=#{qcate})aa 
 				<include refid="search" />
 				order by rnum desc)
 				<![CDATA[ where rnum>=#{startRow} and rnum<=#{endRow}]]>

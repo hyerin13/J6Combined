@@ -116,11 +116,11 @@ $(function(){
       </div>
    </div>
    <div>
-      <form method="post" action="${pageContext.request.contextPath }/hjy/qna/search" class="searchbox">
+      <form method="post" action="${pageContext.request.contextPath }/hjy/qna" class="searchbox">
          <select name = "field" class="box_margin">
-            <option value="btitle" <c:if test="${field=='qtitle' }">selected</c:if>>제목</option>
+            <option value="qtitle" <c:if test="${field=='qtitle' }">selected</c:if>>제목</option>
             <option value="mid" <c:if test="${field=='mid' }">selected</c:if>>글쓴이</option>
-            <option value="bcontent" <c:if test="${field=='qcontent' }">selected</c:if>>내용</option>
+            <option value="qcontent" <c:if test="${field=='qcontent' }">selected</c:if>>내용</option>
          </select>
          <input type="text" name ="keyword" value="${keyword }" class="form-control box_margin">
          <input type="submit" value="검색" class="btn btn-default submitbtn">
