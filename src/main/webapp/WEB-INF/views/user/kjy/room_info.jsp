@@ -645,7 +645,7 @@
 	//로그인페이지로 이동
 	function loginpage(){
 		alert("로그인 페이지로 이동합니다.");
-		location.href='${pageContext.request.contextPath }/';
+		location.href='${pageContext.request.contextPath }/jhr/login';
 	}
 	
 </script>
