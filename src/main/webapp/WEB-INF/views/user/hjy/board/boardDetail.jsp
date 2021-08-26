@@ -9,13 +9,22 @@
 <head>
 <meta charset="UTF-8">
 <title>J6 게시판</title>
+
+<!-- 닉네임 눌러서 선객하틑 관련 -->
+<link href="${pageContext.request.contextPath }/admin/css/sb-admin-2.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath }/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<script
+	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link
 	href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	rel="stylesheet" id="bootstrap-css">
 <script
-	src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script
-	src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
+	
+	
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/footer.css">
+
 <style type="text/css">
 .cmtHead ul li {
 	list-style-type: none;
@@ -23,224 +32,97 @@
 	margin-left: 5px;
 }
 
+a {
+	color:black;
+}
+
 body {
 	background: #fafafa;
 }
 
-.widget-area.blank {
-	background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
-	-webkit-box-shadow: none;
-	-moz-box-shadow: none;
-	-ms-box-shadow: none;
-	-o-box-shadow: none;
-	box-shadow: none;
-}
-
-body .no-padding {
-	padding: 0;
-}
-
-.widget-area {
-	background-color: #fff;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	-ms-border-radius: 4px;
-	-o-border-radius: 4px;
-	border-radius: 4px;
-	-webkit-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
-	-moz-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
-	-ms-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
-	-o-box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
-	box-shadow: 0 0 16px rgba(0, 0, 0, 0.05);
-	float: left;
-	margin-top: 30px;
-	padding: 25px 30px;
-	position: relative;
-	width: 100%;
-}
-
-.status-upload {
-	background: none repeat scroll 0 0 #f5f5f5;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	-ms-border-radius: 4px;
-	-o-border-radius: 4px;
-	border-radius: 4px;
-	float: left;
-	width: 100%;
-}
-
-.status-upload form {
-	float: left;
-	width: 100%;
-}
-
-.status-upload form textarea {
-	background: none repeat scroll 0 0 #fff;
-	border: medium none;
-	-webkit-border-radius: 4px 4px 0 0;
-	-moz-border-radius: 4px 4px 0 0;
-	-ms-border-radius: 4px 4px 0 0;
-	-o-border-radius: 4px 4px 0 0;
-	border-radius: 4px 4px 0 0;
-	color: #777777;
-	float: left;
-	font-family: Lato;
-	font-size: 14px;
-	height: 142px;
-	letter-spacing: 0.3px;
-	padding: 20px;
-	width: 100%;
-	resize: vertical;
-	outline: none;
-	border: 1px solid #F2F2F2;
-}
-
-.status-upload ul {
-	float: left;
-	list-style: none outside none;
-	margin: 0;
-	padding: 0 0 0 15px;
-	width: auto;
-}
-
-.status-upload ul>li {
-	float: left;
-}
-
-.status-upload ul>li>a {
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	-ms-border-radius: 4px;
-	-o-border-radius: 4px;
-	border-radius: 4px;
-	color: #777777;
-	float: left;
-	font-size: 14px;
-	height: 30px;
-	line-height: 30px;
-	margin: 10px 0 10px 10px;
-	text-align: center;
-	-webkit-transition: all 0.4s ease 0s;
-	-moz-transition: all 0.4s ease 0s;
-	-ms-transition: all 0.4s ease 0s;
-	-o-transition: all 0.4s ease 0s;
-	transition: all 0.4s ease 0s;
-	width: 30px;
-	cursor: pointer;
-}
-
-.status-upload ul>li>a:hover {
-	background: none repeat scroll 0 0 #606060;
-	color: #fff;
-}
-
-.status-upload form button {
-	border: medium none;
-	-webkit-border-radius: 4px;
-	-moz-border-radius: 4px;
-	-ms-border-radius: 4px;
-	-o-border-radius: 4px;
-	border-radius: 4px;
-	color: #fff;
-	float: right;
-	font-family: Lato;
-	font-size: 14px;
-	letter-spacing: 0.3px;
-	margin-right: 9px;
-	margin-top: 9px;
-	padding: 6px 15px;
-}
-
-.dropdown>a>span.green:before {
-	border-left-color: #2dcb73;
-}
-
-.status-upload form button>i {
-	margin-right: 7px;
-}
 </style>
 </head>
 <body>
+	<div class="header">
+		<jsp:include page="/WEB-INF/views/user/jhr/header.jsp" flush="true"/>
+	</div>
 	<div class="board_header">
 		<jsp:include page="board_header.jsp" flush="true"/>
 	</div>
-	<table class="table">
-		<tr>
-			<th>글번호</th>
-			<td>${vo.bid }</td>
-		</tr>
-		<tr>
-			<th>제목</th>
-			<td>${vo.btitle }</td>
-		</tr>
-		<tr>
-			<th>아이디</th>
-			<td>${vo.mid }</td>
-		</tr>
-		<tr>
-			<th>작성일</th>
-			<td>${vo.brdate }</td>
-		</tr>
-		<tr>
-			<th>내용</th>
-			<td>${vo.bcontent }</td>
-		</tr>
-	</table>
-	<br>
-
-	<div class="cmtWrap" style="width: 500px">
-		<div class="cmtHead">
-			<h4>
-				댓글<strong id="comment">(댓글개수)</strong>
-			</h4>
-			<ul>
-				<li><a href="registration" name="boardOpinionList" onclick="">등록순</a></li>
-				<li><span>|</span></li>
-				<li><a href="latest" onclick="">최신순</a></li>
-				<li><div id="refresh" onclick="">새로고침</div></li>
-			</ul>
-		</div>
+	<div class="container">
+		<table class="table">
+			<tr>
+				<th>글번호</th>
+				<td>${vo.bid }</td>
+			</tr>
+			<tr>
+				<th>제목</th>
+				<td>${vo.btitle }</td>
+			</tr>
+			<tr>
+				<th>아이디</th>
+				<td>${vo.mid }</td>
+			</tr>
+			<tr>
+				<th>작성일</th>
+				<td>${vo.brdate }</td>
+			</tr>
+			<tr>
+				<th>내용</th>
+				<td>${vo.bcontent }</td>
+			</tr>
+		</table>
+	
 		<br>
-		<hr>
-		<div id="cmt"></div>
-		<!-- 
-		<div class="writeForm">
-			<textarea id="cmtComment" rows="3" cols="50"></textarea>
-			<button id="submitBtn" tabindex="100" value="등록">등록</button>
-		</div>
-		 -->
-		<div class="col-md-6">
-			<div class="widget-area no-padding blank">
-				<div class="status-upload">
-					<textarea placeholder="댓글을 입력하세요." id="ccontentText"></textarea>
-					<input type="button" class="btn btn-success green" value="등록"
-						id="btnAdd">
-				</div>
-				<!-- Status Upload  -->
+	
+		<div class="card" style="width: 1110px;">
+		<div style='margin-left: 30px; margin-top: 30px;'>
+			<div class="cmtHead">
+				<h4>
+					댓글<strong id="comment">(${commCnt})</strong>
+				</h4>
+				<ul>
+					<li><a href="registration" name="boardOpinionList" onclick="">등록순</a></li>
+					<li><span>|</span></li>
+					<li><a href="latest" onclick="">최신순</a></li>
+				</ul>
 			</div>
-			<!-- Widget Area -->
+			<br>
+			<hr>
+			<div id="cmt" style='margin-left: 30px;'></div>
+			<hr>
+			<div>
+				<textarea placeholder="댓글을 입력하세요." id="ccontentText" cols="50" rows="3"></textarea>
+				<input type="button" value="등록" id="btnAdd" class="btn btn-outline-primary" style="margin-left: 30px; margin-bottom: 45px;">
+			</div>
+		</div>
+		</div>
+		<div style='margin: 20px 0px 20px 0px;'>
+		<c:choose>
+			<c:when test="${prevVo eq null }">
+				이전글 없음
+			</c:when>
+			<c:otherwise>
+				이전글 <a href="${pageContext.request.contextPath }/hjy/boardDetail?bid=${prevVo.bid }">${prevVo.btitle }</a>
+				<br>
+			</c:otherwise>
+		</c:choose>
+		<br>
+		<c:choose>
+			<c:when test="${nextVo eq null }">
+			다음글 없음
+		</c:when>
+			<c:otherwise>
+			다음글 <a
+					href="${pageContext.request.contextPath }/hjy/boardDetail?bid=${nextVo.bid }">${nextVo.btitle }</a>
+			</c:otherwise>
+		</c:choose>
+		
 		</div>
 	</div>
-	<c:choose>
-		<c:when test="${prevVo eq null }">
-			이전글 없음
-		</c:when>
-		<c:otherwise>
-			이전글 <a href="${pageContext.request.contextPath }/hjy/boardDetail?bid=${prevVo.bid }">${prevVo.btitle }</a>
-			<br>
-		</c:otherwise>
-	</c:choose>
-	<br>
-	<c:choose>
-		<c:when test="${nextVo eq null }">
-		다음글 없음
-	</c:when>
-		<c:otherwise>
-		다음글 <a
-				href="${pageContext.request.contextPath }/hjy/boardDetail?bid=${nextVo.bid }">${nextVo.btitle }</a>
-		</c:otherwise>
-	</c:choose>
+	<div class="footer">
+		<jsp:include page="/WEB-INF/views/user/jhr/footer.jsp" flush="true"/>
+	</div>
 </body>
 		<script type="text/javascript">
 			$(document).ready(function() {
@@ -273,22 +155,36 @@ body .no-padding {
 						let html ="<ul>";
 						for (var i = 0; i < data.list.length; i++) {
 							html +="<li class='row' id='cmt"+i+"'>";
+							html +="<div>";
 							if(data.list[i].clev>0){
 								for (var j = 0; j < data.list[i].clev; j++) {
 									html += "&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp&nbsp;&nbsp";
 								}
 								html +="<img src='https://img.echosting.cafe24.com/design/skin/admin/ko_KR/ico_re.gif' style='object-fit: none;'>";
 							}
-							html +="<div>";
-							html +="<strong> <img src=''> <span>"+data.list[i].mid+"</span> ";
+							let mid = data.list[i].mid;
 							let crdate = dateFormat(data.list[i].crdate);
-							html +="<span style='color: gray;'>("+crdate+")</span> </strong>";
+						html+=
+						`
+						<ul class="navbar-nav ml-auto">
+				        	<!-- Nav Item - Alerts -->
+				        	<li class="nav-item dropdown no-arrow mx-1">
+			            		<a class="nav-link dropdown-toggle" href="#" onclick='dropdown("\${mid}","\${i}");' role="button"
+				                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\${mid}
+					            </a>
+					            <p style='color: gray;'>(\${crdate})</p>
+				                <div id="reqlist\${i}" class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+				                    aria-labelledby="alertsDropdown">
+				                </div>
+				        	</li>
+				        </ul>
+						`	
 							html +="<div>";
 							html +="<span>"+data.list[i].ccontent+"</span>";
 							html +="</div>";
 							html +="<div>";
 							html +="<a href='javascript:commentPlus("+data.list[i].cid+","+i+")'>답글</a>";
-							if(data.list[i].mid=='${id}'){
+							if(data.list[i].mid=='${mid}'){
 								html +="<span>|</span><a href='javascript:updateForm("+data.list[i].cid+","+i+")'>수정</a>";
 								html +="<span>|</span><a href='javascript:deleteForm("+data.list[i].cid+")'>삭제</a>";
 							}
@@ -303,6 +199,57 @@ body .no-padding {
 					}
 				})
 			}
+			
+			//아이디누르면 친구신청 띄우기
+			function dropdown(mid,index){
+				if(mid=="${mid }"){
+					alert('본인입니다')
+				}else{
+					$("#reqlist"+index).empty();
+					let myid="${mid }";
+					let html=
+						`
+						<!-- Dropdown - Alerts -->
+		                <a class="dropdown-item d-flex align-items-center" href="#">
+		                    <%--
+		                    <div class="mr-3">
+		                        <div class="icon-circle bg-primary">
+		                        	<img src="">
+		                        </div>
+		                    </div>
+		                     --%>
+		                    <div>
+		                        <span class="font-weight-bold">
+		                        	<div class="small text-gray-500" onclick='friendreq("\${mid}");'>친구요청</div>
+		                        </span>
+		                    </div>
+		               	</a>
+						`;
+						<%--
+		                    <div>
+		                        <span class="font-weight-bold">
+									<a href='javascript:friendreq("\${mid}");'>프로필보기</a></li>
+		                        </span>
+		                    </div>
+		                    --%>
+					$("#reqlist"+index).append(html)
+				}
+			}
+			function friendreq(id){
+				let checkdel = confirm(id+"님에게 친구요청을 보내시겠습니까?");
+				if(checkdel == true){
+					$.ajax({
+			    		type : "GET",
+			    		url :"${pageContext.request.contextPath }/hjy/friendreq",
+			    		data : {"reqId":id,"myId":"${mid }"},
+			    		dataType:"json",
+				    	success:function(data){
+				    		alert(data.result)
+						}
+					})
+				}
+			}
+			
 			function deleteForm(cid){
 				$.ajax({
 					url:"${pageContext.request.contextPath }/hjy/deleteForm",
@@ -333,13 +280,13 @@ body .no-padding {
 								updateHtml +="[re]";
 							}
 							updateHtml +="<div>";
-							updateHtml +="<strong> <img src=''> <span>"+data.vo.mid+"</span> ";
+							updateHtml +="<img src=''> <span>"+data.vo.mid+"</span><br> ";
 							let crdate = dateFormat(data.vo.crdate);
-							updateHtml +="<span style='color: gray;'>("+crdate+")</span> </strong>";
+							updateHtml +="<span style='color: gray;'>("+crdate+")</span>";
 							updateHtml +="<div>";
 							updateHtml +="<input type='text' value='"+data.vo.ccontent+"' id='ccontent"+num+"'>";
 							updateHtml +="</div>";
-							updateHtml +="<div>";
+							updateHtml +="<div >";
 							updateHtml +="<a href='javascript:list()'>취소</a>";
 							updateHtml +="<span>|</span><a href='javascript:updatedb("+cid+","+num+")'>확인</a>";
 							updateHtml +="</div>";
@@ -383,14 +330,13 @@ body .no-padding {
 			function commentPlus(cid,num){	
 				var cmtHtml = "";
 				cmtHtml +="<div>";
-				cmtHtml +="<input type='text' id='cmtcmttext"+num+"'>";
+				cmtHtml +="<input type='text' placeholder='댓글을 입력하세요.' id='cmtcmttext"+num+"'>";
 				cmtHtml +="<a href='javascript:list()'>취소</a>";
 				cmtHtml +="<span>|</span><a href='javascript:commentPlusDb("+cid+","+num+")'>확인</a>";
 				cmtHtml +="</div>";
 				$("#cmtcmt"+num).append(cmtHtml);
 			
 			}
-			
 			function dateFormat(date) {
 				var dt = new Date(date);
 		        let month = dt.getMonth() + 1;
@@ -407,5 +353,6 @@ body .no-padding {
 
 		        return dt.getFullYear() + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
 			}
+			
 		</script>
 </html>

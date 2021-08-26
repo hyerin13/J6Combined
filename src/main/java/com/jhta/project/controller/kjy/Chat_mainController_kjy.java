@@ -40,7 +40,6 @@ public class Chat_mainController_kjy {
 		
 		//친구목록 불러오기
 		List<Chat_membersVo_kjy> list=service.buddy(cmid);
-		
 		mv.addObject("list",list);
 		mv.addObject("strNowDate",strNowDate);
 		mv.addObject("vo", vo);

@@ -113,9 +113,11 @@ public class BoardControllerHjy {
 		List<CommentsVo> commList = commentsService.list(bid);
 		BoardVo nextVo = boardService.nextDetail(bid);
 		BoardVo prevVo =boardService.prevDetail(bid);
+		int cnt = commentsService.commcnt(bid);
 		
 		model.addAttribute("vo", vo);
 		model.addAttribute("commList", commList);
+		model.addAttribute("commCnt", cnt);
 		model.addAttribute("nextVo", nextVo);
 		model.addAttribute("prevVo", prevVo);
 		return "user/hjy/board/boardDetail";

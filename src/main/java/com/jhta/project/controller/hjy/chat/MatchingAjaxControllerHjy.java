@@ -15,7 +15,6 @@ import com.jhta.project.service.hjy.ChatAddServiceHjy;
 import com.jhta.project.service.hjy.ChatMembersServiceHjy;
 import com.jhta.project.vo.hjy.ChatAddVo;
 import com.jhta.project.vo.hjy.ChatBuddyVo;
-import com.jhta.project.vo.kjy.Chat_membersVo_kjy;
 
 @RestController
 public class MatchingAjaxControllerHjy {
@@ -49,7 +48,7 @@ public class MatchingAjaxControllerHjy {
 				map.put("result", "친구 요청 대기중인 회원입니다.");
 			}else {
 				chatAddService.friendReqInsert(new ChatAddVo(0, myId, reqId,null));
-				map.put("result", "success");
+				map.put("result", "친구 요청을 전송하였습니다.");
 			}
 		}catch(Exception e) {
 			e.printStackTrace();

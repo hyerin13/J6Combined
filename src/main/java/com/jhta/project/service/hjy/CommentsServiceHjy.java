@@ -36,4 +36,7 @@ public class CommentsServiceHjy {
 	public int seq() {
 		return mapper.seq();
 	};
+	public int commcnt(int bid) {
+		return mapper.commcnt(bid);
+	};
 }
