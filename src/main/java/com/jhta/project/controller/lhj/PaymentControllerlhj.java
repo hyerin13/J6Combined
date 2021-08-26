@@ -19,6 +19,10 @@ public class PaymentControllerlhj {
 	public HashMap<String, Object> paymentlist() {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<PaymentVo> list = pmservice.paymentlist();
+		String pdate1 = list.get(0).getPdate().substring(0,10);
+		for(int i=0; i<list.size() ;i++) {
+			list.get(i).setPdate(pdate1);
+		}	
 		map.put("list", list);
 		//System.out.println("컨트롤러: " + list);
 		return map;

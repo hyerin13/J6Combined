@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 public class PaymentVo {
 	private int pid;
 	private String pmethod;
-	private Date pdate;
+	private String pdate;
 	private int ptotal;
 	private String prefund;
 	private int rid;
