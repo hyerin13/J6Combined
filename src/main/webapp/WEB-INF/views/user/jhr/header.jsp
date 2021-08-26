@@ -27,6 +27,7 @@
 			<ul class="nav_menu">
 				<li><a class="nav_hotel" href="${pageContext.request.contextPath}/"><span>호텔</span></a></li>
 				<li><a href="${pageContext.request.contextPath }/hjy/all"><span>게시판</span></a></li>
+				<li><a href="${pageContext.request.contextPath }/hjy/qna"><span>Qna</span></a></li>
 			</ul>
 			<div class="nav_account">
 				<div class="nav_account_container">
