@@ -29,6 +29,9 @@
     padding: 14px 16px;
     text-decoration: none;
 }
+.licss a:hover {
+	color:white;
+}
 /*
 .licss a:hover:not(.active) {
     background-color: #111;
