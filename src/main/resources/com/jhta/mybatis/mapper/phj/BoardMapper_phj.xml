@@ -6,7 +6,7 @@
 	<insert id="insertBoard" parameterType="com.jhta.project.vo.phj.BoardVo_phj">
 		insert into board
 		values(seq_board.nextval,#{bcate},#{btitle},#{bcontent},
-		sysdate,#{bfile1},#{bfile2},#{bfile3},#{mid})
+		sysdate,#{bfile1, jdbcType=VARCHAR},#{bfile2, jdbcType=VARCHAR},#{bfile3, jdbcType=VARCHAR},#{mid})
 	</insert>
 	<select id="selectBoardAll" resultType="com.jhta.project.vo.phj.BoardVo_phj">
 		select * from board

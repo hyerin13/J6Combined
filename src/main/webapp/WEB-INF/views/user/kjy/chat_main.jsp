@@ -292,121 +292,121 @@ function reqfriend(id,select){
 			dataType:'json',
 			success:function(data){
 				$(data.countlist).each(function(i,d){
-					var crid=d.CRID;
-					var cnt=d.CNT;
-					var html="<div class='chat_room"+crid+"' ondblClick='chating("+crid+")' id='chat_room'>"+
-					"<div class='roomimgbox"+crid+"'>"+
-					"</div>"+
-					"<div class='roombox"+crid+"'>"+
-					"</div>"+
-					"</div>";
-					
-					$("#tabs-2").append(html);
-					
-					//인원수 주기(2명이상만)
-					if(cnt > 2){
-						let cnthtml="<p class='cnt'>("+cnt+")</p>"
-						$(".chat_room"+crid).append(cnthtml);
-					}
-					
-					//인원별 프로필
-					if(cnt == 2){
-						//상대방과 나만있을때
-						let imghtml="<img src='' class='profile_"+crid+"_0'>";
-						$(".roomimgbox"+crid).append(imghtml);
-						$(".profile_"+crid+"_0").css({
+						var crid=d.CRID;
+						var cnt=d.CNT;
+						var html="<div class='chat_room"+crid+"' ondblClick='chating("+crid+")' id='chat_room'>"+
+						"<div class='roomimgbox"+crid+"'>"+
+						"</div>"+
+						"<div class='roombox"+crid+"'>"+
+						"</div>"+
+						"</div>";
+						
+						$("#tabs-2").append(html);
+						
+						//인원수 주기(2명이상만)
+						if(cnt > 2){
+							let cnthtml="<p class='cnt'>("+cnt+")</p>"
+							$(".chat_room"+crid).append(cnthtml);
+						}
+						
+						//인원별 프로필
+						if(cnt == 2){
+							//상대방과 나만있을때
+							let imghtml="<img src='' class='profile_"+crid+"_0'>";
+							$(".roomimgbox"+crid).append(imghtml);
+							$(".profile_"+crid+"_0").css({
+								position:"absolute",
+								width:"60px",
+								height:"60px",
+								borderRadius: "10px",
+							});
+						}else if(cnt == 3){
+							let imghtml="<img src='' class='profile_"+crid+"_0'>"+
+							"<img src='' class='profile_"+crid+"_1'>";
+							$(".roomimgbox"+crid).append(imghtml);
+							$(".profile_"+crid+"_0").css({
+								position:"absolute",
+								top:"20px",
+								left: "20px",
+								width:"40px",
+								height:"40px",
+								borderRadius: "10px",
+								zIndex: "2"
+							});
+							$(".profile_"+crid+"_1").css({
+								position:"absolute",
+								top:"0px",
+								left: "0px",
+								width:"40px",
+								height:"40px",
+								borderRadius: "10px",
+								zIndex: "1"
+							});
+						}else if(cnt > 3){
+							let imghtml="<img src='' class='profile_"+crid+"_0'>"+
+							"<img src='' class='profile_"+crid+"_1'>"+
+							"<img src='' class='profile_"+crid+"_2'>"+
+							"<img src='' class='profile_"+crid+"_3'>";
+							$(".roomimgbox"+crid).append(imghtml);
+							$(".profile_"+crid+"_0").css({
+								position:"absolute",
+								top:"0px",
+								left: "0px",
+								width:"30px",
+								height:"30px",
+								borderRadius: "10px",
+							});
+							$(".profile_"+crid+"_1").css({
+								position:"absolute",
+								top:"0px",
+								left: "30px",
+								width:"30px",
+								height:"30px",
+								borderRadius: "10px",
+							});
+							$(".profile_"+crid+"_2").css({
+								position:"absolute",
+								top:"30px",
+								left: "0px",
+								width:"30px",
+								height:"30px",
+								borderRadius: "10px",
+							});
+							$(".profile_"+crid+"_3").css({
+								position:"absolute",
+								top:"30px",
+								left: "30px",
+								width:"30px",
+								height:"30px",
+								borderRadius: "10px",
+							});
+						}
+						
+						
+						//css주기
+						$(".chat_room"+crid).css({
+							position:"relative",
+							width:"340px",
+							height:"80px"
+						});
+						$(".roomimgbox"+crid).css({
 							position:"absolute",
+							left:"10px",
+							top:"10px",
 							width:"60px",
 							height:"60px",
-							borderRadius: "10px",
+							overflow:"hidden"
 						});
-					}else if(cnt == 3){
-						let imghtml="<img src='' class='profile_"+crid+"_0'>"+
-						"<img src='' class='profile_"+crid+"_1'>";
-						$(".roomimgbox"+crid).append(imghtml);
-						$(".profile_"+crid+"_0").css({
+						$(".roombox"+crid).css({
 							position:"absolute",
+							left:"100px",
 							top:"20px",
-							left: "20px",
-							width:"40px",
-							height:"40px",
-							borderRadius: "10px",
-							zIndex: "2"
+							width: "120px",
+							height:"20px",
+							overflow:"hidden"
 						});
-						$(".profile_"+crid+"_1").css({
-							position:"absolute",
-							top:"0px",
-							left: "0px",
-							width:"40px",
-							height:"40px",
-							borderRadius: "10px",
-							zIndex: "1"
-						});
-					}else if(cnt > 3){
-						let imghtml="<img src='' class='profile_"+crid+"_0'>"+
-						"<img src='' class='profile_"+crid+"_1'>"+
-						"<img src='' class='profile_"+crid+"_2'>"+
-						"<img src='' class='profile_"+crid+"_3'>";
-						$(".roomimgbox"+crid).append(imghtml);
-						$(".profile_"+crid+"_0").css({
-							position:"absolute",
-							top:"0px",
-							left: "0px",
-							width:"30px",
-							height:"30px",
-							borderRadius: "10px",
-						});
-						$(".profile_"+crid+"_1").css({
-							position:"absolute",
-							top:"0px",
-							left: "30px",
-							width:"30px",
-							height:"30px",
-							borderRadius: "10px",
-						});
-						$(".profile_"+crid+"_2").css({
-							position:"absolute",
-							top:"30px",
-							left: "0px",
-							width:"30px",
-							height:"30px",
-							borderRadius: "10px",
-						});
-						$(".profile_"+crid+"_3").css({
-							position:"absolute",
-							top:"30px",
-							left: "30px",
-							width:"30px",
-							height:"30px",
-							borderRadius: "10px",
-						});
-					}
-					
-					
-					//css주기
-					$(".chat_room"+crid).css({
-						position:"relative",
-						width:"340px",
-						height:"80px"
-					});
-					$(".roomimgbox"+crid).css({
-						position:"absolute",
-						left:"10px",
-						top:"10px",
-						width:"60px",
-						height:"60px",
-						overflow:"hidden"
-					});
-					$(".roombox"+crid).css({
-						position:"absolute",
-						left:"100px",
-						top:"20px",
-						width: "120px",
-						height:"20px",
-						overflow:"hidden"
-					});
-					
-					chat_room2(crid);
+						
+						chat_room2(crid);
 				});
 			}
 		});
@@ -447,15 +447,17 @@ function reqfriend(id,select){
 				});
 				//최근 대화내역 출력
 				$(data.list2).each(function(i,d){
-					let msgshottime="<p class='cr_msgshottime'>"+d.msgshottime+"</p>";
-					let msgmessage="<p class='cr_msgmessage'>"+d.msgmessage+"</p>";
-					$(".chat_room"+crid).append(msgshottime);
-					$(".chat_room"+crid).append(msgmessage);
+					if(d.msgmessage!=null){
+						let msgshottime="<p class='cr_msgshottime'>"+d.msgshottime+"</p>";
+						let msgmessage="<p class='cr_msgmessage'>"+d.msgmessage+"</p>";
+						$(".chat_room"+crid).append(msgshottime);
+						$(".chat_room"+crid).append(msgmessage);
+					}
 				});
 			}
 		});
 		$("img").error(function(){
-			$(this).attr("src","${pageContext.request.contextPath }/resources/images/chat/noimage2.jpg");
+			$(this).attr("src","${pageContext.request.contextPath }/resources/images/members/noimage2.jpg");
 		});
 	}
 	//드래그 방지
@@ -463,7 +465,7 @@ function reqfriend(id,select){
 	
 	//대체 이미지 지정(이미지 null일떄)
 	$("img").error(function(){
-		$(this).attr("src","${pageContext.request.contextPath }/resources/images/chat/noimage2.jpg");
+		$(this).attr("src","${pageContext.request.contextPath }/resources/images/members/noimage2.jpg");
 	});
 	//기존 방 열기
 	function chating(crid){

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.jhta.mybatis.mapper.hjy.BoardMapperHjy;
 import com.jhta.project.vo.hjy.BoardVo;
+import com.jhta.project.vo.phj.BoardVo_phj;
 
 @Service
 public class BoardServiceHjy {
@@ -18,7 +19,7 @@ public class BoardServiceHjy {
 	public List<BoardVo> list(HashMap<String, Object> map){
 		return mapper.list(map);
 	};
-	public BoardVo detail(int bid) {
+	public BoardVo_phj detail(int bid) {
 		return mapper.detail(bid);
 	};
 	public BoardVo prevDetail(int bid){

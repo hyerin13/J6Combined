@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.jhta.mybatis.mapper.kjy.ChatMapperkjy;
-import com.jhta.project.vo.kjy.Chat_buddyVo_kjy;
 import com.jhta.project.vo.kjy.Chat_membersVo_kjy;
 import com.jhta.project.vo.kjy.Chat_messageVo_kjy;
 import com.jhta.project.vo.kjy.Chat_roomjoinVo_kjy;
@@ -96,6 +95,7 @@ public class Chat_mainController_kjy {
 			for(Chat_roomjoinVo_kjy vo:roomcheck) {
 				cnt=service.roomcheck_cnt(vo.getCrid());
 				if(cnt==2) {
+					crid=vo.getCrid();
 					check=false;
 					break;
 				}
@@ -115,6 +115,19 @@ public class Chat_mainController_kjy {
 			roomjoin.put("cmid", cbbuid);
 			//cbbuid=친구아이디로 된 roomjoin생성
 			int n3=service.chat_roomjoin_insert(roomjoin);
+			
+			//방생성시 시스템 메세지 발송
+			//본인입장
+			Chat_messageVo_kjy sysvo1=new Chat_messageVo_kjy(0, null, null, cmname+"님이 입장하셨습니다.", cmid, crid, null, null, null);
+			//친구입장
+			Chat_membersVo_kjy cmvo=service.member(cbbuid);
+			Chat_messageVo_kjy sysvo2=new Chat_messageVo_kjy(0, null, null, cmvo.getCmname()+"님이 입장하셨습니다.", cbbuid, crid, null, null, null);
+			int sysmsg1=service.chat_message_system(sysvo1);
+			int sysmsg2=service.chat_message_system(sysvo2);
+			if(sysmsg1==0 || sysmsg2==0) {
+				System.out.println("시스템 메세지 오류");
+			}
+			
 			if(n1==0 && n2==0 && n3==0) {
 				System.out.println("방생성 오류발생");
 			}
@@ -150,6 +163,33 @@ public class Chat_mainController_kjy {
 		int crid1=Integer.parseInt(crid);
 		List<Chat_messageVo_kjy> list=service.chat_message_list(crid1);
 		map.put("list", list);
+		return map;
+	}
+	
+
+	@RequestMapping(value="/user/kjy/chat_exit", produces = {MediaType.APPLICATION_JSON_VALUE})
+	public @ResponseBody HashMap<String, Object> chat_exit(String crid, String cmid,String cmname){
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		int crid1=Integer.parseInt(crid);
+		//시스템 메세지 보내기
+		String msgsysmsg=cmname+"님이 나가셨습니다.";
+		Chat_messageVo_kjy msgvo=new Chat_messageVo_kjy(0, null, null,msgsysmsg, cmid, crid1, null, null, null);
+		int n=service.chat_message_system(msgvo);
+		//채팅메세지 테이블에서 아이디 unknown으로 변경
+		HashMap<String, Object> exitmap=new HashMap<String, Object>();
+		exitmap.put("cmid", cmid);
+		exitmap.put("crid", crid);
+		int n1=service.chat_exit(exitmap);
+		//채팅방연결 테이블에서 아이디 unknown으로 변경
+		int n2=service.chat_exit_join(exitmap);
+		if(n==0 && n1==0 && n2==0) {
+			System.out.println("채팅방 나가기 작업 실패!");
+			map.put("code", "fail");
+		}else {
+			map.put("code", "success");
+			map.put("msgsysmsg", msgsysmsg);
+		}
+		
 		return map;
 	}
 }

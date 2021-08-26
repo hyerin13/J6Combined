@@ -81,14 +81,14 @@ input[name="qfile"] {
 	<article>
 		<div class="container" role="main">
 			<h2>게시판 글쓰기</h2>
-			<form name="form" id="form" role="form" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/hjy/board/newPost">
+			<form name="form" id="form" role="form" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/phj/board/boardinsert">
 			<input type="hidden" id="bcate" name="bcate" value="${bcate }">
 			<input type="hidden" id="mid" name="mid" value="${mid }"><br>
 				
 				
 				<div class="mb-3">
 					<label for="title">제목</label>
-					<input type="text" class="form-control" name="qtitle" id="qtitle" placeholder="제목을 입력해 주세요">
+					<input type="text" class="form-control" name="btitle" id="btitle" placeholder="제목을 입력해 주세요">
 				</div>
 				<!-- 
 				<div class="mb-3">
@@ -98,17 +98,13 @@ input[name="qfile"] {
 				 -->
 				<div class="mb-3">
 					<label for="content">내용</label>
-					<textarea class="form-control" rows="5" name="qcontent" id="qcontent" placeholder="내용을 입력해 주세요" ></textarea>
+					<textarea class="form-control" rows="5" name="bcontent" id="bcontent" placeholder="내용을 입력해 주세요" ></textarea>
 				</div>
 				<div class="mb-3">
 					<label for="file">첨부파일</label>
-					<input type="file" class="form-control" name="qfile" id="fileupload" placeholder="태그를 입력해 주세요">
-					<input type="file" class="form-control" name="qfile" id="fileupload" placeholder="태그를 입력해 주세요">
-					<input type="file" class="form-control" name="qfile" id="fileupload" placeholder="태그를 입력해 주세요">
-				</div>
-				<div class="mb-3">
-					<label for="reg_id">비밀번호</label>
-					<input type="password" class="form-control" name="qpw" id="reg_id" placeholder="비밀번호를 입력해 주세요">
+					<input type="file" class="form-control" name="file" placeholder="태그를 입력해 주세요">
+					<input type="file" class="form-control" name="file" placeholder="태그를 입력해 주세요">
+					<input type="file" class="form-control" name="file" placeholder="태그를 입력해 주세요">
 				</div>
 			</form>
 			<div style='text-align: center;'>

@@ -19,8 +19,11 @@ public interface ChatMapperkjy {
 	int chat_room_insert();
 	int room_seq();
 	int chat_roomjoin_insert(HashMap<String, Object> map);
+	int chat_message_system(Chat_messageVo_kjy vo);
 	int chat_message_insert(Chat_messageVo_kjy vo);
 	List<Chat_messageVo_kjy> chat_message_list(int crid);
 	List<HashMap<String, Object>> chat_rank(String cmid);
 	int delete(HashMap<String, Object> map);
+	int chat_exit(HashMap<String, Object> map);
+	int chat_exit_join(HashMap<String, Object> map);
 }
