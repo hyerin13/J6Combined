@@ -22,8 +22,8 @@ body {
 	background-color:#00aef0;
 }
 .header_container {
-	width:100%;
-	max-width:min(100%,65em);
+	width:1040px !important;
+	/*max-width:min(100%,65em);*/
 	height:100%;
 	box-sizing:boder-box;
 	display:flex;
