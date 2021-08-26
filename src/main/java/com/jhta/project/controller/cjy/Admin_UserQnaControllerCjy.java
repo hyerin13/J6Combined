@@ -25,40 +25,47 @@ public class Admin_UserQnaControllerCjy {
 		HashMap<String, Object> map = new HashMap<String,Object>();
 		try {
 			List<UserqnaVo> list=service.list();
-			for(int i=0; i<list.size() ;i++) {
-				if(list.get(i).getQcate().equals("1")) {
-					list.get(i).setQcate("자유");
-				}else if(list.get(i).getQcate().equals("2")) {
-					list.get(i).setQcate("공유");
-				}else {
-					list.get(i).setQcate("매칭");	
-				}
-			}
+			System.out.println(list);
+
 			map.put("list", list);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		return map;
 	}
-	
+	//해당 qid에 대한 정보 가져오기
+	@RequestMapping(value="admin/cjy/userqnaselect", produces = {MediaType.APPLICATION_JSON_VALUE})
+	public HashMap<String, Object> userqnaselect(String qid){
+		HashMap<String, Object> map = new HashMap<String,Object>();
+		try {
+			UserqnaVo vo=service.test(qid);
+			map.put("list", vo);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return map;
+	}
+	//qna 관리자 답변달기
 	@RequestMapping(value="admin/cjy/userqnareply", produces = {MediaType.APPLICATION_JSON_VALUE})
-	public HashMap<String, Object> userqnareply(String qid,String qcate ,String qpw,String qtitle,String qcontent, String qfile,String qrdate,String qlev,String qref,String qstep,String mid   ){
+	public HashMap<String, Object> userqnareply(String qid,String qcontent){
 		HashMap<String, Object> map = new HashMap<String,Object>();
 		try {
-			//DateFormat dateFormat = new SimpleDateFormat ("yyyyMMdd");
-			//Date qrdate1 = dateFormat.parse(qrdate);
-			//답변글 qid는 문의글qid+1로 처리해주기
-			//int qid1=Integer.parseInt(qid)+1;
-			//String qid2=String.valueOf(qid1);
-			System.out.println(qref);
-			qlev="Y";
-			int qref1=Integer.parseInt(qref);
-			int qstep1=Integer.parseInt(qstep)+1;
+			//int qid1=Integer.parseInt(qid);
+			System.out.println("qid"+qid);
+			System.out.println("qcontent"+qcontent);
+			UserqnaVo vo=service.test(qid);
+			String qlev="Y";
+			
+			int qref=vo.getQref();
+			int qstep=vo.getQstep();
+			int qstep1=qstep+1;
+			String qtitle=vo.getQtitle();
 			String qtitle1="re "+qtitle;
-			mid="관리자";
-			UserqnaVo vo= new UserqnaVo("0",qcate,qpw,qtitle1,qcontent,qfile,null,qlev,qref1,qstep1,mid);
-			int insert=service.insert(vo);
-			int n=service.updatetoy(qid);
+			String mid="관리자";
+
+			UserqnaVo vo1= new UserqnaVo(qid,null,null,qtitle,qcontent,null,null,qlev,qref,qstep1,mid);
+			int insert=service.insert(vo1);
+			int n=service.updatetoy(qid); //원글 qlev "Y"로 처리
 			map.put("code", "success");
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -66,11 +73,15 @@ public class Admin_UserQnaControllerCjy {
 		}
 		return map;
 	}
-	@RequestMapping(value="admin/cjy/userqnaupdate", produces = {MediaType.APPLICATION_JSON_VALUE})
-	public HashMap<String, Object> userqnaupdate(UserqnaVo vo){
+	//클릭하면 답변 보여지기
+	@RequestMapping(value="admin/cjy/userqnacommentList", produces = {MediaType.APPLICATION_JSON_VALUE})
+	public HashMap<String, Object> userqnacommentList(String qref){
 		HashMap<String, Object> map = new HashMap<String,Object>();
 		try {
-			int update=service.update(vo);
+			int qref1=Integer.parseInt(qref);
+			UserqnaVo vo=service.commentList(qref1);
+			System.out.println(vo);
+			map.put("vo", vo);
 			map.put("code", "success");
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -78,12 +89,33 @@ public class Admin_UserQnaControllerCjy {
 		}
 		return map;
 	}
+	//qna 관리자 답변 수정하기 (관리자가 작성한 답변만 수정할 수 있음)
+	@RequestMapping(value="admin/cjy/userqnaupdate", produces = {MediaType.APPLICATION_JSON_VALUE})
+	public HashMap<String, Object> userqnaupdate(String qid,String qcontent){
+		System.out.println("qid"+qid);
+		HashMap<String, Object> map = new HashMap<String,Object>();
+		UserqnaVo vo=service.test(qid);
+		String qtitle=vo.getQtitle();
+		String qlev="Y";
+		int qref=vo.getQref();
+		int qstep=1;
+		String mid="관리자";
+		UserqnaVo vo1= new UserqnaVo(qid,null,null,qtitle,qcontent,null,null,qlev,qref,qstep,mid);
+		try {
+			int update=service.update(vo1);
+			map.put("code", "success");
+		}catch(Exception e) {
+			e.printStackTrace();
+			map.put("code", "fail");
+		}
+		return map;
+	}
+	//qna 원글 or 답변 삭제하기
 	@RequestMapping(value="admin/cjy/userqnadelete", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public HashMap<String, Object> userqnadelete(String qid){
 		HashMap<String, Object> map = new HashMap<String,Object>();
 		try {
-			int qid1=Integer.parseInt(qid);
-			int delete=service.delete(qid1);
+			int delete=service.delete(qid);
 			map.put("code", "success");
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -91,4 +123,5 @@ public class Admin_UserQnaControllerCjy {
 		}
 		return map;
 	}
+	
 }

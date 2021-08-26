@@ -21,10 +21,16 @@ public class Admin_UserQnaServiceCjy {
 	public int update(UserqnaVo vo) {
 		return mapper.update(vo);
 	}
-	public int delete(int qid) {
+	public int delete(String qid) {
 		return mapper.delete(qid);
 	}
 	public int updatetoy(String qid) {
 		return mapper.updatetoy(qid);
+	}
+	public UserqnaVo test(String qid){
+		return mapper.test(qid);
+	}
+	public UserqnaVo commentList(int qref){
+		return mapper.commentList(qref);
 	}
 }

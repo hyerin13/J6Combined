@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>memlist - Tables</title>
+    <title>userqna - Tables</title>
 
     <!-- Custom fonts for this template -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -24,22 +24,17 @@
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
-<!-- crud        -->
+<!-- crud     -->
+	  <link rel="stylesheet" href="css/bootstrap_foruserqna.css" rel="stylesheet"/>  
+ <!--
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css" />
-
+ --> 
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css" />
   <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.2/css/buttons.dataTables.css" />
   <link rel="stylesheet" href="https://cdn.datatables.net/select/1.3.1/css/select.dataTables.css" />
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.2.5/css/responsive.dataTables.css" />
 
-<style type="text/css">
-.btn-primary {
-  color: #fff;
-  background-color: #00AEF0;
-  border-color: #00AEF0;
-}
 
-</style>
 </head>
 
 <body id="page-top">
@@ -156,7 +151,7 @@
                     </form>
 
 
-                    <!-- Topbar Search 
+                     <!-- Topbar Search -->
                     <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
@@ -169,8 +164,7 @@
                             </div>
                         </div>
                     </form>
--->
-                    <!-- Topbar Navbar -->
+               <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
@@ -357,6 +351,7 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
+                                        
                                             <th>문의글번호</th>
                                             <th>카테고리</th>
                                             <th>비밀번호</th>
@@ -372,6 +367,7 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
+                                        
                                             <th>문의글번호</th>
                                             <th>카테고리</th>
                                             <th>비밀번호</th>
@@ -465,9 +461,12 @@
 <!-- crud -->
 
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js" ></script>
+
 <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script> 
+
 <script src="https://cdn.datatables.net/buttons/1.6.2/js/dataTables.buttons.js" ></script>
 <script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.print.min.js"></script>
+
 <script src="https://cdn.datatables.net/select/1.3.1/js/dataTables.select.js" ></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.js" ></script>
 <script src="https://cdn.datatables.net/responsive/2.2.5/js/dataTables.responsive.js" ></script>

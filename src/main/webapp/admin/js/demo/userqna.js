@@ -24,7 +24,7 @@ var url_ws_mock_get = './mock_svc_load.json';
     ];
  
   var table=$('#dataTable').DataTable({
-  		        "sPaginationType": "full_numbers",
+  		"sPaginationType": "full_numbers",
   		ajax:{
   		"url":"/project/admin/cjy/userqnalist",
   		"dataType":"json",
@@ -43,6 +43,11 @@ var url_ws_mock_get = './mock_svc_load.json';
          	{"data": "qstep"},
          	{"data": "mid"}
          	],
+
+         	//columnDefs: [{
+   			//	 "defaultContent": "-"
+   			//	 "targets": "_all"
+ 			// }],
          	order:[[7, 'asc'],[8,'desc'],[9,'asc']],
          	ordering: true,
          	serverSide:false,
@@ -100,11 +105,12 @@ var url_ws_mock_get = './mock_svc_load.json';
         ],
 
         onAddRow: function(datatable, rowdata, success, error) {
-        console.log("테스트1:"+rowdata.qref);
+        console.log("테스트1:"+rowdata.qid);
             $.ajax({
                 // a tipycal url would be / with type='PUT'
                 url: '/project/admin/cjy/userqnareply',
                 type: 'GET',
+                //data는 문제없음 rowdata로 뽑아도 똑같이 에러
                 data: {qid:rowdata.qid,
                 		qcate:rowdata.qcate,
                 		qpw:rowdata.qpw,
@@ -163,7 +169,7 @@ var url_ws_mock_get = './mock_svc_load.json';
 		       $("#testqref").val(this_row[0].qref);
 		       $("#testqstep").val(this_row[0].qstep);
 		       $("#testmid").val(this_row[0].mid);
-		       console.log("테스트"+$("#testmid").val());
+		       //console.log("테스트"+$("#testmid").val());
 		     //  console.log(this_row[0].qid);
 		     // $('#rlt').html( "모든 데이터: "+table.row( this ).data()+"<br>문의글번호:"+this_row[0][0]+"<br>카테고리:"+this_row[0][1]+"<br>비밀번호:"+this_row[0][2]+"<br>제목:"+this_row[0][3]+"<br>내용:"+this_row[0][4]+"<br>첨부파일:"+this_row[0][5]+"<br>등록일:"+this_row[0][6]+"<br>처리여부:"+this_row[0][7]+"<br>그룹번호:"+this_row[0][8]+"<br>글번호:"+this_row[0][9]+"<br>아이디:"+this_row[0][10] );
 		   } );

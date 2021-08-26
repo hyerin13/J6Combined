@@ -213,6 +213,7 @@
                 if (dt.button('delete:name')) {
                     dt.button('delete:name').action(function (e, dt, node, config) {
                         that._openDeleteModal();
+
                         $('#altEditor-delete-form-' + that.random_id)
                         .off('submit')
                         .on('submit', function (e) {
@@ -628,7 +629,6 @@
                             data += "<label for='" + columnDefs[j].name + "'>" + columnDefs[j].title + ":</label></div>";
                             data += "<div class='col-sm-8 col-md-8 col-lg-8'>";
                         }
-                        
                         // Adding readonly-fields
                         if (columnDefs[j].type.indexOf("readonly") >= 0) {
                             // type=readonly is deprecated, kept for backward compatibility
@@ -704,7 +704,7 @@
 								+ "' min='" + this._quoteattr(columnDefs[j].min)
 								+ "' max='" + this._quoteattr(columnDefs[j].max)
 								+ "' value='" + this._quoteattr(columnDefs[j].value)
-								+ "' placeholder='" + this._quoteattr(columnDefs[j].placeholder ? columnDefs[j].placeholder : columnDefs[j].title)
+                                + "' placeholder='" + this._quoteattr(columnDefs[j].placeholder ? columnDefs[j].placeholder : columnDefs[j].title)
                                 + "' data-special='" + this._quoteattr(columnDefs[j].special)
                                 + "' data-errorMsg='" + this._quoteattr(columnDefs[j].msg)
                                 + "' data-uniqueMsg='" + this._quoteattr(columnDefs[j].uniqueMsg)
@@ -726,16 +726,14 @@
                             data += "</div>";
                     }
                 }
-                 data += "<input class='form-control'  id='ansqna' name='userqna' value='"
+                                 data += "<input class='form-control'  id='ansqna' name='userqna' value='"
 					+ "' placeholder='답글을 입력하세요' data-special='" 
 	                + "' "
 	                + " style='overflow:hidden;"
 	                + "' class='form-control  form-control-sm' value=''><br>";
                 // data += "</form>";
 
- 				
                 var selector = this.modal_selector;
-                
                 var fill = function () {
                     var btns = '<button type="button" data-content="remove" class="btn btn-default button secondary" data-dismiss="modal" data-close>'+closeCaption+'</button>' +
                         '<button type="submit" form="' + formName + '" data-content="remove" class="btn btn-primary button" id="'+buttonClass+'">'+buttonCaption+'</button>';
@@ -754,7 +752,7 @@
                 this.internalOpenDialog(selector, fill);
                 $(selector + ' input[0]').trigger('focus');
 
-               var that = this;
+                var that = this;
 
                 // enable select 2 items, datepicker, datetimepickerm
                 for (var j in columnDefs) {
@@ -789,50 +787,6 @@
                     }
                 }
             },
-            _openAddModal: function () {
-
-                var dt = this.s.dt;
-                var adata = dt.rows({
-                    selected: true
-                });
-
-                var columnDefs = this.completeColumnDefs();
-                var data = this.createDialog(columnDefs, this.language.add.title, this.language.add.button,
-                    this.language.modalClose, 'addRowBtn', 'altEditor-add-form');
-
-                var selector = this.modal_selector;
-
-                for (var j in columnDefs) {
-                    if (columnDefs[j].name != null) {
-                        var arrIndex = columnDefs[j].name.toString().split(".");
-                        var selectedValue = adata.data()[0];
-                        for (var index = 0; index < arrIndex.length; index++) {
-                            if (selectedValue) selectedValue = selectedValue[arrIndex[index]];
-                        }
-                        var jquerySelector = "#" + columnDefs[j].name.toString().replace(/\./g, "\\.");
-                        $(selector).find(jquerySelector).val(selectedValue!=null?selectedValue.toString().trim():null);    //Values in dropdowns were getting extra spaces, need to trim if not null // this._quoteattr or not? see #121
-                        $(selector).find(jquerySelector).trigger("change"); // required by select2
-                         //added checkbox
-                        if (columnDefs[j].type.indexOf("checkbox") >= 0) {
-                            if (this._quoteattr(selectedValue) === "true" || this._quoteattr(selectedValue) == "1") { //MS SQL Databases use bits for booleans. 1 is equivlent to true, 0 is false
-                                $(selector).find(jquerySelector).prop("checked", this._quoteattr(selectedValue)); // required by checkbox
-                            }
-                        }
-                        //added date
-                        if (columnDefs[j].type.indexOf("date") >= 0) {
-                            if (columnDefs[j].dateFormat !== "") {
-                                var mDate = moment(this._quoteattr(selectedValue));
-                                if (mDate && mDate.isValid()) {
-                                    $(selector).find(jquerySelector).val(mDate.format(columnDefs[j].dateFormat));
-                                }
-                            }
-                        }
-                    }
-                }
-
-                $(selector + ' input[0]').trigger('focus');
-                $(selector).trigger("alteditor:some_dialog_opened").trigger("alteditor:edit_dialog_opened");
-            },
 
             /**
              * Callback for "Add" button
@@ -843,15 +797,6 @@
 
                 var rowDataArray = {};
 
-				 var adata = dt.rows({
-                    selected: true
-                });
-                
-                 // Original row data
-                 
-                var orginalRowDataArray = adata.data()[0];
-                console.log(orginalRowDataArray);
-                
                 // Getting the inputs from the modal
                 $('form[name="altEditor-add-form-' + this.random_id + '"] *').filter(':input[type!="file"]').filter(':enabled').each(function (i) { //Dont send disabled fields
                     rowDataArray[$(this).attr('id')] = $(this).val();
@@ -882,29 +827,16 @@
                 $('form[name="altEditor-add-form-' + this.random_id + '"] *').filter(':input[type="checkbox"]').each(function (i) {
                     rowDataArray[$(this).attr('id')] = this.checked;
                 });
-				//rowDataArray.pop();
-				delete rowDataArray[0];
-				for(let i=0; i<rowDataArray.length; i++){
-					if(rowDataArray[i]==""){
-						rowDataArray.splice(i,1);
-						i--;
-					}
-				}
-				//rowDataArray.splice(0,1);
-				//rowDataArray.shift();
-				//rowDataArray.splice(index,11);
-				var first_key = Object.keys(rowDataArray)[0];
-				delete Object.keys(rowDataArray)[0];
-				 //console.log(first_key); //DEBUG
+
                 console.log(rowDataArray); //DEBUG
 
                 var checkFilesQueued = function() {
                     if (numFilesQueued == 0) {
                         that.onAddRow(that,
                             rowDataArray,
-                            function(data,b,c,d,e){ that._addRowCallback(data,b,c,d,e); },
-                            function(data){ that._errorCallback(data);},
-                             orginalRowDataArray);
+                            function(data){ that._addRowCallback(data); },
+                            function(data){ that._errorCallback(data);
+                        });
                     } else {
                         console.log("Waiting for file base64-decoding...");
                         setTimeout(checkFilesQueued, 1000);
