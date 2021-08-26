@@ -43,6 +43,7 @@ a{
     background-color: #00AEF0;
     margin:0px;
 }
+
 </style>
 </head>
 <body>
@@ -63,20 +64,29 @@ a{
 <div class="board_content">
 	<table class="table">
 		<tr class="table_title">
-			<th>번호</th>
+			<th style="width:140px">답변상태</th>
+			<th style="width:140px">번호</th>
 			<th>글제목</th>
 			<th class="table_date">작성일</th>
 			<th class="table_writer">작성자</th>
 		</tr>
 		<c:forEach var="vo" items="${list }">
 			<tr class="table_content">
+				<c:choose>
+					<c:when test="${vo.qlev=='Y' }">
+						<td class="tdalign" style="color:#00aef0">완료</td>
+					</c:when>
+					<c:otherwise>
+						<td class="tdalign" style="color:#f02000">대기</td>
+					</c:otherwise>
+				</c:choose>
 				<td class="tdalign">${vo.qid }</td>
 				<td><a href="${pageContext.request.contextPath }/hjy/qna/qnaDetail?qid=${vo.qid }">${vo.qtitle }</a></td>
 				<fmt:formatDate value="${vo.qrdate }" pattern="YY-MM-dd" var="qrdate"/>
 				<td class="tdalign">${qrdate }</td>
 				<td class="tdalign">${vo.mid }</td>
 			</tr>
-		</c:forEach>
+		</c:forEach> 
 	</table>
 	<div class="other_content">
 		<input type="button" onclick="writeQna()" value="글쓰기" class="btn btn-default writebtn">
