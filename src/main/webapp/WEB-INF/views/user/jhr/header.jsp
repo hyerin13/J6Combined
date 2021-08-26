@@ -26,8 +26,8 @@
 		<div class="nav">
 			<ul class="nav_menu">
 				<li><a class="nav_hotel" href="${pageContext.request.contextPath}/"><span>호텔</span></a></li>
-				<li><a href="${pageContext.request.contextPath }/hjy/all"><span>게시판</span></a></li>
-				<li><a href="${pageContext.request.contextPath }/hjy/qna"><span>QnA</span></a></li>
+				<li><a class="nav_board" href="${pageContext.request.contextPath }/hjy/all"><span>게시판</span></a></li>
+				<li><a class="nav_qna" href="${pageContext.request.contextPath }/hjy/qna"><span>QnA</span></a></li>
 			</ul>
 			<div class="nav_account">
 				<div class="nav_account_container">
@@ -70,7 +70,11 @@
 	</div>
 </div>
 <script type="text/javascript">
-function openchat(){
-    var popup = window.open('${pageContext.request.contextPath }/user/kjy/chat_main', '채팅팝업', 'width=400px,height=700px,scrollbars=no,location=no');
-}
+	function openchat(){
+	    var popup = window.open('${pageContext.request.contextPath }/user/kjy/chat_main', '채팅팝업', 'width=400px,height=700px,scrollbars=no,location=no');
+	}
+	
+	$(document).ready(function() {
+		$('.nav').find('a[href="' + document.location.pathname + '"]').parents('li').addClass('active');
+	});
 </script>

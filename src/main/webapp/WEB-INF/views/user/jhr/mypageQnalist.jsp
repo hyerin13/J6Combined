@@ -45,7 +45,7 @@
 						var html2="<tr>"+
 						"<td id='qid' class='cate widlen'>"+d.qid+"</td>"+
 						"<td id='qcate' class='widcate cate'>"+d.qcate+"</td>"+
-						"<td id='qtitle'><p class='widcon'>"+d.qtitle+"</p></td>"+
+						"<td id='qtitle'><a class='widcon' href='${pageContext.request.contextPath }/hjy/qna/qnaDetail?qid="+d.qid+"'>"+d.qtitle+"</a></td>"+
 						"<td id='qcontent'><p class='widcon'>"+d.qcontent+"</p></td>"+
 						"<td id='qrdate' class='cate widdate'>"+d.qrdate+"</td>"+
 						"<td id='qlev' class='cate widlen2'>"+d.qlev+"</td>"+
@@ -56,7 +56,7 @@
 						var html2="<tr>"+
 						"<td id='qid' class='cate widlen'>"+d.qid+"</td>"+
 						"<td id='qcate' class='widcate cate'>"+d.qcate+"</td>"+
-						"<td id='qtitle'><p class='widcon'>"+d.qtitle+"</p></td>"+
+						"<td id='qtitle'><a class='widcon'>"+d.qtitle+"</a></td>"+
 						"<td id='qcontent'><p class='widcon'>"+d.qcontent+"</p></td>"+
 						"<td id='qrdate' class='cate widdate'>"+d.qrdate+"</td>"+
 						"<td id='qlev' class='cate widlen2'>"+d.qlev+"</td>"+

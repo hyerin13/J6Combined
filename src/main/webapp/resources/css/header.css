@@ -120,6 +120,7 @@ body {
 .nav_menu li:first-child {
 	margin-left:0;
 }
+/*
 .nav_hotel::after {
 	width:100%;
     display:block;
@@ -129,6 +130,18 @@ body {
     bottom:0;
 	border-bottom-color:#fff;
     border-bottom-width:2px!important;
+    border-radius:2px;
+    border-bottom-style:solid;
+    content:"";
+    border-left:0;
+    border-right:0;
+}
+*/
+.active {
+    display:block;
+    overflow:hidden;
+	border-bottom-color:#fff;
+    border-bottom-width:2px !important;
     border-radius:2px;
     border-bottom-style:solid;
     content:"";
