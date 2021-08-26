@@ -5,12 +5,27 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
+<!-- 헤더 -->
+<link rel="stylesheet"
+   href="${pageContext.request.contextPath}/resources/css/header.css">
+<!-- 푸터 -->
+<link rel="stylesheet"
+   href="${pageContext.request.contextPath}/resources/css/footer.css">
+<!-- boardheader-->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board_header.css">
+<!-- 글꼴 -->
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board_all.css">
+<!-- 부트스트랩 -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board_all.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board_header.css">
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <title>qnaWriteForm.jsp</title>
 <script>
 	$(document).on('click', '#btnSave', function(e){
@@ -31,9 +46,40 @@ body {
   padding-top: 70px;
   padding-bottom: 30px;
 }
+.btn{
+   color: #00AEF0;
+   background-color: white;
+   border-color: #00AEF0;
+}
+.btn:hover {
+  background-color: #00AEF0;
+  border-color: #00AEF0 !important;
+  color: white !important;
+}
+input[name="qfile"] {
+  height: 40px;
+}
+
+.container{
+	display:block;
+	margin:0 auto;
+	margin-bottom:50px;
+}
 </style>
 </head>
 <body>
+<div class="header">
+   <jsp:include page="/WEB-INF/views/user/jhr/header.jsp" flush="true"/>
+</div>
+<div class="board_header">
+   <ul class="ulcss">
+      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna" class="liactive">전체</a></li>
+      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=상품">상품</a></li>
+      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=교환/환불">교환/환불</a></li>
+      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=사이트이용">사이트 이용</a></li>
+      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=기타">기타</a></li>
+    </ul>
+</div>
 	<article>
 		<div class="container" role="main">
 			<h2>QnA 글쓰기</h2>
@@ -71,12 +117,14 @@ body {
 				</div>
 			</form>
 			<div>
-				<button type="button" class="btn btn-sm btn-primary" id="btnSave">저장</button>
-				<button type="button" class="btn btn-sm btn-primary" id="btnList">목록</button>
+				<button type="button" class="btn" id="btnSave">저장</button>
+				<button type="button" class="btn" id="btnList">목록</button>
 			</div>
 		</div>
 	</article>
-
+<div class="footer">
+   <jsp:include page="/WEB-INF/views/user/jhr/footer.jsp" flush="true"/>
+</div>
 
 </body>
 </html>
