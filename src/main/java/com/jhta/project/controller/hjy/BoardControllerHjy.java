@@ -129,7 +129,18 @@ public class BoardControllerHjy {
 		mv.addObject("mid",mid);
 		return mv;
 	}
-
+	@PostMapping("phj/boardinsert")
+	public String insertBoard(BoardVo_phj vo,String bcate) {
+		boardService_phj.insertBoard(vo);
+		if(bcate.equals("all")) {
+			return "redirect:/hjy/all";
+		}else if(bcate.equals("review")) {
+			return "redirect:/hjy/review";
+		}else if(bcate.equals("matching")) {
+		return "redirect:/hjy/matching";
+		}
+		return null;
+	}
 	/**
 	 * 로그인 진입시 사용
 	 * @param session
