@@ -113,8 +113,10 @@ public class BoardControllerHjy {
 		List<CommentsVo> commList = commentsService.list(bid);
 		BoardVo nextVo = boardService.nextDetail(bid);
 		BoardVo prevVo =boardService.prevDetail(bid);
-		int cnt = commentsService.commcnt(bid);
-		
+		Integer cnt = commentsService.commcnt(bid);
+		if(cnt==null) {
+			cnt=0;
+		}
 		model.addAttribute("vo", vo);
 		model.addAttribute("commList", commList);
 		model.addAttribute("cnt", cnt);

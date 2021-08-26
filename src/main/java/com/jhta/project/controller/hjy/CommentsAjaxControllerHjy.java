@@ -31,9 +31,12 @@ public class CommentsAjaxControllerHjy {
 	public HashMap<String, Object> commentList(int bid) {
 		HashMap<String, Object> map = new HashMap<String,Object>();
 		try {
-			int cnt = commentsService.commcnt(bid);
+			Integer cnt = commentsService.commcnt(bid);
+			if(cnt==null) {
+				cnt=0;
+			}
 			List<CommentsVo> list = commentsService.list(bid);
-			map.put("commCnt", cnt);
+			map.put("cnt", cnt);
 			map.put("list", list);
 		}catch(Exception e) {
 			e.printStackTrace();

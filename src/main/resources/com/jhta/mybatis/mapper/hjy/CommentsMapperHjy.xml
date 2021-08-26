@@ -7,7 +7,7 @@
   		select c.*,rownum rnum from 
 		(select * from comments where bid = #{bid} order by cref asc,cstep asc) c
   	</select>
-  	<select id="commcnt" resultType="int" parameterType="int">
+  	<select id="commcnt" resultType="integer" parameterType="int">
 	  	select count(bid) cnt from comments where bid=#{bid} and cisdel is null group by bid 
   	</select>
   	<select id="find" resultType="com.jhta.project.vo.hjy.CommentsVo" parameterType="int">

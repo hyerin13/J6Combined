@@ -14,5 +14,5 @@ public interface CommentsMapperHjy {
 	public int upcateCcontent(HashMap<String, Object> map);
 	public int deleteComment(int cid);
 	public int seq();
-	public int commcnt(int bid);
+	public Integer commcnt(int bid);
 }

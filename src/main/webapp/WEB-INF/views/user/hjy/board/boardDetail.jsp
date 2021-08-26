@@ -88,16 +88,18 @@ body {
 		<div class="card">
 			<div class="cmtHead"style="margin-top: 20px; margin-left: 40px;">
 				<h4>
-					댓글<strong id="comment">(${commCnt})</strong>
+					댓글<strong id="comment">(${cnt})</strong>
 				</h4>
-				<ul>
-					<li><a href="registration" name="boardOpinionList" onclick="">등록순</a></li>
-					<li><span>|</span></li>
-					<li><a href="latest" onclick="">최신순</a></li>
-				</ul>
 			</div>
 			<hr>
-			<div id="cmt" style="margin-left: 50px;margin-right:50px;"></div>
+			<c:if test="${cnt ==0}">
+				<div style="margin: 50px 50px 50px 50px; text-align: center;">
+					댓글이 없습니다.
+				</div>
+			</c:if>
+			<c:if test="${cnt !=0}">
+				<div id="cmt" style="margin-left: 50px;margin-right:50px;"></div>
+			</c:if>
 		</div>
 		<br>
 			<div class="card mb-2">
@@ -124,7 +126,7 @@ body {
 				이전글 없음
 			</c:when>
 			<c:otherwise>
-				이전글 <a href="${pageContext.request.contextPath }/hjy/boardDetail?bid=${prevVo.bid }">${prevVo.btitle }</a>
+				이전글 <a href="${pageContext.request.contextPath }/hjy/detail?bid=${prevVo.bid }">${prevVo.btitle }</a>
 				<br>
 			</c:otherwise>
 		</c:choose>
@@ -135,7 +137,7 @@ body {
 		</c:when>
 			<c:otherwise>
 			다음글 <a
-					href="${pageContext.request.contextPath }/hjy/boardDetail?bid=${nextVo.bid }">${nextVo.btitle }</a>
+					href="${pageContext.request.contextPath }/hjy/detail?bid=${nextVo.bid }">${nextVo.btitle }</a>
 			</c:otherwise>
 		</c:choose>
 		</div>
@@ -172,7 +174,7 @@ body {
 					type:"get",
 					dataType:"json",
 					success:function(data){
-						$("#comment").html("("+data.commCnt+")");
+						$("#comment").html("("+data.cnt+")");
 						$("#cmt").empty();
 						let myid="${mid }";
 						let html ="<ul>";
