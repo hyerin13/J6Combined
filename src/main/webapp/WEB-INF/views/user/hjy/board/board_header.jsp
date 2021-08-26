@@ -29,11 +29,12 @@
 }
 .active {
     background-color: #00AEF0;
+    margin:0px;
 }
 </style>
 <div class="board_header">
 	<ul class="ulcss">
-      <li class="licss"><a class="active" href="#home">Home</a></li>
+      <li class="licss"><a class="active" href="/project/phj/home">MyPage</a></li>
       <li class="licss"><a href="/project/hjy/all">자유게시판</a></li>
       <li class="licss"><a href="/project/hjy/review">공유게시판</a></li>
       <li class="licss"><a href="/project/hjy/matching">매칭게시판</a></li>
