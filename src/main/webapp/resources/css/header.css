@@ -55,12 +55,16 @@ body {
 	display:block;
 	box-sizing:border-box;
 	cursor:pointer;
+	position:relative;
 }
 .logo_img img {
 	width:125px !important;
 	height:20px !important;
 	box-sizing:border-box;
 	border-style:none;
+	position:absolute;
+	top:0;
+	left:0;
 }
 
 /*nav_menu*/
@@ -136,7 +140,7 @@ body {
     border-right:0;
 }
 */
-.active {
+.header_active {
     display:block;
     overflow:hidden;
 	border-bottom-color:#fff;
