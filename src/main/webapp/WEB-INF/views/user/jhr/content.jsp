@@ -625,28 +625,28 @@ function accodionAction(target) {
 						<div class="faq_column_container">
 							<div class="faq_column_content">
 								<div class="faq_question_title" onclick="accodionAction(this);">
-									<div class="faq_question_text">호텔스컴바인에서 최저가를 예약하는 방법은 무엇입니까?</div>
+									<div class="faq_question_text">J6컴바인에서 최저가를 예약하는 방법은 무엇입니까?</div>
 									<button class="faq_question_arr">
 										<svg viewBox="0 0 10 10">
 											<path fill="currentColor" d="M4.4,7.32a0.84,0.84,0,0,0,1.2,0L9.07,3.85A0.84,0.84,0,0,0,7.88,2.67L5,5.55,2.12,2.67A0.84,0.84,0,0,0,.93,3.85Z" style="user-select: auto;"></path>
 										</svg>
 									</button>
 								</div>
-								<div class="faq_answer">호텔스컴바인은 국내외 주요 여행 사이트의 가격을 한곳에 모아 비교해드리는 메타 검색 브랜드입니다. 원하는 호텔을 다양한 옵션으로 필터링하여 한눈에 비교하고 예약할 수 있습니다. 게다가 호텔스컴바인은 추가 예약 수수료도 없다는 것, 잊지 마세요!</div>
+								<div class="faq_answer">J6컴바인은 국내외 주요 여행 사이트의 가격을 한곳에 모아 비교해드리는 메타 검색 브랜드입니다. 원하는 호텔을 다양한 옵션으로 필터링하여 한눈에 비교하고 예약할 수 있습니다. 게다가 J6컴바인은 추가 예약 수수료도 없다는 것, 잊지 마세요!</div>
 							</div>
 						</div>
 						
 						<div class="faq_column_container">
 							<div class="faq_column_content">
 								<div class="faq_question_title" onclick="accodionAction(this);">
-									<div class="faq_question_text">호텔스컴바인 후기의 특별한 점은 무엇입니까?</div>
+									<div class="faq_question_text">J6컴바인 후기의 특별한 점은 무엇입니까?</div>
 									<button class="faq_question_arr">
 										<svg viewBox="0 0 10 10">
 											<path fill="currentColor" d="M4.4,7.32a0.84,0.84,0,0,0,1.2,0L9.07,3.85A0.84,0.84,0,0,0,7.88,2.67L5,5.55,2.12,2.67A0.84,0.84,0,0,0,.93,3.85Z" style="user-select: auto;"></path>
 										</svg>
 									</button>
 								</div>
-								<div class="faq_answer">호텔스컴바인은 실제로 투숙했던 고객들의 생생한 후기만 보여드립니다. 주요 여행 사이트들의 후기를 한 번에 읽어보고 후회 없는 선택을 해보세요!</div>
+								<div class="faq_answer">J6컴바인은 실제로 투숙했던 고객들의 생생한 후기만 보여드립니다. 주요 여행 사이트들의 후기를 한 번에 읽어보고 후회 없는 선택을 해보세요!</div>
 							</div>
 						</div>
 					</div>
@@ -654,28 +654,28 @@ function accodionAction(target) {
 						<div class="faq_column_container">
 							<div class="faq_column_content">
 								<div class="faq_question_title" onclick="accodionAction(this);">
-									<div class="faq_question_text">호텔스컴바인의 회원 전용 혜택은 무엇입니까?</div>
+									<div class="faq_question_text">J6컴바인의 회원 전용 혜택은 무엇입니까?</div>
 									<button class="faq_question_arr">
 										<svg viewBox="0 0 10 10">
 											<path fill="currentColor" d="M4.4,7.32a0.84,0.84,0,0,0,1.2,0L9.07,3.85A0.84,0.84,0,0,0,7.88,2.67L5,5.55,2.12,2.67A0.84,0.84,0,0,0,.93,3.85Z" style="user-select: auto;"></path>
 										</svg>
 									</button>
 								</div>
-								<div class="faq_answer">호텔스컴바인 무료 가입 후 로그인하시면, 회원들에게만 제공하는 '시크릿 특가'를 확인하실 수 있습니다. 한 번의 회원 가입으로 최저가 그 이상의 혜택을 누려보세요!</div>
+								<div class="faq_answer">J6컴바인 무료 가입 후 로그인하시면, 회원들에게만 제공하는 '시크릿 특가'를 확인하실 수 있습니다. 한 번의 회원 가입으로 최저가 그 이상의 혜택을 누려보세요!</div>
 							</div>
 						</div>
 						
 						<div class="faq_column_container">
 							<div class="faq_column_content">
 								<div class="faq_question_title" onclick="accodionAction(this);">
-									<div class="faq_question_text">호텔스컴바인 앱(app)이 있습니까?</div>
+									<div class="faq_question_text">J6컴바인 앱(app)이 있습니까?</div>
 									<button class="faq_question_arr">
 										<svg viewBox="0 0 10 10">
 											<path fill="currentColor" d="M4.4,7.32a0.84,0.84,0,0,0,1.2,0L9.07,3.85A0.84,0.84,0,0,0,7.88,2.67L5,5.55,2.12,2.67A0.84,0.84,0,0,0,.93,3.85Z" style="user-select: auto;"></path>
 										</svg>
 									</button>
 								</div>
-								<div class="faq_answer">물론입니다. 모바일과 태블릿에서도 호텔스컴바인을 사용하실 수 있습니다. 지금 바로 iOS 또는 안드로이드에서 "호텔스컴바인"을 검색하고 앱(APP)을 다운로드하세요!</div>
+								<div class="faq_answer">물론입니다. 모바일과 태블릿에서도 J6컴바인을 사용하실 수 있습니다. 지금 바로 iOS 또는 안드로이드에서 "J6컴바인"을 검색하고 앱(APP)을 다운로드하세요!</div>
 							</div>
 						</div>
 					</div>
