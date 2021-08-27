@@ -64,7 +64,7 @@ public class JoinControllerjhr {
 			return "redirect:/jhr/login";
 		} catch(Exception e) {
 			e.printStackTrace();
-			return "user/jhr/join";
+			return "user/jhr/login";
 		}
 	}
 	
