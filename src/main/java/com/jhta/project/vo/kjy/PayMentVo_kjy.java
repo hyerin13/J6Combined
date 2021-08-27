@@ -14,6 +14,7 @@ public class PayMentVo_kjy {
 	private String pmethod;
 	private Date pdate;
 	private int ptotal;
+	private String ptoken;
 	private String prefund;
 	private int rid;
 	private String mid;

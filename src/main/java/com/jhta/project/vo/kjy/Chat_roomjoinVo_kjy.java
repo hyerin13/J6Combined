@@ -17,5 +17,6 @@ public class Chat_roomjoinVo_kjy {
 	private String cmscname;
 	private String cmdrop;
 	private int joinid;
+	private Date joincontime;
 	private int crid;
 }
