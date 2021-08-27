@@ -28,4 +28,5 @@
       left outer join room_info ri on test.riid=ri.riid
       )fin, accommodations ac where fin.aid=ac.aid
       </select>
+
 </mapper>

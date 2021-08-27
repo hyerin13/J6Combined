@@ -14,12 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.jhta.project.service.jhr.MembersService;
 import com.jhta.project.service.phj.ReservationServicephj;
+import com.jhta.project.vo.jhr.MembersVo;
 import com.jhta.project.vo.phj.ReservationVo;
 
 @Controller
 public class ReservationController_phj {
 	@Autowired private ReservationServicephj service;
+	@Autowired private MembersService memberService;
 	@GetMapping("phj/pay")
 	public String payForm() {
 		return "user/phj/pay";
@@ -66,6 +69,8 @@ public class ReservationController_phj {
 		mv.addObject("mid", vo.getMid());
 		mv.addObject("riid", vo.getRiid());
 		mv.addObject("rordernum", vo.getRordernum());
+		MembersVo membersVo = memberService.checkId( vo.getMid());
+		mv.addObject("membersVo", membersVo);
 		mv.addObject("rexperson", rexperson);
 		mv.addObject("rexbreaknum", rexbreaknum);
 		mv.addObject("rexbed", rexbed);
@@ -86,6 +91,7 @@ public class ReservationController_phj {
 		try {
 			service.insertRes(vo);
 			map.put("rid",vo.getRid());
+			map.put("ptoken", vo.getPtoken());
 			map.put("code","success");
 		}catch(Exception e) {
 			e.printStackTrace();

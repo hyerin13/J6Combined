@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jhta.mybatis.mapper.hjy.admin.ReservationMapperHjy;
+import com.jhta.project.vo.cjy.ReservationVo;
 import com.jhta.project.vo.hjy.ReservationRateVo;
 @Service
 public class ReservationServiceHjy {
@@ -16,4 +17,5 @@ public class ReservationServiceHjy {
 	public List<ReservationRateVo> RoomReserRate(String time){
 		return mapper.roomReserRate(time);
 	};
+
 }

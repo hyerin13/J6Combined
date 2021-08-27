@@ -33,4 +33,7 @@ public class PaymentServiceHjy {
 	public List<HashMap<String, Object>> reservationRate(){
 		return mapper.reservationRate();
 	};
+	public PaymentVo find(String rid) {
+		return mapper.find(rid);
+	};
 }

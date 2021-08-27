@@ -14,5 +14,4 @@ public class ReservationRateVo {
 	private String per;
 	private String year;
 	private String month;
-	
 }

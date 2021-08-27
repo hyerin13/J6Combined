@@ -92,6 +92,8 @@ $(document).ready(function(){
 	                   		if(msgcnt==checkbox.length){
 	                   			alert(d.msg) //여러개 처리시 메세지 1번뜨게 해야함
 	                   		}
+	                   	}else{
+	                   	console.log(d.msg)
 	                   	}
                    },       
             });

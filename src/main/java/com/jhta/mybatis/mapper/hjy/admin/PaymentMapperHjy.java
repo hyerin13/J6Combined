@@ -13,4 +13,5 @@ public interface PaymentMapperHjy {
 	public int year();
 	public List<HashMap<String, Object>> salesChart();
 	public List<HashMap<String, Object>> reservationRate();
+	public PaymentVo find(String rid);
 }

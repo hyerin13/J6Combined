@@ -190,13 +190,13 @@
 		참고하세요.
 		나중에 포스팅 해볼게요.
 		*/
-		name: '주문명:결제테스트',
+		name: '주문명:숙소 예약',
 		//결제창에서 보여질 이름
 		amount: 500,
 		//가격 totalFee
-		buyer_email: 'guswn3618@gmail.com',
-		buyer_name: '박현주',
-		buyer_tel: '010-1234-5678',
+		buyer_email: '${membersVo.memail }',
+		buyer_name: '${membersVo.mname }',
+		buyer_tel: '%{membersVo.mphone}',
 		buyer_addr: '서울특별시 강남구 삼성동',
 		buyer_postcode: '123-456',
 		m_redirect_url: '/project/approval'
@@ -208,23 +208,25 @@
 		}, function (rsp) {
 			console.log(rsp);
 		if (rsp.success) {
-			var msg = '결제가 완료되었습니다.';
+			var msg = '결제가 완료되었습니다.\n';
 			msg += '고유ID : ' + rsp.imp_uid;
-			msg += '상점 거래ID : ' + rsp.merchant_uid;
-			msg += '결제 금액 : ' + rsp.paid_amount;
-			msg += '카드 승인번호 : ' + rsp.apply_num;
+			msg += '\n상점 거래ID : ' + rsp.merchant_uid;
+			msg += '\n결제 금액 : ' + rsp.paid_amount;
+			msg += '\n카드 승인번호 : ' + rsp.apply_num;
+			var ptoken=rsp.merchant_uid;
 			$.ajax({
 				url:'/project/phj/insert',
 				data:JSON.stringify({"rid":rid,"rordernum":rordernum,"ramount":ramount,"rcheckin":rcheckin,"rcheckout":rcheckout,
 					"rresname":rresname,"rresphone":rresphone,"rresemail":rresemail,"rexbreaknum":rexbreaknum,
-					"rexbed":rexbed,"rexperson":rexperson,"rcancel":rcancel,"mid":mid,"riid":riid}),
+					"rexbed":rexbed,"rexperson":rexperson,"rcancel":rcancel,"mid":mid,"riid":riid,"ptoken":ptoken}),
 				type:"post",
 				dataType:"json",
 				contentType:'application/json',
 				success:function(data){
 					console.log(data);
 					if(data.code=='success'){
-						insertPaymentOk("card", data.rid);
+						console.log(data.ptoken);
+						insertPaymentOk("card", data.rid,data.ptoken);
 						console.log(data.code);
 						location.href="/project/approval";
 					}else{
@@ -240,12 +242,12 @@
 		});
 	});
 	
-	function insertPaymentOk(pmethod, rid){
+	function insertPaymentOk(pmethod, rid,ptoken){
 		var ptotal=parseInt($("#totalFee").val().replace(/,/gi, ""));
 		var mid=$("#mid").val();
 		$.ajax({
 			url:"/project/phj/paymentInsertOk",
-			data:JSON.stringify({"pmethod":pmethod,"ptotal":ptotal,"rid":rid,"mid":mid}),
+			data:JSON.stringify({"pmethod":pmethod,"ptotal":ptotal,"rid":rid,"mid":mid,"ptoken":ptoken}),
 			type:"post",
 			dataType:"json",
 			contentType:'application/json'

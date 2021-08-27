@@ -434,6 +434,8 @@ CREATE TABLE PAYMENT
 	PTOTAL NUMBER(10),
 	-- 환불 : 환불 시 Y
 	PREFUND VARCHAR2(1),
+	-- 결제토큰
+	PTOKEN VARCHAR2(100),
 	-- 예약아이디
 	RID NUMBER(4) NOT NULL,
 	-- 아이디

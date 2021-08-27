@@ -23,4 +23,6 @@ public class ReservationVo {
 	private String rcancel;
 	private String mid;
 	private int riid;
+	//추가
+	
 }

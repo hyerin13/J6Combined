@@ -45,4 +45,7 @@
       )fin, accommodations ac where fin.aid=ac.aid order by per desc
 		]]>
 	</select>
+	  <select id="find" resultType="com.jhta.project.vo.hjy.PaymentVo" parameterType="string">
+      	select * from payment where rid = #{rid}
+      </select>
 </mapper>

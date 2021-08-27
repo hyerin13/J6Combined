@@ -14,6 +14,7 @@ public class PaymentVo {
 	private Date pdate;
 	private int ptotal;
 	private String prefund;
+	private String ptoken;
 	private int rid;
 	private String mid;
 	private int cnt;

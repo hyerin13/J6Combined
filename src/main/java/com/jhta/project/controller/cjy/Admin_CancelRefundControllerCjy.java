@@ -15,9 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jhta.project.controller.hjy.PayAjax;
 import com.jhta.project.service.cjy.Admin_CancelRefundServiceCjy;
+import com.jhta.project.service.hjy.PaymentServiceHjy;
+import com.jhta.project.service.hjy.ReservationServiceHjy;
 import com.jhta.project.vo.cjy.Admin_ManageMemVo;
 import com.jhta.project.vo.cjy.ReservationVo;
+import com.jhta.project.vo.hjy.PaymentVo;
+import com.jhta.project.vo.hjy.ReservationRateVo;
 import com.jhta.util.PageUtil;
 
 import lombok.Data;
@@ -27,6 +32,7 @@ import lombok.Data;
 
 public class Admin_CancelRefundControllerCjy {
 	@Autowired Admin_CancelRefundServiceCjy crservice;
+	@Autowired PaymentServiceHjy payService;
 
 	//취소환불 리스트
 	@RequestMapping(value="admin/cjy/rvcancel", produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -63,17 +69,24 @@ public class Admin_CancelRefundControllerCjy {
 
 	//취소승인
 	@RequestMapping(value="admin/cjy/rvcancelapproval", produces = {MediaType.APPLICATION_JSON_VALUE})
-	public  HashMap<String, Object> cancelapproval(String rid){
+	public  HashMap<String, Object> cancelapproval(String rid,String mid){
 		HashMap<String, Object> map = new HashMap<String,Object>();
 		HashMap<String, Object> map1 = new HashMap<String,Object>();
+		PayAjax pay = new PayAjax();
 		map.put("rid", rid);
+		PaymentVo vo = payService.find(rid);
+		System.out.println(vo.getPtoken());
 		try {
+			int result = pay.cancelPayment(pay.getImportToken(), vo.getPtoken());
 			int data=crservice.update(map);
 			map1.put("data", data);
-			map1.put("msg", "취소승인 되었습니다");
+			if(result>0) {
+				map1.put("msg", "취소승인 되었습니다");
+			}else {
+				map1.put("msg", "취소승인이 실패되었습니다");
+			}			
 		}catch(Exception e) {
 			e.printStackTrace();
-			map1.put("msg", "취소승인이 실패되었습니다");
 		}
 		return map1;
 	}
