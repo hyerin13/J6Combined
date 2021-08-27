@@ -25,7 +25,14 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/footer.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/boardDetail.css">
-
+<style type="text/css">
+element.style {
+	transform: translate3d(0px, 0px, 0px);
+}
+.dropdown-list {
+	transform: translate3d(0px, 0px, 0px);
+}
+</style>
 </head>
 <body>
 	<div class="header">
@@ -199,7 +206,7 @@
 						            </a>
 						            <p style='color: gray;'>(\${crdate})</p>
 					                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-					                    aria-labelledby="alertsDropdown">
+					                    aria-labelledby="alertsDropdown"style="position: absolute;">
 						                <div id="reqlist\${i}">
 											<!-- Dropdown - Alerts -->
 							                <a class="dropdown-item d-flex align-items-center" href="#">
@@ -316,8 +323,10 @@
 							let crdate = dateFormat(data.vo.crdate);
 							updateHtml +="<br><span style='color: gray;'>("+crdate+")</span><br>";
 							updateHtml +="<br><input type='text' value='"+data.vo.ccontent+"' id='ccontent"+num+"'><br>";
+							updateHtml +="<div class='re'>";
 							updateHtml +="<a href='javascript:list()'>취소</a>";
 							updateHtml +="<span>|</span><a href='javascript:updatedb("+cid+","+num+")'>확인</a>";
+							updateHtml +="</div>";
 							updateHtml +="</div>";
 							$("#cmt"+num).html(updateHtml);
 						}

@@ -327,7 +327,7 @@ $(function(){
 		let restar = $(this).attr("id");
 		$(this).siblings().attr('style','background-color: none');
 		for (var i =0; i <= 5-restar.substring(4); i++) {
-			$("#star"+(Number(restar.substring(4))+i)).attr('style','background-color: #00AEF0');
+			$("#star"+(Number(restar.substring(4))+i)).attr('style','background-color: #00AEF0 ; opacity:0.8;');
 		}
 	 	callList()
 	});
@@ -337,7 +337,7 @@ $(function(){
 		let agrade = $(this).attr("id");
 		$(this).siblings().attr('style','background-color: none');
 		for (var i =0; i <= 6-agrade.substring(5); i++) {
-			$("#grade"+(Number(agrade.substring(5))+i)).attr('style','background-color: #00AEF0');
+			$("#grade"+(Number(agrade.substring(5))+i)).attr('style','background-color: #00AEF0; opacity:0.8;');
 		}
 		callList();
 	});		
@@ -794,7 +794,7 @@ circle.push(
         map: locationmap,
         center: locationposition,
         radius: size,//m단위의 반지름 입력
-        fillColor: 'crimson',
+        fillColor: '#00AEF0',
         fillOpacity: 0.8
     })
 );
