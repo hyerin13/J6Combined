@@ -7,7 +7,7 @@
 		select * from chat_members where cmid=#{cmid}
 	</select>
 	<select id="buddy" parameterType="string" resultType="com.jhta.project.vo.kjy.Chat_membersVo_kjy">
-		select * from chat_buddy cb left join chat_members cm on cb.cbbuid=cm.cmid where cb.cmid=#{cmid}
+		select * from chat_buddy cb left join chat_members cm on cb.cbbuid=cm.cmid where cb.cmid=#{cmid} and cm.cmdrop is null
 	</select>
 	<select id="roomjoin" parameterType="hashmap" resultType="com.jhta.project.vo.kjy.Chat_roomjoinVo_kjy">
 		select * from chat_members cm, chat_roomjoin cr where cm.cmid=cr.cmid and cr.crid in
@@ -16,12 +16,13 @@
 	<select id="chat_message_recently" parameterType="string" resultType="com.jhta.project.vo.kjy.Chat_messageVo_kjy">
 		select rownum,msgid,msgmessage,to_char(msgtime,'YYYY-MM-DD') msgshottime,cmid,crid from chat_message where crid=#{crid} and not msgmessage is null and rownum=1 order by msgid desc
 	</select>
-	<select id="count" parameterType="hashmap" resultType="hashmap">
-		select count(*) cnt, crid from chat_members cm, chat_roomjoin cr where cm.cmid=cr.cmid and cr.crid in
-		(select crid from chat_roomjoin where cmid=#{cmid} and crid=#{CRID})group by crid order by crid
+	<select id="count" parameterType="string" resultType="hashmap">
+		<!--  select count(*) cnt, crid from chat_members cm, chat_roomjoin cr where cm.cmid=cr.cmid and cr.crid in
+		(select crid from chat_roomjoin where cmid=#{cmid} and crid=#{CRID})group by crid order by crid-->
+		select count(*) cnt, crid from chat_members cm, chat_roomjoin cr where cm.cmid=cr.cmid and cr.crid=#{crid} and not cr.cmid='unknown' group by crid order by crid
 	</select>
 	<!-- 최신 대화한 방 정렬 -->
-	<select id="chat_rank" resultType="hashmap" parameterType="string">
+	<select id="chat_rank" resultType="string" parameterType="string">
 		select crid from
 		(select aa.*,rank() over(PARTITION BY crid ORDER BY msgid desc) rnum from(
 		select msgid,crid from chat_message where cmid=#{cmid})aa) where rnum=1 order by msgid desc
@@ -50,6 +51,8 @@
 	<insert id="chat_message_system" parameterType="com.jhta.project.vo.kjy.Chat_messageVo_kjy">
 		insert into chat_message values(seq_chat_message.nextval,null,sysdate,#{msgsysmsg},#{cmid},#{crid})
 	</insert>
+	
+	<!-- 채팅 메세지 기능 -->
 	<!-- 채팅 메세지 저장 -->
 	<insert id="chat_message_insert" parameterType="com.jhta.project.vo.kjy.Chat_messageVo_kjy">
 		insert into chat_message values(seq_chat_message.nextval,#{msgmessage},sysdate,null,#{cmid},#{crid})
@@ -62,6 +65,7 @@
 		delete from chat_buddy where cbbuid=#{cbbuid} and cmid=#{cmid}
 	</delete>
 	
+	<!-- 방 아예 나가는 경우 기능 -->
 	<!-- 방나갈경우 채팅방메세지 테이블 id Unknown으로 변경 -->
 	<update id="chat_exit" parameterType="hashmap">
 		update chat_message set cmid='unknown' where cmid=#{cmid} and crid=#{crid}
@@ -70,4 +74,10 @@
 	<update id="chat_exit_join" parameterType="hashmap">
 		update chat_roomjoin set cmid='unknown' where cmid=#{cmid} and crid=#{crid}
 	</update>
+	
+	<!-- 방에서 친구초대 기능 -->
+	<!-- 방에서 친구 추가로 초대할때 현재 들어온 인원은 제외하고 검색하기 -->
+	<select id="chat_add_check" parameterType="hashmap" resultType="com.jhta.project.vo.kjy.Chat_membersVo_kjy">
+		select * from chat_members where cmid in(select cbbuid from chat_buddy where cmid=#{cmid} and not cbbuid in(select cmid from chat_roomjoin where crid=#{crid} and not cmid=#{cmid}))
+	</select>
 </mapper>

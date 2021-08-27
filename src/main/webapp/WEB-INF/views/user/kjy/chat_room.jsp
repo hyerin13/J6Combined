@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/js/jquery-ui.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -66,6 +67,7 @@
 }
 /* 시스템메세지 css */
 .sysdiv{
+	position:relative;
 	width:380px;
 	text-align:center;
 	margin:10px 0;
@@ -92,36 +94,34 @@
 /* 채팅메세지 css */
 /* 본인창 css */
 .memsgdiv{
-	border:1px solid red;
+	position:relative;
 	width: 380px;
 	display:flex;
 	justify-content:flex-end;
+	margin-bottom:20px;
 }
 .memsgbox{
 	max-width: 200px;
 	word-break:break-all;
 	position:relative;
-	margin-bottom:24px;
 	margin-right:10px;
 }
 .memsg{
+	position:relative;
 	background:white;
 	font-size:15px;
 	border-radius:5px;
 	padding:5px 8px;
-	margin:0;
+	margin-bottom:-10px;
 }
-.metime{
-	display: inline-block;
-	font-size:10px;
-	padding-top:10px;
-	position:absolute;
-	right:0;
-}
+ .metime{
+ 	position:relative;
+ 	font-size:10px;
+ 	text-align:right;
+ }
 
-/* 상대방창 css */
+/*상대방창 css */
 .youmsgdiv{
-	border:1px solid green;
 	width: 380px;
 	position:relative;
 }
@@ -182,7 +182,14 @@
 }
 </style>
 <div id="header">
-	<img src="${pageContext.request.contextPath }/resources/images/members/${cmprofile }" class="myprofile">
+	<c:choose>
+		<c:when test="${cmprofile eq '' }">
+			<img src="${pageContext.request.contextPath }/resources/images/members/noimage2.jpg" class="myprofile">
+		</c:when>
+		<c:otherwise>
+			<img src="${pageContext.request.contextPath }/resources/images/members/${cmprofile }" class="myprofile">
+ 		</c:otherwise>
+	 </c:choose>
 	<p class="myname">${cmname }</p>
 	<img src="${pageContext.request.contextPath }/resources/images/chat/menu2.png" class="smallmenu">
 	<span class="moremenu">
@@ -190,15 +197,15 @@
 		<span id="menu2" class="smmenu">대화상대초대</span><br>
 		<span id="menu3" class="smmenu">채팅방나가기</span><br>
 	</span>
-	<!-- 파라미터 값들 -->
+	<!-- //////////파라미터 값들//////////// -->
 	<input type="hidden" id="cmid" value=${cmid }>
 	<input type="hidden" id="crid" value=${crid }>
 	<input type="hidden" id="cmprofile" value=${cmprofile }>
 	<input type="hidden" id="cmname" value=${cmname }>
+	<!-- //////////////////////////////// -->
 </div>
 <div id="content">
 	<div id="contentarea" class="contentarea">
-		<div id="userarea" class="userarea"></div>
 		<div id="messagearea" class="messagearea"></div>
 	</div>
 </div>
@@ -230,29 +237,35 @@ function wsOpen(){
 				let cmname=d.cmname;
 				let cmprofile=d.cmprofile;
 				let msgsysmsg=d.msgsysmsg;
-				if(msgsysmsg!=null){
-					let html="<div class='sysdiv'>"+
-					"<div class='sysbox'>"+
-					"<p class='msgsysmsg'>"+msgsysmsg+"</p>"+
-					"</div>"+
-					"</div>";
-					$("#userarea").append(html);
+				if(cmprofile==null){
+					//대체 이미지
+					cmprofile="noimage2.jpg";
 				}
-				if(d.cmid==$("#cmid").val() && msgmessage!=null){
+				if(d.cmid==$("#cmid").val() && msgmessage!=null && msgsysmsg==null){
+					console.log("내꺼");
 					let html="<div class='memsgdiv'>"+
 					"<div class='memsgbox'>"+
-					"<p class='memsg'>"+msgmessage+"</p>"+
+					"<p class='memsg'>"+msgmessage+"</p><br>"+
 					"<p class='metime'>"+msgshottime+"</p>"+
 					"</div>"+
 					"</div>";
 					$("#messagearea").append(html);
-				}else if(msgmessage!=null){
+				}else if(msgmessage!=null && msgsysmsg==null){
+					console.log("니꺼");
 					let html="<div class='youmsgdiv'>"+
 					"<img src='${pageContext.request.contextPath }/resources/images/members/"+cmprofile+"' class='youprofile'>"+
 					"<p class='youname'>"+cmname+"</p>"+
 					"<div class='youmsgbox'>"+
 					"<p class='youmsg'>"+msgmessage+"</p>"+
 					"<p class='youtime'>"+msgshottime+"</p>"+
+					"</div>"+
+					"</div>";
+					$("#messagearea").append(html);
+				}else if(msgsysmsg!=null){
+					console.log("시스템");
+					let html="<div class='sysdiv'>"+
+					"<div class='sysbox'>"+
+					"<p class='msgsysmsg'>"+msgsysmsg+"</p>"+
 					"</div>"+
 					"</div>";
 					$("#messagearea").append(html);
@@ -271,10 +284,8 @@ ws.onopen = function(data){
 }
 
 ws.onmessage = function(data) {
-	console.log("data:"+data);
 	//메시지를 받으면 동작
 	var msg = data.data;
-	console.log("msg:"+msg);
 	if(msg != null && msg.trim() != ''){
 			var d = JSON.parse(msg);
 			let today = new Date();   
@@ -283,36 +294,35 @@ ws.onmessage = function(data) {
 			let cmname=d.cmname;
 			let cmprofile=d.cmprofile;
 			let msgsysmsg=d.msgsysmsg;
-			console.log()
-			//시스템 메세지
-			console.log(msgsysmsg);
-			if(msgsysmsg!=null){
+			if(cmprofile==""){
+				//대체 이미지
+				cmprofile="noimage2.jpg";
+			}
+			if(d.cmid==$("#cmid").val() && msgmessage!=null && msgsysmsg==null){
+				let html="<div class='memsgdiv'>"+
+				"<div class='memsgbox'>"+
+				"<p class='memsg'>"+msgmessage+"</p><br>"+
+				"<p class='metime'>"+msgshottime+"</p>"+
+				"</div>"+
+				"</div>";
+				$("#contentarea").append(html);	
+			}else if(msgmessage!=null && msgsysmsg==null){
+				let html="<div class='youmsgdiv'>"+
+				"<img src='${pageContext.request.contextPath }/resources/images/members/"+cmprofile+"' class='youprofile'>"+
+				"<p class='youname'>"+cmname+"</p>"+
+				"<div class='youmsgbox'>"+
+				"<p class='youmsg'>"+msgmessage+"</p>"+
+				"<p class='youtime'>"+msgshottime+"</p>"+
+				"</div>"+
+				"</div>";
+				$("#contentarea").append(html);
+			}else if(msgsysmsg!=null){
 				let html="<div class='sysdiv'>"+
 				"<div class='sysbox'>"+
 				"<p class='msgsysmsg'>"+msgsysmsg+"</p>"+
 				"</div>"+
 				"</div>";
 				$("#contentarea").append(html);
-			}else{
-				if(d.cmid == $("#cmid").val() && msgmessage!=null){
-					let html="<div class='memsgdiv'>"+
-					"<div class='memsgbox'>"+
-					"<p class='memsg'>"+msgmessage+"</p>"+
-					"</div>"+
-					"<p class='metime'>"+msgshottime+"</p>"+
-					"</div>";
-					$("#contentarea").append(html);	
-				}else if(msgmessage!=null){
-					let html="<div class='youmsgdiv'>"+
-					"<img src='${pageContext.request.contextPath }/resources/images/members/"+cmprofile+"' class='youprofile'>"+
-					"<p class='youname'>"+cmname+"</p>"+
-					"<div class='youmsgbox'>"+
-					"<p class='youmsg'>"+msgmessage+"</p>"+
-					"<p class='youtime'>"+msgshottime+"</p>"+
-					"</div>"+
-					"</div>";
-					$("#contentarea").append(html);
-				}	
 			}
 		}
 		//스크롤 하단 고정
@@ -362,14 +372,16 @@ $(".smallmenu").on('click',function(){
 		$(".moremenu").show();
 	}
 });
-
+//전페이지로 이동
 $("#menu1").on('click',function(){
 	location.href="${pageContext.request.contextPath }/user/kjy/chat_main";
 });
-
+//방에 친구초대
 $("#menu2").on('click',function(){
+	var url='${pageContext.request.contextPath }/user/kjy/chat_add?cmid='+cmid+'&crid='+crid+'&cmname='+cmname+'&cmprofile='+cmprofile;
+	location.href=url;
 });
-
+//방 나가기
 $("#menu3").on('click',function(){
 	$.ajax({
 		type:'post',

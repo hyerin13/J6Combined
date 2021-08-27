@@ -23,7 +23,6 @@ public class SocketHandler extends TextWebSocketHandler{
 	@Override
 	public void handleTextMessage(WebSocketSession session, TextMessage message) {
 		String msg = message.getPayload();
-		System.out.println(msg);
 		JSONObject obj = JsonToObjectParser(msg);
 		String cmid=(String) obj.get("cmid");
 		int crid=Integer.valueOf((String) obj.get("crid"));

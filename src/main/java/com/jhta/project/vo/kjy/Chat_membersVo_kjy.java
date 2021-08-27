@@ -10,11 +10,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class Chat_membersVo_kjy {
-	private String cbbuid;
 	private String cmid;
 	private String cmname;
 	private Date cmbirth;
 	private String cmprofile;
 	private String cmscname;
 	private String cmdrop;
+	
+	private String cbbuid;
 }

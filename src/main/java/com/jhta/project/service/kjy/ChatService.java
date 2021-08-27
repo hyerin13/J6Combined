@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jhta.mybatis.mapper.kjy.ChatMapperkjy;
-import com.jhta.project.vo.kjy.Chat_buddyVo_kjy;
 import com.jhta.project.vo.kjy.Chat_membersVo_kjy;
 import com.jhta.project.vo.kjy.Chat_messageVo_kjy;
 import com.jhta.project.vo.kjy.Chat_roomjoinVo_kjy;
@@ -27,8 +26,8 @@ public class ChatService {
 	public List<Chat_messageVo_kjy> chat_message_recently(String crid){
 		return mapper.chat_message_recently(crid);
 	}
-	public HashMap<String, Object> count(HashMap<String, Object> map){
-		return mapper.count(map);
+	public HashMap<String, Object> count(String crid){
+		return mapper.count(crid);
 	}
 	public List<Chat_roomjoinVo_kjy> roomcheck(HashMap<String, Object> map) {
 		return mapper.roomcheck(map);
@@ -54,7 +53,7 @@ public class ChatService {
 	public List<Chat_messageVo_kjy> chat_message_list(int crid){
 		return mapper.chat_message_list(crid);
 	}
-	public List<HashMap<String, Object>> chat_rank(String cmid){
+	public List<String> chat_rank(String cmid){
 		return mapper.chat_rank(cmid);
 	}
 	public int delete(HashMap<String, Object> map) {
@@ -65,5 +64,8 @@ public class ChatService {
 	}
 	public int chat_exit_join(HashMap<String, Object> map) {
 		return mapper.chat_exit_join(map);
+	}
+	public List<Chat_membersVo_kjy> chat_add_check(HashMap<String, Object> map){
+		return mapper.chat_add_check(map);
 	}
 }

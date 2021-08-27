@@ -163,7 +163,15 @@
   <div id="tabs-1">
   	<p class="memtitle">마이프로필</p>
    	<div class="member">
-   		<img src="${pageContext.request.contextPath }/resources/images/members/${vo.cmprofile}" class="memimg">
+   	<!-- 이미지가 null일떄 -->
+   	<c:choose>
+		<c:when test="${vo.cmprofile eq null }">
+			<img src="${pageContext.request.contextPath }/resources/images/members/noimage2.jpg" class="memimg">
+		</c:when>
+		<c:otherwise>
+			<img src="${pageContext.request.contextPath }/resources/images/members/${vo.cmprofile}" class="memimg">
+ 		</c:otherwise>
+	 </c:choose>
    		<div class="buddy_text">
 	   		<p class="cmname">${vo.cmname }</p>
 	   		<p class="cmscname">${vo.cmscname }</p>
@@ -200,7 +208,14 @@
    	<p class="buddytitle">친구목록</p>
    	<c:forEach var="vo" items="${list }" varStatus="status">
 		<div class="buddy">
-   			<img src="${pageContext.request.contextPath }/resources/images/members/${vo.cmprofile}" class="memimg">
+			<c:choose>
+				<c:when test="${vo.cmprofile eq null }">
+					<img src="${pageContext.request.contextPath }/resources/images/members/noimage2.jpg" class="memimg">
+				</c:when>
+				<c:otherwise>
+					<img src="${pageContext.request.contextPath }/resources/images/members/${vo.cmprofile}" class="memimg">
+ 				</c:otherwise>
+			 </c:choose>
    			<div class="buddy_text">
 	   			<p class="cmname">${vo.cmname }</p>
 	   			<p class="cmscname">${vo.cmscname }</p>
@@ -279,8 +294,18 @@ function reqfriend(id,select){
 	})
 }
 
+//탭메뉴 새로고침 테스트
+/*function test(){  
+    $("#tabs-1").load(window.location.href + "#tabs-1");
+}
+
+$("#tabs-1").on('click',function(){
+	console.log("test");
+	test();
+});*/
 
 	$( "#tabs" ).tabs();
+	
 	var cmid=$("#cmid").val();
 	var cmprofile=$("#cmprofile").val();
 	var cmname=$("#cmname").val();
@@ -412,7 +437,7 @@ function reqfriend(id,select){
 		});
 	}
 
-	
+	chat_room();
 	
 	//더보기버튼
 	function btnmore(data) {
@@ -443,6 +468,10 @@ function reqfriend(id,select){
 						$(".roombox"+crid).append(cmname);						
 					}
 					//이미지 속성넣기
+					if(d.cmprofile==null){
+						//대체 이미지
+						d.cmprofile="noimage2.jpg";
+					}
 					$(".profile_"+crid+"_"+i).attr("src","${pageContext.request.contextPath }/resources/images/members/"+d.cmprofile);
 				});
 				//최근 대화내역 출력
@@ -456,29 +485,20 @@ function reqfriend(id,select){
 				});
 			}
 		});
-		$("img").error(function(){
-			$(this).attr("src","${pageContext.request.contextPath }/resources/images/members/noimage2.jpg");
-		});
 	}
 	//드래그 방지
 	$(document).on("selectstart", function(event){return false;});
 	
-	//대체 이미지 지정(이미지 null일떄)
-	$("img").error(function(){
-		$(this).attr("src","${pageContext.request.contextPath }/resources/images/members/noimage2.jpg");
-	});
 	//기존 방 열기
 	function chating(crid){
 		var url='${pageContext.request.contextPath }/user/kjy/chating_room?crid='+crid+'&cmid='+cmid+'&cmprofile='+cmprofile+'&cmname='+cmname;
 		location.href=url;
-		//window.open(url, '채팅룸', 'width=400px,height=700px,scrollbars=no,location=no');
 	}
+	
 	//친구아이디로 확인하여 방이 있는지 여부 체크 후 채팅창 열기
 	function room_open(cbbuid){
 		var url='${pageContext.request.contextPath }/user/kjy/chating_check?cbbuid='+cbbuid+'&cmid='+cmid+'&cmprofile='+cmprofile+'&cmname='+cmname;
 		location.href=url;
-		//window.open(url, '채팅룸', 'width=400px,height=700px,scrollbars=no,location=no');
-		//location.reload();
 	}
 	
 	//마우스 이벤트
@@ -503,5 +523,5 @@ function reqfriend(id,select){
 		});
 	});
 
-	chat_room();
+	
 </script>
