@@ -89,7 +89,14 @@ $(function(){
                </c:otherwise>
             </c:choose>
             <td class="tdalign">${vo.qid }</td>
-            <td><a href="#" onclick="qpwCheck(${vo.qpw},${vo.qid });">${vo.qtitle }</a></td>
+            <c:choose>
+               <c:when test="${vo.qpw == null }">
+                  <td><a href="${pageContext.request.contextPath }/hjy/qna/qnaDetail?qid=${vo.qid }&qcate=${qcate}">${vo.qtitle }</a></td>
+               </c:when>
+               <c:otherwise>
+                 <td><a href="#" onclick="qpwCheck(${vo.qpw},${vo.qid });">${vo.qtitle }</a></td>
+               </c:otherwise>
+            </c:choose>
             <fmt:formatDate value="${vo.qrdate }" pattern="YY-MM-dd" var="qrdate"/>
             <td class="tdalign">${qrdate }</td>
             <td class="tdalign">${vo.mid }</td>
@@ -136,19 +143,15 @@ function writeQna(){
    location.href='${pageContext.request.contextPath }/hjy/newQna?qcate='+$("#qcate").val();
 }
 function qpwCheck(qpw,qid){
-	if(qpw == null){
-		alert("비번x/비밀글아님");
-		location.href= '${pageContext.request.contextPath }/hjy/qna/qnaDetail?qid='+qid+'&qcate=${qcate}'
+	let pwc = prompt("비밀번호를 입력해주세요");
+	if(pwc == null || pwc == ""){
+		location.href= '${pageContext.request.contextPath }/hjy/qna/qnaDetail?qid='+qid+'&qcate=${qcate}';
 	}else{
-		let pwc = prompt("비밀번호를 입력해주세요");
-		if(pwc == null || pwc == ""){
-			alert("취소");
-		}else{
-			if(qpw == pwc) {
-				location.href= '${pageContext.request.contextPath }/hjy/qna/qnaDetail?qid='+qid+'&qcate=${qcate}';
-			} else {
-			    alert("비밀번호가 틀렸습니다.");
-			}
+		if(qpw == pwc) {
+			location.href= '${pageContext.request.contextPath }/hjy/qna/qnaDetail?qid='+qid+'&qcate=${qcate}';
+		} else {
+		    alert("비밀번호가 틀렸습니다.");
+		    location.href= '${pageContext.request.contextPath }/hjy/qna'
 		}
 	}
 }
