@@ -173,7 +173,7 @@ CREATE TABLE CHAT_MEMBERS
 	PRIMARY KEY (CMID)
 );
 
-insert into chat_members values('unknown','알수없음','noimage2.jpg',null,null,null);
+insert into chat_members values('unknown','알수없음',null,'noimage2.jpg',null,null);
 commit;
 
 
