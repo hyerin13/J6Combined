@@ -13,7 +13,8 @@ function format ( d ) {
 		  		list=`<div id=repliedcomment>`
 			  		+ data.vo.qcontent +
 				  	`<div>
-						<input type="button" class="dt-button buttons-copy buttons-html5 btn btn-outline-primary" id="updatebtn" value="수정하기" onclick="updateform($('#qid').val());"> 
+						<input type="button" class="dt-button buttons-copy buttons-html5 btn btn-outline-primary" id="updatebtn" value="수정" onclick="updateform($('#qid').val());"> 
+						<input type="button" class="dt-button buttons-copy buttons-html5 btn btn-outline-primary" id="updatebtn" value="삭제" onclick="deleteform($('#qid').val());"> 
 					</div>
 				</div>							
 					`
@@ -79,7 +80,20 @@ console.log("qcontent1"+qcontent)
         }
     });
 }  	
-
+function deleteform(qid){
+console.log("qid2"+qid)
+    $.ajax({
+        type: "GET",
+        //enctype: 'multipart/form-data', 
+        url: "/project/admin/cjy/userqnadelete",
+        data: {qid:qid},
+	    dataType:'json',
+        success: function (data) {
+            alert(data.code);
+        	window.location.href='userqna2.html'
+        }
+    });
+}  	
 $(document).ready(function(){
 
   var table=$('#dataTable').DataTable({
