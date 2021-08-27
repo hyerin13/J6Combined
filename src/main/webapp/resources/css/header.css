@@ -50,18 +50,17 @@ body {
 	position:relative;
 }
 .logo_img {
-	width:156px;
-	height:19px;
+	width:125px !important;
+	height:20px !important;
 	display:block;
 	box-sizing:border-box;
 	cursor:pointer;
 }
-.svg_image {
-	width:inherit;
-	height:inherit;
+.logo_img img {
+	width:125px !important;
+	height:20px !important;
 	box-sizing:border-box;
-	cursor:pointer;
-	overflow:hidden;
+	border-style:none;
 }
 
 /*nav_menu*/
