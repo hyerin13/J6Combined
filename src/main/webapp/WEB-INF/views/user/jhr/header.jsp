@@ -4,7 +4,6 @@
 
 <title>header.jsp</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css">
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <div class="header">
 	<div class="header_container">
 		<div class="logo">
@@ -80,8 +79,7 @@
 	function openchat(){
 	    var popup = window.open('${pageContext.request.contextPath }/user/kjy/chat_main', '채팅팝업', 'width=400px,height=700px,scrollbars=no,location=no');
 	}
-	
-	$(function(){
+	document.addEventListener("DOMContentLoaded", function(event) {
 		let path = document.location.pathname;
 		var array = new Array();
 		array= path.split("/");
@@ -97,6 +95,6 @@
 				addpath="/";
 			}
 		}
-			$('.nav').find('a[href="/project'+addpath+'"]').parents('li').addClass('active');
+		$('.nav').find('a[href="/project'+addpath+'"]').parents('li').addClass('active');
 	});
 </script>
