@@ -164,7 +164,7 @@ function qpwCheck(qpw,qid){
 		if(qpw == pwc) {
 			location.href= '${pageContext.request.contextPath }/hjy/qna/qnaDetail?qid='+qid+'&qcate=${qcate}';
 		} else {
-		    alert("비밀번호가 틀렸습니다.");
+		    alert("비밀번호가 틀렸습니다");
 		    location.href= '${pageContext.request.contextPath }/hjy/qna/qnaDetail?qid=${vo.qid}&qcate=${qcate}';
 		}
 	}
