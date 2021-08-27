@@ -8,7 +8,6 @@ $(document).ready(function(){
   		 },
          columns:[
          	{"data": "mid"},
-         	{"data": "mpw"},
          	{"data": "mname"},
          	{"data": "mphone"},
          	{"data": "memail"},
