@@ -51,8 +51,9 @@ background-color:gray;
 <body>
 <script type="text/javascript">
 $(function(){
-		$("#"+"${qcate}").parent().children().attr('class','')
-		$("#"+"${qcate}").attr('class','liactive')
+		let qcate = "${qcate}"
+		$("#"+qcate).parent().children().attr('class','')
+		$("#"+qcate).attr('class','liactive')
 })
 </script>
 <div class="header">

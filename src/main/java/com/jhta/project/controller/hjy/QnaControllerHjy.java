@@ -94,7 +94,6 @@ public class QnaControllerHjy {
 	@PostMapping("hjy/newQna")
 	public String qnaWrite(@RequestParam(value = "pageNum", defaultValue = "1")int pageNum,HttpSession session, Model model, String qcate, String qtitle, String qcontent, MultipartFile qfile,String qpw ) {
 		String path=sc.getRealPath("/resources/images/userqna");
-		System.out.println(path);
 		String orgfilename=qfile.getOriginalFilename();//전송된 파일명
 		String savefilename=UUID.randomUUID() + "_" + orgfilename; //저장할 파일명(중복되지 않는 이름으로 만들기)
 		//uuid : 랜덤하고 중복되지 않는 값을 얻어옴
@@ -112,14 +111,26 @@ public class QnaControllerHjy {
 			String mid=(String)session.getAttribute("mid");
 			System.out.println("mid"+mid);
 			int qref=userqnaService.getQref();
-			UserqnaVo vo=new UserqnaVo(0,qcate,qpw,qtitle,qcontent,savefilename,null,null,qref,0,mid);
+			UserqnaVo vo=new UserqnaVo(0,qcate,qpw,qtitle,qcontent,savefilename,null,null,(qref+1),0,mid);
 			int n=userqnaService.qnawrite(vo);	
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			PageUtil pu = new PageUtil(pageNum, 10, 5, userqnaService.qnacount(map));
 			map.put("startRow", pu.getStartRow());
 			map.put("endRow", pu.getEndRow());
+			System.out.println(qcate);
 			map.put("qcate", qcate);
 			List<UserqnaVo> list = userqnaService.qnalist(map);
+			if(qcate==null) {
+				qcate="all";
+			}else if(qcate.equals("상품")){
+				qcate="product";
+			}else if(qcate.equals("교환/환불")){
+				qcate="refund";
+			}else if(qcate.equals("사이트이용")){
+				qcate="site";
+			}else if(qcate.equals("기타")){
+				qcate="enc";
+			}
 			model.addAttribute("pu", pu);
 			model.addAttribute("list", list);
 			model.addAttribute("code","success");
