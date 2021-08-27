@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jhta.mybatis.mapper.jhr.MembersMapper;
+import com.jhta.project.vo.jhr.Chat_membersVo;
 import com.jhta.project.vo.jhr.MembersVo;
 import com.jhta.project.vo.kjy.FavoriteVo_kjy;
 
@@ -18,6 +19,9 @@ public class MembersService {
    public int insert2(FavoriteVo_kjy vo) {
       return mapper.insert2(vo);
    }
+   public int insert3(Chat_membersVo vo) {
+	      return mapper.insert3(vo);
+	   }
    public MembersVo isMember(HashMap<String, String> map) {
       return mapper.isMember(map);
    }

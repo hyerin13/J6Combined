@@ -14,6 +14,9 @@
 	<insert id="insert2" parameterType="com.jhta.project.vo.jhr.MembersVo">
 		insert into favorite values(seq_favorite.nextval,null,null,null,#{mid})
 	</insert>
+	<insert id="insert3" parameterType="com.jhta.project.vo.jhr.Chat_membersVo">
+		insert into chat_members values(#{cmid},#{cmname},#{cmbirth},#{cmprofile},null,null)
+	</insert>
 	<select id="isMember" parameterType="hashmap" resultType="com.jhta.project.vo.jhr.MembersVo">
 		select * from members where mid=#{mid} and mpw=#{mpw}
 	</select>
