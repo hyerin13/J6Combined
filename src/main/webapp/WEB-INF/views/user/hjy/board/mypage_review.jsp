@@ -20,7 +20,7 @@
   }
   
   #sidebar-wrapper {
-    position: absolute;
+    position: fixed;
     width: 250px;
     height: 100%;
     margin-left: -250px;
@@ -99,7 +99,7 @@
 			</tr>
 			<c:forEach var="vo" items="${list }">
 				<tr class="table_content">
-					<td class="tdalign">자유게시글</td>
+					<td class="tdalign">리뷰게시글</td>
 					<td><a href="/project/hjy/board/detail?bid=${vo.bid }">${vo.btitle }</a></td>
 					<fmt:formatDate value="${vo.brdate }" pattern="YY-MM-dd" var="brdate"/>
 					<td class="tdalign">${brdate }</td>
@@ -112,12 +112,12 @@
 				<c:forEach var="i" begin="${pu.startPageNum }" end="${pu.endPageNum }">
 					<c:choose>
 						<c:when test="${pu.pageNum==i }"><!-- 현재페이지 -->
-							<a href="/project/phj/mypage/all?pageNum=${i }&field=${field}&keyword=${keyword}">
+							<a href="/project/phj/mypage/review?pageNum=${i }&field=${field}&keyword=${keyword}">
 							<span style='color:blue;font-weight: bold'>[${i }]</span>
 							</a>
 						</c:when>
 						<c:otherwise>
-							<a href="/project/phj/mypage/all?pageNum=${i }&field=${field}&keyword=${keyword}">
+							<a href="/project/phj/mypage/review?pageNum=${i }&field=${field}&keyword=${keyword}">
 							<span style='color:gray;'>[${i }]</span>
 							</a>
 						</c:otherwise>
@@ -126,7 +126,7 @@
 			</div>
 		</div>
 		<div>
-			<form action="${pageContext.request.contextPath }/phj/mypage/all" class="searchbox">
+			<form action="${pageContext.request.contextPath }/phj/mypage/review" class="searchbox">
 				<select name = "field" class="box_margin">
 					<option value="btitle" <c:if test="${field=='btitle' }">selected</c:if>>제목</option>
 					<option value="mid" <c:if test="${field=='mid' }">selected</c:if>>글쓴이</option>

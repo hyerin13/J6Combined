@@ -85,8 +85,8 @@
         <a href="/project/phj/home">${mid }님 마이페이지</a>
       </li>
       <li><a href="/project/phj/mypage/all">자유게시판</a></li>
-      <li><a href="#">리뷰게시판</a></li>
-      <li><a href="#">매칭게시판</a></li>
+      <li><a href="/project/phj/mypage/review">리뷰게시판</a></li>
+      <li><a href="/project/phj/mypage/matching">매칭게시판</a></li>
     </ul>
   </div>
   </div>
@@ -123,12 +123,12 @@
 				<c:forEach var="i" begin="${pu.startPageNum }" end="${pu.endPageNum }">
 					<c:choose>
 						<c:when test="${pu.pageNum==i }"><!-- 현재페이지 -->
-							<a href="/project/hjy/board/all?pageNum=${i }&field=${field}&keyword=${keyword}">
+							<a href="/project/phj/home?pageNum=${i }&field=${field}&keyword=${keyword}">
 							<span style='color:blue;font-weight: bold'>[${i }]</span>
 							</a>
 						</c:when>
 						<c:otherwise>
-							<a href="/project/hjy/board/all?pageNum=${i }&field=${field}&keyword=${keyword}">
+							<a href="/project/phj/home?pageNum=${i }&field=${field}&keyword=${keyword}">
 							<span style='color:gray;'>[${i }]</span>
 							</a>
 						</c:otherwise>
@@ -136,6 +136,20 @@
 				</c:forEach>
 			</div>
 		</div>
+		<div>
+			<form action="${pageContext.request.contextPath }/phj/home" class="searchbox">
+				<select name = "field" class="box_margin">
+					<option value="btitle" <c:if test="${field=='btitle' }">selected</c:if>>제목</option>
+					<option value="mid" <c:if test="${field=='mid' }">selected</c:if>>글쓴이</option>
+					<option value="bcontent" <c:if test="${field=='bcontent' }">selected</c:if>>내용</option>
+				</select>
+				<input type="text" name ="keyword" value="${keyword }" class="form-control box_margin">
+				<input type="submit" value="검색" class="btn btn-default submitbtn">
+			</form>
 		</div>
+		</div>
+	<div class="footer">
+		<jsp:include page="../../jhr/footer.jsp" flush="true"/>
+	</div>
 </body>
 </html>

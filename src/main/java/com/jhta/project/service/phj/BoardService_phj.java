@@ -25,12 +25,12 @@ public class BoardService_phj {
 		return mapper.selectBoardMine(map);
 	}
 	public List<BoardVo_phj> selectBoardcate(HashMap<String, Object> map) {
-		return mapper.selectBoardMine(map);
+		return mapper.selectBoardcate(map);
 	}
 	public int count_phj(HashMap<String, Object> map) {
 		return mapper.count_phj(map);
 	}
 	public int count_phj_cate(HashMap<String, Object> map) {
-		return mapper.count_phj(map);
+		return mapper.count_phj_cate(map);
 	}
 }

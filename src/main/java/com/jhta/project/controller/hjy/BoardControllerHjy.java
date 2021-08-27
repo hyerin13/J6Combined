@@ -222,12 +222,63 @@ public class BoardControllerHjy {
 		map.put("keyword", keyword);
 		map.put("mid", mid);
 		map.put("bcate", "all");
-		System.out.println("자유게시판 눌렀음");
 		PageUtil pu = new PageUtil(pageNum, 10, 5, boardService_phj.count_phj_cate(map));
 		map.put("startRow", pu.getStartRow());
 		map.put("endRow", pu.getEndRow());
 		List<BoardVo_phj> list = boardService_phj.selectBoardcate(map);
 		ModelAndView mv=new ModelAndView("user/hjy/board/mypage_all");
+		mv.addObject("list", list);
+		mv.addObject("pu", pu);
+		mv.addObject("field", field);
+		mv.addObject("keyword", keyword);
+		mv.addObject("mid", mid);
+		mv.addObject("bcate", "all");
+		return mv;
+	}
+	@GetMapping("phj/mypage/review")
+	public ModelAndView mypageBoardReview(HttpServletRequest req,
+			BoardVo_phj vo,String field, String keyword,
+			@RequestParam(value = "pageNum", defaultValue = "1") int pageNum) {
+		HttpSession session=req.getSession();
+		String mid=(String)session.getAttribute("mid");
+		System.out.println("mid:"+mid);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("field", field);
+		map.put("keyword", keyword);
+		map.put("mid", mid);
+		map.put("bcate", "review");
+		PageUtil pu = new PageUtil(pageNum, 10, 5, boardService_phj.count_phj_cate(map));
+		map.put("startRow", pu.getStartRow());
+		map.put("endRow", pu.getEndRow());
+		List<BoardVo_phj> list = boardService_phj.selectBoardcate(map);
+		ModelAndView mv=new ModelAndView("user/hjy/board/mypage_review");
+		mv.addObject("list", list);
+		mv.addObject("pu", pu);
+		mv.addObject("field", field);
+		mv.addObject("keyword", keyword);
+		mv.addObject("mid", mid);
+		mv.addObject("bcate", "all");
+		return mv;
+	}
+	@GetMapping("phj/mypage/matching")
+	public ModelAndView mypageBoardMatching(HttpServletRequest req,
+			BoardVo_phj vo,String field, String keyword,
+			@RequestParam(value = "pageNum", defaultValue = "1") int pageNum) {
+		HttpSession session=req.getSession();
+		String mid=(String)session.getAttribute("mid");
+		System.out.println("mid:"+mid);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("field", field);
+		map.put("keyword", keyword);
+		map.put("mid", mid);
+		map.put("bcate", "matching");
+		PageUtil pu = new PageUtil(pageNum, 10, 5, boardService_phj.count_phj_cate(map));
+		map.put("startRow", pu.getStartRow());
+		map.put("endRow", pu.getEndRow());
+		List<BoardVo_phj> list = boardService_phj.selectBoardcate(map);
+		ModelAndView mv=new ModelAndView("user/hjy/board/mypage_matching");
 		mv.addObject("list", list);
 		mv.addObject("pu", pu);
 		mv.addObject("field", field);

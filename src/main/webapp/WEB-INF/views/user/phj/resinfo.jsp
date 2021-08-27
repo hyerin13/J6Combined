@@ -69,9 +69,9 @@
 	<input type="hidden" name="bedfee" value="bedfee" style="border: none">
 	<input type="hidden" name="totalbreakfee" value="0">
 	<input type="hidden" name="totalbedfee" value="0">
-	사람<input type="text" id="personfee" name="personfee" value="personfee" style="border: none">
-	조식<input type="text" id="breakfastfee" name="breakfastfee" value="0" style="border: none">
-	침대<input type="text" id="bedfee" name="bedfee" value="0" style="border: none">
+	<input type="hidden" id="personfee" name="personfee" value="personfee" style="border: none">
+	<input type="hidden" id="breakfastfee" name="breakfastfee" value="0" style="border: none">
+	<input type="hidden" id="bedfee" name="bedfee" value="0" style="border: none">
 	<div class="box">
 	
 		<label>
@@ -182,6 +182,12 @@
 	function checkEmail(){
 		var email=$("#email").val();
 		var emailcheck=$("#emailcheck").val();
+/*		var ereg=/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		if (!ereg.test(email.value)){
+			alert("이메일형식에 맞게 입력하세요.");
+			email.focus();
+			return false;
+		}*/
 		if(email==emailcheck){
 			let com="입력하신 이메일 주소로 예약 확정서가 발송됩니다."
 			$("#emailOk").html(com).css("color","#9FC93C");
@@ -255,7 +261,7 @@
 				let info="";
 				
 				info +="<h3>"+ d.aname +"</h3>"+ "<br>" +
-				 "<img style='width:100%; height:100%;' src='${pageContext.request.contextPath }/resources/images/accommodations/"+d.amainimg+".jpg'>" + "<br>" +
+				 "<img style='width:100%; height:100%;' src='${pageContext.request.contextPath }/resources/images/accommodations/"+d.amainimg+"'>" + "<br>" +
 				 d.agrade + "<br>" +
 				 d.aaddress;
 				
