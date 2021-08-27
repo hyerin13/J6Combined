@@ -1,5 +1,6 @@
 package com.jhta.project.service.phj;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,16 @@ public class BoardService_phj {
 	public List<BoardVo_phj> selectBoard(String bcate) {
 		return mapper.selectBoard(bcate);
 	}
-	public BoardVo_phj selectBoardMine(String mid) {
-		return mapper.selectBoardMine(mid);
+	public List<BoardVo_phj> selectBoardMine(HashMap<String, Object> map) {
+		return mapper.selectBoardMine(map);
+	}
+	public List<BoardVo_phj> selectBoardcate(HashMap<String, Object> map) {
+		return mapper.selectBoardMine(map);
+	}
+	public int count_phj(HashMap<String, Object> map) {
+		return mapper.count_phj(map);
+	}
+	public int count_phj_cate(HashMap<String, Object> map) {
+		return mapper.count_phj(map);
 	}
 }

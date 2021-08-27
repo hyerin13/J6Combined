@@ -26,7 +26,14 @@
 		<div class="nav">
 			<ul class="nav_menu">
 				<li><a class="nav_hotel" href="${pageContext.request.contextPath}/"><span>호텔</span></a></li>
-				<li><a class="nav_board" href="${pageContext.request.contextPath }/hjy/board/all"><span>게시판</span></a></li>
+				<c:choose>
+					<c:when test="${empty sessionScope.mid }">
+						<li><a class="nav_board" href="${pageContext.request.contextPath }/jhr/login"><span>게시판</span></a></li>
+					</c:when>
+					<c:otherwise>
+						<li><a class="nav_board" href="${pageContext.request.contextPath }/hjy/board/all"><span>게시판</span></a></li>
+					</c:otherwise>
+				</c:choose>
 				<li><a class="nav_qna" href="${pageContext.request.contextPath }/hjy/qna"><span>QnA</span></a></li>
 			</ul>
 			<div class="nav_account">

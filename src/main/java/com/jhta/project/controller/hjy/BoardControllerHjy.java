@@ -183,4 +183,57 @@ public class BoardControllerHjy {
 		}
 		return result;
 	}
+
+	@GetMapping("phj/home")
+	public ModelAndView mypageBoard(HttpServletRequest req,
+			BoardVo_phj vo,String field, String keyword,
+			@RequestParam(value = "pageNum", defaultValue = "1") int pageNum) {
+		HttpSession session=req.getSession();
+		String mid=(String)session.getAttribute("mid");
+		System.out.println("mid:"+mid);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("field", field);
+		map.put("keyword", keyword);
+		map.put("mid", mid);
+		
+		PageUtil pu = new PageUtil(pageNum, 10, 5, boardService_phj.count_phj(map));
+		map.put("startRow", pu.getStartRow());
+		map.put("endRow", pu.getEndRow());
+		List<BoardVo_phj> list = boardService_phj.selectBoardMine(map);
+		ModelAndView mv=new ModelAndView("user/hjy/board/boardMain");
+		mv.addObject("list", list);
+		mv.addObject("pu", pu);
+		mv.addObject("field", field);
+		mv.addObject("keyword", keyword);
+		mv.addObject("mid", mid);
+		return mv;
+	}
+	@GetMapping("phj/mypage/all")
+	public ModelAndView mypageBoardAll(HttpServletRequest req,
+			BoardVo_phj vo,String field, String keyword,
+			@RequestParam(value = "pageNum", defaultValue = "1") int pageNum) {
+		HttpSession session=req.getSession();
+		String mid=(String)session.getAttribute("mid");
+		System.out.println("mid:"+mid);
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("field", field);
+		map.put("keyword", keyword);
+		map.put("mid", mid);
+		map.put("bcate", "all");
+		System.out.println("자유게시판 눌렀음");
+		PageUtil pu = new PageUtil(pageNum, 10, 5, boardService_phj.count_phj_cate(map));
+		map.put("startRow", pu.getStartRow());
+		map.put("endRow", pu.getEndRow());
+		List<BoardVo_phj> list = boardService_phj.selectBoardcate(map);
+		ModelAndView mv=new ModelAndView("user/hjy/board/mypage_all");
+		mv.addObject("list", list);
+		mv.addObject("pu", pu);
+		mv.addObject("field", field);
+		mv.addObject("keyword", keyword);
+		mv.addObject("mid", mid);
+		mv.addObject("bcate", "all");
+		return mv;
+	}
 }
