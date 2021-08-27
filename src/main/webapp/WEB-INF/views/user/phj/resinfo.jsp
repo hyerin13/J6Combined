@@ -110,9 +110,9 @@
 		</div>
 		<div>
 		<label>추가</label><br>
-		- 조식추가 <input type="number" name="rexbreaknum" id="rexbreaknum" value="0" min="0" max="rexperson"><br>
+		- 조식추가 <input style="width:30px;" type="number" name="rexbreaknum" id="rexbreaknum" value="0" min="0" max="rexperson"><br>
 		- 침대추가 <input type="number" name="rexbed"id="rexbed" value="0" min="0" max="1"><br>
- 		- 인원추가 <input type="text" name="rexperson" id="rexperson" value="0"><br>	
+ 		- 인원추가 <input type="text" name="rexperson" id="rexperson" value="0"><p style="color:#BDBDBD;">*검색 기준 현재 추가 인원</p><br>	
 		<br>
 			
 		</div>
@@ -262,7 +262,7 @@
 				
 				info +="<h3>"+ d.aname +"</h3>"+ "<br>" +
 				 "<img style='width:100%; height:100%;' src='${pageContext.request.contextPath }/resources/images/accommodations/"+d.amainimg+"'>" + "<br>" +
-				 d.agrade + "<br>" +
+				 d.aphone + "<br>" +
 				 d.aaddress;
 				
 				$("#hotelInfo").html(info);

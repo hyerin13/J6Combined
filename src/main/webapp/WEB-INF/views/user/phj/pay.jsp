@@ -38,7 +38,7 @@
 <form method="post" action="${pageContext.request.contextPath }/phj/payOk">
 <div class="paybox" style="width:30%;text-align: center;">
 	<br>
-	<input type="text" name="rid" id="rid" value="${rid }">
+	<input type="hidden" name="rid" id="rid" value="${rid }">
 	<input type="hidden" id="ramount" value="${ramount }">
 	<input type="hidden" id="rcheckin" value="${rcheckin }">
 	<input type="hidden" id="rcheckout" value="${rcheckout }">

@@ -28,7 +28,7 @@ public class AccommodationsInfo {
 		HashMap<String, Object> map=new HashMap<String, Object>();
 		map.put("aname",vo.getAname());
 		map.put("amainimg",vo.getAmainimg());
-		map.put("agrade",vo.getAgrade());
+		map.put("aphone",vo.getAphone());
 		map.put("aaddress",vo.getAaddress());
 		return map;
 	}
