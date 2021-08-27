@@ -68,7 +68,7 @@ $(function(){
     </ul>
 </div>
 <input type="hidden" id="qnaCate" value="${qcate}">
-
+<input type="hidden" id="mid" value="${mid}">
 <div class="board_content">
    <table class="table">
       <tr class="table_title">
@@ -102,9 +102,16 @@ $(function(){
             <td class="tdalign">${vo.mid }</td>
          </tr>
       </c:forEach> 
-   </table>
-   <div class="other_content">
-      <input type="button" onclick="writeQna()" value="글쓰기" class="btn btn-default writebtn">
+   	</table>
+   	<div class="other_content">
+		<c:choose>
+	 		<c:when test="${empty sessionScope.mid }">
+	 			<input type="button" onclick="chklogin()" value="글쓰기" class="btn btn-default writebtn">
+	 		</c:when>
+	 		<c:otherwise>
+	 			<input type="button" onclick="writeQna()" value="글쓰기" class="btn btn-default writebtn">
+	 		</c:otherwise>
+	 	</c:choose>
       <div class="pagebox">
          <c:forEach var="i" begin="${pu.startPageNum }" end="${pu.endPageNum }">
             <c:choose>
@@ -139,8 +146,16 @@ $(function(){
 </div>
 </body>
 <script type="text/javascript">
-function writeQna(){
-   location.href='${pageContext.request.contextPath }/hjy/newQna?qcate='+$("#qcate").val();
+function writeQna(){	
+	location.href='${pageContext.request.contextPath }/hjy/newQna?qcate='+$("#qcate").val(); 
+}
+function chklogin(){
+	let chk = confirm("로그인 해야만 이용 가능한 서비스입니다. 로그인 하시겠습니까?");
+	if(chk == true){
+		location.href='${pageContext.request.contextPath }/jhr/login';
+	}else{
+		return;
+	}
 }
 function qpwCheck(qpw,qid){
 	let pwc = prompt("비밀번호를 입력해주세요");
