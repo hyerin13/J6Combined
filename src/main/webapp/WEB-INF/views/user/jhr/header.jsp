@@ -83,7 +83,6 @@
 	
 	$(function(){
 		let path = document.location.pathname;
-		console.log(path)
 		var array = new Array();
 		array= path.split("/");
 		let addpath;

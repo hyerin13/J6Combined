@@ -53,11 +53,11 @@ public class QnaControllerHjy {
 		map.put("endRow", pu.getEndRow());
 		System.out.println("field"+field);
 		System.out.println("keyword"+keyword);
-		System.out.println("qcate"+qcate);
 		System.out.println("pu"+pu);
 		List<UserqnaVo> list = userqnaService.qnalist(map);
 		model.addAttribute("pu", pu);
 		model.addAttribute("list", list);
+		model.addAttribute("qcate", qcate);
 		model.addAttribute("field", field);
 		model.addAttribute("keyword", keyword);
 		return "user/hjy/qna/qnaMain";
@@ -78,6 +78,7 @@ public class QnaControllerHjy {
 		UserqnaVo vo = userqnaService.qnaDetail(qid);
 		UserqnaVo nextVo = userqnaService.next(qid);
 		UserqnaVo prevVo = userqnaService.prev(qid);
+		System.out.println(vo.getQref());
 		String ans = userqnaService.qnaAns(vo.getQref());
 		model.addAttribute("vo", vo);
 		model.addAttribute("ans", ans);
