@@ -224,7 +224,7 @@ public class Room_infoController_kjy {
 					return mv1;
 				}
 			}
-			mv.addObject("rodernum", roomnum);
+			mv.addObject("roomnum", roomnum);
 			mv.addObject("startday",startday1);
 			mv.addObject("endday",endday1);
 			mv.addObject("accvo",accvo);
