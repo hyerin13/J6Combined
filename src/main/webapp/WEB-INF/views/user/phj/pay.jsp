@@ -36,7 +36,7 @@
 	<jsp:include page="../jhr/header.jsp" flush="true"/>
 </div>
 <form method="post" action="${pageContext.request.contextPath }/phj/payOk">
-<div class="paybox" style="width:30%;text-align: center;">
+<div class="paybox" style="width:700px;text-align: center;margin-left: 30%;">
 	<br>
 	<input type="hidden" name="rid" id="rid" value="${rid }">
 	<input type="hidden" id="ramount" value="${ramount }">
@@ -61,8 +61,10 @@
 	<input type="hidden" id="totalpersonfee" value="${totalpersonfee }">
 	<input type="hidden" id="breakfastfee" value="${breakfastfee }">
 	<input type="hidden" name="prefund" id="prefund" value="${prefund }">
+	<input type="hidden" id=sum value="${sum }" style="border: none;text-align: right;">
+	<input name="totalFee" id="totalFee"type="hidden" value="" style="border: none">
 	<h2>예약을 완성하세요!</h2>
-	<table class="table">
+	<table class="table" style="margin:auto;">
 		<tr>
 			
 			<img src="${pageContext.request.contextPath }/resources/images/accommodations/booking_phj.png"  style="text-align: center; width:100%;height: 100%;">
@@ -70,7 +72,7 @@
 		</tr>
 		<tr>
 			<th>방 가격 </th>
-			<td><input type="text" id=sum value="${sum }" style="border: none"></td>
+			<td>${sum }</td>
 		</tr>
 		<tr>
 			<th>인원 추가 비용 </th>
@@ -86,7 +88,7 @@
 		</tr>
 		<tr>
 			<th>총 결제 가격 </th>
-			<td><input name="totalFee" id="totalFee"type="text" value="" style="border: none"></td>
+			<td id="totalFee1"></td>
 		</tr>
 	</table>
 	<br>
@@ -94,7 +96,7 @@
 	<br>
 	<br>
 	<div>
-	<span style="font-size:17px;">결제방법 선택</span>
+	<span style="font-size:17px;">결제방법 선택</span><br>
 	<input type="button" id="card" value="신용/직불카드" class="btn btn-link" style="border-color: #6799FF; border-radius: 5px;">
 	
 	<input type="button" id="kakao" value="카카오 바로결제" class="btn btn-warning">
@@ -118,6 +120,7 @@
 		console.log(sum*1000);
 		var total=(sum*1000)+totalpersonfee+totalbreakfee+totalbedfee;
 		$('input[name=totalFee]').attr('value',numberWithCommas(total));
+		$('#totalFee1').text(numberWithCommas(total));
 		
 	})
 	
