@@ -82,9 +82,9 @@
   <div id="sidebar-wrapper">
     <ul class="sidebar-nav">
       <li class="sidebar-brand">
-        <a href="/project/phj/home">${mid }님 마이페이지</a>
+        <a href="#">${mid }님 마이페이지</a>
       </li>
-      <li><a href="/project/phj/mypage/all">자유게시판</a></li>
+      <li><a href="#">자유게시판</a></li>
       <li><a href="#">리뷰게시판</a></li>
       <li><a href="#">매칭게시판</a></li>
     </ul>
@@ -99,25 +99,14 @@
 			</tr>
 			<c:forEach var="vo" items="${list }">
 				<tr class="table_content">
-					<td class="tdalign">
-						<c:choose>
-							<c:when test="${vo.bcate eq 'all' }">
-								자유게시판
-							</c:when>
-							<c:when test="${vo.bcate eq 'review' }">
-								리뷰게시판
-							</c:when >	
-							<c:when test="${vo.bcate eq 'matching' }">
-								매칭게시판
-							</c:when>
-						</c:choose>
-				 	</td>
+					<td class="tdalign">자유게시판	</td>
 					<td><a href="/project/hjy/board/detail?bid=${vo.bid }">${vo.btitle }</a></td>
 					<fmt:formatDate value="${vo.brdate }" pattern="YY-MM-dd" var="brdate"/>
 					<td class="tdalign">${brdate }</td>
 				</tr>
 			</c:forEach>
 		</table>
+	
 		<div class="other_content">
 			<div class="pagebox">
 				<c:forEach var="i" begin="${pu.startPageNum }" end="${pu.endPageNum }">

@@ -11,7 +11,43 @@
 	<select id="selectBoardAll" resultType="com.jhta.project.vo.phj.BoardVo_phj">
 		select * from board
 	</select>
-	<select id="selectBoardMine" parameterType="String" resultType="com.jhta.project.vo.phj.BoardVo_phj">
-		select * from board where mid=#{mid}
+
+	<sql id="search_phj">
+		<if test="field!=null and field!=''">
+			and ${field} like '%'||#{keyword}||'%'
+		</if>
+	</sql>
+	<select id="count_phj" resultType="int" parameterType="hashmap">
+		select NVL(count(*),0) cnt from board where mid=#{mid}
+		<include refid="search_phj" />
+	</select>
+	<select id="selectBoardMine" parameterType="hashmap"
+		resultType="com.jhta.project.vo.phj.BoardVo_phj">
+		select* from
+		(
+		select aa.*, rownum rnum from
+		(
+		select bid,bcate,btitle,brdate,mid from board where mid=#{mid}
+		<include refid="search_phj" />
+		order by bid desc
+		)aa
+		<![CDATA[) where rnum>=#{startRow} and rnum<=#{endRow}]]>
+	</select>
+	
+	<select id="count_phj_cate" resultType="int" parameterType="hashmap">
+		select NVL(count(*),0) cnt from board where mid=#{mid} and bcate=#{bcate}
+		<include refid="search_phj" />
+	</select>
+	<select id="selectBoardcate" parameterType="hashmap"
+		resultType="com.jhta.project.vo.phj.BoardVo_phj">
+		select* from
+		(
+		select aa.*, rownum rnum from
+		(
+		select bid,bcate,btitle,brdate,mid from board where mid=#{mid} and bcate=#{bcate}
+		<include refid="search_phj" />
+		order by bid desc
+		)aa
+		<![CDATA[) where rnum>=#{startRow} and rnum<=#{endRow}]]>
 	</select>
 </mapper>
