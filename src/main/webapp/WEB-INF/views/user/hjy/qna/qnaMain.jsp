@@ -161,7 +161,7 @@ function chklogin(){
 function qpwCheck(qpw,qid){
 	let pwc = prompt("비밀번호를 입력해주세요");
 	if(pwc == null || pwc == ""){
-		location.href= '${pageContext.request.contextPath }/hjy/qna/qnaDetail?qid='+qid+'&qcate=${qcate}';
+		location.href= '${pageContext.request.contextPath }/hjy/qna';
 	}else{
 		if(qpw == pwc) {
 			location.href= '${pageContext.request.contextPath }/hjy/qna/qnaDetail?qid='+qid+'&qcate=${qcate}';
