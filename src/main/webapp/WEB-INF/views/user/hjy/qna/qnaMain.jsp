@@ -140,12 +140,12 @@ function qpwCheck(){
 	let qpw = $("#qpw").val();
 	console.log(qpw);
 	if(qpw == null){
-		alert("비번x");
+		alert("비번x/비밀글아님");
 		//location.href= '${pageContext.request.contextPath }/hjy/qna/qnaDetail?qid=${vo.qid}&qcate='
 	}else{
 		let pwc = prompt("비밀번호를 입력해주세요");
 		if(pwc == null || pwc == ""){
-			alert("비번없음");
+			alert("취소");
 			//location.href='${pageContext.request.contextPath }/hjy/qna';
 		}else{
 			if(qpw == pwc) {
