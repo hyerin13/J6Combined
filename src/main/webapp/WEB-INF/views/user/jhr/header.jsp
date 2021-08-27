@@ -86,6 +86,6 @@
 				addpath="/";
 			}
 		}
-		$('.nav').find('a[href="/project'+addpath+'"]').parents('li').addClass('active');
+		$('.nav').find('a[href="/project'+addpath+'"]').parents('li').addClass('header_active');
 	});
 </script>
