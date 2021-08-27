@@ -74,7 +74,7 @@ $(function(){
       <tr class="table_title">
          <th style="width:140px">답변상태</th>
          <th style="width:140px">번호</th>
-         <th>글제목</th>
+         <th>글제목 </th>
          <th class="table_date">작성일</th>
          <th class="table_writer">작성자</th>
       </tr>
