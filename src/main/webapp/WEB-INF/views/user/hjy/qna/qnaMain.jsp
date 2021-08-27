@@ -89,7 +89,7 @@ $(function(){
                </c:otherwise>
             </c:choose>
             <td class="tdalign">${vo.qid }</td>
-            <td><a href="${pageContext.request.contextPath }/hjy/qna/qnaDetail?qid=${vo.qid }&qcate=${qcate}" onclick='qpwCheck()'>${vo.qtitle }</a></td>
+            <td><a href="${pageContext.request.contextPath }/hjy/qna/qnaDetail?qid=${vo.qid }&qcate=${qcate}">${vo.qtitle }</a></td>
             <fmt:formatDate value="${vo.qrdate }" pattern="YY-MM-dd" var="qrdate"/>
             <td class="tdalign">${qrdate }</td>
             <td class="tdalign">${vo.mid }</td>
@@ -141,11 +141,12 @@ function qpwCheck(){
 	console.log(qpw);
 	if(qpw == null){
 		alert("비번x");
-		//location.href= '${pageContext.request.contextPath }/hjy/qna/qnaDetail?qid=${vo.qid }'
+		//location.href= '${pageContext.request.contextPath }/hjy/qna/qnaDetail?qid=${vo.qid}&qcate='
 	}else{
 		let pwc = prompt("비밀번호를 입력해주세요");
 		if(pwc == null || pwc == ""){
-			location.href='${pageContext.request.contextPath }/hjy/qna';
+			alert("비번없음");
+			//location.href='${pageContext.request.contextPath }/hjy/qna';
 		}else{
 			if(qpw == pwc) {
 				alert("비번 o");
