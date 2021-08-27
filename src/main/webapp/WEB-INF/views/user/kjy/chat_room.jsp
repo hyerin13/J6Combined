@@ -90,6 +90,87 @@
 	top:45px;
 	right:5px;
 }
+
+/* 채팅메세지 css */
+
+/* 본인창 css */
+.memsgdiv{
+	position: relative;
+	width: 380px;
+}
+.memsgbox{
+	position: relative;
+	width: 200px;
+	left: 170px;
+	word-break:break-all;
+}
+.memsg{
+	background:white;
+	font-size:15px;
+	border-radius:5px;
+}
+.metime{
+	position:relative;
+	display: inline-block;
+	left:300px;
+	font-size:10px;
+}
+
+/* 상대방창 css */
+.youmsgdiv{
+	position:relative;
+	width: 380px;
+}
+.youprofile{
+	position:relative;
+	left: 10px;
+	width:50px;
+	height:50px;
+	border-radius:15px;
+}
+.youname{
+	position:absolute;
+	top:5px;
+	left:70px;
+	font-size:12px;
+	font-weight:bold;
+}
+.youmsgbox{
+	position:relative;
+	width:200px;
+	top:-20px;
+	left:70px;
+	word-break:break-all;
+}
+.youmsg{
+	display:inline-block;
+	background:white;
+	font-size:15px;
+	border-radius:5px;
+}
+.youtime{
+	position:relative;
+	font-size:10px;
+}
+
+/* 시스템메세지 css */
+.sysdiv{
+	position:relative;
+	width:380px;
+	text-align: center;
+}
+.sysbox{
+	position:relative;
+	margin: 0 auto;
+	width: 200px;
+	word-break:break-all;
+}
+.msgsysmsg{
+	background:white;
+	font-size: 12px;
+	font-weight:bold;
+	border-radius:5px;
+}
 </style>
 <div id="header">
 	<img src="${pageContext.request.contextPath }/resources/images/members/${cmprofile }" class="myprofile">
@@ -117,7 +198,6 @@
 	</div>
 </div>
 <script type="text/javascript">
-
 var crid=$("#crid").val();
 var cmid=$("#cmid").val();
 var cmprofile=$("#cmprofile").val();
@@ -135,7 +215,6 @@ function wsOpen(){
 		success:function(data){
 			$(data.list).each(function(i,d){
 				let msgmessage=d.msgmessage;
-				let cmid=d.cmid;
 				let msgshottime=d.msgshottime;
 				let cmname=d.cmname;
 				let cmprofile=d.cmprofile;
@@ -147,25 +226,8 @@ function wsOpen(){
 					"</div>"+
 					"</div>";
 					$("#contentarea").append(html);
-					$(".sysdiv").css({
-						position: "relative",
-						width:"380px",
-						textAlign:"center"
-					});
-					$(".sysbox").css({
-						position: "relative",
-						margin:"0 auto",
-						width:"200px",
-						wordBreak: "break-all"
-					});
-					$(".msgsysmsg").css({
-						background:"white",
-						fontSize:"12px",
-						fontweight: "bold",
-						borderRadius: "5px"
-					});
 				}
-				if(cmid==$("#cmid").val() && msgmessage!=null){
+				if(d.cmid==$("#cmid").val() && msgmessage!=null){
 					let html="<div class='memsgdiv'>"+
 					"<div class='memsgbox'>"+
 					"<p class='memsg'>"+msgmessage+"</p>"+
@@ -173,27 +235,6 @@ function wsOpen(){
 					"<p class='metime'>"+msgshottime+"</p>"+
 					"</div>";
 					$("#contentarea").append(html);
-					$(".memsgdiv").css({
-						position: "relative",
-						width:"380px",
-					});
-					$(".memsgbox").css({
-						position: "relative",
-						width:"200px",
-						left:"170px",
-						wordBreak: "break-all"
-					});
-					$(".memsg").css({
-						background:"white",
-						fontSize:"15px",
-						borderRadius: "5px"
-					});
-					$(".metime").css({
-						position: "relative",
-						display: "inline-block",
-						left:"300px",
-						fontSize:"10px"
-					});
 				}else if(msgmessage!=null){
 					let html="<div class='youmsgdiv'>"+
 					"<img src='${pageContext.request.contextPath }/resources/images/members/"+cmprofile+"' class='youprofile'>"+
@@ -204,41 +245,6 @@ function wsOpen(){
 					"</div>"+
 					"</div>";
 					$("#contentarea").append(html);
-					$(".youmsgdiv").css({
-						position: "relative",
-						width:"380px",
-					});
-					$(".youprofile").css({
-						position: "relative",
-						left:"10px",
-						width:"50px",
-						height:"50px",
-						borderRadius: "15px"				
-					});
-					$(".youname").css({
-						position: "absolute",
-						top:"5px",
-						left:"70px",
-						fontSize:"12px",
-						fontweight: "bold"
-					});
-					$(".youmsgbox").css({
-						position: "relative",
-						width:"200px",
-						top:"-20px",
-						left:"70px",
-						wordBreak: "break-all"
-					});
-					$(".youmsg").css({
-						display: "inline-block",
-						background:"white",
-						fontSize:"15px",
-						borderRadius: "5px",
-					});
-					$(".youtime").css({
-						position: "relative",
-						fontSize:"10px"
-					});
 				}
 			});
 			//스크롤 하단 고정
@@ -247,15 +253,18 @@ function wsOpen(){
 	});
 }
 
-function wsEvt() {
-	ws.onopen = function(data){
-		//소켓이 열리면 초기화 세팅하기
-		console.log(data);
-	}
-	ws.onmessage = function(data) {
-		//메시지를 받으면 동작
-		var msg = data.data;
-		if(msg != null && msg.trim() != ''){
+wsOpen();
+
+ws.onopen = function(data){
+	//소켓이 열리면 초기화 세팅하기
+}
+
+ws.onmessage = function(data) {
+	console.log("data:"+data);
+	//메시지를 받으면 동작
+	var msg = data.data;
+	console.log("msg:"+msg);
+	if(msg != null && msg.trim() != ''){
 			var d = JSON.parse(msg);
 			let today = new Date();   
 			let msgshottime=today.toLocaleTimeString();
@@ -263,7 +272,9 @@ function wsEvt() {
 			let cmname=d.cmname;
 			let cmprofile=d.cmprofile;
 			let msgsysmsg=d.msgsysmsg;
+			console.log()
 			//시스템 메세지
+			console.log(msgsysmsg);
 			if(msgsysmsg!=null){
 				let html="<div class='sysdiv'>"+
 				"<div class='sysbox'>"+
@@ -271,25 +282,8 @@ function wsEvt() {
 				"</div>"+
 				"</div>";
 				$("#contentarea").append(html);
-				$(".sysdiv").css({
-					position: "relative",
-					width:"380px",
-					textAlign:"center"
-				});
-				$(".sysbox").css({
-					position: "relative",
-					margin:"0 auto",
-					width:"200px",
-					wordBreak: "break-all"
-				});
-				$(".msgsysmsg").css({
-					background:"white",
-					fontSize:"12px",
-					fontweight: "bold",
-					borderRadius: "5px"
-				});
 			}else{
-				if(d.cmid == $("#cmid").val()){
+				if(d.cmid == $("#cmid").val() && msgmessage!=null){
 					let html="<div class='memsgdiv'>"+
 					"<div class='memsgbox'>"+
 					"<p class='memsg'>"+msgmessage+"</p>"+
@@ -297,29 +291,7 @@ function wsEvt() {
 					"<p class='metime'>"+msgshottime+"</p>"+
 					"</div>";
 					$("#contentarea").append(html);	
-					
-					$(".memsgdiv").css({
-						position: "relative",
-						width:"380px",
-					});
-					$(".memsgbox").css({
-						position: "relative",
-						width:"200px",
-						left:"170px",
-						wordBreak: "break-all"
-					});
-					$(".memsg").css({
-						background:"white",
-						fontsize:"15px",
-						borderRadius: "5px"
-					});
-					$(".metime").css({
-						position: "relative",
-						display: "inline-block",
-						left:"300px",
-						fontSize:"10px"
-					});
-				}else{
+				}else if(msgmessage!=null){
 					let html="<div class='youmsgdiv'>"+
 					"<img src='${pageContext.request.contextPath }/resources/images/members/"+cmprofile+"' class='youprofile'>"+
 					"<p class='youname'>"+cmname+"</p>"+
@@ -329,49 +301,12 @@ function wsEvt() {
 					"</div>"+
 					"</div>";
 					$("#contentarea").append(html);
-					$(".youmsgdiv").css({
-						position: "relative",
-						width:"380px",
-					});
-					$(".youprofile").css({
-						position: "relative",
-						left:"10px",
-						width:"50px",
-						height:"50px",
-						borderRadius: "15px"				
-					});
-					$(".youname").css({
-						position: "absolute",
-						top:"5px",
-						left:"70px",
-						fontSize:"12px",
-						fontweight: "bold"
-					});
-					$(".youmsgbox").css({
-						position: "relative",
-						width:"200px",
-						top:"-20px",
-						left:"70px",
-						wordBreak: "break-all"
-					});
-					$(".youmsg").css({
-						display: "inline-block",
-						background:"white",
-						fontSize:"15px",
-						borderRadius: "5px",
-					});
-					$(".youtime").css({
-						position: "relative",
-						fontSize:"10px"
-					});
 				}	
 			}
 		}
 		//스크롤 하단 고정
 		$('#content').scrollTop($('#content')[0].scrollHeight);
 	}
-}
-
 
 function send(data) {
 	var option ={
@@ -385,9 +320,7 @@ function send(data) {
 	}
 	ws.send(JSON.stringify(option))
 	$('#chatting').val("");
-	wsEvt();
 }
-wsOpen();
 
 $(document).on("mouseenter",".smmenu",function(){
 	$(this).css({
