@@ -9,27 +9,12 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <style>
-
+/*header*/
 #header {
 	position: relative;
 	height: 50px;
 	background:#C2DBEA;
 	border-bottom:1px solid gray; 
-}
-
-#footer{
-	position:relative;
-	height:50px;
-	background:white; 
-	border-top:1px solid gray; 
-}
-
-#content{
-	position:relative;
-	background: #D6F0FF;
-	height:590px;
-	overflow-y:scroll;
-	overflow-x:hidden;
 }
 .myprofile {
 	position:absolute;
@@ -46,23 +31,6 @@
 	font-size:15px;
 	font-weight:bold;
 }
-#sendBtn{
-	position: absolute;
-	top:5px;
-	right:5px;
-	width:100px;
-	height:50px;
-}
-#chatting{
-	position:absolute;
-	top:5px;
-	left:5px;
-	width:285px;
-	height:50px;
-	overflow:auto;
-    resize: none;
-}
-
 .smallmenu{
 	position: absolute;
 	top:5px;
@@ -78,7 +46,6 @@
 	margin-top:10px;
 	text-decoration:none;
 }
-
 .moremenu{
 	display:none;
 	position:absolute;
@@ -91,42 +58,78 @@
 	right:5px;
 }
 
-/* 채팅메세지 css */
+#content{
+	background: #D6F0FF;
+	height:590px;
+	overflow-y:scroll;
+	overflow-x:hidden;
+}
+/* 시스템메세지 css */
+.sysdiv{
+	width:380px;
+	text-align:center;
+	margin:10px 0;
+}
+.sysdiv:first-child {
+	margin-top:20px;
+	margin-bottom:0;
+}
+.sysdiv:last-child {
+	margin-bottom:20px;
+}
+.sysbox{
+	width:200px;
+	margin:0 auto;
+	word-break:break-all;
+}
+.msgsysmsg{
+	background:white;
+	font-size: 12px;
+	font-weight:bold;
+	border-radius:5px;
+}
 
+/* 채팅메세지 css */
 /* 본인창 css */
 .memsgdiv{
-	position: relative;
+	border:1px solid red;
 	width: 380px;
+	display:flex;
+	justify-content:flex-end;
 }
 .memsgbox{
-	position: relative;
-	width: 200px;
-	left: 170px;
+	max-width: 200px;
 	word-break:break-all;
+	position:relative;
+	margin-bottom:24px;
+	margin-right:10px;
 }
 .memsg{
 	background:white;
 	font-size:15px;
 	border-radius:5px;
+	padding:5px 8px;
+	margin:0;
 }
 .metime{
-	position:relative;
 	display: inline-block;
-	left:300px;
 	font-size:10px;
+	padding-top:10px;
+	position:absolute;
+	right:0;
 }
 
 /* 상대방창 css */
 .youmsgdiv{
-	position:relative;
+	border:1px solid green;
 	width: 380px;
+	position:relative;
 }
 .youprofile{
-	position:relative;
-	left: 10px;
 	width:50px;
 	height:50px;
 	border-radius:15px;
+	margin-left:10px;
 }
 .youname{
 	position:absolute;
@@ -137,7 +140,7 @@
 }
 .youmsgbox{
 	position:relative;
-	width:200px;
+	max-width:200px;
 	top:-20px;
 	left:70px;
 	word-break:break-all;
@@ -147,29 +150,35 @@
 	background:white;
 	font-size:15px;
 	border-radius:5px;
+	padding:5px 8px;
 }
 .youtime{
 	position:relative;
 	font-size:10px;
 }
 
-/* 시스템메세지 css */
-.sysdiv{
+/*footer*/
+#footer{
 	position:relative;
-	width:380px;
-	text-align: center;
+	height:50px;
+	background:white; 
+	border-top:1px solid gray; 
 }
-.sysbox{
-	position:relative;
-	margin: 0 auto;
-	width: 200px;
-	word-break:break-all;
+#sendBtn{
+	position: absolute;
+	top:5px;
+	right:5px;
+	width:100px;
+	height:50px;
 }
-.msgsysmsg{
-	background:white;
-	font-size: 12px;
-	font-weight:bold;
-	border-radius:5px;
+#chatting{
+	position:absolute;
+	top:5px;
+	left:5px;
+	width:285px;
+	height:50px;
+	overflow:auto;
+    resize: none;
 }
 </style>
 <div id="header">
@@ -188,8 +197,10 @@
 	<input type="hidden" id="cmname" value=${cmname }>
 </div>
 <div id="content">
-<div id="contentarea" class="contentarea">
-</div>
+	<div id="contentarea" class="contentarea">
+		<div id="userarea" class="userarea"></div>
+		<div id="messagearea" class="messagearea"></div>
+	</div>
 </div>
 <div id="footer">
 	<div id="Msg">
@@ -225,16 +236,16 @@ function wsOpen(){
 					"<p class='msgsysmsg'>"+msgsysmsg+"</p>"+
 					"</div>"+
 					"</div>";
-					$("#contentarea").append(html);
+					$("#userarea").append(html);
 				}
 				if(d.cmid==$("#cmid").val() && msgmessage!=null){
 					let html="<div class='memsgdiv'>"+
 					"<div class='memsgbox'>"+
 					"<p class='memsg'>"+msgmessage+"</p>"+
-					"</div>"+
 					"<p class='metime'>"+msgshottime+"</p>"+
+					"</div>"+
 					"</div>";
-					$("#contentarea").append(html);
+					$("#messagearea").append(html);
 				}else if(msgmessage!=null){
 					let html="<div class='youmsgdiv'>"+
 					"<img src='${pageContext.request.contextPath }/resources/images/members/"+cmprofile+"' class='youprofile'>"+
@@ -244,7 +255,7 @@ function wsOpen(){
 					"<p class='youtime'>"+msgshottime+"</p>"+
 					"</div>"+
 					"</div>";
-					$("#contentarea").append(html);
+					$("#messagearea").append(html);
 				}
 			});
 			//스크롤 하단 고정

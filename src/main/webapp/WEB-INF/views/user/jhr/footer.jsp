@@ -40,7 +40,7 @@
 				<a href="#">개인 정보 보호 정책</a>
 				<a href="#">쿠키 정책</a>
 				<a href="#">이용 약관</a>
-				<span>©2021 HotelsCombined</span>
+				<span>©2021 J6Combined</span>
 			</div>
 		</div>
 		
