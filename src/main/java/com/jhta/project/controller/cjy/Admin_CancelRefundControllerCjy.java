@@ -21,6 +21,7 @@ import com.jhta.project.service.hjy.PaymentServiceHjy;
 import com.jhta.project.service.hjy.ReservationServiceHjy;
 import com.jhta.project.vo.cjy.Admin_ManageMemVo;
 import com.jhta.project.vo.cjy.ReservationVo;
+import com.jhta.project.vo.cjy.RsvPaymentVo;
 import com.jhta.project.vo.hjy.PaymentVo;
 import com.jhta.project.vo.hjy.ReservationRateVo;
 import com.jhta.util.PageUtil;
@@ -44,21 +45,18 @@ public class Admin_CancelRefundControllerCjy {
 			SimpleDateFormat afterFormat = new SimpleDateFormat("yyyy-MM-dd");
 			java.util.Date tempDate1=null;
 			java.util.Date tempDate2=null;
-			List<ReservationVo> data=crservice.list();
+			List<RsvPaymentVo> data=crservice.list();
+			System.out.println("pdate:"+data.get(0).getPdate());
 			map.put("data", data);
 			System.out.println(data);
 			for(int i=0; i<data.size() ;i++) {
 				System.out.println("dd:"+data.get(i).getRcheckin());
 				tempDate1=beforeFormat.parse(data.get(i).getRcheckin());
 				tempDate2=beforeFormat.parse(data.get(i).getRcheckout());
-				//System.out.println("tempDate1:"+tempDate1);
-				//System.out.println("tempDate2:"+tempDate2);
 				String rcheckin=afterFormat.format(tempDate1);
 				String rcheckout=afterFormat.format(tempDate2);
 				data.get(i).setRcheckin(rcheckin);
 				data.get(i).setRcheckout(rcheckout);
-				//System.out.println("rcheckin:"+rcheckin);
-				//System.out.println("rcheckout:"+rcheckout);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -90,7 +88,7 @@ public class Admin_CancelRefundControllerCjy {
 		}
 		return map1;
 	}
-	
+	/*
 	//취소승인후 리스트 제외
 	@RequestMapping(value="admin/cjy/rvcancelaftapporoval", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public HashMap<String, Object> rvcancelaftapporoval(){
@@ -101,7 +99,7 @@ public class Admin_CancelRefundControllerCjy {
 			SimpleDateFormat afterFormat = new SimpleDateFormat("yyyy-MM-dd");
 			java.util.Date tempDate1=null;
 			java.util.Date tempDate2=null;
-			List<ReservationVo> data=crservice.afterapprovallist();
+			List<ReservationVo> data=crservice.list();
 			map.put("data", data);
 			System.out.println(data);
 			for(int i=0; i<data.size() ;i++) {
@@ -121,5 +119,5 @@ public class Admin_CancelRefundControllerCjy {
 		}
 		return map;
 	}
-	
+	*/
 }

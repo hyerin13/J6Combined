@@ -22,13 +22,15 @@ public class Admin_ManageMembersControllerCjy {
 		HashMap<String, Object> map = new HashMap<String,Object>();
 		try {
 			List<Admin_ManageMemVo> list=memService.list();
-			System.out.println(list);
 			//mrdate=2021-08-20 10:46:04, mbirth=2021-08-05 00:00:00 이런 형태로 출력되어 날짜만 자르기
-			String mrdate1=list.get(0).getMrdate().substring(0,10);
-			String mbirth1=list.get(0).getMbirth().substring(0,10);
 			for(int i=0; i<list.size() ;i++) {
+				System.out.println(list.get(i).getMrdate());
+				if(list.get(i).getMrdate()!=null && list.get(i).getMbirth()!=null) {
+				String mrdate1=list.get(i).getMrdate().substring(0,10);
+				String mbirth1=list.get(i).getMbirth().substring(0,10);
 				list.get(i).setMrdate(mrdate1);
 				list.get(i).setMbirth(mbirth1);
+				}
 			}		
 			map.put("list", list);
 		}catch(Exception e) {

@@ -61,7 +61,7 @@ public class Admin_UserQnaControllerCjy {
 			int qstep1=qstep+1;
 			String qtitle=vo.getQtitle();
 			String qtitle1="re "+qtitle;
-			String mid="관리자";
+			String mid="admin";
 
 			UserqnaVo vo1= new UserqnaVo(qid,null,null,qtitle,qcontent,null,null,qlev,qref,qstep1,mid);
 			int insert=service.insert(vo1);

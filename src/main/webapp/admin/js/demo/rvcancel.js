@@ -30,7 +30,12 @@ $(document).ready(function(){
          	{"data": "rcancel"},
          	{"data": "mid"},
          	{"data": "riid"},
+         	{"data": "pmethod"},
+         	{"data": "pdate"},
+         	{"data": "ptotal"},
+         	{"data": "prefund"}
          ],
+
          	dom: 'Bfrtip',
          	buttons: [
             {
@@ -95,6 +100,7 @@ $(document).ready(function(){
 	                   	}else{
 	                   	console.log(d.msg)
 	                   	}
+	                   	window.location.href='rsvcancel.html'
                    },       
             });
             $('input[type=checkbox]').prop('checked', false);
@@ -102,13 +108,13 @@ $(document).ready(function(){
         if(checkbox.length==0){
             alert("선택된 체크박스가 존재하지 않습니다")
         }
-        
+        /*
         //취소 승인후 테이블 삭제
         table.fnDestroy(); //구버전은 destroy()가 아니라 fnDestroy()사용해야함
 		//테이블 다시 생성
         table =$('#dataTable').dataTable({
                ajax:{
-                   "url":"/project/admin/cjy/rvcancelaftapporoval",
+                   "url":"/project/admin/cjy/rvcancel",
                    "dataType":"json",
                    "dataSrc":"data"
                 },
@@ -169,5 +175,7 @@ $(document).ready(function(){
 			},
                 ]
         });
+            */
     });
+
 });

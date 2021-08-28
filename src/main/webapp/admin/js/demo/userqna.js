@@ -43,11 +43,6 @@ var url_ws_mock_get = './mock_svc_load.json';
          	{"data": "qstep"},
          	{"data": "mid"}
          	],
-
-         	//columnDefs: [{
-   			//	 "defaultContent": "-"
-   			//	 "targets": "_all"
- 			// }],
          	order:[[7, 'asc'],[8,'desc'],[9,'asc']],
          	ordering: true,
          	serverSide:false,
