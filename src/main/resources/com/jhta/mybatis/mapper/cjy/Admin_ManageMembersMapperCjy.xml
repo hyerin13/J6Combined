@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.mybatis.mapper.cjy.Admin_ManageMembersMapperCjy">
 	<select id="list" resultType="com.jhta.project.vo.cjy.Admin_ManageMemVo">
-		        select * from members order by mid asc
+		        select * from members where not mid='admin' order by mid asc
 	</select>
 	
 </mapper>
