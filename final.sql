@@ -30,6 +30,7 @@ insert into hotelchain values('힐튼호텔','hiltonhotel');
 insert into hotelchain values('롯데호텔','lottehotel');
 insert into hotelchain values('베니키아호텔','benikeahotel');
 insert into hotelchain values('신라호텔','shillahotel');
+insert into hotelchain values('파크하얏트','parkhyatthotel');
 
 --(국내)항공사 입력
 drop table airline;

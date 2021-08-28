@@ -15,8 +15,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board_header.css">
 <!-- 글꼴 -->
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
-<!-- jQuery -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -68,25 +66,37 @@ input[name="qfile"] {
 </style>
 </head>
 <body>
+<script type="text/javascript">
+$(function(){
+		let qcate = "${qcate}"
+		$("#"+qcate).parent().children().attr('class','')
+		$("#"+qcate).attr('class','liactive')
+		let qcatename=$("#"+qcate).html();
+		$("#cate").val(qcatename).attr("selected", "selected");
+		if(qcatename=='전체'){
+			$("#cate").val("상품").attr("selected", "selected");
+		}
+})
+</script>
 <div class="header">
    <jsp:include page="/WEB-INF/views/user/jhr/header.jsp" flush="true"/>
 </div>
 <div class="board_header">
    <ul class="ulcss">
-      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna" class="liactive">전체</a></li>
-      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=상품">상품</a></li>
-      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=교환/환불">교환/환불</a></li>
-      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=사이트이용">사이트 이용</a></li>
-      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=기타">기타</a></li>
+      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna" id="all">전체</a></li>
+      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=상품" id="product">상품</a></li>
+      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=교환/환불"id="refund">교환/환불</a></li>
+      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=사이트이용"id="site">사이트이용</a></li>
+      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=기타"id="enc">기타</a></li>
     </ul>
 </div>
 	<article>
 		<div class="container" role="main">
 			<h2>QnA 글쓰기</h2>
-			<form name="form" id="form" role="form" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/hjy/newQna">
+			<form name="form" id="form" role="form" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/hjy/qna/newQna">
 				<div class="mb-3">
 				<label for="reg_id">카테고리</label><br>
-					<select name="qcate" class="form-control">
+					<select name="qcate" class="form-control" id='cate'>
 					    <option value="상품">상품</option>
 					    <option value="교환/환불">교환/환불</option>
 					    <option value="사이트이용">사이트이용</option>
@@ -116,9 +126,9 @@ input[name="qfile"] {
 					<input type="password" class="form-control" name="qpw" id="reg_id" placeholder="비밀번호를 입력해 주세요">
 				</div>
 			</form>
-			<div>
+			<div  style='text-align: center;'>
 				<button type="button" class="btn" id="btnSave">저장</button>
-				<button type="button" class="btn" id="btnList">목록</button>
+				<button type="button" class="btn" id="btnList">취소</button>
 			</div>
 		</div>
 	</article>

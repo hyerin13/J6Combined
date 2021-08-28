@@ -52,6 +52,7 @@ background-color:gray;
 <script type="text/javascript">
 $(function(){
 		let qcate = "${qcate}"
+		console.log(qcate)
 		$("#"+qcate).parent().children().attr('class','')
 		$("#"+qcate).attr('class','liactive')
 })
@@ -64,7 +65,7 @@ $(function(){
       <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna" id="all">전체</a></li>
       <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=상품" id="product">상품</a></li>
       <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=교환/환불"id="refund">교환/환불</a></li>
-      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=사이트이용"id="site">사이트 이용</a></li>
+      <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=사이트이용"id="site">사이트이용</a></li>
       <li class="licss"><a href="${pageContext.request.contextPath }/hjy/qna?qcate=기타"id="enc">기타</a></li>
     </ul>
 </div>
@@ -95,7 +96,7 @@ $(function(){
                   <td><a href="${pageContext.request.contextPath }/hjy/qna/qnaDetail?qid=${vo.qid }&qcate=${qcate}">${vo.qtitle }</a></td>
                </c:when>
                <c:otherwise>
-                 <td><a href="#" onclick="qpwCheck(${vo.qpw},${vo.qid });">${vo.qtitle }</a></td>
+                 <td><img src="//img.echosting.cafe24.com/design/skin/admin/ko_KR/ico_lock.gif"><a href="#" onclick="qpwCheck(${vo.qpw},${vo.qid });"> ${vo.qtitle }</a></td>
                </c:otherwise>
             </c:choose>
             <fmt:formatDate value="${vo.qrdate }" pattern="YY-MM-dd" var="qrdate"/>
@@ -148,7 +149,7 @@ $(function(){
 </body>
 <script type="text/javascript">
 function writeQna(){	
-	location.href='${pageContext.request.contextPath }/hjy/newQna?qcate='+$("#qcate").val(); 
+	location.href='${pageContext.request.contextPath }/hjy/qna/newQna?qcate=${qcate}';
 }
 function chklogin(){
 	let chk = confirm("로그인 해야만 이용 가능한 서비스입니다. 로그인 하시겠습니까?");
@@ -159,15 +160,17 @@ function chklogin(){
 	}
 }
 function qpwCheck(qpw,qid){
+	let qcate = "${qcate}";
+	let qcateplus = $("#"+qcate).html()
 	let pwc = prompt("비밀번호를 입력해주세요");
 	if(pwc == null || pwc == ""){
-		location.href= '${pageContext.request.contextPath }/hjy/qna';
+		location.href= '${pageContext.request.contextPath }/hjy/qna?qcate='+qcateplus;
 	}else{
 		if(qpw == pwc) {
 			location.href= '${pageContext.request.contextPath }/hjy/qna/qnaDetail?qid='+qid+'&qcate=${qcate}';
 		} else {
 		    alert("비밀번호가 틀렸습니다.");
-		    location.href= '${pageContext.request.contextPath }/hjy/qna'
+		    location.href= '${pageContext.request.contextPath }/hjy/qna?qcate='+qcateplus;
 		}
 	}
 }

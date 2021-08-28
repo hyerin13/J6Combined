@@ -100,6 +100,7 @@ public class FirstSearchAjaxControllerHjy {
 						String hotelname = favoriteService.find((String)session.getAttribute("mid"));
 						hs.put("bookmark", hotelname);
 						logger.debug("즐겨찾기:"+hotelname);
+						logger.debug(""+hotelname.length());
 					};
 				}
 			}
@@ -121,7 +122,6 @@ public class FirstSearchAjaxControllerHjy {
 				hs.put("agrade", agrade);
 			}
 			if(autoaname!=null) {
-				hs.put("autoaname", autoaname);
 				hs.put("autoaname", autoaname);
 			}
 			

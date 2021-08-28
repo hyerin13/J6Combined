@@ -116,7 +116,7 @@ public class BoardControllerHjy {
 	}
 	
 	@GetMapping("hjy/board/detail")
-	public String boardDeatailForm(int bid, Model model) {
+	public String boardDeatailForm(int bid, Model model,HttpSession session) {
 		BoardVo_phj vo = boardService.detail(bid);
 		List<CommentsVo> commList = commentsService.list(bid);
 		BoardVo nextVo = boardService.nextDetail(bid);
@@ -125,8 +125,10 @@ public class BoardControllerHjy {
 		if(cnt==null) {
 			cnt=0;
 		}
+		if(session.getAttribute("mid").equals(vo.getMid())) {
+			model.addAttribute("my", "my");
+		}
 		model.addAttribute("vo", vo);
-		System.out.println(vo);
 		model.addAttribute("commList", commList);
 		model.addAttribute("cnt", cnt);
 		model.addAttribute("nextVo", nextVo);

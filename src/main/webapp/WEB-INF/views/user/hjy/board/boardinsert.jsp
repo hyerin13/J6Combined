@@ -102,14 +102,14 @@ input[name="qfile"] {
 				</div>
 				<div class="mb-3">
 					<label for="file">첨부파일</label>
-					<input type="file" class="form-control" name="file" placeholder="태그를 입력해 주세요">
-					<input type="file" class="form-control" name="file" placeholder="태그를 입력해 주세요">
-					<input type="file" class="form-control" name="file" placeholder="태그를 입력해 주세요">
+					<input type="file" class="form-control" name="file">
+					<input type="file" class="form-control" name="file" style="margin-top: 5px;">
+					<input type="file" class="form-control" name="file" style="margin-top: 5px;">
 				</div>
 			</form>
 			<div style='text-align: center;'>
-				<button type="button" class="btn" id="btnSave">저장</button>
-				<button type="button" class="btn" id="btnList">목록</button>
+				<button type="button" class="btn" id="btnSave">등록</button>
+				<button type="button" class="btn" id="btnList">취소</button>
 			</div>
 		</div>
 	</article>

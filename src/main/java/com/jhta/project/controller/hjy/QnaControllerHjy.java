@@ -55,9 +55,9 @@ public class QnaControllerHjy {
 		System.out.println("keyword"+keyword);
 		System.out.println("pu"+pu);
 		List<UserqnaVo> list = userqnaService.qnalist(map);
+		model.addAttribute("qcate", qcate);
 		model.addAttribute("pu", pu);
 		model.addAttribute("list", list);
-		model.addAttribute("qcate", qcate);
 		model.addAttribute("field", field);
 		model.addAttribute("keyword", keyword);
 		return "user/hjy/qna/qnaMain";
@@ -87,29 +87,32 @@ public class QnaControllerHjy {
 		model.addAttribute("prevVo", prevVo);
 		return "user/hjy/qna/qnaDetail";
 	}
-	@GetMapping("hjy/newQna")
-	public String qnaWriteForm() {
+	@GetMapping("hjy/qna/newQna")
+	public String qnaWriteForm(String qcate,Model model) {
+		model.addAttribute("qcate", qcate);
 		return "user/hjy/qna/qnaWriteForm";
 	}
-	@PostMapping("hjy/newQna")
+	@PostMapping("hjy/qna/newQna")
 	public String qnaWrite(@RequestParam(value = "pageNum", defaultValue = "1")int pageNum,HttpSession session, Model model, String qcate, String qtitle, String qcontent, MultipartFile qfile,String qpw ) {
 		String path=sc.getRealPath("/resources/images/userqna");
 		String orgfilename=qfile.getOriginalFilename();//전송된 파일명
-		String savefilename=UUID.randomUUID() + "_" + orgfilename; //저장할 파일명(중복되지 않는 이름으로 만들기)
+		System.out.println("orgfilename:"+orgfilename);
 		//uuid : 랜덤하고 중복되지 않는 값을 얻어옴
+		String savefilename=UUID.randomUUID() + "_" + orgfilename; //저장할 파일명(중복되지 않는 이름으로 만들기)
 		try {
-			//1. 파일 업로드 하기
-			InputStream is=qfile.getInputStream(); 
-			FileOutputStream fos=new FileOutputStream(path+"\\"+savefilename);
-			FileCopyUtils.copy(is, fos);
-			File f=new File(path+"\\"+savefilename);
-			long filesize=f.length();
-			//혹은 long filesize=file1.getsize();
-			is.close();
-			fos.close();
+			if(orgfilename.equals("")) {
+				savefilename=null;
+			}else {
+				//1. 파일 업로드 하기
+				InputStream is=qfile.getInputStream(); 
+				FileOutputStream fos=new FileOutputStream(path+"\\"+savefilename);
+				FileCopyUtils.copy(is, fos);
+				is.close();
+				fos.close();
+			}
+			System.out.println("orgfilename:"+orgfilename);
 			//2. 업로드된 파일정보 DB에 저장하기
 			String mid=(String)session.getAttribute("mid");
-			System.out.println("mid"+mid);
 			int qref=userqnaService.getQref();
 			UserqnaVo vo=new UserqnaVo(0,qcate,qpw,qtitle,qcontent,savefilename,null,null,(qref+1),0,mid);
 			int n=userqnaService.qnawrite(vo);	
@@ -117,7 +120,6 @@ public class QnaControllerHjy {
 			PageUtil pu = new PageUtil(pageNum, 10, 5, userqnaService.qnacount(map));
 			map.put("startRow", pu.getStartRow());
 			map.put("endRow", pu.getEndRow());
-			System.out.println(qcate);
 			map.put("qcate", qcate);
 			List<UserqnaVo> list = userqnaService.qnalist(map);
 			if(qcate==null) {
@@ -131,6 +133,7 @@ public class QnaControllerHjy {
 			}else if(qcate.equals("기타")){
 				qcate="enc";
 			}
+			model.addAttribute("qcate", qcate);
 			model.addAttribute("pu", pu);
 			model.addAttribute("list", list);
 			model.addAttribute("code","success");

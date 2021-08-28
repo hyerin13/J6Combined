@@ -54,7 +54,47 @@ element.style {
 				</tr>
 				<tr>
 					<th>아이디</th>
-					<td>${vo.mid }</td>
+					<td>
+						<c:choose>
+							<c:when test="${my != null}">
+								${vo.mid }
+							</c:when>
+							<c:otherwise>
+								<ul class="navbar-nav ml-auto re_container">
+						        	<li class="nav-item dropdown no-arrow mx-1 re_box">
+										<a class="nav-link dropdown-toggle user" href="#" role="button"
+							                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">${vo.mid }
+							            </a>
+						                <div class="dropdown-list dropdown-menu shadow animated--grow-in"
+					                    	aria-labelledby="alertsDropdown"style="position: absolute; top: 10px;left:10px;">
+											<!-- Dropdown - Alerts -->
+							                <a class="dropdown-item d-flex align-items-center" href="#">
+							                    <%--
+							                    <div class="mr-3">
+							                        <div class="icon-circle bg-primary">
+							                        	<img src="">
+							                        </div>
+							                    </div>
+							                     --%>
+							                    <div>
+							                        <span class="font-weight-bold">
+							                        	<div class="small text-gray-500" onclick='friendreq("${vo.mid }");'>친구요청</div>
+							                        </span>
+							                    </div>
+							               	</a>
+											<%--
+							                    <div>
+							                        <span class="font-weight-bold">
+														<a href='javascript:friendreq("\${mid}");'>프로필보기</a></li>
+							                        </span>
+							                    </div>
+							                    --%>
+						                </div>
+									</li>
+								</ul>
+							</c:otherwise>
+						</c:choose>
+					</td>
 				</tr>
 				<tr>
 					<th>작성일</th>
@@ -205,8 +245,8 @@ element.style {
 					                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">\${mid}
 						            </a>
 						            <p style='color: gray;'>(\${crdate})</p>
-					                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-					                    aria-labelledby="alertsDropdown"style="position: absolute;">
+					                <div class="dropdown-list dropdown-menu shadow animated--grow-in"
+					                    aria-labelledby="alertsDropdown">
 						                <div id="reqlist\${i}">
 											<!-- Dropdown - Alerts -->
 							                <a class="dropdown-item d-flex align-items-center" href="#">

@@ -208,12 +208,10 @@ $(function(){
  	};
  	
  	//즐겨찾기 체크박스 클릭 시 실행되는 ajax -지영
-	$("#favorite input").click(function() {
+	$("#favorite ul li input").click(function() {
 		if("${mid}"=="undifined" || "${mid}"==""){
-		console.log(${mid})
         	var confirmcheck=confirm("로그인 하셔야 이용할 수 있는 서비스입니다. 로그인 하시겠습니까?")
         	if(confirmcheck	){
-        		alert("로그인창으로 이동합니다.");
         		location.href = "${pageContext.request.contextPath }/jhr/login";
 				$(this).prop('checked',false)
         	}else{
@@ -240,7 +238,7 @@ $(function(){
 		let star;
 		//성급 몇인지 뽑아오는부분
  		for (var i =1; i <= 5; i++) {
- 			if($("#grade"+i).attr('style')=="background-color: #00AEF0"){
+ 			if($("#grade"+i).attr('style')=="background-color: #00AEF0 opacity:0.8;"){
  				grade = $("#grade"+i).attr('id')
  				grade = grade.substring(5)
  				break;
@@ -248,7 +246,7 @@ $(function(){
 		}
  		//리뷰별점 몇인지 뽑아오는부분
  		for (var i =1; i <= 5; i++) {
- 			if($("#star"+i).attr('style')=="background-color: #00AEF0"){
+ 			if($("#star"+i).attr('style')=="background-color: #00AEF0 opacity:0.8;"){
  				star = $("#star"+i).attr('id')
  				star = star.substring(4)
  				break;
@@ -276,7 +274,7 @@ $(function(){
 		let star;
 		//성급 몇인지 뽑아오는부분
  		for (var i =1; i <= 5; i++) {
- 			if($("#grade"+i).attr('style')=="background-color: #00AEF0"){
+ 			if($("#grade"+i).attr('style')=="background-color: #00AEF0; opacity:0.8;"){
  				grade = $("#grade"+i).attr('id')
  				grade = grade.substring(5)
  				break;
@@ -284,7 +282,7 @@ $(function(){
 		}
  		//리뷰별점 몇인지 뽑아오는부분
  		for (var i =1; i <= 5; i++) {
- 			if($("#star"+i).attr('style')=="background-color: #00AEF0"){
+ 			if($("#star"+i).attr('style')=="background-color: #00AEF0; opacity:0.8;"){
  				star = $("#star"+i).attr('id')
  				star = star.substring(4)
  				break;
@@ -327,7 +325,7 @@ $(function(){
 		let restar = $(this).attr("id");
 		$(this).siblings().attr('style','background-color: none');
 		for (var i =0; i <= 5-restar.substring(4); i++) {
-			$("#star"+(Number(restar.substring(4))+i)).attr('style','background-color: #00AEF0 ; opacity:0.8;');
+			$("#star"+(Number(restar.substring(4))+i)).attr('style','background-color: #00AEF0; opacity:0.8;');
 		}
 	 	callList()
 	});
@@ -389,7 +387,7 @@ function callList(){
 	checklist(templist);
 	//성급 몇인지 뽑아오는부분
 		for (var i =1; i <= 5; i++) {
-			if($("#grade"+i).attr('style')=="background-color: #00AEF0"){
+			if($("#grade"+i).attr('style')=="background-color: #00AEF0; opacity:0.8;"){
 				grade = $("#grade"+i).attr('id')
 				grade = grade.substring(5)
 				break;
@@ -397,7 +395,7 @@ function callList(){
 	}
 		//리뷰별점 몇인지 뽑아오는부분
 		for (var i =1; i <= 5; i++) {
-			if($("#star"+i).attr('style')=="background-color: #00AEF0"){
+			if($("#star"+i).attr('style')=="background-color: #00AEF0; opacity:0.8;"){
 				star = $("#star"+i).attr('id')
 				star = star.substring(4)
 				break;
@@ -1081,7 +1079,7 @@ function outMoveAfter(){ //버튼 클릭시 다음날로 이동
 										aria-labelledby="headingOne">
 										<div class="card-body">
 											<ul class="list-unstyled">
-												<li><input type="checkbox" id="즐겨찾기">즐겨찾기
+												<li><input type="checkbox" id="즐겨찾기">
 													선호호텔체인</li>
 											</ul>
 										</div>
