@@ -292,18 +292,12 @@ element.style {
 						}else{//삭제된 댓글일때 실행
 							html+=
 								`
-								<div>
-								<ul class="navbar-nav ml-auto">
-					        	<!-- Nav Item - Alerts -->
-					        	<li class="nav-item dropdown no-arrow mx-1">
-					        		<div>
-							        	\${mid}
-							            <p style='color: gray;'>(\${crdate})</p>
-						        		삭제된 댓글입니다.
-					        		</div>
-					        	</li>
-						        </ul>
-						        </div><br>
+				        		<div>
+						        	\${mid}
+						            <p style='color: gray;'>(\${crdate})</p>
+					        		삭제된 댓글입니다.
+				        		</div>
+						        <br>
 							`
 						}
 							html +="</li>";

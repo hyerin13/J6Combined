@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>자유게시판</title>
+<title>Mypage</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board_all.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board_header.css">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -71,8 +71,8 @@
 	</div>
 	<div class="board_header">
 		<ul class="ulcss">
-	      <li class="licss"><a href="/project/phj/home">MyPage</a></li>
-	      <li class="licss"><a href="/project/hjy/board/all" class="liactive">자유게시판</a></li>
+	      <li class="licss"><a href="/project/phj/home" class="liactive">MyPage</a></li>
+	      <li class="licss"><a href="/project/hjy/board/all">자유게시판</a></li>
 	      <li class="licss"><a href="/project/hjy/board/review">리뷰게시판</a></li>
 	      <li class="licss"><a href="/project/hjy/board/matching">매칭게시판</a></li>
 	    </ul>

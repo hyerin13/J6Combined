@@ -11,9 +11,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board_header.css">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
-<script src="//code.jquery.com/jquery.min.js"></script>
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
 <style type="text/css">
  #page-wrapper {
     padding-left: 250px;
@@ -21,8 +18,8 @@
   
   #sidebar-wrapper {
     position: fixed;
+    height: 625px;
     width: 250px;
-    height: 100%;
     margin-left: -250px;
     background: #EBEDEF;
     overflow-x: hidden;
@@ -71,26 +68,26 @@
 	</div>
 	<div class="board_header">
 		<ul class="ulcss">
-	      <li class="licss"><a href="/project/phj/home">MyPage</a></li>
-	      <li class="licss"><a href="/project/hjy/board/all" class="liactive">자유게시판</a></li>
+	      <li class="licss"><a href="/project/phj/home" class="liactive">MyPage</a></li>
+	      <li class="licss"><a href="/project/hjy/board/all">자유게시판</a></li>
 	      <li class="licss"><a href="/project/hjy/board/review">리뷰게시판</a></li>
 	      <li class="licss"><a href="/project/hjy/board/matching">매칭게시판</a></li>
 	    </ul>
 	</div>
 	<div id="page-wrapper">
-  <!-- 사이드바 -->
-  <div id="sidebar-wrapper">
-    <ul class="sidebar-nav">
-      <li class="sidebar-brand">
-        <a href="/project/phj/home">${mid }님 마이페이지</a>
-      </li>
-      <li><a href="/project/phj/mypage/all">자유게시판</a></li>
-      <li><a href="/project/phj/mypage/review">리뷰게시판</a></li>
-      <li><a href="/project/phj/mypage/matching">매칭게시판</a></li>
-    </ul>
-  </div>
-  </div>
-<div class="board_content" style="padding-left: 100px;">
+	  <!-- 사이드바 -->
+	  <div id="sidebar-wrapper">
+	    <ul class="sidebar-nav">
+	      <li class="sidebar-brand">
+	        <a href="/project/phj/home">${mid }님 마이페이지</a>
+	      </li>
+	      <li><a href="/project/phj/mypage/all">자유게시판</a></li>
+	      <li><a href="/project/phj/mypage/review">리뷰게시판</a></li>
+	      <li><a href="/project/phj/mypage/matching">매칭게시판</a></li>
+	    </ul>
+	  </div>
+  	</div>
+	<div class="board_content" style="padding-left: 100px;">
 		<table class="table">
 			<tr class="table_title">
 				<th class="table_writer">카테고리</th>
@@ -147,7 +144,7 @@
 				<input type="submit" value="검색" class="btn btn-default submitbtn">
 			</form>
 		</div>
-		</div>
+	</div>
 	<div class="footer">
 		<jsp:include page="../../jhr/footer.jsp" flush="true"/>
 	</div>

@@ -71,8 +71,8 @@
 	</div>
 	<div class="board_header">
 		<ul class="ulcss">
-	      <li class="licss"><a href="/project/phj/home">MyPage</a></li>
-	      <li class="licss"><a href="/project/hjy/board/all" class="liactive">자유게시판</a></li>
+	      <li class="licss"><a href="/project/phj/home" class="liactive">MyPage</a></li>
+	      <li class="licss"><a href="/project/hjy/board/all">자유게시판</a></li>
 	      <li class="licss"><a href="/project/hjy/board/review">리뷰게시판</a></li>
 	      <li class="licss"><a href="/project/hjy/board/matching">매칭게시판</a></li>
 	    </ul>
