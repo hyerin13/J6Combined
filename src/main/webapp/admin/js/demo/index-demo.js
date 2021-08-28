@@ -105,9 +105,7 @@ $.ajax({
          	{"data": "mid"},
          	{"data": "riid"},
          ],
-         serverSide: false,
          searching: false,
-         bLengthChange: false,
          info: true,
    });
 

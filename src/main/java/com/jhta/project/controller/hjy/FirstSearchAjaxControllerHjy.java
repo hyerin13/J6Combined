@@ -72,7 +72,6 @@ public class FirstSearchAjaxControllerHjy {
 	public HashMap<String, Object> searchPOST(String searchHotel, String checkin, String checkout, String countPeople, String countRoom,
 			@RequestParam(value="facilities", required = false)  String[] facilities, String minprice, String maxprice,String sort,String restar,String agrade,String autoaname, HttpSession session) {
 		return execute(searchHotel, checkin, checkout, countPeople, countRoom,facilities,minprice,maxprice,sort,restar,agrade,autoaname,session);
-
 	}
 	private HashMap<String, Object> execute(String searchHotel, String checkin, String checkout, String countPeople, String countRoom,
 			String[] facilities, String minprice, String maxprice,String sort,String restar,String agrade,String autoaname, HttpSession session){
@@ -98,9 +97,10 @@ public class FirstSearchAjaxControllerHjy {
 						facilities[i]="";
 						//db에서 즐겨찾는호텔 가져오기
 						String hotelname = favoriteService.find((String)session.getAttribute("mid"));
-						hs.put("bookmark", hotelname);
-						logger.debug("즐겨찾기:"+hotelname);
-						logger.debug(""+hotelname.length());
+						String[] hotelnamearr = hotelname.split(" ");
+						hs.put("firstbookmark", hotelnamearr[0]);
+						hs.put("bookmark", hotelnamearr);
+						logger.debug("즐겨찾기:"+hotelnamearr);
 					};
 				}
 			}

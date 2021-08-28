@@ -49,8 +49,14 @@
 				and riservice like '%'||#{arr}||'%'
 			</foreach>
 		</if>
+		<if test="firstbookmark!=null">
+				and (aname like '%'||#{firstbookmark}||'%'
+		</if>
 		<if test="bookmark!=null">
-			and aname like '%'||#{bookmark}||'%'
+			<foreach collection="bookmark" item="bookmark">
+				or aname like '%'||#{bookmark}||'%'
+			</foreach>
+			)
 		</if>
 		<if test="autoaname!=null">
 			and aname like '%'||#{autoaname}||'%'
