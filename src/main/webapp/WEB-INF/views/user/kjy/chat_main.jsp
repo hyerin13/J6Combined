@@ -277,14 +277,12 @@ function reqfriend(id,select){
 		success:function(data){
 			if(data.sel=='acc'){
 				if(data.result=='success'){
-					alert('이동이 완료되었습니다.')
 					location.reload(true)
 				}else{
 					alert(data.result)
 				};
 			}else{
 				if(data.result=='success'){
-					alert('거절이 완료되었습니다.')
 					location.reload(true)
 				}else{
 					alert(data.result)
