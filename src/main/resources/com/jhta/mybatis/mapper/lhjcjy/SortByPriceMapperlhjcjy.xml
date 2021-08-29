@@ -36,8 +36,14 @@ and ri.rimaxper>=#{rimaxper} and (ac.aaddress like '%'||#{aaddress}||'%' or ac.a
 				and riservice like '%'||#{arr}||'%'
 			</foreach>
 		</if>
+		<if test="firstbookmark!=null">
+				and (aname like '%'||#{firstbookmark}||'%'
+		</if>
 		<if test="bookmark!=null">
-			and aname like '%'||#{bookmark}||'%'
+			<foreach collection="bookmark" item="bookmark">
+				or aname like '%'||#{bookmark}||'%'
+			</foreach>
+			)
 		</if>
 		<if test="autoaname!=null">
 			and aname like '%'||#{aname}||'%'
@@ -85,8 +91,14 @@ select (amountSum+GREATEST(addfee.exper,0))amountsum,star restar ,ac.amainimg,ac
 				and riservice like '%'||#{arr}||'%'
 			</foreach>
 		</if>
+		<if test="firstbookmark!=null">
+				and (aname like '%'||#{firstbookmark}||'%'
+		</if>
 		<if test="bookmark!=null">
-			and aname like '%'||#{bookmark}||'%'
+			<foreach collection="bookmark" item="bookmark">
+				or aname like '%'||#{bookmark}||'%'
+			</foreach>
+			)
 		</if>
 		<if test="restar!=null">
 			and NVL(restar,0)>=#{restar}
@@ -129,8 +141,14 @@ select (amountSum+addfee.exper)amountsum,star restar, ac.amainimg,ac.aname,ac.aa
 				and riservice like '%'||#{arr}||'%'
 			</foreach>
 		</if>
+		<if test="firstbookmark!=null">
+				and (aname like '%'||#{firstbookmark}||'%'
+		</if>
 		<if test="bookmark!=null">
-			and aname like '%'||#{bookmark}||'%'
+			<foreach collection="bookmark" item="bookmark">
+				or aname like '%'||#{bookmark}||'%'
+			</foreach>
+			)
 		</if>
 		<if test="autoaname!=null">
 			and aname like '%'||#{aname}||'%'
