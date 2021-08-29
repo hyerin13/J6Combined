@@ -29,10 +29,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.jhta.mybatis.mapper.kjy.AccountdeleteMapperkjy;
+import com.jhta.project.service.jhr.MembersService;
+import com.jhta.project.vo.jhr.MembersVo;
 
 @Controller
 public class AccountdeleteController_kjy {
 	@Autowired private AccountdeleteMapperkjy service;
+	@Autowired private MembersService membersService;
 	
 	@RequestMapping(value="/user/kjy/pwdcheck", produces= {MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody HashMap<String, Object> pwdcheck(HttpServletRequest req, HttpServletResponse resp,
@@ -61,7 +64,7 @@ public class AccountdeleteController_kjy {
 	
 	//인증코드 메일발송
 	@RequestMapping(value="/user/kjy/emailcheck", produces= {MediaType.APPLICATION_JSON_VALUE})
-	public @ResponseBody HashMap<String, Object> emailcheck(HttpServletRequest req, HttpServletResponse resp) throws Exception{
+	public @ResponseBody HashMap<String, Object> emailcheck(HttpServletRequest req, HttpServletResponse resp,HttpSession usesession) throws Exception{
 		Random random=new Random();
 		String key="";
 		for(int i =0; i<3;i++) {
@@ -72,12 +75,17 @@ public class AccountdeleteController_kjy {
 		key+=numIndex;//최종랜덤코드
 		HashMap<String, Object> map=new HashMap<String, Object>();
 		
+		//메일 보낼 이메일 db에서 받아오기
+		String getId = (String)usesession.getAttribute("mid");
+		MembersVo vo = membersService.checkId(getId);
+		String userEmail = vo.getMemail();
+		
 		map.put("key", key);//인증코드 받아가기
 		final String bodyEncoding = "UTF-8";
 		String subject = "J6 인증코드";
 	    String fromEmail = "kjy1004kln2@gmail.com";
 	    String fromUsername = "J6 관리자";
-	    String toEmail = "kjy1004kln2@gmail.com"; // 콤마(,)로 여러개 나열
+	    String toEmail = userEmail; // 콤마(,)로 여러개 나열
 	    
 	    final String username = "kjy1004kln2";         
 	    final String password = "dbzlzfihuhbvjyxc";

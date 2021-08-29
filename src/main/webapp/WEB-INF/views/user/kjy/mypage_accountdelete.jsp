@@ -14,7 +14,8 @@
 <div id="myModal3" class="modal3">
    <!-- 모달 내용 -->
    <div class="modal-content3">
-      <span class="close3">&times;</span><br>                                                               
+      <div style='text-align: center; font-size: 10px; color: gray;'>이메일로 보안문자가 전송되었습니다.<br></div>                                                          
+      <span class="close3">&times;</span><br>  
       <p class="pwcheck3">보안문자 입력</p>
       <input class="textcheck3" type="text">
       <input type="button" class="btn btn-primary" id="pwcheck3" value="확인">
