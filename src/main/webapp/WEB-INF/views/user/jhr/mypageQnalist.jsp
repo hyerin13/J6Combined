@@ -9,11 +9,11 @@
 <h3>나의 문의 내역</h3>
 <div id="category">
 	<select id="field">
+		<option value="all" <c:if test="${field=='all' }">selected</c:if>>전체</option>
 		<option value="상품" <c:if test="${field=='cate1' }">selected</c:if>>상품</option>
 		<option value="교환/환불" <c:if test="${field=='cate2' }">selected</c:if>>교환/환불</option>
 		<option value="사이트이용" <c:if test="${field=='cate3' }">selected</c:if>>사이트이용</option>
 		<option value="기타" <c:if test="${field=='cate4' }">selected</c:if>>기타</option>
-		<option value="all" <c:if test="${field=='all' }">selected</c:if>>전체</option>
 	</select>
 </div>
 <div id="qnalist">

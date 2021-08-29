@@ -15,7 +15,7 @@
 	<h3>회원정보 수정</h3><br>
 	<div class="join1" style="margin-bottom:10px !important;">
 		<div class="join_col1">
-			<label for="">프로필 사진</label>
+			<label for="">프로필 사진 <span class="point_color">*</span></label>
 		</div>
 		<img id="profileimg" onerror="this.style.display='none'" style="max-width:400px; max-height:300px; box-sizing:border-box; margin-bottom:10px;">
 		<div class="join_col_input">

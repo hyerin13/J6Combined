@@ -219,7 +219,7 @@
 			return false;
 		}
 		if(phone.value.length<10 || phone.value.length>12){
-			alert("휴대폰번호는 11자리까지만 입력 가능합니다.");
+			alert("휴대폰번호는 11자리를 입력해주세요.");
 			pwd1.focus();
 			return false;
 		}
