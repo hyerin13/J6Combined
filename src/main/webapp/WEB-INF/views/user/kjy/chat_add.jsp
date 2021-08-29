@@ -207,11 +207,15 @@ transform: translateX(17px);
  	
  	//확인 버튼 이벤트
  	$("#addokbtn").on('click',function(){
+ 		
  		//체크된 친구 아이디 배열로 저장
  		var addcbbuid=[];
  		$("input[type=checkbox]:checked").each(function(i){
  			addcbbuid.push($(this).val());
  		});
+ 		//시스템메세지 리스트 넘겨줄거 선언
+ 		var cbbuid =[];
+ 		var msgsysmessage =[];
  		$.ajax({
 			type:'post',
 			url:'${pageContext.request.contextPath }/user/kjy/chat_addlist',
@@ -220,8 +224,12 @@ transform: translateX(17px);
 			success:function(data){
 				console.log(data.code);
 				if(data.code=='success'){
+					$(data.msgsyslist).each(function(i,d){
+						cbbuid.push(d.cmid);
+						msgsysmessage.push(d.msgsysmessage);
+					});
 					alert("초대가 완료되었습니다.");
-					var url='${pageContext.request.contextPath }/user/kjy/chating_room?crid='+crid+'&cmid='+cmid+'&cmprofile='+cmprofile+'&cmname='+cmname;
+					var url='${pageContext.request.contextPath }/user/kjy/chating_room_add?crid='+crid+'&cmid='+cmid+'&cmprofile='+cmprofile+'&cmname='+cmname+'&cbbuid='+cbbuid+'&msgsysmessage='+msgsysmessage;
 					location.href=url;
 				}else{
 					alert("오류발생!");

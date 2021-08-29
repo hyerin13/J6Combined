@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
 
 import com.jhta.mybatis.mapper.kjy.ChatMapperkjy;
 import com.jhta.project.vo.kjy.Chat_membersVo_kjy;
@@ -52,11 +54,13 @@ public class Chat_mainController_kjy {
 		HashMap<String, Object> countmap=new HashMap<String, Object>();
 		List<HashMap<String, Object>> countlist=new ArrayList<HashMap<String,Object>>();
 		List<String> chat_rank=service.chat_rank(cmid);
+		System.out.println("랭크:"+chat_rank);
 		for (int i=0; i<chat_rank.size(); i++) {
-			String str = chat_rank.get(i);
-			countmap=service.count(str);
+			String crid = chat_rank.get(i);
+			countmap=service.count(crid);
 			countlist.add(countmap);
 		}
+		System.out.println(countlist);
 		map.put("countlist", countlist);
 		return map;
 	}
@@ -68,9 +72,15 @@ public class Chat_mainController_kjy {
 		map.put("crid", crid);
 		List<Chat_roomjoinVo_kjy> list=service.roomjoin(map);
 		List<Chat_messageVo_kjy> list2=service.chat_message_recently(crid);
+		//안읽은 메세지 개수 구하기
+		int notread=service.chat_msg_notread(map);
+		
 		HashMap<String, Object> listmap=new HashMap<String, Object>();
+		
+		
 		listmap.put("list", list);
 		listmap.put("list2", list2);
+		listmap.put("notread", notread);
 		return listmap;
 	}
 	@RequestMapping(value="/user/kjy/chating_check", method= RequestMethod.GET)
@@ -210,10 +220,15 @@ public class Chat_mainController_kjy {
 	@RequestMapping(value="/user/kjy/chat_addlist", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody HashMap<String, Object> chat_addlist(@RequestParam(value="addcbbuid[]") String[] addcbbuid, 
 			@RequestParam(value="crid") int crid){
+		List<HashMap<String, Object>> msgsyslist=new ArrayList<HashMap<String,Object>>();
+		
 		HashMap<String, Object> map=new HashMap<String, Object>();
 		boolean check=false;
 		//방번호에 친구아이디 추가
-		for(String cmid:addcbbuid) {
+		for(int i=0; i<addcbbuid.length; i++) {
+			HashMap<String, Object> magsys=new HashMap<String, Object>();
+			
+			String cmid=addcbbuid[i];
 			HashMap<String, Object> addmap=new HashMap<String, Object>();
 			addmap.put("cmid", cmid);
 			addmap.put("crid", crid);
@@ -224,21 +239,59 @@ public class Chat_mainController_kjy {
 				break;
 			}else {
 				check=true;
-				addmap.clear();
 				//시스템 메세지 발송
 				Chat_membersVo_kjy memvo=service.member(cmid);
-				Chat_messageVo_kjy msgvo=new Chat_messageVo_kjy(0, null, null, memvo.getCmname()+"님이 입장하셨습니다.", cmid, crid, null, null, null);
-				int msgnum=service.chat_message_system(msgvo);
-				if(msgnum==0) {
-					System.out.println("오류발생!");
-					check=false;
-					break;
-				}else {
-					check=true;
-				}
+				String msgsysmessage=memvo.getCmname()+"님이 입장하셨습니다.";
+				magsys.put("cmid",cmid);
+				magsys.put("msgsysmessage",msgsysmessage);
+				msgsyslist.add(magsys);
 			}
 		}
+		
+		//오토와이즈에 빈등록?
+		/*HashMap<String, WebSocketSession> sessionMap = new HashMap<>();
+		for(String key : sessionMap.keySet()) {
+			WebSocketSession wss = sessionMap.get(key);
+			System.out.println("wss:"+wss);
+			try {
+				wss.sendMessage(new TextMessage("123"));
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}*/
 		if(check==true) {
+			map.put("msgsyslist",msgsyslist);
+			map.put("code", "success");
+		}else {
+			map.put("code", "fail");
+		}
+		return map;
+	}
+	
+	//친구 초대 후 방연결(시스템메시지 포함전송)
+	@RequestMapping(value="/user/kjy/chating_room_add", method= RequestMethod.GET)
+	public ModelAndView chating_room_add(String cmid, String crid, String cmprofile, String cmname,
+			@RequestParam(value="cbbuid", required=false) List<String> cbbuid,
+			@RequestParam(value="msgsysmessage", required=false) List<String> msgsysmessage) {
+		ModelAndView mv=new ModelAndView("user/kjy/chat_room");
+		mv.addObject("cbbuid", cbbuid);
+		mv.addObject("msgsysmessage", msgsysmessage);
+		mv.addObject("cmid",cmid);//본인아이디 전송
+		mv.addObject("cmprofile", cmprofile);//본인 프로필 전송
+		mv.addObject("cmname",cmname);//본인 이름 전송
+		mv.addObject("crid",crid);//방번호 전송
+		return mv;
+	}
+	
+	@RequestMapping(value="/user/kjy/chat_close", produces = {MediaType.APPLICATION_JSON_VALUE})
+	public @ResponseBody HashMap<String, Object> chat_close(String cmid, String crid){
+		HashMap<String, Object> closemap=new HashMap<String, Object>();
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		System.out.println(cmid);
+		closemap.put("cmid", cmid);
+		closemap.put("crid", crid);
+		int n=service.chat_close(closemap);
+		if(n>0) {
 			map.put("code", "success");
 		}else {
 			map.put("code", "fail");

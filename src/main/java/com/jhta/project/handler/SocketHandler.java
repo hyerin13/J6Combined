@@ -1,6 +1,8 @@
 package com.jhta.project.handler;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -28,15 +30,29 @@ public class SocketHandler extends TextWebSocketHandler{
 		int crid=Integer.valueOf((String) obj.get("crid"));
 		String msgmessage=(String) obj.get("msgmessage");
 		String msgsysmsg=(String) obj.get("msgsysmsg");
+		//초대메세지 배열선언
+		//List<String> list=(List<String>) obj.get("msgsysmsg");
+		//초대된 아이디
+		//String sysmsgcmid=list.get(0);
+		//초대된 메세지
+		//String sysmsg=list.get(1);
+		
+		
 		int n=0;
-		//채팅방 나갈때 메세지 보내기, 그외에는 null값
-		if(msgmessage!=null && msgsysmsg==null) {
+		//채팅방 메세지 보내기(db저장)
+		if(msgmessage!=null && msgsysmsg==null ) {
 			Chat_messageVo_kjy vo=new Chat_messageVo_kjy(0, msgmessage, null, null , cmid, crid, null, null, null);
 			n=service.chat_message_insert(vo);
 		}
+		//채팅방 초대 입장 db저장
+		//else {
+		//	Chat_messageVo_kjy vo=new Chat_messageVo_kjy(0, null, null, sysmsg , sysmsgcmid, crid, null, null, null);
+		//	n=service.chat_message_system(vo);
+		//}
 		if(n==0) {
 			System.out.println("채팅메세지 입력실패");
 		}
+		
 		for(String key : sessionMap.keySet()) {
 			WebSocketSession wss = sessionMap.get(key);
 			try {
@@ -50,6 +66,7 @@ public class SocketHandler extends TextWebSocketHandler{
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 		//소켓 연결
+		
 		super.afterConnectionEstablished(session);
 		sessionMap.put(session.getId(), session);
 		JSONObject obj = new JSONObject();

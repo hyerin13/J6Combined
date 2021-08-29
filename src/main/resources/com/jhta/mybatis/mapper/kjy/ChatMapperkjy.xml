@@ -17,16 +17,24 @@
 		select rownum,msgid,msgmessage,to_char(msgtime,'YYYY-MM-DD') msgshottime,cmid,crid from chat_message where crid=#{crid} and not msgmessage is null and rownum=1 order by msgid desc
 	</select>
 	<select id="count" parameterType="string" resultType="hashmap">
-		<!--  select count(*) cnt, crid from chat_members cm, chat_roomjoin cr where cm.cmid=cr.cmid and cr.crid in
-		(select crid from chat_roomjoin where cmid=#{cmid} and crid=#{CRID})group by crid order by crid-->
-		select count(*) cnt, crid from chat_members cm, chat_roomjoin cr where cm.cmid=cr.cmid and cr.crid=#{crid} and not cr.cmid='unknown' group by crid order by crid
+		select count(*) cnt, crid from chat_members cm, chat_roomjoin cr where cm.cmid=cr.cmid and cr.crid=#{crid} group by crid order by crid
 	</select>
 	<!-- 최신 대화한 방 정렬 -->
 	<select id="chat_rank" resultType="string" parameterType="string">
-		select crid from
-		(select aa.*,rank() over(PARTITION BY crid ORDER BY msgid desc) rnum from(
-		select msgid,crid from chat_message where cmid=#{cmid})aa) where rnum=1 order by msgid desc
+		select crid from (select rank() over(PARTITION BY crid ORDER BY msgid desc) rnum, msgid, crid from chat_message 
+		where crid in(select crid from chat_message where cmid=#{cmid}))aa where aa.rnum=1 order by aa.msgid desc
 	</select>
+	
+	<!-- 안읽은 메세지 숫자 체크 -->
+	<select id="chat_msg_notread" parameterType="hashmap" resultType="int">
+		<![CDATA[
+			select count(*) from chat_message where not cmid=#{cmid} and 
+			crid=#{crid} and msgtime > 
+			(select joincontime from chat_roomjoin where 
+			cmid=#{cmid} and crid=#{crid})
+		]]>
+	</select>
+	
 	<!-- 방이 있는지 체크 -->
 	<select id="roomcheck" parameterType="hashmap" resultType="com.jhta.project.vo.kjy.Chat_roomjoinVo_kjy">
 		select * from chat_roomjoin where crid in(select crid from chat_roomjoin where cmid=#{cmid}) and cmid=#{cbbuid}
@@ -47,7 +55,7 @@
 	<insert id="chat_roomjoin_insert" parameterType="hashmap">
 		insert into chat_roomjoin values(seq_chat_roomjoin.nextval,null,#{cmid},#{crid})
 	</insert>
-	<!-- 방생성시 시스템메세지 발송 -->
+	<!-- 방생성시 시스템메세지 발송, 친구초대시 시스템메세지 발송 -->
 	<insert id="chat_message_system" parameterType="com.jhta.project.vo.kjy.Chat_messageVo_kjy">
 		insert into chat_message values(seq_chat_message.nextval,null,sysdate,#{msgsysmsg},#{cmid},#{crid})
 	</insert>
@@ -80,4 +88,9 @@
 	<select id="chat_add_check" parameterType="hashmap" resultType="com.jhta.project.vo.kjy.Chat_membersVo_kjy">
 		select * from chat_members where cmid in(select cbbuid from chat_buddy where cmid=#{cmid} and not cbbuid in(select cmid from chat_roomjoin where crid=#{crid} and not cmid=#{cmid}))
 	</select>
+	
+	<!-- 채팅방 종료시 마지막접속시간 업데이트 -->
+	<update id="chat_close" parameterType="hashmap">
+		update chat_roomjoin set joincontime=sysdate where cmid=#{cmid} and crid=#{crid}
+	</update>
 </mapper>

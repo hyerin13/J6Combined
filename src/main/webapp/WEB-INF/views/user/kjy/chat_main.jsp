@@ -154,6 +154,12 @@
 		overflow: hidden; 
 		text-overflow: ellipsis;
 	}
+	.cr_noread{
+		position:absolute;
+		right:0px;
+		top:50px;
+		color:red;
+	}
 </style>
 <div id="tabs">
   <ul>
@@ -231,7 +237,7 @@
   <div id="tabs-2">
   </div>
 </div>
-<script>
+<script type="text/javascript">
 //지영
 $(function(){
 	$.ajax({
@@ -293,13 +299,9 @@ function reqfriend(id,select){
 }
 
 //탭메뉴 새로고침 테스트
-/*function test(){  
-    $("#tabs-1").load(window.location.href + "#tabs-1");
-}
-
-$("#tabs-1").on('click',function(){
+/*$(".ui-tab").on('click',function(){
 	console.log("test");
-	test();
+	 $("#tabs-2").load(window.location.href + "#tabs-2");
 });*/
 
 	$( "#tabs" ).tabs();
@@ -316,6 +318,7 @@ $("#tabs-1").on('click',function(){
 			success:function(data){
 				$(data.countlist).each(function(i,d){
 						var crid=d.CRID;
+						console.log("crid:"+d.CRID);
 						var cnt=d.CNT;
 						var html="<div class='chat_room"+crid+"' ondblClick='chating("+crid+")' id='chat_room'>"+
 						"<div class='roomimgbox"+crid+"'>"+
@@ -332,7 +335,9 @@ $("#tabs-1").on('click',function(){
 							$(".chat_room"+crid).append(cnthtml);
 						}
 						
+						
 						//인원별 프로필
+						//나는 제외하고
 						if(cnt == 2){
 							//상대방과 나만있을때
 							let imghtml="<img src='' class='profile_"+crid+"_0'>";
@@ -343,7 +348,7 @@ $("#tabs-1").on('click',function(){
 								height:"60px",
 								borderRadius: "10px",
 							});
-						}else if(cnt == 3){
+						}else if(cnt == 3 || cnt==4){
 							let imghtml="<img src='' class='profile_"+crid+"_0'>"+
 							"<img src='' class='profile_"+crid+"_1'>";
 							$(".roomimgbox"+crid).append(imghtml);
@@ -365,7 +370,7 @@ $("#tabs-1").on('click',function(){
 								borderRadius: "10px",
 								zIndex: "1"
 							});
-						}else if(cnt > 3){
+						}else if(cnt > 4){
 							let imghtml="<img src='' class='profile_"+crid+"_0'>"+
 							"<img src='' class='profile_"+crid+"_1'>"+
 							"<img src='' class='profile_"+crid+"_2'>"+
@@ -456,21 +461,29 @@ $("#tabs-1").on('click',function(){
 			data:{'cmid':cmid,'crid':crid},
 			dataType:'json',
 			success:function(data){
+				//안읽은 메세지 개수표시(0제외)
+				if(data.notread!=0){
+					let notread="<p class='cr_noread'>"+data.notread+"</p>";
+					$(".chat_room"+crid).append(notread);					
+				}
 				$(data.list).each(function(i,d){
-					//뒤에 , 붙이기
-					if(i == 0){
-						let cmname="<p class='cr_cmname'>"+d.cmname+"</p>";
-						$(".roombox"+crid).append(cmname);
-					}else{
-						let cmname="<p class='cr_cmname'>,"+d.cmname+"</p>";
-						$(".roombox"+crid).append(cmname);						
+					//본인은 제외하고
+					if(cmid!=d.cmid){
+						//뒤에 , 붙이기
+						if(i == 0){
+							let cmname="<p class='cr_cmname'>"+d.cmname+"</p>";
+							$(".roombox"+crid).append(cmname);
+						}else{
+							let cmname="<p class='cr_cmname'>,"+d.cmname+"</p>";
+							$(".roombox"+crid).append(cmname);						
+						}
+						//이미지 속성넣기
+						if(d.cmprofile==null){
+							//대체 이미지
+							d.cmprofile="noimage2.jpg";
+						}
+						$(".profile_"+crid+"_"+i).attr("src","${pageContext.request.contextPath }/resources/images/members/"+d.cmprofile);
 					}
-					//이미지 속성넣기
-					if(d.cmprofile==null){
-						//대체 이미지
-						d.cmprofile="noimage2.jpg";
-					}
-					$(".profile_"+crid+"_"+i).attr("src","${pageContext.request.contextPath }/resources/images/members/"+d.cmprofile);
 				});
 				//최근 대화내역 출력
 				$(data.list2).each(function(i,d){

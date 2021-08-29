@@ -26,4 +26,6 @@ public interface ChatMapperkjy {
 	int chat_exit(HashMap<String, Object> map);
 	int chat_exit_join(HashMap<String, Object> map);
 	List<Chat_membersVo_kjy> chat_add_check(HashMap<String, Object> map);
+	int chat_close(HashMap<String, Object> map);
+	int chat_msg_notread(HashMap<String, Object> map);
 }

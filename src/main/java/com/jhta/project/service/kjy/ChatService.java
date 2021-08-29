@@ -68,4 +68,10 @@ public class ChatService {
 	public List<Chat_membersVo_kjy> chat_add_check(HashMap<String, Object> map){
 		return mapper.chat_add_check(map);
 	}
+	public int chat_close(HashMap<String, Object> map) {
+		return mapper.chat_close(map);
+	}
+	public int chat_msg_notread(HashMap<String, Object> map) {
+		return mapper.chat_msg_notread(map);
+	}
 }

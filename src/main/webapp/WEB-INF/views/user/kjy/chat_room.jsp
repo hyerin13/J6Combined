@@ -220,6 +220,7 @@ var crid=$("#crid").val();
 var cmid=$("#cmid").val();
 var cmprofile=$("#cmprofile").val();
 var cmname=$("#cmname").val();
+
 //소켓 연결
 var ws;
 function wsOpen(){
@@ -242,7 +243,6 @@ function wsOpen(){
 					cmprofile="noimage2.jpg";
 				}
 				if(d.cmid==$("#cmid").val() && msgmessage!=null && msgsysmsg==null){
-					console.log("내꺼");
 					let html="<div class='memsgdiv'>"+
 					"<div class='memsgbox'>"+
 					"<p class='memsg'>"+msgmessage+"</p><br>"+
@@ -251,7 +251,6 @@ function wsOpen(){
 					"</div>";
 					$("#messagearea").append(html);
 				}else if(msgmessage!=null && msgsysmsg==null){
-					console.log("니꺼");
 					let html="<div class='youmsgdiv'>"+
 					"<img src='${pageContext.request.contextPath }/resources/images/members/"+cmprofile+"' class='youprofile'>"+
 					"<p class='youname'>"+cmname+"</p>"+
@@ -262,7 +261,6 @@ function wsOpen(){
 					"</div>";
 					$("#messagearea").append(html);
 				}else if(msgsysmsg!=null){
-					console.log("시스템");
 					let html="<div class='sysdiv'>"+
 					"<div class='sysbox'>"+
 					"<p class='msgsysmsg'>"+msgsysmsg+"</p>"+
@@ -280,7 +278,21 @@ function wsOpen(){
 wsOpen();
 
 ws.onopen = function(data){
-	//소켓이 열리면 초기화 세팅하기
+	//채팅방 사람 초대후 시스템 메세지 보내기
+	//add_msgsys();
+}
+//웹소켓 종료시 종료시간 db에 저장
+function onClose(){
+	$.ajax({
+		type:'get',
+		data:{'crid':crid,'cmid':cmid},
+		url:'${pageContext.request.contextPath }/user/kjy/chat_close',
+		dataType:'json',
+		success:function(data){
+			console.log(data.code);
+		}
+	});
+	ws.close()
 }
 
 ws.onmessage = function(data) {
@@ -374,6 +386,7 @@ $(".smallmenu").on('click',function(){
 });
 //전페이지로 이동
 $("#menu1").on('click',function(){
+	onClose();
 	location.href="${pageContext.request.contextPath }/user/kjy/chat_main";
 });
 //방에 친구초대
@@ -400,7 +413,23 @@ $("#menu3").on('click',function(){
 			}
 		}
 	});
-	
 });
 
+//채팅방 초대후 send 메세지 보내기
+/*function add_msgsys(){
+	//이중 배열선언
+	var msgsyslist = new Array(Array(),Array());
+	//i번쨰에 아이디와 내용담기
+	<c:forEach items="${cbbuid}" var="vo" varStatus="status">
+		msgsyslist[${status.index}].push("${vo}");
+	</c:forEach>
+	<c:forEach items="${msgsysmessage}" var="vo" varStatus="status">
+		msgsyslist[${status.index}].push("${vo}");
+	</c:forEach>
+	if(!msgsyslist[0].length==false){
+		$(msgsyslist).each(function(i,d){
+			send(d);			
+		});
+	}
+}*/
 </script>
