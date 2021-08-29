@@ -68,6 +68,17 @@
 		font-size:12px;
 	}
 	
+	.mycmscname{
+		font-size:12px;
+		width:200px;
+	}
+	.cmschangimg{
+		position:absolute;
+		right:40px;
+		top:42px;
+		width:20px;
+		height:20px;
+	}
 	.buddytitle{
 		margin-top:50px;
 		position:relative;
@@ -88,22 +99,18 @@
 		display:block;
 		margin-right:10px;
 	}
-	
 	.cr_cmname{
 		position:relative;
 		font-weight:bold;
 		font-size:12px;
-		width:50px;
-		float: left;
 		overflow: hidden; 
   		text-overflow: ellipsis;
-  		white-space: nowrap; 
+  		white-space: nowrap;
 	}
-
 	.cnt{
 		position: absolute;
-		top:20px;
-		left:220px;
+		top:15px;
+		right:80px;
 		font-size:12px;
 		color:gray;
 	}
@@ -137,34 +144,28 @@
 	}
 	.cr_msgshottime{
 		position:absolute;
-		top:20px;
+		top:15px;
 		right:10px;
 		font-size:12px;
 		color:gray;
 	}
 	.cr_msgmessage{
-		position:absolute;
-		top:40px;
-		left:100px;
-		width:220px;
-		height:30px;
-		font-size:12px;
-		word-break: break-all;
-		display: inline-block;
-		overflow: hidden; 
-		text-overflow: ellipsis;
+		position:relative;
+		font-size:10px;
 	}
 	.cr_noread{
 		position:absolute;
-		right:0px;
+		right:15px;
 		top:50px;
+		font-size:12px;
+		font-weight:bold;
 		color:red;
 	}
 </style>
 <div id="tabs">
   <ul>
     <li><a href="#tabs-1">친구목록</a></li>
-    <li><a href="#tabs-2">채팅목록</a></li>
+    <li id="tabreload"><a href="#tabs-2">채팅목록</a></li>
   </ul>
   <div id="tabs-1">
   	<p class="memtitle">마이프로필</p>
@@ -180,7 +181,8 @@
 	 </c:choose>
    		<div class="buddy_text">
 	   		<p class="cmname">${vo.cmname }</p>
-	   		<p class="cmscname">${vo.cmscname }</p>
+	   		<input type="text" class="mycmscname" value="${vo.cmscname }" readonly="readonly">
+	   		<img src="${pageContext.request.contextPath }/resources/images/chat/cmscname2.png" class="cmschangimg">
    		</div>
    		<!-- 파라미터 넘기기 -->
    		<input type="hidden" id="cmid" value="${vo.cmid }">
@@ -235,6 +237,8 @@
    	</c:forEach>
   </div>
   <div id="tabs-2">
+  	<div id="tabcontent">
+  	</div>
   </div>
 </div>
 <script type="text/javascript">
@@ -253,6 +257,10 @@ $(function(){
 				$(data.list).each(function(i,data){
 					let caaddid =data.caaddid
 					let profile =data.cmprofile
+					if(profile==null){
+						//대체 이미지
+						profile="noimage2.jpg";
+					}
 					html+=
 					`<a class="dropdown-item d-flex align-items-center" href="javascript:reqfriend("\${caaddid}","acc")">
 						<div class="mr-3">
@@ -298,11 +306,11 @@ function reqfriend(id,select){
 	})
 }
 
-//탭메뉴 새로고침 테스트
-/*$(".ui-tab").on('click',function(){
-	console.log("test");
-	 $("#tabs-2").load(window.location.href + "#tabs-2");
-});*/
+	//2번째 탭메뉴 새로고침
+	$("#tabreload").on('click',function(){
+		$("#tabcontent").empty();
+		chat_room();
+	});
 
 	$( "#tabs" ).tabs();
 	
@@ -318,16 +326,17 @@ function reqfriend(id,select){
 			success:function(data){
 				$(data.countlist).each(function(i,d){
 						var crid=d.CRID;
-						console.log("crid:"+d.CRID);
 						var cnt=d.CNT;
 						var html="<div class='chat_room"+crid+"' ondblClick='chating("+crid+")' id='chat_room'>"+
 						"<div class='roomimgbox"+crid+"'>"+
 						"</div>"+
 						"<div class='roombox"+crid+"'>"+
 						"</div>"+
+						"<div class='roommsgbox"+crid+"'>"+
+						"</div>"+
 						"</div>";
 						
-						$("#tabs-2").append(html);
+						$("#tabcontent").append(html);
 						
 						//인원수 주기(2명이상만)
 						if(cnt > 2){
@@ -427,10 +436,18 @@ function reqfriend(id,select){
 						});
 						$(".roombox"+crid).css({
 							position:"absolute",
-							left:"100px",
-							top:"20px",
-							width: "120px",
-							height:"20px",
+							left:"80px",
+							top:"15px",
+							width: "160px",
+							height:"15px",
+							overflow:"hidden"
+						});
+						$(".roommsgbox"+crid).css({
+							position:"absolute",
+							left:"80px",
+							top:"35px",
+							width: "160px",
+							height:"35px",
 							overflow:"hidden"
 						});
 						
@@ -444,7 +461,6 @@ function reqfriend(id,select){
 	
 	//더보기버튼
 	function btnmore(data) {
-		console.log(data);
 		//$("#moreContent").css("top",25).css("right",10);
 		$(".moreContent_"+data).css("top",25);
 		   if( $(".moreDetail_"+data).is(":visible")){
@@ -463,19 +479,18 @@ function reqfriend(id,select){
 			success:function(data){
 				//안읽은 메세지 개수표시(0제외)
 				if(data.notread!=0){
-					let notread="<p class='cr_noread'>"+data.notread+"</p>";
+					let notread="<p class='cr_noread'>안읽음:"+data.notread+"</p>";
 					$(".chat_room"+crid).append(notread);					
 				}
+				var htmlcmname="<p class='cr_cmname'>";
 				$(data.list).each(function(i,d){
 					//본인은 제외하고
 					if(cmid!=d.cmid){
 						//뒤에 , 붙이기
 						if(i == 0){
-							let cmname="<p class='cr_cmname'>"+d.cmname+"</p>";
-							$(".roombox"+crid).append(cmname);
+							htmlcmname+=d.cmname;
 						}else{
-							let cmname="<p class='cr_cmname'>,"+d.cmname+"</p>";
-							$(".roombox"+crid).append(cmname);						
+							htmlcmname+=","+d.cmname;
 						}
 						//이미지 속성넣기
 						if(d.cmprofile==null){
@@ -485,13 +500,15 @@ function reqfriend(id,select){
 						$(".profile_"+crid+"_"+i).attr("src","${pageContext.request.contextPath }/resources/images/members/"+d.cmprofile);
 					}
 				});
+				htmlcmname+="</p>"
+				$(".roombox"+crid).append(htmlcmname);
 				//최근 대화내역 출력
 				$(data.list2).each(function(i,d){
 					if(d.msgmessage!=null){
 						let msgshottime="<p class='cr_msgshottime'>"+d.msgshottime+"</p>";
 						let msgmessage="<p class='cr_msgmessage'>"+d.msgmessage+"</p>";
 						$(".chat_room"+crid).append(msgshottime);
-						$(".chat_room"+crid).append(msgmessage);
+						$(".roommsgbox"+crid).append(msgmessage);
 					}
 				});
 			}
@@ -534,5 +551,28 @@ function reqfriend(id,select){
 		});
 	});
 
-	
+	$(".cmschangimg").on('click',function(){
+		let before="${pageContext.request.contextPath }/resources/images/chat/cmscname2.png";
+		let after="${pageContext.request.contextPath }/resources/images/chat/cmscname1.png";
+		let cmscname=$(".mycmscname").val();
+		//클릭시 속성 변경
+		if($(".cmschangimg").attr("src")==before){
+			$(".cmschangimg").attr("src",after);
+			$(".mycmscname").attr("readonly",false);
+		}else{
+			//정보저장
+			$.ajax({
+				type:'get',
+				url:'${pageContext.request.contextPath }/user/kjy/chat_cmscname',
+				data:{'cmscname':cmscname,"cmid":cmid},
+				dataType:'json',
+				success:function(data){
+					console.log(data.code);
+				}
+			});
+			//다시 비활성화
+			$(".cmschangimg").attr("src",before);
+			$(".mycmscname").attr("readonly",true);
+		}
+	});
 </script>

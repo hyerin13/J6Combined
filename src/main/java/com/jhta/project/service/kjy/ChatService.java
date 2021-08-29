@@ -23,6 +23,9 @@ public class ChatService {
 	public List<Chat_roomjoinVo_kjy> roomjoin(HashMap<String, Object> map){
 		return mapper.roomjoin(map);
 	}
+	public int cmscname(HashMap<String, Object> map) {
+		return mapper.cmscname(map);
+	}
 	public List<Chat_messageVo_kjy> chat_message_recently(String crid){
 		return mapper.chat_message_recently(crid);
 	}

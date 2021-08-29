@@ -13,6 +13,10 @@
 		select * from chat_members cm, chat_roomjoin cr where cm.cmid=cr.cmid and cr.crid in
 		(select crid from chat_roomjoin where cmid=#{cmid} and crid=#{crid})and cm.cmid not in #{cmid} order by crid
 	</select>
+	<!-- 상태창 메세지 변경 -->
+ 	<update id="cmscname" parameterType="hashmap">
+		update chat_members set cmscname=#{cmscname} where cmid=#{cmid}
+	</update>
 	<select id="chat_message_recently" parameterType="string" resultType="com.jhta.project.vo.kjy.Chat_messageVo_kjy">
 		select rownum,msgid,msgmessage,to_char(msgtime,'YYYY-MM-DD') msgshottime,cmid,crid from chat_message where crid=#{crid} and not msgmessage is null and rownum=1 order by msgid desc
 	</select>

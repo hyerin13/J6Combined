@@ -21,6 +21,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 
 import com.jhta.mybatis.mapper.kjy.ChatMapperkjy;
+import com.jhta.project.handler.SocketHandler;
 import com.jhta.project.vo.kjy.Chat_membersVo_kjy;
 import com.jhta.project.vo.kjy.Chat_messageVo_kjy;
 import com.jhta.project.vo.kjy.Chat_roomjoinVo_kjy;
@@ -28,6 +29,7 @@ import com.jhta.project.vo.kjy.Chat_roomjoinVo_kjy;
 @Controller
 public class Chat_mainController_kjy {
 	@Autowired private ChatMapperkjy service;
+	//@Autowired private SocketHandler sockethandler;
 	
 	@RequestMapping(value="/user/kjy/chat_main", method= RequestMethod.GET)
 	public ModelAndView chat_Form(HttpServletRequest req, HttpServletResponse resp) {
@@ -54,13 +56,11 @@ public class Chat_mainController_kjy {
 		HashMap<String, Object> countmap=new HashMap<String, Object>();
 		List<HashMap<String, Object>> countlist=new ArrayList<HashMap<String,Object>>();
 		List<String> chat_rank=service.chat_rank(cmid);
-		System.out.println("랭크:"+chat_rank);
 		for (int i=0; i<chat_rank.size(); i++) {
 			String crid = chat_rank.get(i);
 			countmap=service.count(crid);
 			countlist.add(countmap);
 		}
-		System.out.println(countlist);
 		map.put("countlist", countlist);
 		return map;
 	}
@@ -219,9 +219,8 @@ public class Chat_mainController_kjy {
 	//친구초대 리스트
 	@RequestMapping(value="/user/kjy/chat_addlist", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody HashMap<String, Object> chat_addlist(@RequestParam(value="addcbbuid[]") String[] addcbbuid, 
-			@RequestParam(value="crid") int crid){
+			@RequestParam(value="crid") int crid) throws Exception{
 		List<HashMap<String, Object>> msgsyslist=new ArrayList<HashMap<String,Object>>();
-		
 		HashMap<String, Object> map=new HashMap<String, Object>();
 		boolean check=false;
 		//방번호에 친구아이디 추가
@@ -242,19 +241,20 @@ public class Chat_mainController_kjy {
 				//시스템 메세지 발송
 				Chat_membersVo_kjy memvo=service.member(cmid);
 				String msgsysmessage=memvo.getCmname()+"님이 입장하셨습니다.";
-				magsys.put("cmid",cmid);
+				Chat_messageVo_kjy sysmsgvo=new Chat_messageVo_kjy(0, null, null, msgsysmessage, cmid, crid, null, null, null);
+				int sysnum=service.chat_message_system(sysmsgvo);
+				System.out.println(sysnum);
 				magsys.put("msgsysmessage",msgsysmessage);
 				msgsyslist.add(magsys);
 			}
 		}
 		
 		//오토와이즈에 빈등록?
-		/*HashMap<String, WebSocketSession> sessionMap = new HashMap<>();
+		/*HashMap<String, WebSocketSession> sessionMap = sockethandler.getSessionList();
 		for(String key : sessionMap.keySet()) {
 			WebSocketSession wss = sessionMap.get(key);
-			System.out.println("wss:"+wss);
 			try {
-				wss.sendMessage(new TextMessage("123"));
+				wss.sendMessage(new TextMessage("test"));
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
@@ -291,6 +291,21 @@ public class Chat_mainController_kjy {
 		closemap.put("cmid", cmid);
 		closemap.put("crid", crid);
 		int n=service.chat_close(closemap);
+		if(n>0) {
+			map.put("code", "success");
+		}else {
+			map.put("code", "fail");
+		}
+		return map;
+	}
+	
+	@RequestMapping(value="/user/kjy/chat_cmscname", produces = {MediaType.APPLICATION_JSON_VALUE})
+	public @ResponseBody HashMap<String, Object> chat_cmscname(String cmscname, String cmid){
+		HashMap<String, Object> cmsmap=new HashMap<String, Object>();
+		HashMap<String, Object> map=new HashMap<String, Object>();
+		cmsmap.put("cmid", cmid);
+		cmsmap.put("cmscname", cmscname);
+		int n=service.cmscname(cmsmap);
 		if(n>0) {
 			map.put("code", "success");
 		}else {

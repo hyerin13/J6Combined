@@ -279,7 +279,7 @@ wsOpen();
 
 ws.onopen = function(data){
 	//채팅방 사람 초대후 시스템 메세지 보내기
-	//add_msgsys();
+	add_msgsys();
 }
 //웹소켓 종료시 종료시간 db에 저장
 function onClose(){
@@ -416,20 +416,26 @@ $("#menu3").on('click',function(){
 });
 
 //채팅방 초대후 send 메세지 보내기
-/*function add_msgsys(){
+function add_msgsys(){
 	//이중 배열선언
-	var msgsyslist = new Array(Array(),Array());
+	var msgsyslist = new Array();
 	//i번쨰에 아이디와 내용담기
-	<c:forEach items="${cbbuid}" var="vo" varStatus="status">
-		msgsyslist[${status.index}].push("${vo}");
+	//<c:forEach items="${cbbuid}" var="vo" varStatus="status">
+	//	msgsyslist[${status.index}].push("${vo}");
+	//</c:forEach>
+	<c:forEach items="${msgsysmessage}" var="vo">
+		msgsyslist.push("${vo}");
 	</c:forEach>
-	<c:forEach items="${msgsysmessage}" var="vo" varStatus="status">
-		msgsyslist[${status.index}].push("${vo}");
-	</c:forEach>
-	if(!msgsyslist[0].length==false){
+	if(!msgsyslist.length==false && msgsyslist.length >0){
 		$(msgsyslist).each(function(i,d){
-			send(d);			
+			send(d);
 		});
 	}
-}*/
+	
+	//if(!msgsyslist[0].length==false){
+	//	$(msgsyslist).each(function(i,d){
+	//		send(d);			
+	//	});
+	//}
+}
 </script>

@@ -30,14 +30,6 @@ public class SocketHandler extends TextWebSocketHandler{
 		int crid=Integer.valueOf((String) obj.get("crid"));
 		String msgmessage=(String) obj.get("msgmessage");
 		String msgsysmsg=(String) obj.get("msgsysmsg");
-		//초대메세지 배열선언
-		//List<String> list=(List<String>) obj.get("msgsysmsg");
-		//초대된 아이디
-		//String sysmsgcmid=list.get(0);
-		//초대된 메세지
-		//String sysmsg=list.get(1);
-		
-		
 		int n=0;
 		//채팅방 메세지 보내기(db저장)
 		if(msgmessage!=null && msgsysmsg==null ) {
@@ -57,6 +49,7 @@ public class SocketHandler extends TextWebSocketHandler{
 			WebSocketSession wss = sessionMap.get(key);
 			try {
 				wss.sendMessage(new TextMessage(obj.toJSONString()));
+				System.out.println("obj.toJSONString():"+obj.toJSONString());
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
@@ -93,4 +86,7 @@ public class SocketHandler extends TextWebSocketHandler{
 		return obj;
 	}
 	
+	public HashMap<String, WebSocketSession> getSessionList() throws Exception{
+		return sessionMap;
+	}
 }
