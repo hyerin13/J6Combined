@@ -11,6 +11,17 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/board_header.css">
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<style type="text/css">
+#sidebar-wrapper {
+    position: fixed;
+    height: 625px;
+    width: 250px;
+    margin-left: -250px;
+    background: #EBEDEF;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  </style>
 </head>
 <body>
 	<div class="header">

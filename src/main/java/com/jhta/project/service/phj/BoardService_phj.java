@@ -18,6 +18,12 @@ public class BoardService_phj {
 	public int insertBoard(BoardVo_phj vo) {
 		return mapper.insertBoard(vo);
 	}
+	public int deleteBoard(int bid) {
+		return mapper.deleteBoard(bid);
+	}
+	public int updateBoard(BoardVo_phj vo) {
+		return mapper.updateBoard(vo);
+	}
 	public List<BoardVo_phj> selectBoard(String bcate) {
 		return mapper.selectBoard(bcate);
 	}

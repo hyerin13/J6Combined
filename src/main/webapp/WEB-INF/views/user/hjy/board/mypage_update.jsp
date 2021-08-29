@@ -51,14 +51,14 @@ input[name="qfile"] {
 }
 </style>
 <script>
-	$(document).on('click', '#btnSave', function(e){
+	$(document).on('click', '#btnUpdate', function(e){
 		e.preventDefault();
 		$("#form").submit();
 	});
 
-	$(document).on('click', '#btnList', function(e){
+	$(document).on('click', '#btnDelete', function(e){
 		e.preventDefault();
-		location.href="${pageContext.request.contextPath}/hjy/board/${bcate}";
+		location.href="${pageContext.request.contextPath}/phj/board/delete?bid="+${vo.bid};
 	});
 	
 	
@@ -80,15 +80,15 @@ input[name="qfile"] {
 </div>
 	<article>
 		<div class="container" role="main">
-			<h2>게시판 글쓰기</h2>
-			<form name="form" id="form" role="form" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/phj/board/boardinsert">
+			<h2>게시판 수정/삭제</h2>
+			<form name="form" id="form" role="form" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/phj/board/update">
 			<input type="hidden" id="bcate" name="bcate" value="${bcate }">
 			<input type="hidden" id="mid" name="mid" value="${mid }"><br>
 				
 				
 				<div class="mb-3">
 					<label for="title">제목</label>
-					<input type="text" class="form-control" name="btitle" id="btitle" placeholder="제목을 입력해 주세요">
+					<input type="text" class="form-control" name="btitle" id="btitle" value="${vo.btitle }">
 				</div>
 				<!-- 
 				<div class="mb-3">
@@ -98,18 +98,18 @@ input[name="qfile"] {
 				 -->
 				<div class="mb-3">
 					<label for="content">내용</label>
-					<textarea class="form-control" rows="5" name="bcontent" id="bcontent" placeholder="내용을 입력해 주세요" ></textarea>
+					<textarea class="form-control" rows="5" name="bcontent" id="bcontent" >${vo.bcontent }</textarea>
 				</div>
 				<div class="mb-3">
 					<label for="file">첨부파일</label>
-					<input type="file" class="form-control" name="file">
-					<input type="file" class="form-control" name="file" style="margin-top: 5px;">
-					<input type="file" class="form-control" name="file" style="margin-top: 5px;">
+					<input type="file" class="form-control" name="file" value="${vo.bfile1 }">
+					<input type="file" class="form-control" name="file" style="margin-top: 5px;" value="${vo.bfile2 }">
+					<input type="file" class="form-control" name="file" style="margin-top: 5px;" value="${vo.bfile3 }">
 				</div>
 			</form>
 			<div style='text-align: center;'>
-				<button type="button" class="btn" id="btnSave">등록</button>
-				<button type="button" class="btn" id="btnList">취소</button>
+				<button type="button" class="btn" id="btnUpdate">수정</button>
+				<button type="button" class="btn" id="btnDelete">삭제</button>
 			</div>
 		</div>
 	</article>

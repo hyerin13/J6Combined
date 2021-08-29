@@ -39,7 +39,7 @@ public class ReservationController_phj {
 	
 	@RequestMapping(value="phj/reservation",method=RequestMethod.GET)
 	public ModelAndView ReservationInfo(String riid, String startday, String endday, String ramount, String mid, 
-			String sum,int aid) {
+			String sum,int aid,int roomnum) {
 		ModelAndView mv=new ModelAndView("user/phj/resinfo");
 		mv.addObject("riid",riid);
 		mv.addObject("startday",startday);
@@ -48,6 +48,7 @@ public class ReservationController_phj {
 		mv.addObject("sum",sum);
 		mv.addObject("mid",mid);
 		mv.addObject("aid",aid);
+		mv.addObject("rroomnum",roomnum);
 		return mv;
 	}
 	@RequestMapping(value="phj/reservationOk",method=RequestMethod.GET)

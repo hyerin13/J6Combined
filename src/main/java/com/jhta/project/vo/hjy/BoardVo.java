@@ -15,4 +15,7 @@ public class BoardVo {
 	private String bcontent;
 	private Date brdate;
 	private String mid;
+	private String bfile1;
+	private String bfile2;
+	private String bfile3;
 }

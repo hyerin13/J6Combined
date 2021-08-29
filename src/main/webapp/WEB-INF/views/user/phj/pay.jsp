@@ -62,7 +62,7 @@
 	<input type="hidden" id="breakfastfee" value="${breakfastfee }">
 	<input type="hidden" name="prefund" id="prefund" value="${prefund }">
 	<input type="hidden" id=sum value="${sum }" style="border: none;text-align: right;">
-	<input name="totalFee" id="totalFee"type="hidden" value="" style="border: none">
+	<input name="totalFee" id="totalFee"type="hidden" value="" style="border: none"><br>
 	<h2>예약을 완성하세요!</h2>
 	<table class="table" style="margin:auto;">
 		<tr>

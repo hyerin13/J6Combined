@@ -92,6 +92,7 @@
 			<tr class="table_title">
 				<th class="table_writer">카테고리</th>
 				<th>글제목</th>
+				<th>수정/삭제</th>
 				<th class="table_date">작성일</th>
 			</tr>
 			<c:forEach var="vo" items="${list }">
@@ -110,6 +111,7 @@
 						</c:choose>
 				 	</td>
 					<td><a href="/project/hjy/board/detail?bid=${vo.bid }">${vo.btitle }</a></td>
+					<td style="text-align: center;"><a href="/project/phj/board/update?bid=${vo.bid }">수정/삭제</a></td>
 					<fmt:formatDate value="${vo.brdate }" pattern="YY-MM-dd" var="brdate"/>
 					<td class="tdalign">${brdate }</td>
 				</tr>

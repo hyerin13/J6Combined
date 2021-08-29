@@ -56,6 +56,7 @@
 
 
 <form class="form-inline" id="insertOk" action="${pageContext.request.contextPath }/phj/reservationOk">
+	방갯수<input type="text" id="rroomnum" name="rroomnum" value="${rroomnum }">
 	<input type="hidden" name="sum" value="${sum }">
 	<input type="hidden" id="ramount" name="ramount" value="${ramount }">
 	<input type="hidden" id="mid" name="mid" value="${mid }">

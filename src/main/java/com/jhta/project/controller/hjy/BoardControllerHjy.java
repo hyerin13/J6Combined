@@ -49,6 +49,29 @@ public class BoardControllerHjy {
 	CommentsServiceHjy commentsService;
 	@Autowired
 	ServletContext sc;
+	@GetMapping("phj/board/delete")
+	public String boardDelete(int bid) {
+		boardService_phj.deleteBoard(bid);
+		return "redirect:/phj/home";
+	}
+	@GetMapping("phj/board/update")
+	public String updateForm(int bid,Model model) {
+		BoardVo_phj vo=boardService.detail(bid);
+		model.addAttribute("vo",vo);
+		return "user/hjy/board/mypage_update";
+	}
+	@PostMapping("phj/board/update")
+	public String update(BoardVo_phj vo,Model model) {
+		try {
+			boardService_phj.updateBoard(vo);
+			model.addAttribute("code","success");
+		}catch(Exception e) {
+			e.printStackTrace();
+			model.addAttribute("code","fail");
+		}
+		return "redirect:/phj/home";
+	}
+	
 	@GetMapping("hjy/board/all")
 	public ModelAndView boardAll(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
 			String field, String keyword,BoardVo_phj vo) {

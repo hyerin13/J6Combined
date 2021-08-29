@@ -21,8 +21,8 @@
   
   #sidebar-wrapper {
     position: fixed;
+    height: 625px;
     width: 250px;
-    height: 100%;
     margin-left: -250px;
     background: #EBEDEF;
     overflow-x: hidden;
