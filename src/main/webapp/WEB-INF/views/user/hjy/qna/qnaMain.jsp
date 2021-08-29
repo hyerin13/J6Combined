@@ -162,6 +162,9 @@ function chklogin(){
 function qpwCheck(qpw,qid){
 	let qcate = "${qcate}";
 	let qcateplus = $("#"+qcate).html()
+	if(qcateplus =='전체'){
+		qcateplus='all';
+	}
 	let pwc = prompt("비밀번호를 입력해주세요");
 	if(pwc == null || pwc == ""){
 		location.href= '${pageContext.request.contextPath }/hjy/qna?qcate='+qcateplus;
