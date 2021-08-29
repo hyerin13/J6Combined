@@ -133,7 +133,7 @@ $(document).ready(function(){
 								<div class="join_col_input">
 									<div class="input_wrap">
 										<div class="ui_input">
-											<input type="file" name="file" value="${amainimg}" class="input_space">
+											<input type="file" name="file" value="${amainimg}" class="input_space" style="height: 40px">
 										</div>
 									</div>
 								</div>

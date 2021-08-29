@@ -156,7 +156,7 @@ $(document).ready(function(){
 								<div class="join_col_input">
 									<div class="input_wrap">
 										<div class="ui_input">
-											<input type="text" name="rioff" value="${rioff}" class="input_space">
+											<input type="text" name="rioff" value="${rioff}" class="input_space" >
 										</div>
 									</div>
 								</div>
@@ -168,7 +168,7 @@ $(document).ready(function(){
 								<div class="join_col_input">
 									<div class="input_wrap">
 										<div class="ui_input">
-											<input type="file" name="file" value="${rimainimg}" class="input_space">
+											<input type="file" name="file" value="${rimainimg}" class="input_space" style="height: 40px" >
 										</div>
 									</div>
 								</div>
@@ -180,7 +180,7 @@ $(document).ready(function(){
 								<div class="join_col_input">
 									<div class="input_wrap">
 										<div class="ui_input">
-											<input type="file" name="file" value="${riextraimg1}" class="input_space">
+											<input type="file" name="file" value="${riextraimg1}" class="input_space" style="height: 40px">
 										</div>
 									</div>
 								</div>
@@ -192,7 +192,7 @@ $(document).ready(function(){
 								<div class="join_col_input">
 									<div class="input_wrap">
 										<div class="ui_input">
-											<input type="file" name="file" value="${riextraimg2}" class="input_space">
+											<input type="file" name="file" value="${riextraimg2}" class="input_space"  style="height: 40px">
 										</div>
 									</div>
 								</div>
