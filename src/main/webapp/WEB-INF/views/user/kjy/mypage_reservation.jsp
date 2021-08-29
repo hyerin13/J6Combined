@@ -91,7 +91,7 @@ function reservationlist(pageNum){
 						"<p class='resname'>이름 : "+d.rresname+"</p>"+
 						"<p class='resphone'>전화번호 : "+d.rresphone+"</p></div>"+
 						"<div class='box1_2'><p class='pmethod'>결제수단 : "+d.pmethod+"</p>"+
-						"<p class='pdate'>결제날짜 : "+d.pdate+"</p>"+
+						//"<p class='pdate'>결제날짜 : "+d.pdate+"</p>"+
 						"<p class='ptotal'>결제금액 : "+d.ptotal+"원</p></div>"+
 						"<p class='cancelbtn1' onclick='cancelclick("+d.pid+")'>환불요청</p></div></div>"+
 						"</div>";
@@ -104,7 +104,7 @@ function reservationlist(pageNum){
 						"<p class='resname'>이름 : "+d.rresname+"</p>"+
 						"<p class='resphone'>전화번호 : "+d.rresphone+"</p></div>"+
 						"<div class='box1_2'><p class='pmethod'>결제수단 : "+d.pmethod+"</p>"+
-						"<p class='pdate'>결제날짜 : "+d.pdate+"</p>"+
+						//"<p class='pdate'>결제날짜 : "+d.pdate+"</p>"+
 						"<p class='ptotal'>결제금액 : "+d.ptotal+"원</p></div>"+
 						"<p class='cancelbtn2'>환불완료</p></div></div>"+
 						"</div>";
@@ -117,7 +117,7 @@ function reservationlist(pageNum){
 						"<p class='resname'>이름 : "+d.rresname+"</p>"+
 						"<p class='resphone'>전화번호 : "+d.rresphone+"</p></div>"+
 						"<div class='box1_2'><p class='pmethod'>결제수단 : "+d.pmethod+"</p>"+
-						"<p class='pdate'>결제날짜 : "+d.pdate+"</p>"+
+						//"<p class='pdate'>결제날짜 : "+d.pdate+"</p>"+
 						"<p class='ptotal'>결제금액 : "+d.ptotal+"원</p></div>"+
 						"<p class='cancelbtn2'>환불진행중</p></div></div>"+
 						"</div>";
@@ -138,7 +138,7 @@ function reservationlist(pageNum){
 							"<p class='resname'>이름 : "+d.rresname+"</p>"+
 							"<p class='resphone'>전화번호 : "+d.rresphone+"</p></div>"+
 							"<div class='box1_2'><p class='pmethod'>결제수단 : "+d.pmethod+"</p>"+
-							"<p class='pdate'>결제날짜 : "+d.pdate+"</p>"+
+							//"<p class='pdate'>결제날짜 : "+d.pdate+"</p>"+
 							"<p class='ptotal'>결제금액 : "+d.ptotal+"원</p></div>"+
 							"<p class='reviewbtn' onclick='reviewclick("+d.rid+")'>리뷰쓰기</p></div></div>"+
 							"</div>";
@@ -151,7 +151,7 @@ function reservationlist(pageNum){
 							"<p class='resname'>이름 : "+d.rresname+"</p>"+
 							"<p class='resphone'>전화번호 : "+d.rresphone+"</p></div>"+
 							"<div class='box1_2'><p class='pmethod'>결제수단 : "+d.pmethod+"</p>"+
-							"<p class='pdate'>결제날짜 : "+d.pdate+"</p>"+
+							//"<p class='pdate'>결제날짜 : "+d.pdate+"</p>"+
 							"<p class='ptotal'>결제금액 : "+d.ptotal+"원</p></div>"+
 							"<p class='expirebtn'>기간만료</p></div></div>"+
 							"</div>";
@@ -165,7 +165,7 @@ function reservationlist(pageNum){
 						"<p class='resname'>이름 : "+d.rresname+"</p>"+
 						"<p class='resphone'>전화번호 : "+d.rresphone+"</p></div>"+
 						"<div class='box1_2'><p class='pmethod'>결제수단 : "+d.pmethod+"</p>"+
-						"<p class='pdate'>결제날짜 : "+d.pdate+"</p>"+
+						//"<p class='pdate'>결제날짜 : "+d.pdate+"</p>"+
 						"<p class='ptotal'>결제금액 : "+d.ptotal+"원</p></div>"+
 						"<p class='cancelbtn2'>환불완료</p></div></div>"+
 						"</div>";
@@ -178,7 +178,7 @@ function reservationlist(pageNum){
 						"<p class='resname'>이름 : "+d.rresname+"</p>"+
 						"<p class='resphone'>전화번호 : "+d.rresphone+"</p></div>"+
 						"<div class='box1_2'><p class='pmethod'>결제수단 : "+d.pmethod+"</p>"+
-						"<p class='pdate'>결제날짜 : "+d.pdate+"</p>"+
+						//"<p class='pdate'>결제날짜 : "+d.pdate+"</p>"+
 						"<p class='ptotal'>결제금액 : "+d.ptotal+"원</p></div>"+
 						"<p class='cancelbtn2'>환불진행중</p></div></div>"+
 						"</div>";
