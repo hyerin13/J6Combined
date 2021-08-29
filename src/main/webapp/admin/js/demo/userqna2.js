@@ -85,7 +85,7 @@ console.log("qid2"+qid)
     $.ajax({
         type: "GET",
         //enctype: 'multipart/form-data', 
-        url: "/project/admin/cjy/userqnadelete",
+        url: "/project/admin/cjy/userqnadelete2",
         data: {qid:qid},
 	    dataType:'json',
         success: function (data) {
