@@ -12,6 +12,7 @@ public class ReservationVo {
 	private int rid;
 	private int rordernum;
 	private int ramount;
+	private int rroomnum;
 	private String rcheckin;
 	private String rcheckout;
 	private String rresname;

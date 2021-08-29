@@ -56,7 +56,7 @@
 
 
 <form class="form-inline" id="insertOk" action="${pageContext.request.contextPath }/phj/reservationOk">
-	방갯수<input type="text" id="rroomnum" name="rroomnum" value="${rroomnum }">
+	<input type="hidden" id="rroomnum" name="rroomnum" value="${rroomnum }">
 	<input type="hidden" name="sum" value="${sum }">
 	<input type="hidden" id="ramount" name="ramount" value="${ramount }">
 	<input type="hidden" id="mid" name="mid" value="${mid }">
@@ -112,7 +112,7 @@
 		<div>
 		<label>추가</label><br>
 		- 조식추가 <input style="width:60px;" type="number" name="rexbreaknum" id="rexbreaknum" value="0" min="0" max="rexperson"><br>
-		- 침대추가 <input style="width:60px;" type="number" name="rexbed"id="rexbed" value="0" min="0" max="1"><br>
+		- 침대추가 <input style="width:60px;" type="number" name="rexbed"id="rexbed" value="0" min="0" max="1"><br> 
  		- 인원추가 : <input style="width:60px; border:none;" type="text" name="rexperson" id="rexperson" value="0"><p style="color:#BDBDBD;">*검색 기준 현재 추가 인원</p><br>	
 		<br>
 			
@@ -153,8 +153,12 @@
 			<td >${endday }</td>
 		</tr>
 		<tr>
-			<th style="size: 30px">방금액 </th>
+			<th style="size: 30px">개당 방 금액 </th>
 			<td >${sum }</td>
+		</tr>
+		<tr>
+			<th style="size: 30px">방 개수 </th>
+			<td >${rroomnum }개</td>
 		</tr>
 		<tr>
 			<th style="size: 30px">부가서비스 </th>

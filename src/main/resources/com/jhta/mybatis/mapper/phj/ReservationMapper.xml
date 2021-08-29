@@ -7,7 +7,7 @@
 		insert into reservation 
 		values(seq_reservation.nextval,#{rordernum},#{ramount},#{rcheckin},#{rcheckout},
 		#{rresname},#{rresphone},#{rresemail},#{rexbreaknum},#{rexbed},
-		#{rexperson},null,#{mid},#{riid})
+		#{rexperson},null,#{mid},#{riid},#{rroomnum})
 		
 		<selectKey keyProperty="rid" resultType="int" order="AFTER">
         	SELECT SEQ_reservation.CURRVAL FROM DUAL

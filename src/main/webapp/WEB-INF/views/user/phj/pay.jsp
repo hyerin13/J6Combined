@@ -37,7 +37,7 @@
 </div>
 <form method="post" action="${pageContext.request.contextPath }/phj/payOk">
 <div class="paybox" style="width:700px;text-align: center;margin-left: 30%;">
-	<br>
+	<br><input style="width:60px;" type="hidden" id="rroomnum" name="rroomnum" value="${rroomnum }"><br>
 	<input type="hidden" name="rid" id="rid" value="${rid }">
 	<input type="hidden" id="ramount" value="${ramount }">
 	<input type="hidden" id="rcheckin" value="${rcheckin }">
@@ -71,8 +71,12 @@
 			
 		</tr>
 		<tr>
-			<th>방 가격 </th>
-			<td>${sum }</td>
+			<th>총 방 가격 </th>
+			<td>${sum } * ${rroomnum }개</td>
+		</tr>
+		<tr>
+			<th></th>
+			<td id="totalsum"></td>
 		</tr>
 		<tr>
 			<th>인원 추가 비용 </th>
@@ -114,11 +118,13 @@
 		var totalbreakfee=parseInt($("#totalbreakfee").val());
 		var totalbedfee=parseInt($("#totalbedfee").val());
 		var sum=parseInt($("#sum").val());
+		var rroomnum=parseInt($("#rroomnum").val());
 		$('#totalpersonfee1').text(numberWithCommas(totalpersonfee));
 		$('#totalbreakfee1').text(numberWithCommas(totalbreakfee));
 		$('#totalbedfee1').text(numberWithCommas(totalbedfee));
-		console.log(sum*1000);
-		var total=(sum*1000)+totalpersonfee+totalbreakfee+totalbedfee;
+		$('#totalsum').text(numberWithCommas(sum*rroomnum*1000));
+		console.log(sum*rroomnum*1000);
+		var total=(sum*rroomnum*1000)+totalpersonfee+totalbreakfee+totalbedfee;
 		$('input[name=totalFee]').attr('value',numberWithCommas(total));
 		$('#totalFee1').text(numberWithCommas(total));
 		
@@ -147,6 +153,7 @@
 		var totalFee=parseInt($("#totalFee").val());
 		var rid=0;
 		var ramount=parseInt($("#ramount").val());
+		var rroomnum=parseInt($("#rroomnum").val());
 		var rcheckin=$("#rcheckin").val();
 		var rcheckout=$("#rcheckout").val();
 		var rresname=$("#rresname").val();
@@ -197,9 +204,9 @@
 		//결제창에서 보여질 이름
 		amount: 500,
 		//가격 totalFee
-		buyer_email: '${membersVo.memail }',
-		buyer_name: '${membersVo.mname }',
-		buyer_tel: '%{membersVo.mphone}',
+		buyer_email: '${rresemail }',
+		buyer_name: '${rresname }',
+		buyer_tel: '%{rresphone}',
 		buyer_addr: '서울특별시 강남구 삼성동',
 		buyer_postcode: '123-456',
 		m_redirect_url: '/project/approval'
@@ -219,7 +226,7 @@
 			var ptoken=rsp.merchant_uid;
 			$.ajax({
 				url:'/project/phj/insert',
-				data:JSON.stringify({"rid":rid,"rordernum":rordernum,"ramount":ramount,"rcheckin":rcheckin,"rcheckout":rcheckout,
+				data:JSON.stringify({"rid":rid,"rordernum":rordernum,"ramount":ramount,"rroomnum":rroomnum,"rcheckin":rcheckin,"rcheckout":rcheckout,
 					"rresname":rresname,"rresphone":rresphone,"rresemail":rresemail,"rexbreaknum":rexbreaknum,
 					"rexbed":rexbed,"rexperson":rexperson,"rcancel":rcancel,"mid":mid,"riid":riid,"ptoken":ptoken}),
 				type:"post",

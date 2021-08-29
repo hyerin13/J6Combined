@@ -57,6 +57,7 @@ public class ReservationController_phj {
 		ModelAndView mv=new ModelAndView("user/phj/pay");
 		mv.addObject("sum", sum);
 		mv.addObject("rid", vo.getRid());
+		mv.addObject("rroomnum", vo.getRroomnum());
 		mv.addObject("ramount", vo.getRamount());
 		mv.addObject("rcheckin", vo.getRcheckin());
 		mv.addObject("rcheckout", vo.getRcheckout());
