@@ -1,4 +1,4 @@
-package com.jhta.project.controller.hjy;
+package com.jhta.project.refund;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import org.apache.http.util.EntityUtils;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class PayAjax {
+public class PayRefund {
 	public static final String IMPORT_TOKEN_URL = "https://api.iamport.kr/users/getToken";
 	public static final String IMPORT_PAYMENTINFO_URL = "https://api.iamport.kr/payments/find/";
 	public static final String IMPORT_CANCEL_URL = "https://api.iamport.kr/payments/cancel";

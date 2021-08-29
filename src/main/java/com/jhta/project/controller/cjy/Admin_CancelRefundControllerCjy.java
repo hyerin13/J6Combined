@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jhta.project.controller.hjy.PayAjax;
+import com.jhta.project.refund.PayRefund;
 import com.jhta.project.service.cjy.Admin_CancelRefundServiceCjy;
 import com.jhta.project.service.hjy.PaymentServiceHjy;
 import com.jhta.project.service.hjy.ReservationServiceHjy;
@@ -70,7 +70,7 @@ public class Admin_CancelRefundControllerCjy {
 	public  HashMap<String, Object> cancelapproval(String rid,String mid){
 		HashMap<String, Object> map = new HashMap<String,Object>();
 		HashMap<String, Object> map1 = new HashMap<String,Object>();
-		PayAjax pay = new PayAjax();
+		PayRefund pay = new PayRefund();
 		map.put("rid", rid);
 		PaymentVo vo = payService.find(rid);
 		System.out.println(vo.getPtoken());
