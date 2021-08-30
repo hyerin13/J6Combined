@@ -41,18 +41,20 @@
 				"<th class='widdate'>작성일</th><th class='widlen2'>처리여부</th><th class='widlen'>삭제</th><th class='widlen2'>수정</th></tr></table>";
 				$("#qnalist").append(html1);
 				$(list).each(function(i,d){
-					if(d.qlev=='N'){
+					if(d.qlev==null){
+						console.log('dd')
 						var html2="<tr>"+
 						"<td id='qid' class='cate widlen'>"+d.qid+"</td>"+
 						"<td id='qcate' class='widcate cate'>"+d.qcate+"</td>"+
 						"<td id='qtitle'><a class='widcon' href='${pageContext.request.contextPath }/hjy/qna/qnaDetail?qid="+d.qid+"&qcate="+d.qcate+"'>"+d.qtitle+"</a></td>"+
 						"<td id='qcontent'><p class='widcon'>"+d.qcontent+"</p></td>"+
 						"<td id='qrdate' class='cate widdate'>"+d.qrdate+"</td>"+
-						"<td id='qlev' class='cate widlen2'>"+d.qlev+"</td>"+
+						"<td id='qlev' class='cate widlen2'>N</td>"+
 						"<td class='cate widlen'><a href='/project/jhr/myqnaDelete?mid="+d.mid+"&qid="+d.qid+"'>삭제</a></td>"+
 						"<td class='cate widlen2'><a href='/project/jhr/myqnaUpdate?mid="+d.mid+"&qid="+d.qid+"'>수정</a></td>"+
 						"</tr>";
 					}else{
+						console.log('dddd')
 						var html2="<tr>"+
 						"<td id='qid' class='cate widlen'>"+d.qid+"</td>"+
 						"<td id='qcate' class='widcate cate'>"+d.qcate+"</td>"+

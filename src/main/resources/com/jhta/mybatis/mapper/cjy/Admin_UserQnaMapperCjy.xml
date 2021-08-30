@@ -14,7 +14,7 @@
 		select * from userqna where qid=#{qid}
 	</select>
 	<update id="update" parameterType="com.jhta.project.vo.cjy.UserqnaVo">
-		update userqna set qtitle=#{qtitle},qcontent=#{qcontent},qrdate=sysdate,qlev=#{qlev},qref=#{qref},qstep=#{qstep},mid=#{mid} where qid=#{qid} and qref=#{qref} and qstep=1
+		update userqna set qtitle=#{qtitle},qcontent=#{qcontent},qrdate=sysdate,qlev=#{qlev},qstep=#{qstep},mid=#{mid} where qid=#{qid} and qref=#{qref} and qstep=1
 	</update>
 	<delete id="delete" parameterType="String">
 		delete from userqna where qid=#{qid}
