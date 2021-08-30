@@ -50,6 +50,7 @@ public class Room_infoController_kjy {
 			hs.put("endday", endday1);
 			hs.put("person", person);
 			List<Room_infoVo_kjy> alllist=service.list(hs);
+			System.out.println(alllist);
 			//list가 비었을경우 result 페이지로 이동
 			if(alllist.isEmpty()) {
 				ModelAndView mv1=new ModelAndView("user/kjy/result");
