@@ -30,7 +30,7 @@ public class ResetPwControllerjhr {
 		map.put("mbirth",mbirth);
 		MembersVo vo=service.checkPw(map);
 		if(vo!=null) { 
-			model.addAttribute("mid",mid);
+			//model.addAttribute("mid",mid);
 			return "user/jhr/resetpw";
 		} else {
 			model.addAttribute("errMsg", "입력하신 정보와 일치하는 계정이 없습니다.");
