@@ -81,9 +81,10 @@ input[name="qfile"] {
 	<article>
 		<div class="container" role="main">
 			<h2>게시판 수정/삭제</h2>
-			<form name="form" id="form" role="form" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/phj/board/update">
-			<input type="hidden" id="bcate" name="bcate" value="${bcate }">
+			<form name="form" id="form" role="form" enctype="multipart/form-data" method="post" action="${pageContext.request.contextPath}/phj/board/update?bid=${vo.bid}">
+			<input type="hidden" id="bcate" name="bcate" value="${vo.bcate }">
 			<input type="hidden" id="mid" name="mid" value="${mid }"><br>
+			<input type="hidden" id="brdate" name="brdate" value="${vo.brdate }"><br>
 				
 				
 				<div class="mb-3">

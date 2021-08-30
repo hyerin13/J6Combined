@@ -4,7 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jhta.mybatis.mapper.phj.BoardMapper_phj">
 	<update id="updateBoard" parameterType="com.jhta.project.vo.phj.BoardVo_phj">
-		update board set btitle=#{btitle},bcontent=#{bcontent} where bid=#{bid}
+		update board set bcate=#{bcate},btitle=#{btitle},bcontent=#{bcontent},brdate=#{brdate},bfile1=#{bfile1, jdbcType=VARCHAR},
+		bfile2=#{bfile2, jdbcType=VARCHAR},bfile3=#{bfile3, jdbcType=VARCHAR},mid=#{mid} where bid=#{bid}
 	</update>
 	<delete id="deleteBoard" parameterType="int">
 		delete from board where bid=#{bid}

@@ -48,7 +48,7 @@
 	<input type="hidden" id="rexbreaknum" value="${rexbreaknum }">
 	<input type="hidden" id="rexbed" value="${rexbed }">
 	<input type="hidden" id="rexperson" value="${rexperson }">
-	<input type="hidden" id="rcancel" value="${rcancel }">
+	<input type="text" id="rcancel" value="${rcancel }">
 	<input type="hidden" id="mid" value="${mid }">
 	<input type="hidden" id="riid" value="${riid }">
 	<input type="hidden" id="rordernum" value="${rordernum }">

@@ -14,15 +14,15 @@
 	</div>
 	<div style="text-align: center;">
 	<br>
-	<img src="${pageContext.request.contextPath }/resources/images/accommodations/approval.jpg" style="width:30%;height: 30%;">
+	<img src="${pageContext.request.contextPath }/resources/images/accommodations/approval.png" style="width:30%;height: 30%;">
 	<br>
 	<br>
 	<table class="table">
 		<tr>
-			<th style="font-size: 20px;text-align: center;">${mid }님의 예약이 완료되었습니다!</th>
+			<th style="font-size: 20px;text-align: center; background-color: #EAEAEA; color:#4C4C4C;">${mid }님의 <img src="${pageContext.request.contextPath }/resources/images/accommodations/logonukki.png" style="width:10%;height: 10%;"> 에서의 예약이 완료되었습니다!</th>
 		</tr>
 		<tr>
-			<td style="font-size: 17px;text-align: center;">예약 확인은 <a href="">마이페이지</a>에서 해주세요!</td>
+			<td style="font-size: 17px;text-align: center;"><br>예약 확인은 <a href="${pageContext.request.contextPath }/user/kjy/mypage">마이페이지</a>에서 해주세요!<br></td>
 		</tr>
 	</table>
 		</div>

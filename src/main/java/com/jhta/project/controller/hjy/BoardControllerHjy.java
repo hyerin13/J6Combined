@@ -61,9 +61,10 @@ public class BoardControllerHjy {
 		return "user/hjy/board/mypage_update";
 	}
 	@PostMapping("phj/board/update")
-	public String update(BoardVo_phj vo,Model model) {
+	public String update(Model model,BoardVo_phj vo) {
 		try {
-			boardService_phj.updateBoard(vo);
+			int n=boardService_phj.updateBoard(vo);
+			System.out.println("수정:"+n);
 			model.addAttribute("code","success");
 		}catch(Exception e) {
 			e.printStackTrace();

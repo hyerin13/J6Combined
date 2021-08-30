@@ -15,16 +15,16 @@
 <script src="//code.jquery.com/jquery.min.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/latest/js/bootstrap.min.js"></script>
 <style type="text/css">
- #page-wrapper {
+#page-wrapper {
     padding-left: 250px;
   }
   
- #sidebar-wrapper {
+  #sidebar-wrapper {
     position: fixed;
-    height: 625px;
-    width: 250px;
+    height: ;
+    width:;
     margin-left: -250px;
-    background: #EBEDEF;
+    background: ;
     overflow-x: hidden;
     overflow-y: auto;
   }
@@ -54,14 +54,15 @@
   }
   
   .sidebar-nav li a:hover {
-    color: #fff;
-    background: #00AEF0;
+    color: #00AEF0;
+    background: #EBEDEF;
   }
   
   .sidebar-nav > .sidebar-brand {
     font-size: 1.3em;
     line-height: 3em;
   }
+
 
 </style>
 </head>
