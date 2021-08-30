@@ -113,7 +113,7 @@ public class Admin_UserQnaControllerCjy {
 		}
 		return map;
 	}
-	//qna 원글 or 답변 삭제하기
+	//qna 원글 삭제하기
 	@RequestMapping(value="admin/cjy/userqnadelete", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public HashMap<String, Object> userqnadelete(String qid){
 		HashMap<String, Object> map = new HashMap<String,Object>();
@@ -132,10 +132,12 @@ public class Admin_UserQnaControllerCjy {
 		HashMap<String, Object> map = new HashMap<String,Object>();
 		try {
 			UserqnaVo vo=service.test(qid);
-			UserqnaVo vo2=service.commentList(vo.getQref());
-			String qid1=vo2.getQid();
+			UserqnaVo vo1=service.commentList(vo.getQref());
+			String qid1=vo1.getQid();
 			System.out.println("qid1:"+qid1);
 			System.out.println("qid:"+qid);
+			int updateton=service.updateton(qid); 
+			int updateton1=service.updateton(qid1); 
 			int delete=service.delete(qid1);
 			map.put("code", "success");
 		}catch(Exception e) {

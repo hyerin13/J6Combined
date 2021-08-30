@@ -33,4 +33,7 @@ public class Admin_UserQnaServiceCjy {
 	public UserqnaVo commentList(int qref){
 		return mapper.commentList(qref);
 	}
+	public int updateton(String qid) {
+		return mapper.updateton(qid);
+	}
 }

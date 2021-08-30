@@ -22,4 +22,7 @@
 	<update id="updatetoy" parameterType="String">
 		update userqna set qlev='Y' where qid=#{qid}
 	</update>
+		<update id="updateton" parameterType="String">
+		update userqna set qlev='N' where qid=#{qid}
+	</update>
 </mapper>

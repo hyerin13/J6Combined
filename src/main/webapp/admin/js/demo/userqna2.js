@@ -14,7 +14,7 @@ function format ( d ) {
 			  		+ data.vo.qcontent +
 				  	`<div>
 						<input type="button" class="dt-button buttons-copy buttons-html5 btn btn-outline-primary" id="updatebtn" value="수정" onclick="updateform($('#qid').val());"> 
-						<input type="button" class="dt-button buttons-copy buttons-html5 btn btn-outline-primary" id="updatebtn" value="삭제" onclick="deleteform($('#qid').val());"> 
+						<input type="button" class="dt-button buttons-copy buttons-html5 btn btn-outline-primary" id="deletebtn" value="삭제" onclick="deleteform($('#qid').val());"> 
 					</div>
 				</div>							
 					`
