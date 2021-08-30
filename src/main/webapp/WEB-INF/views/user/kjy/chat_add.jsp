@@ -222,7 +222,7 @@ transform: translateX(17px);
 			success:function(data){
 				console.log(data.code);
 				if(data.code=='success'){
-					alert("초대가 완료되었습니다.");
+					//alert("초대가 완료되었습니다.");
 					var url='${pageContext.request.contextPath }/user/kjy/chating_room?crid='+crid+'&cmid='+cmid+'&cmprofile='+cmprofile+'&cmname='+cmname;
 					location.href=url;
 				}else{
@@ -234,19 +234,9 @@ transform: translateX(17px);
  	
  	//취소시 뒤로가기
  	$("#addcanclebtn").on('click',function(){
- 		window.history.back();
+ 		var url='${pageContext.request.contextPath }/user/kjy/chating_room?crid='+crid+'&cmid='+cmid+'&cmprofile='+cmprofile+'&cmname='+cmname;
+ 		location.href=url;
  	});
  	
- 	
- 	/*var ws;
- 	function wsOpen(){
- 		ws = new WebSocket("ws://" + location.host + "${pageContext.request.contextPath }/chating");
- 	}
- 	wsOpen();
-
- 	ws.onopen = function(data){
- 		//채팅방 사람 초대후 시스템 메세지 보내기
- 		//add_msgsys();
- 	}*/
  	
  </script>
