@@ -214,8 +214,6 @@ transform: translateX(17px);
  			addcbbuid.push($(this).val());
  		});
  		//시스템메세지 리스트 넘겨줄거 선언
- 		var cbbuid =[];
- 		var msgsysmessage =[];
  		$.ajax({
 			type:'post',
 			url:'${pageContext.request.contextPath }/user/kjy/chat_addlist',
@@ -224,11 +222,8 @@ transform: translateX(17px);
 			success:function(data){
 				console.log(data.code);
 				if(data.code=='success'){
-					$(data.msgsyslist).each(function(i,d){
-						msgsysmessage.push(d.msgsysmessage);
-					});
 					alert("초대가 완료되었습니다.");
-					var url='${pageContext.request.contextPath }/user/kjy/chating_room_add?crid='+crid+'&cmid='+cmid+'&cmprofile='+cmprofile+'&cmname='+cmname+'&cbbuid='+cbbuid+'&msgsysmessage='+msgsysmessage;
+					var url='${pageContext.request.contextPath }/user/kjy/chating_room?crid='+crid+'&cmid='+cmid+'&cmprofile='+cmprofile+'&cmname='+cmname;
 					location.href=url;
 				}else{
 					alert("오류발생!");

@@ -272,7 +272,7 @@
 #reviewbox {
 	position: relative;
 	width: 1000px;
-	margin-top:300px;
+	margin-top:400px;
 	margin-bottom:20px;
 	left: 400px;
 	border-top: 1px solid gray;
@@ -408,7 +408,6 @@
 	</div>
 	
 	<p class='search_title'>검색결과</p>
-	<p class='room_title'>객실정보</p>
 	<c:forEach var="vo" items="${list }" varStatus="status">
 		<input type="hidden" value="${vo.aid }" id="aid">
 		<c:if test="${riid eq vo.riid}">
@@ -444,6 +443,7 @@
 		</div>
 		</c:if>
 		<c:if test="${riid ne vo.riid}">
+		<p class='room_title'>객실정보</p>
 		<div id="room_info">
 			<div id="imgbox">
 				<img src="${pageContext.request.contextPath }/resources/images/room_info/${vo.rimainimg }" id="smallimg1">

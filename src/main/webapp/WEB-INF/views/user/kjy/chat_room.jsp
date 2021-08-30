@@ -181,6 +181,7 @@
     resize: none;
 }
 </style>
+<div id="chat_room_main">
 <div id="header">
 	<c:choose>
 		<c:when test="${cmprofile eq '' }">
@@ -214,6 +215,7 @@
 		<textarea rows="" cols="" id="chatting"></textarea>
 		<button class="btn btn-primary" onclick="send()" id="sendBtn">보내기</button>
 	</div>
+</div>
 </div>
 <script type="text/javascript">
 var crid=$("#crid").val();
@@ -392,7 +394,7 @@ $("#menu1").on('click',function(){
 //방에 친구초대
 $("#menu2").on('click',function(){
 	var url='${pageContext.request.contextPath }/user/kjy/chat_add?cmid='+cmid+'&crid='+crid+'&cmname='+cmname+'&cmprofile='+cmprofile;
-	location.href=url;
+	$("#chat_room_main").load(url);
 });
 //방 나가기
 $("#menu3").on('click',function(){
@@ -415,27 +417,4 @@ $("#menu3").on('click',function(){
 	});
 });
 
-//채팅방 초대후 send 메세지 보내기
-function add_msgsys(){
-	//이중 배열선언
-	var msgsyslist = new Array();
-	//i번쨰에 아이디와 내용담기
-	//<c:forEach items="${cbbuid}" var="vo" varStatus="status">
-	//	msgsyslist[${status.index}].push("${vo}");
-	//</c:forEach>
-	<c:forEach items="${msgsysmessage}" var="vo">
-		msgsyslist.push("${vo}");
-	</c:forEach>
-	if(!msgsyslist.length==false && msgsyslist.length >0){
-		$(msgsyslist).each(function(i,d){
-			send(d);
-		});
-	}
-	
-	//if(!msgsyslist[0].length==false){
-	//	$(msgsyslist).each(function(i,d){
-	//		send(d);			
-	//	});
-	//}
-}
 </script>
