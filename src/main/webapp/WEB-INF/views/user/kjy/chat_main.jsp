@@ -479,7 +479,7 @@ function reqfriend(id,select){
 			success:function(data){
 				//안읽은 메세지 개수표시(0제외)
 				if(data.notread!=0){
-					let notread="<p class='cr_noread'>안읽음:"+data.notread+"</p>";
+					let notread="<p class='cr_noread'>메세지:"+data.notread+"</p>";
 					$(".chat_room"+crid).append(notread);					
 				}
 				var htmlcmname="<p class='cr_cmname'>";

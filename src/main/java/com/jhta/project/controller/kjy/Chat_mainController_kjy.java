@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,7 @@ import com.jhta.project.vo.kjy.Chat_roomjoinVo_kjy;
 @Controller
 public class Chat_mainController_kjy {
 	@Autowired private ChatMapperkjy service;
-	//@Autowired private SocketHandler sockethandler;
+	@Autowired private SocketHandler sockethandler;
 	
 	@RequestMapping(value="/user/kjy/chat_main", method= RequestMethod.GET)
 	public ModelAndView chat_Form(HttpServletRequest req, HttpServletResponse resp) {
@@ -220,13 +221,13 @@ public class Chat_mainController_kjy {
 	@RequestMapping(value="/user/kjy/chat_addlist", produces = {MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody HashMap<String, Object> chat_addlist(@RequestParam(value="addcbbuid[]") String[] addcbbuid, 
 			@RequestParam(value="crid") int crid) throws Exception{
-		List<HashMap<String, Object>> msgsyslist=new ArrayList<HashMap<String,Object>>();
 		HashMap<String, Object> map=new HashMap<String, Object>();
 		boolean check=false;
 		//방번호에 친구아이디 추가
+		
+		HashMap<String, WebSocketSession> sessionMap = sockethandler.getSessionList();
 		for(int i=0; i<addcbbuid.length; i++) {
 			HashMap<String, Object> magsys=new HashMap<String, Object>();
-			
 			String cmid=addcbbuid[i];
 			HashMap<String, Object> addmap=new HashMap<String, Object>();
 			addmap.put("cmid", cmid);
@@ -245,42 +246,28 @@ public class Chat_mainController_kjy {
 				int sysnum=service.chat_message_system(sysmsgvo);
 				System.out.println(sysnum);
 				magsys.put("msgsysmessage",msgsysmessage);
-				msgsyslist.add(magsys);
+				
+				//메세지 보내기
+				JSONObject obj=new JSONObject();
+				obj.put("msgsysmsg",msgsysmessage);
+				for(String key : sessionMap.keySet()) {
+					WebSocketSession wss = sessionMap.get(key);
+					try {
+						wss.sendMessage(new TextMessage(obj.toJSONString()));
+					}catch(Exception e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		}
 		
-		//오토와이즈에 빈등록?
-		/*HashMap<String, WebSocketSession> sessionMap = sockethandler.getSessionList();
-		for(String key : sessionMap.keySet()) {
-			WebSocketSession wss = sessionMap.get(key);
-			try {
-				wss.sendMessage(new TextMessage("test"));
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
-		}*/
+		
 		if(check==true) {
-			map.put("msgsyslist",msgsyslist);
 			map.put("code", "success");
 		}else {
 			map.put("code", "fail");
 		}
 		return map;
-	}
-	
-	//친구 초대 후 방연결(시스템메시지 포함전송)
-	@RequestMapping(value="/user/kjy/chating_room_add", method= RequestMethod.GET)
-	public ModelAndView chating_room_add(String cmid, String crid, String cmprofile, String cmname,
-			@RequestParam(value="cbbuid", required=false) List<String> cbbuid,
-			@RequestParam(value="msgsysmessage", required=false) List<String> msgsysmessage) {
-		ModelAndView mv=new ModelAndView("user/kjy/chat_room");
-		mv.addObject("cbbuid", cbbuid);
-		mv.addObject("msgsysmessage", msgsysmessage);
-		mv.addObject("cmid",cmid);//본인아이디 전송
-		mv.addObject("cmprofile", cmprofile);//본인 프로필 전송
-		mv.addObject("cmname",cmname);//본인 이름 전송
-		mv.addObject("crid",crid);//방번호 전송
-		return mv;
 	}
 	
 	@RequestMapping(value="/user/kjy/chat_close", produces = {MediaType.APPLICATION_JSON_VALUE})

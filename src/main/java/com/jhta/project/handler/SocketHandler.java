@@ -36,11 +36,6 @@ public class SocketHandler extends TextWebSocketHandler{
 			Chat_messageVo_kjy vo=new Chat_messageVo_kjy(0, msgmessage, null, null , cmid, crid, null, null, null);
 			n=service.chat_message_insert(vo);
 		}
-		//채팅방 초대 입장 db저장
-		//else {
-		//	Chat_messageVo_kjy vo=new Chat_messageVo_kjy(0, null, null, sysmsg , sysmsgcmid, crid, null, null, null);
-		//	n=service.chat_message_system(vo);
-		//}
 		if(n==0) {
 			System.out.println("채팅메세지 입력실패");
 		}
