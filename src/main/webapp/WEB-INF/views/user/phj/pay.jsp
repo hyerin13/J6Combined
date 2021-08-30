@@ -48,7 +48,7 @@
 	<input type="hidden" id="rexbreaknum" value="${rexbreaknum }">
 	<input type="hidden" id="rexbed" value="${rexbed }">
 	<input type="hidden" id="rexperson" value="${rexperson }">
-	<input type="text" id="rcancel" value="${rcancel }">
+	<input type="hidden" id="rcancel" value="${rcancel }">
 	<input type="hidden" id="mid" value="${mid }">
 	<input type="hidden" id="riid" value="${riid }">
 	<input type="hidden" id="rordernum" value="${rordernum }">
@@ -103,7 +103,6 @@
 	<span style="font-size:17px;">결제방법 선택</span><br>
 	<input type="button" id="card" value="신용/직불카드" class="btn btn-link" style="border-color: #6799FF; border-radius: 5px;">
 	
-	<input type="button" id="kakao" value="카카오 바로결제" class="btn btn-warning">
 
 	</div>
 </div>
@@ -134,7 +133,7 @@
 	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	}
 	
-	$(function(){
+/*	$(function(){
 		$('#kakao').click(function(){
 			$.ajax({
 				url:'/project/kakaopay',
@@ -147,7 +146,7 @@
 				}
 			})
 		})
-	})
+	})*/
 	
 	$("#card").click(function () {
 		var totalFee=parseInt($("#totalFee").val());
@@ -166,7 +165,6 @@
 		var mid=$("#mid").val();
 		var riid=parseInt($("#riid").val());
 		var rordernum=22;
-		console.log("예약"+rordernum);
 		var IMP = window.IMP; // 생략가능
 		IMP.init('imp42648943');
 		// 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
@@ -206,7 +204,7 @@
 		//가격 totalFee
 		buyer_email: '${rresemail }',
 		buyer_name: '${rresname }',
-		buyer_tel: '%{rresphone}',
+		buyer_tel: '${rresphone}',
 		buyer_addr: '서울특별시 강남구 삼성동',
 		buyer_postcode: '123-456',
 		m_redirect_url: '/project/approval'

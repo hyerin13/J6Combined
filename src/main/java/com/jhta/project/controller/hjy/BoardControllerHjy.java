@@ -61,15 +61,34 @@ public class BoardControllerHjy {
 		return "user/hjy/board/mypage_update";
 	}
 	@PostMapping("phj/board/update")
-	public String update(Model model,BoardVo_phj vo) {
-		try {
-			int n=boardService_phj.updateBoard(vo);
-			System.out.println("수정:"+n);
-			model.addAttribute("code","success");
-		}catch(Exception e) {
-			e.printStackTrace();
-			model.addAttribute("code","fail");
+	public String update(Model model,BoardVo_phj vo,MultipartHttpServletRequest mtfRequest) {
+		List<MultipartFile> fileList = mtfRequest.getFiles("file");
+		String path = sc.getRealPath("/resources/images/board");
+		for(MultipartFile file : fileList) {
+			if(file.getOriginalFilename()!="") {
+				String orgfilename = file.getOriginalFilename();// 전송된 파일명
+				String savefilename = UUID.randomUUID() + "_" + orgfilename;// 저장할 파일명(중복되지 않는 이름으로 만들기)
+				try {
+					// 1. 파일 업로드하기
+					InputStream is = file.getInputStream();
+					FileOutputStream fos = new FileOutputStream(path + "//" + savefilename);
+					FileCopyUtils.copy(is, fos);
+					is.close();
+					fos.close();
+					// 2. 업로드된 파일정보 DB에 저장하기
+					if(vo.getBfile1()==null) {
+						vo.setBfile1(savefilename);
+					}else if(vo.getBfile2()==null){
+						vo.setBfile2(savefilename);
+					}else if(vo.getBfile3()==null){
+						vo.setBfile3(savefilename);
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 		}
+		boardService_phj.updateBoard(vo);
 		return "redirect:/phj/home";
 	}
 	

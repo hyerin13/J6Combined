@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,8 +61,11 @@ input[name="qfile"] {
 		e.preventDefault();
 		location.href="${pageContext.request.contextPath}/phj/board/delete?bid="+${vo.bid};
 	});
-	
-	
+	$(document).on('click', '#btnList', function(e){
+		e.preventDefault();
+		location.href="${pageContext.request.contextPath}/phj/home";
+	});
+
 </script>
 </head>
 <body>
@@ -85,7 +89,15 @@ input[name="qfile"] {
 			<input type="hidden" id="bcate" name="bcate" value="${vo.bcate }">
 			<input type="hidden" id="mid" name="mid" value="${mid }"><br>
 			<input type="hidden" id="brdate" name="brdate" value="${vo.brdate }"><br>
-				
+			<c:if test="${not empty vo.bfile1}">
+				<input type="hidden" class="form-control" name="bfile1" id="bfile1" value="${vo.bfile1 }">
+			</c:if>
+			<c:if test="${not empty vo.bfile2}">
+				<input type="hidden" class="form-control" name="bfile2" id="bfile2" style="margin-top: 5px;" value="${vo.bfile2 }">
+			</c:if>
+			<c:if test="${not empty vo.bfile3}">
+				<input type="hidden" class="form-control" name="bfile3" id="bfile3" style="margin-top: 5px;" value="${vo.bfile3 }">	
+			</c:if>
 				
 				<div class="mb-3">
 					<label for="title">제목</label>
@@ -99,18 +111,20 @@ input[name="qfile"] {
 				 -->
 				<div class="mb-3">
 					<label for="content">내용</label>
-					<textarea class="form-control" rows="5" name="bcontent" id="bcontent" >${vo.bcontent }</textarea>
+					<textarea class="form-control" rows="5" name="bcontent" id="bcontent" >${vo.bcontent }
+					</textarea>
 				</div>
 				<div class="mb-3">
 					<label for="file">첨부파일</label>
-					<input type="file" class="form-control" name="file" value="${vo.bfile1 }">
-					<input type="file" class="form-control" name="file" style="margin-top: 5px;" value="${vo.bfile2 }">
-					<input type="file" class="form-control" name="file" style="margin-top: 5px;" value="${vo.bfile3 }">
+					<input type="text" class="form-control" value="${vo.bfile1 }"><input type="file" name="file" value="파일첨부">
+					<input type="text" class="form-control" value="${vo.bfile2 }"><input type="file" name="file" style="margin-top: 5px;" value="파일첨부">
+					<input type="text" class="form-control" value="${vo.bfile3 }"><input type="file" name="file" style="margin-top: 5px;" value="파일첨부">
 				</div>
 			</form>
 			<div style='text-align: center;'>
 				<button type="button" class="btn" id="btnUpdate">수정</button>
 				<button type="button" class="btn" id="btnDelete">삭제</button>
+				<button type="button" class="btn" id="btnList">취소</button>
 			</div>
 		</div>
 	</article>
