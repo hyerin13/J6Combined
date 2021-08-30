@@ -32,7 +32,7 @@
 	<!-- 안읽은 메세지 숫자 체크 -->
 	<select id="chat_msg_notread" parameterType="hashmap" resultType="int">
 		<![CDATA[
-			select count(*) from chat_message where not cmid=#{cmid} and 
+			select count(msgmessage) from chat_message where not cmid=#{cmid} and 
 			crid=#{crid} and msgtime > 
 			(select joincontime from chat_roomjoin where 
 			cmid=#{cmid} and crid=#{crid})
