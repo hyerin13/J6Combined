@@ -92,7 +92,7 @@
 		</label>
 		<br>
 		<input type="text" id="email" oninput="checkEmail()" class="form-control" style="color:gray" required size="70px"
-		placeholder="오탈자에 주의해 주세요" onfocus="this.placeholder=''" onblur="this.placeholder='오탈자에 주의해 주세요'"><br>
+		placeholder="오탈자에 주의해 주세요" onfocus="this.placeholder=''" onblur="this.placeholder='오탈자에 주의해 주세요'" fo><br>
 		<br>
 		<label>
 			이메일 재입력
@@ -198,7 +198,14 @@
 			$("#emailOk").html(com).css("color","#FF0000");
 		}
 	}
-	
+	$(document).on('focusout', '#email', function(e){
+		e.preventDefault();
+		var emailVal=$("#email").val();
+		var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i; // 검증에 사용할 정규식 변수 regExp에 저장 
+		if (!regExp.test(email.value)) { 
+			alert("이메일형식에 맞게 입력하세요."); 
+		}
+	});
 
 	$('#rexbreaknum').on('change', function(){
 		var rexbreaknum=$("#rexbreaknum").val();
