@@ -92,7 +92,7 @@
 		</label>
 		<br>
 		<input type="text" id="email" oninput="checkEmail()" class="form-control" style="color:gray" required size="70px"
-		placeholder="오탈자에 주의해 주세요" onfocus="this.placeholder=''" onblur="this.placeholder='오탈자에 주의해 주세요.'"><br>
+		placeholder="오탈자에 주의해 주세요" onfocus="this.placeholder=''" onblur="this.placeholder='오탈자에 주의해 주세요'"><br>
 		<br>
 		<label>
 			이메일 재입력
@@ -187,12 +187,9 @@
 	function checkEmail(){
 		var email=$("#email").val();
 		var emailcheck=$("#emailcheck").val();
-/*		var ereg=/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-		if (!ereg.test(email.value)){
-			alert("이메일형식에 맞게 입력하세요.");
-			email.focus();
-			return false;
-		}*/
+		var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+
+	
 		if(email==emailcheck){
 			let com="입력하신 이메일 주소로 예약 확정서가 발송됩니다."
 			$("#emailOk").html(com).css("color","#9FC93C");

@@ -1,5 +1,6 @@
 package com.jhta.project.controller.hjy;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -36,6 +37,7 @@ import com.jhta.project.vo.hjy.BoardVo;
 import com.jhta.project.vo.hjy.CommentsVo;
 import com.jhta.project.vo.hjy.PeriodVo;
 import com.jhta.project.vo.hjy.Room_InfoVo;
+import com.jhta.project.vo.lhj.Room_infoVo;
 import com.jhta.project.vo.phj.BoardVo_phj;
 import com.jhta.util.PageUtil;
 
@@ -62,32 +64,65 @@ public class BoardControllerHjy {
 	}
 	@PostMapping("phj/board/update")
 	public String update(Model model,BoardVo_phj vo,MultipartHttpServletRequest mtfRequest) {
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		List<MultipartFile> fileList = mtfRequest.getFiles("file");
+		System.out.println("메인이미지: "+fileList.get(0).getOriginalFilename());
+		System.out.println("추가이미지1: "+fileList.get(1).getOriginalFilename());
+		System.out.println("추가이미지2: "+fileList.get(2).getOriginalFilename());
 		String path = sc.getRealPath("/resources/images/board");
-		for(MultipartFile file : fileList) {
-			if(file.getOriginalFilename()!="") {
-				String orgfilename = file.getOriginalFilename();// 전송된 파일명
-				String savefilename = UUID.randomUUID() + "_" + orgfilename;// 저장할 파일명(중복되지 않는 이름으로 만들기)
-				try {
-					// 1. 파일 업로드하기
-					InputStream is = file.getInputStream();
-					FileOutputStream fos = new FileOutputStream(path + "//" + savefilename);
-					FileCopyUtils.copy(is, fos);
-					is.close();
-					fos.close();
-					// 2. 업로드된 파일정보 DB에 저장하기
-					if(vo.getBfile1()==null) {
-						vo.setBfile1(savefilename);
-					}else if(vo.getBfile2()==null){
-						vo.setBfile2(savefilename);
-					}else if(vo.getBfile3()==null){
-						vo.setBfile3(savefilename);
+		vo = boardService.detail(vo.getBid());
+		for (int i = 0; i < fileList.size(); i++) {
+			//i번째 파일을 수정했을때
+			if(fileList.get(i).getOriginalFilename() != "") {
+			System.out.println(i+"번째 진입");
+			System.out.println(fileList.get(i).getOriginalFilename());
+			String rorgfilename = fileList.get(i).getOriginalFilename();// 전송된 사진 파일명
+			String rsavefilename = UUID.randomUUID() + "_" + rorgfilename;// 저장할 파일명
+			try {
+				InputStream is = fileList.get(i).getInputStream();
+				FileOutputStream fos = new FileOutputStream(path + "//" + rsavefilename);
+				FileCopyUtils.copy(is, fos);
+				is.close();
+				fos.close();
+				// 1. 기존 파일 삭제
+				File file = null;
+				if(i==0) {
+					file = new File(path + "//" + vo.getBfile1());
+					if (file.exists()) {
+						file.delete();
 					}
-				} catch (Exception e) {
-					e.printStackTrace();
+				// 2. 파일정보 vo에 저장하기
+					vo.setBfile1(rsavefilename);
+				}else if(i==1) {
+					file = new File(path + "//" + vo.getBfile2());
+					if (file.exists()) {
+						file.delete();
+					}
+					// 2. 파일정보 vo에 저장하기
+					vo.setBfile2(rsavefilename);
+				}else if(i==2) {
+					file = new File(path + "//" + vo.getBfile3());
+					if (file.exists()) {
+						file.delete();
+					}
+					// 2. 파일정보 vo에 저장하기
+					vo.setBfile3(rsavefilename);
+				}
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}else{
+				System.out.println("진입");
+				if(i==0) {
+					vo.setBfile1(vo.getBfile1());
+				}else if(i==1) {
+					vo.setBfile2(vo.getBfile2());
+				}else if(i==2) {
+					vo.setBfile3(vo.getBfile3());
 				}
 			}
-		}
+		}	
+		//DB에 업데이트하기
 		boardService_phj.updateBoard(vo);
 		return "redirect:/phj/home";
 	}

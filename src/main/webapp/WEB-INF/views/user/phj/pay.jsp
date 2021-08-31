@@ -91,6 +91,15 @@
 			<td id="totalbedfee1"></td>
 		</tr>
 		<tr>
+			<th>체크인 / 체크아웃 </th>
+			<td id="totalcheck">${rcheckin } - ${rcheckout }</td>
+		</tr>
+		<tr>
+			<th>숙박 일수 </th>
+			<td id="daytotal1"></td>
+		</tr>
+		
+		<tr>
 			<th>총 결제 가격 </th>
 			<td id="totalFee1"></td>
 		</tr>
@@ -113,17 +122,22 @@
 </body>
 <script type="text/javascript">
 	$(document).ready(function(){
+		var rcheckout=parseInt($("#rcheckout").val());
+		var rcheckin=parseInt($("#rcheckin").val());
 		var totalpersonfee=parseInt($("#totalpersonfee").val());
 		var totalbreakfee=parseInt($("#totalbreakfee").val());
 		var totalbedfee=parseInt($("#totalbedfee").val());
 		var sum=parseInt($("#sum").val());
+		var daytotal1=parseInt(rcheckout-rcheckin)+"일 ";
 		var rroomnum=parseInt($("#rroomnum").val());
 		$('#totalpersonfee1').text(numberWithCommas(totalpersonfee));
 		$('#totalbreakfee1').text(numberWithCommas(totalbreakfee));
 		$('#totalbedfee1').text(numberWithCommas(totalbedfee));
 		$('#totalsum').text(numberWithCommas(sum*rroomnum*1000));
+		$('#daytotal1').text(daytotal1);
+		
 		console.log(sum*rroomnum*1000);
-		var total=(sum*rroomnum*1000)+totalpersonfee+totalbreakfee+totalbedfee;
+		var total=(sum*rroomnum*1000*(rcheckout-rcheckin))+totalpersonfee+totalbreakfee+totalbedfee;
 		$('input[name=totalFee]').attr('value',numberWithCommas(total));
 		$('#totalFee1').text(numberWithCommas(total));
 		
@@ -201,7 +215,7 @@
 		name: '주문명:숙소 예약',
 		//결제창에서 보여질 이름
 		amount: 500,
-		//가격 totalFee
+			//totalFee*1000,
 		buyer_email: '${rresemail }',
 		buyer_name: '${rresname }',
 		buyer_tel: '${rresphone}',

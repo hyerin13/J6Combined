@@ -65,7 +65,24 @@ input[name="qfile"] {
 		e.preventDefault();
 		location.href="${pageContext.request.contextPath}/phj/home";
 	});
-
+		
+	function fileUpload1(){
+		var fileInput = $("#file1").val();
+		const arr = fileInput.split("\\");
+		const lastValue = arr[arr.length - 1];
+		console.log(fileInput);
+		$('#bfile1').attr('value',lastValue); // 파일명 출력
+	}
+	function fileUpload2(){
+		var fileInput = $("#file2").val();
+		console.log(fileInput);
+		$('#bfile2').attr('value',fileInput); // 파일명 출력
+	}
+	function fileUpload3(){
+		var fileInput = $("#file3").val();
+		console.log(fileInput);
+		$('#bfile3').attr('value',fileInput); // 파일명 출력
+	}
 </script>
 </head>
 <body>
@@ -116,9 +133,9 @@ input[name="qfile"] {
 				</div>
 				<div class="mb-3">
 					<label for="file">첨부파일</label>
-					<input type="text" class="form-control" value="${vo.bfile1 }"><input type="file" name="file" value="파일첨부">
-					<input type="text" class="form-control" value="${vo.bfile2 }"><input type="file" name="file" style="margin-top: 5px;" value="파일첨부">
-					<input type="text" class="form-control" value="${vo.bfile3 }"><input type="file" name="file" style="margin-top: 5px;" value="파일첨부">
+					<input type="text" class="form-control" value="${vo.bfile1 }"><input type="file" name="file" id="file1" value="파일첨부" onchange="fileUpload1()">
+					<input type="text" class="form-control" value="${vo.bfile2 }"><input type="file" name="file" id="file2" style="margin-top: 5px;" value="파일첨부" onchange="fileUpload()">
+					<input type="text" class="form-control" value="${vo.bfile3 }"><input type="file" name="file" id="file3" style="margin-top: 5px;" value="파일첨부" onchange="fileUpload()">
 				</div>
 			</form>
 			<div style='text-align: center;'>
